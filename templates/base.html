@@ -17,7 +17,6 @@
 
     {% block corejs %}
         <script src="https://kit.fontawesome.com/e9c73d7092.js" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     {% endblock %}
@@ -36,7 +35,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light">
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -52,7 +51,7 @@
                   <a class="nav-link" href="#">Accessories</a>
                 </li>
 
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand d-none d-lg-inline" href="#">
                     <img class="nav-logo" src="{{ static }}images/logo.png" alt="Très Cars Logo">
                 </a>
 
@@ -82,5 +81,27 @@
 
     {% block content %}
     {% endblock %}
+
+    <footer class="footer container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-2 footer-logo-container">
+                <a class="" href="#">
+                    <img class="footer-logo" src="{{ static }}images/logo.png" alt="Très Cars Logo">
+                </a>
+            </div>
+
+            <div class="col-12 col-sm-5 footer-links-container">
+                <a class="footer-link d-inline" href="#">Contact Us</a>
+                <a class="footer-link d-inline" href="#">Returns</a>
+            </div>
+
+            <div class="col-12 col-sm-5 footer-address-container">
+                <p class="footer-address--line d-inline d-sm-block">Très Cars</p>
+                <p class="footer-address--line d-inline d-sm-block">123 Example Street</p>
+                <p class="footer-address--line d-inline d-sm-block">Cardiff</p>
+                <p class="footer-address--line d-inline d-sm-block">CT13 8PU</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
