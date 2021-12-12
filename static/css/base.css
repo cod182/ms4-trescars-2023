@@ -1,7 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 * {
     border: 0;
     margin: 0;
     padding: 0;
+}
+
+/* Colours */
+
+.black {
+    color: black;
+}
+
+.light-blue {
+    color: #12a3e5;
+}
+
+.blue {
+    color: #2e4796;
+}
+
+/* fonts */
+
+.roboto {
+    font-family: roboto, sans-serif;
 }
 
 .navbar {
@@ -15,9 +37,20 @@
 
 .navbar-nav {
     line-height: 60px;
+    margin: 0 auto;
+}
+
+.nav-item {
+    font-size:large;
 }
 
 .nav-link {
+    color: blue;
+}
+.nav-link:hover,
+.nav-link:active,
+.nav-link:focus,
+.nav-link:focus:active {
     color: blue;
 }
 
@@ -25,8 +58,9 @@
     min-height: 60px;
     width: 100%;
     background-color: darkgrey;
-    position: absolute;
+    position: fixed;
     bottom: 0;
+    font-family: roboto, sans-serif;
 }
 
 .footer-logo-container {
@@ -74,4 +108,48 @@
     font-size: 9px;
     margin: 0;
     padding: 0;
+}
+
+.welcome-image {
+    height: 600px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.search-box {
+    width: 250px;
+    height: 400px;
+    position: absolute;
+    right: 40px;
+    bottom: 160px;
+    background-color: #e7dddd96;
+    border-radius: 10px;
+}
+
+.welcome-search-form {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.welcome-search-form-input {
+    border-radius: 10px;
+    padding: 2px 5px 2px 5px;
+    width: 90%;
+    margin: 10px 0;
+}
+
+@media (max-width: 992px){
+     .nav-item {
+        line-height: 0;
+    }
+    .nav-item:hover,
+    .nav-item:active,
+    .nav-item:focus,
+    .nav-item:focus:active {
+        font-weight: bold;
+    }
+    .navbar-nav {
+        margin: 30px auto;
+    }
 }

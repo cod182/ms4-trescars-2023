@@ -5,9 +5,33 @@
  {% endblock %}
 
  {% block page_header %}
- 
+
  {% endblock %}
 
 {% block content %}
+        <div class="welcome-image" style="background-image: url('{{ static }}images/welcome-image.jpg');">
+            <div class="search-box">
+                <form class="welcome-search-form" action="" method="POST">
+                    <div>
+                        <input class="welcome-search-form-input roboto" type="text" name="vehicle-make" placeholder="Make" list="vehicle-makes" autocomplete="off" autofocus required>
+                            <datalist id="vehicle-makes">
+                                <option>Nissan</option>
+                                <option>Peugeot</option>
+                                <option>Audi</option>
+                                <option>BMW</option>
+                            </datalist>
+                      </div>
 
+                      <div>
+                        <input class="welcome-search-form-input roboto" type="text" name="vehicle-model" placeholder="Model" list="vehicle-models" autocomplete="off" autofocus required>
+                            <datalist id="vehicle-makes">
+                                
+                            </datalist>
+                      </div>
+
+                      <button class="btn btn-lg " type="submit">Search</button>
+
+                </form>
+            </div>
+        </div>
 {% endblock %}
