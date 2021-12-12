@@ -11,6 +11,9 @@
 {% block content %}
         <div class="welcome-image" style="background-image: url('{{ static }}images/welcome-image.jpg');">
             <div class="search-box">
+                <div class="search-box--text">
+                    <p class="m-0 bold">Start the search for your new vehicle here!</p>
+                </div>
                 <form class="welcome-search-form" action="" method="POST">
                     <div>
                         <input class="welcome-search-form-input roboto" type="text" name="vehicle-make" placeholder="Make" list="vehicle-makes" autocomplete="off" autofocus required>
@@ -29,9 +32,11 @@
                             </datalist>
                       </div>
 
-                      <button class="btn btn-lg " type="submit">Search</button>
+                      <button class="btn-search" type="submit">Search</button>
 
                 </form>
+
+                <a class="btn--more-options" href="">More Options</a>
             </div>
         </div>
 {% endblock %}

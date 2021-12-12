@@ -26,6 +26,49 @@
     font-family: roboto, sans-serif;
 }
 
+.bold {
+    font-weight: bold;
+}
+
+/* buttons */
+
+.btn-search {
+    border-radius: 10px;
+    background-color: #12a3e5;
+    color: black;
+    height: 30px;
+    width: 90%;
+    line-height: normal;
+    font-weight: 600;
+}
+
+.btn-search:hover,
+.btn-search:active,
+.btn-search:focus,
+.btn-search:active:focus {
+    border-radius: 10px;
+    box-shadow: #686868 0px -3px;
+}
+
+.btn--more-options {
+    background-color: #a3a3a3;
+    font-size: small;
+    color: black;
+    text-decoration: none;
+    font-weight: 400;
+    border-radius: 10px;
+    padding: 3px 10px;
+    margin: auto 0;
+}
+
+.btn--more-options:hover,
+.btn--more-options:active,
+.btn--more-options:focus,
+.btn--more-options:focus:active {
+    background-color: #878585;
+    color: black;
+}
+
 .navbar {
     min-height: 100px;
 }
@@ -52,6 +95,7 @@
 .nav-link:focus,
 .nav-link:focus:active {
     color: blue;
+    font-weight: bold;
 }
 
 .footer {
@@ -119,12 +163,17 @@
 
 .search-box {
     width: 250px;
-    height: 400px;
+    height: 250px;
     position: absolute;
     right: 40px;
-    bottom: 160px;
+    bottom: 320px;
     background-color: #e7dddd96;
     border-radius: 10px;
+    text-align: center;
+}
+
+.search-box--text {
+    margin-top: 15px;
 }
 
 .welcome-search-form {
@@ -143,12 +192,7 @@
      .nav-item {
         line-height: 0;
     }
-    .nav-item:hover,
-    .nav-item:active,
-    .nav-item:focus,
-    .nav-item:focus:active {
-        font-weight: bold;
-    }
+
     .navbar-nav {
         margin: 30px auto;
     }
