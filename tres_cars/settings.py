@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
 from pathlib import Path
 import os
 
@@ -28,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CSRF_TRUSTED_ORIGINS = ['https://8000-purple-donkey-md18192i.ws-eu23.gitpod.io']
 
 # Application definition
 
