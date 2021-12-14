@@ -73,6 +73,14 @@
     color: black;
 }
 
+.btn--contact {
+    width: 100%;
+    color: white;
+    background-color: #12a3e5;
+    border-radius: 10px;
+    font-weight: bold;
+  }
+
 .navbar {
     min-height: 100px;
 }
@@ -157,6 +165,77 @@
     margin: 0;
     padding: 0;
 }
+
+.contact-modal-header {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50px 50px 0 0;
+  }
+  
+  .contact-modal-content {
+    color: black;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.856);
+  }
+  
+  .contact-modal-title {
+    margin: 0 auto;
+    font-size: xx-large;
+    border-radius: 20px;
+  }
+  
+  .contact-modal-close {
+    position: absolute;
+    right: 10px;
+  }
+  
+  .contact-input {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    min-width: 100%;
+    vertical-align: text-top;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    border: 1px solid black;
+  }
+  
+  .contact-input::placeholder {
+    color: black;
+  }
+  
+  .contact-reasons {
+    width: 100%;
+    text-align-last: center;
+    height: 30px;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    border: 1px solid black;
+  }
+  
+  .contact-message {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    min-width: 100%;
+    min-height: 40%;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    border: 1px solid blakc;
+  }
+  
+  .contact-message::placeholder {
+    color: black;
+  }
+  
+  .message-status {
+    text-align: center;
+    margin: 0 auto;
+  }
 
 .welcome-image {
     height: 600px;
