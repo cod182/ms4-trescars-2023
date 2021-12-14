@@ -102,7 +102,7 @@
     min-height: 60px;
     width: 100%;
     background-color: darkgrey;
-    position: fixed;
+    position:static;
     bottom: 0;
     font-family: roboto, sans-serif;
 }
@@ -159,6 +159,7 @@
     background-size: cover;
     background-position: center;
     position: relative;
+    min-height: 50vh;
 }
 
 .search-box {
@@ -170,6 +171,7 @@
     background-color: #e7dddd96;
     border-radius: 10px;
     text-align: center;
+    min-width: 20vw;
 }
 
 .search-box--text {
@@ -186,6 +188,76 @@
     padding: 2px 5px 2px 5px;
     width: 90%;
     margin: 10px 0;
+}
+
+.about-info-container {
+    margin: 20px auto;
+}
+
+.about-box {
+    width: 33%;
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+    height: 400px;
+    font-family: roboto, sans-serif;
+    box-shadow: grey 1px 1px;
+}
+
+.about-box--title {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+}
+
+.about-welcome--heading {
+    margin: 10px 0;
+    padding: 0 10px;
+}
+
+.about-welcome--body {
+    margin: 20px 0;
+    padding: 20px;
+}
+
+.about-values--image {
+    width: 100%;
+    height: 200px;
+    background-position: top;
+    background-size: cover;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.about-values--body {
+    text-align: center;
+    padding: 0 10px;
+    margin: 20px 0;
+}
+
+.about-values--body p {
+    font-size: medium;
+}
+
+.about-location--image {
+    width: 100%;
+    height: 200px;
+    background-position: top;
+    background-size: cover;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.about-location--body {
+    text-align: center;
+    padding: 0 10px;
+    margin: 20px 0;
+}
+
+.about-location--body p {
+    font-size: medium;
+    margin: 0;
 }
 
 @media (max-width: 992px){
