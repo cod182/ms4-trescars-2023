@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_title %}
+ - Vehicle Search 
+ {% endblock %}
+
+ {% block page_header %}
+
+ {% endblock %}
+
+{% block content %}
+        
+    <div>
+        {% for vehicle in vehicles %}
+            <p>{{vehicle.registration | upper }}</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}
