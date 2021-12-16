@@ -81,6 +81,11 @@
     font-weight: bold;
   }
 
+.btn--vehicle-detail {
+    color: black;
+    text-decoration: none;
+}
+
 .navbar {
     min-height: 100px;
 }
@@ -409,6 +414,40 @@
 
 .about-location--body p {
     font-size: medium;
+    margin: 0;
+}
+
+.vehicle-container {
+    background-color: rgb(219, 219, 219);
+    min-height: 300px;
+    margin: 10px 2px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.vehicle-container:hover {
+    transform: scale(1.1);
+    box-shadow: #12a3e5 0px 0px 20px;
+}
+
+.vehicle--image {
+    width: 100%;
+    height: 150px;
+    background-color: tomato;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.vehicle-container--body {
+    padding: 15px;
+}
+
+.vehicle-container p {
+    margin: 0;
+}
+
+.vehicle-container h4 {
     margin: 0;
 }
 

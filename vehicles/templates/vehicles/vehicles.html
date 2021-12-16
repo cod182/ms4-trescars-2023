@@ -9,11 +9,36 @@
  {% endblock %}
 
 {% block content %}
+        <div class="container-fluid">
+            <div class="row">
+                {% for vehicle in vehicles %}
+                    <div class="col-2">
+                        <a href="" class="btn--vehicle-detail">
+                            <div class="vehicle-container">
+                                <div class="vehicle--image" style="background-image:url('{{ media }}{{ vehicle.sku}}-1.jpeg');" title="{{ vehicle.make }} {{ vehicle.model }} {{vehicle.trim}}- {{ vehicle.registration}}">
+                                </div>
+                                <div class="vehicle-container--body roboto">
+                                    <div class="vehicle--title">
+                                        <h4><span>{{ vehicle.make | capfirst }} {{ vehicle.model | capfirst }}</span></h4>
+                                        <p>{{ vehicle.trim | capfirst}}</p>
+                                    </div>
+                                    <div class="vehicle-info">
+                                        <p>
+                                            <i class="fa fa-car" aria-hidden="true"></i> {{ vehicle.registration|upper }}
+                                        </p>
+                                        <p>
+                                            <i class="fa fa-road" aria-hidden="true"></i> {{ vehicle.mileage }} miles
+                                        </p>
+                                        <p class="bold">
+                                            £{{ vehicle.price }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
         
-    <div>
-        {% for vehicle in vehicles %}
-            <p>{{vehicle.registration | upper }}</p>
-        {% endfor %}
-    </div>
-
 {% endblock %}

@@ -43,5 +43,6 @@ def all_vehicles(request):
         'search_term': query,
         'current_sorting': current_sorting,
         'static': settings.STATIC_URL,
+        'media': settings.MEDIA_URL,
     }
     return render(request, 'vehicles/vehicles.html', context)
