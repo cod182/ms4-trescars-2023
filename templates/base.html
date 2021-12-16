@@ -1,0 +1,178 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block meta %}
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% endblock %}
+
+    {% block corecss %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% endblock %}
+
+    {% block corejs %}
+        <script src="https://kit.fontawesome.com/e9c73d7092.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+        <script src="{% static 'js/email_script.js' %}"></script>
+        <script>
+            (function () {
+                emailjs.init("user_g1KRgEDq9ymwiRfNP9t9s");
+            })();
+        </script>
+    {% endblock %}
+
+    {% block extra_meta %}
+    {% endblock %}
+
+    {% block extra_js %}
+    {% endblock %}
+
+    {% block extra_css %}
+    {% endblock %}
+
+    <title>Très Cars {% block extra_title %}{% endblock %}</title>
+</head>
+
+<body>
+    <header>
+        
+
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">New Search</a>
+                        </li>
+                        
+                        <hr class="d-block d-lg-none">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Accessories</a>
+                        </li>
+                        
+                        <hr class="d-block d-lg-none">
+
+                        <a class="navbar-brand d-none d-lg-inline" href="#">
+                            <img class="nav-logo" src="{{ static }}images/logo.png" alt="Très Cars Logo">
+                        </a>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Profile</a>
+                        </li>
+
+                        <hr class="d-block d-lg-none">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Login</a>
+                        </li>
+
+                        <hr class="d-block d-lg-none">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Register</a>
+                        </li>
+
+                        <hr class="d-block d-lg-none">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Logout</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+          </nav>
+
+
+    </header>
+
+    {% block page_header %}
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="footer container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-2 footer-logo-container">
+                <a class="" href="#">
+                    <img class="footer-logo" src="{{ static }}images/logo.png" alt="Très Cars Logo">
+                </a>
+            </div>
+
+            <div class="col-12 col-sm-5 footer-links-container">
+                <a class="footer-link d-inline" href="#" data-bs-toggle="modal" data-bs-target="#contact-modal">Contact Us</a>
+                <a class="footer-link d-inline" href="#">Returns</a>
+            </div>
+
+            <div class="col-12 col-sm-5 footer-address-container">
+                <p class="footer-address--line d-inline d-sm-block">Très Cars</p>
+                <p class="footer-address--line d-inline d-sm-block">12 Hadfield Road</p>
+                <p class="footer-address--line d-inline d-sm-block">Cardiff</p>
+                <p class="footer-address--line d-inline d-sm-block">CF11 8AQ</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal from bootstrap as start point-->
+    <!-- Contact Us Modal -->
+    <div class="modal fade" id="contact-modal" tabindex="-1" aria-labelledby="contact-modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content contact-modal-content">
+                <div class="modal-header contact-modal-header">
+                    <h5 class="modal-title contact-modal-title roboto" id="contactUsModalLabel">Get in touch!</h5>
+                    <button id="contact-modal-close" type="button" class="btn-close m-0 contact-modal-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body container">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <form onsubmit="return sendEmail(this)">
+                                <div>
+                                    <select class="contact-input contact-reasons" id="contact-reason" name="reason" required>
+                                        <option value="">Contact Reason</option>
+                                        <option value="General Enquiry">Vehicle Enquiry</option>
+                                        <option value="Missing Data">Accessory Enquiry</option>
+                                        <option value="Website Issue">Other</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <input class="contact-input" type="text" id="contact-name" name="name"
+                                        placeholder="Enter Name Here..." required>
+                                </div>
+                                <div>
+                                    <input class="contact-input" type="email" id="contact-email" name="email"
+                                        placeholder="Enter Email Here..." required>
+                                </div>
+                                <div>
+                                    <textarea class="contact-message" cols="10" rows="5" id="contact-message" name="message"
+                                        placeholder="Enter Message Here..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn--contact" id="contact-submit">Send Message!</button>
+                                <span id="message-status"></span>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p>Or you can call us on: <span><a href="tel:02920 281765">02920 281765</a></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -60,7 +60,12 @@ The purpose of this site is to allow a shopper to browse and purchase a vehicle.
 ## Skeleton
 
 ### Wireframes
-## Original
+- [Mobile >576px](static/wireframes/sm.png)
+- [Tablet ≥768px](static/wireframes/md.png)
+- [Desktop ≥1400px](static/wireframes/lg.png)
+
+### Databse Schema
+- [Schema](static/wireframes/database_schema.png)
 
 
 ## Surface
