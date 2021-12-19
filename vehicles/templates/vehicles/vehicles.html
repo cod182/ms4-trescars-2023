@@ -101,39 +101,71 @@
         </div>
     </div>
     <hr>
-
-        <div class="container">
-            <div class="row">
-                {% for vehicle in vehicles %}
-                    <div class="col-md-12 col-lg-2">
-                        <a href="" class="btn--vehicle-detail">
-                            <div class="vehicle-container">
-                                <div class="row">
-                                    <div class="vehicle--image col-12 col-md-6 col-lg-12" style="background-image:url('{{ media }}{{ vehicle.sku}}-1.jpeg');" title="{{ vehicle.make }} {{ vehicle.model }} {{vehicle.trim}}- {{ vehicle.registration}}">
+    <!-- Vehicles Found -->
+    <div class="container">
+        <div class="row">
+            {% for vehicle in vehicles %}
+                <div class="col-md-12 col-lg-2">
+                    <a href="{% url 'vehicle_detail' vehicle.sku %}" class="btn--vehicle-detail">
+                        <div class="vehicle-container">
+                            <div class="row">
+                                <div class="vehicle--image col-12 col-md-6 col-lg-12" style="background-image:url('{{ media }}{{ vehicle.sku}}-1.jpeg');" title="{{ vehicle.make }} {{ vehicle.model }} {{vehicle.trim}}- {{ vehicle.registration}}">
+                                </div>
+                                <div class="vehicle-container--body roboto col-12 col-md-6 col-lg-12">
+                                    <div class="vehicle--title">
+                                        <h4><span>{{ vehicle.make | capfirst }} {{ vehicle.model | capfirst }}</span></h4>
+                                        <p>{{ vehicle.trim | capfirst}}</p>
                                     </div>
-                                    <div class="vehicle-container--body roboto col-12 col-md-6 col-lg-12">
-                                        <div class="vehicle--title">
-                                            <h4><span>{{ vehicle.make | capfirst }} {{ vehicle.model | capfirst }}</span></h4>
-                                            <p>{{ vehicle.trim | capfirst}}</p>
-                                        </div>
-                                        <div class="vehicle-info">
-                                            <p>
-                                                <i class="fa fa-car" aria-hidden="true"></i> {{ vehicle.registration|upper }}
-                                            </p>
-                                            <p>
-                                                <i class="fa fa-road" aria-hidden="true"></i> {{ vehicle.mileage }} miles
-                                            </p>
-                                            <p class="bold">
-                                                <i class="fa fa-money" aria-hidden="true"></i> £{{ vehicle.price }}
-                                            </p>
-                                        </div>
+                                    <div class="vehicle-info">
+                                        <p>
+                                            <i class="fa fa-car" aria-hidden="true"></i> {{ vehicle.registration|upper }}
+                                        </p>
+                                        <p>
+                                            <i class="fa fa-road" aria-hidden="true"></i> {{ vehicle.mileage }} miles
+                                        </p>
+                                        <p class="bold">
+                                            <i class="fa fa-money" aria-hidden="true"></i> £{{ vehicle.price }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
+    </div>
         
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script type="text/javascript">
+		$('.btt-link').click(function(e) {
+			window.scrollTo(0,0)
+		})
+	</script>
+    
+    <script type="text/javascript">
+        $('#sort-selector').change(function() {
+            var selector = $(this);
+            var currentUrl = new URL(window.location);
+
+            var selectedVal = selector.val();
+            if(selectedVal != "reset"){
+                var sort = selectedVal.split("_")[0];
+                var direction = selectedVal.split("_")[1];
+
+                currentUrl.searchParams.set("sort", sort);
+                currentUrl.searchParams.set("direction", direction);
+
+                window.location.replace(currentUrl);
+            } else {
+                currentUrl.searchParams.delete("sort");
+                currentUrl.searchParams.delete("direction");
+
+                window.location.replace(currentUrl);
+            }
+        })
+    </script>
 {% endblock %}

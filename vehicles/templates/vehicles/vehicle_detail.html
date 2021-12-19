@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_title %}
+ - Vehicle Search 
+ {% endblock %}
+
+ {% block page_header %}
+
+ {% endblock %}
+
+{% block content %}
+    <div>
+        {{ vehicle.make}}
+        {{ vehicle.model}}
+        {{ vehicle.colour}}
+        {{ vehicle.mileage}}
+
+        {{ vehicle.registration}}
+    </div>
+{% endblock %}

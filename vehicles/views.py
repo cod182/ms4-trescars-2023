@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.conf import settings
 from .models import Vehicle
 
@@ -62,3 +62,15 @@ def all_vehicles(request):
         'vehicle_models': vehicle_models
     }
     return render(request, 'vehicles/vehicles.html', context)
+
+
+def vehicle_detail(request, vehicle_sku):
+    """
+    A view to show a vehicle detail page
+    """
+    vehicle = get_object_or_404(Vehicle, sku=vehicle_sku)
+
+    context = {
+        'vehicle': vehicle,
+    }
+    return render(request, 'vehicles/vehicle_detail.html', context)
