@@ -13,6 +13,20 @@ def all_vehicles(request):
     query = None
     sort = None
     direction = None
+    vehicle_makes = []
+    vehicle_models = []
+
+
+    vehicle_makes.clear()
+    for vehicle in vehicles:
+        if vehicle.make not in vehicle_makes:
+            vehicle_makes.append(vehicle.make)
+
+        if vehicle.model not in vehicle_models:
+            vehicle_models.append(vehicle.model)
+
+    vehicle_makes.sort()
+    vehicle_models.sort()
 
     if request.GET:
         if 'sort' in request.GET:
@@ -44,5 +58,7 @@ def all_vehicles(request):
         'current_sorting': current_sorting,
         'static': settings.STATIC_URL,
         'media': settings.MEDIA_URL,
+        'vehicle_makes': vehicle_makes,
+        'vehicle_models': vehicle_models
     }
     return render(request, 'vehicles/vehicles.html', context)

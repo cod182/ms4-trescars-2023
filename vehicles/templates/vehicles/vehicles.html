@@ -9,29 +9,124 @@
  {% endblock %}
 
 {% block content %}
-        <div class="container-fluid">
+    <hr>
+    <div class="container search-contaienr">
+        <div class="row">
+            <form class="" action="" method="POST">
+                {% csrf_token%}
+                <div class="row">
+                    <!-- Vehicel Make Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <input id="vehicle-make-search" class="vehicle-search-input" type="text" name="make-list" placeholder="Make" list="make-list" autocomplete="off">
+                        <datalist id="make-list">
+                            {% for make in vehicle_makes %}
+                                <option>{{ make | upper }}</option>
+                            {% endfor %}
+                        </datalist>
+                    </div>
+                    <!-- Vehicel Model Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <input id="vehicle-model-search" class="vehicle-search-input" type="text" name="model-list" placeholder="Model" list="model-list" autocomplete="off">
+                        <datalist id="model-list">
+                            {% for model in vehicle_models %}
+                                <option>{{ model | upper }}</option>
+                            {% endfor %}
+                        </datalist>
+                    </div>
+                    <!-- Price Range Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <input id="vehicle-price-range-search" class="vehicle-search-input" type="text" name="price-range" placeholder="Price Range" list="price-range" autocomplete="off">
+                        <datalist id="price-range">
+                        </datalist>
+                    </div>
+                    <!-- Vehicle Colour Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <input id="vehicle-make-search" class="vehicle-search-input" type="text" name="vehicle-colour" placeholder="Colour" list="vehicle-colour" autocomplete="off">
+                        <datalist id="vehicle-colour">
+                        </datalist>
+                    </div>
+                    <!-- Vehicle Doors Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <input id="vehicle-doors-search" class="vehicle-search-input" type="text" name="vehicle-doors" placeholder="Number of Doors" list="vehicle-doors" autocomplete="off">
+                        <datalist id="vehicle-doors">
+                        </datalist>
+                    </div>
+                    <!-- Vehicle Body Type Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <input id="vehicle-body-type-search" class="vehicle-search-input" type="text" name="vehicle-body-type" placeholder="Body Type" list="vehicle-body-type" autocomplete="off">
+                        <datalist id="vehicle-body-type">
+                        </datalist>
+                    </div>
+                    <!-- Vehicle Fuel Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <input id="vehicle-fuel-search" class="vehicle-search-input" type="text" name="vehicle-fuel" placeholder="Fuel" list="vehicle-fuel" autocomplete="off">
+                        <datalist id="vehicle-fuel">
+                        </datalist>
+                    </div>
+                    <!-- Vehicle Drivetrain Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <input id="vehicle-drivetrain-search" class="vehicle-search-input" type="text" name="vehicle-drivetrain" placeholder="Drivetrain" list="vehicle-drivetrain" autocomplete="off">
+                        <datalist id="vehicle-drivetrain">
+                        </datalist>
+                    </div>
+                    <!-- Search button -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <button class="btn btn--vehicle-search-page" type="submit">Search</button>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+    <hr>
+    <div class="container sort-container">
+        <div class="row">
+            <!-- Number of vehicles found -->
+            <div class="col-12 col-md-6">
+                <p>Number of vehicles found: <strong>{{ vehicles|length }}</strong></p>
+            </div>
+            <!-- Sort Vehicles By: -->
+            <div class="col-12 col-md-6">
+                <div class="text-end">
+                    <select id="sort-selector" class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
+                        <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
+                        <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to high)</option>
+                        <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high to low)</option>
+                        <option value="age_asc" {% if current_sorting == 'age_asc' %}selected{% endif %}>Age (oldest to newest)</option>
+                        <option value="age_desc" {% if current_sorting == 'age_desc' %}selected{% endif %}>Age (newest to oldest)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+        <div class="container">
             <div class="row">
                 {% for vehicle in vehicles %}
-                    <div class="col-2">
+                    <div class="col-md-12 col-lg-2">
                         <a href="" class="btn--vehicle-detail">
                             <div class="vehicle-container">
-                                <div class="vehicle--image" style="background-image:url('{{ media }}{{ vehicle.sku}}-1.jpeg');" title="{{ vehicle.make }} {{ vehicle.model }} {{vehicle.trim}}- {{ vehicle.registration}}">
-                                </div>
-                                <div class="vehicle-container--body roboto">
-                                    <div class="vehicle--title">
-                                        <h4><span>{{ vehicle.make | capfirst }} {{ vehicle.model | capfirst }}</span></h4>
-                                        <p>{{ vehicle.trim | capfirst}}</p>
+                                <div class="row">
+                                    <div class="vehicle--image col-12 col-md-6 col-lg-12" style="background-image:url('{{ media }}{{ vehicle.sku}}-1.jpeg');" title="{{ vehicle.make }} {{ vehicle.model }} {{vehicle.trim}}- {{ vehicle.registration}}">
                                     </div>
-                                    <div class="vehicle-info">
-                                        <p>
-                                            <i class="fa fa-car" aria-hidden="true"></i> {{ vehicle.registration|upper }}
-                                        </p>
-                                        <p>
-                                            <i class="fa fa-road" aria-hidden="true"></i> {{ vehicle.mileage }} miles
-                                        </p>
-                                        <p class="bold">
-                                            £{{ vehicle.price }}
-                                        </p>
+                                    <div class="vehicle-container--body roboto col-12 col-md-6 col-lg-12">
+                                        <div class="vehicle--title">
+                                            <h4><span>{{ vehicle.make | capfirst }} {{ vehicle.model | capfirst }}</span></h4>
+                                            <p>{{ vehicle.trim | capfirst}}</p>
+                                        </div>
+                                        <div class="vehicle-info">
+                                            <p>
+                                                <i class="fa fa-car" aria-hidden="true"></i> {{ vehicle.registration|upper }}
+                                            </p>
+                                            <p>
+                                                <i class="fa fa-road" aria-hidden="true"></i> {{ vehicle.mileage }} miles
+                                            </p>
+                                            <p class="bold">
+                                                <i class="fa fa-money" aria-hidden="true"></i> £{{ vehicle.price }}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
