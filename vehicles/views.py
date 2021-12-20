@@ -1,8 +1,34 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.conf import settings
-from .models import Vehicle
+from .models import Vehicle, VehicleImages
+import requests
+import json
 
-# Create your views here.
+
+def request_info_from_dvla(registration):
+    """[requests data from dvla on the requested vehicle form it's registration]
+
+    Args:
+        registration ([string]): [the registration fo the searched vehicle]
+
+    Returns:
+        [json]: [DVLA data on vehicle]
+    """
+
+url = "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles"
+
+payload = json.dumps({
+  "registrationNumber": registration
+})
+headers = {
+  'x-api-key': settings.DVLA_API,
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+
 
 def all_vehicles(request):
     """
@@ -15,7 +41,6 @@ def all_vehicles(request):
     direction = None
     vehicle_makes = []
     vehicle_models = []
-
 
     vehicle_makes.clear()
     for vehicle in vehicles:
@@ -70,7 +95,15 @@ def vehicle_detail(request, vehicle_sku):
     """
     vehicle = get_object_or_404(Vehicle, sku=vehicle_sku)
 
+    images = VehicleImages.objects.filter(vehicle_name=vehicle.pk)
+
+    dvla_data = request_info_from_dvla(vehicle.registration)
+
     context = {
         'vehicle': vehicle,
+        'images': images,
+        'dvla_data': dvla_data,
+        'static': settings.STATIC_URL,
+        'media': settings.MEDIA_URL,
     }
     return render(request, 'vehicles/vehicle_detail.html', context)

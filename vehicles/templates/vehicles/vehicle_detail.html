@@ -9,12 +9,118 @@
  {% endblock %}
 
 {% block content %}
-    <div>
-        {{ vehicle.make}}
-        {{ vehicle.model}}
-        {{ vehicle.colour}}
-        {{ vehicle.mileage}}
+    <div class="container">
+        <div class="row">
+            <div class="col vehicle-detail-container">
+                    
+                
 
-        {{ vehicle.registration}}
+                <div class="row vehicle-detail--image-viewer">
+                    <div class="col-6">
+
+                        <!-- The expanding image container -->
+                        <div class="vehicle-detail--images-container">
+                            <!-- Expanded image -->
+                            <img id="expandedImg" class="vehicle-detail--image-large" src="{{ media }}{{ vehicle.sku }}-1.jpeg" alt="Image of {{ vehicle.registration | upper }}">
+
+
+                        </div>
+
+                        <div class="row image-row">
+                            {% for image in images %}
+                            
+                                <div class="col-2">
+                                    <img class="vehicle-detail--image-small" src="{{ media }}{{ image.image }}" alt="Image of {{ vehicle.registration | upper }}" onclick="myFunction(this);">
+                                </div>
+
+                            {%endfor%}
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-12 vehicle-detail--title">
+                                <h2>{{ vehicle.model_year }} {{ vehicle.make | capfirst}} {{ vehicle.model | capfirst}}</h2>
+                                <h5>{{ vehicle.trim | upper }}</h5>
+                                <h5>{{ vehicle.registration | upper }}</h5>
+                                <h5>£{{ vehicle.price}}</h5>
+                                <p>{{ vehicle.mileage }} Miles</p>
+                            </div>
+
+                            <div class="col-3 vehicle-detail-small-info">
+                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/paint.png" alt="Colour">
+                                {{ vehicle.colour | capfirst}}
+                            </div>
+
+                            <div class="col-3 vehicle-detail-small-info">
+                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/fuel.png" alt="Fuel">
+                                {{ vehicle.fuel | capfirst }}
+                            </div>
+
+                            <div class="col-3 vehicle-detail-small-info">
+                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/engine.png" alt="Engine Size">
+                                {{ vehicle.engine_size }}
+                            </div>
+
+                            <div class="col-3 vehicle-detail-small-info">
+                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/car.png" alt="Body Type">
+                                {{ vehicle.body_type | upper }}
+                            </div>
+
+                            <div class="col-3 vehicle-detail-small-info">
+                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/gearbox.png" alt="Gearbox">
+                                {{ vehicle.gearbox | capfirst }}
+                            </div>
+
+                            <div class="col-3 vehicle-detail-small-info">
+                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/drivetrain.png" alt="Drivetrain">
+                                {{ vehicle.drivetrain |upper }}
+                            </div>
+
+                            <div class="col-3 vehicle-detail-small-info">
+                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/seat.png" alt="Seat">
+                                {{ vehicle.seats }}
+                            </div>
+
+                            <div class="col-3 vehicle-detail-small-info">
+                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/door.png" alt="Door">
+                                {{ vehicle.doors }}
+                            </div>
+
+                            <div class="col-6 vehicle-lookup">
+                                <p>MOT: </p>
+                            </div>
+
+                            <div class="col-6 vehicle-lookup">
+                                <p>Tax: </p>
+                            </div>
+
+                            <div class="col-12 vehicle-detail--description">
+                                <p>{{ vehicle.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                        
+
+
+            </div>
+        </div>
     </div>
+{% endblock %}
+
+{% block postload_js%}
+<script>
+    function myFunction(imgs) {
+        // Get the expanded image
+        var expandImg = document.getElementById("expandedImg");
+        // Get the image text
+        var imgText = document.getElementById("imgtext");
+        // Use the same src in the expanded image as the image being clicked on from the grid
+        expandImg.src = imgs.src;
+        // Show the container element (hidden with CSS)
+        expandImg.parentElement.style.display = "block";
+    }
+</script>
 {% endblock %}
