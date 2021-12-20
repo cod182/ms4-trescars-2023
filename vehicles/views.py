@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.conf import settings
 from .models import Vehicle, VehicleImages
+from datetime import datetime
 import requests
 import json
 
@@ -99,7 +100,9 @@ def vehicle_detail(request, vehicle_sku):
 
     dvla_data = request_info_from_dvla(reg=vehicle.registration)
 
-    print(dvla_data)
+    # original_date = datetime.strptime(dvla_data.get('motExpiryDate'), '%Y-%m-%d')
+    # formatted_date = original_date.strftime("%d:%m:%Y")
+    # print(formatted_date)
 
     context = {
         'vehicle': vehicle,

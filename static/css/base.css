@@ -107,6 +107,41 @@
 .btn--vehicle-search-page:active:focus {
     background-color: #12a3e5;
     color: black;
+    transition: .2s ease-in-out;
+}
+
+.btn--reserve-now {
+    width: fit-content;
+    background-color: white;
+    border: 2px solid #0da7e8;
+    color: #0da7e8;
+    position: absolute;
+    right: 70px;
+    top: 100px;
+}
+
+.btn--reserve-now:hover,
+.btn--reserve-now:active,
+.btn--reserve-now:focus,
+.btn--reserve-now:active:focus {
+    background-color: #0da7e8;
+    color: white;
+    transition: .2s ease-in-out;
+}
+
+.btn--black-border {
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+    width: fit-content;
+}
+
+.btn--black-border:hover,
+.btn--black-border:focus,
+.btn--black-border:active,
+.btn--black-border:active:focus {
+    background-color: black;
+    color: white;
 }
 
 .navbar {
@@ -489,11 +524,30 @@
     border: 1px solid black;
     border-radius: 10px;
     min-height: 600px;
-    margin: 2rem 0;
+    margin: 2rem auto;
     padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.vehicle-detail--banner {
+    position: absolute;
+    right: -52px;
+    top: -13px;
+    width: 150px;
+    height: 80px;
+    transform: rotate(47deg);
+    background-color: #0da7e8;
+}
+
+.vehicle-detail--banner p {
+    margin: 42px auto 0 auto;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
 }
   
-  /* Style the images inside the grid */
   .vehicle-detail--image-small {
     opacity: 0.8;
     cursor: pointer;
@@ -506,14 +560,12 @@
     opacity: 1;
   }
   
-  /* Clear floats after the columns */
   .image-row:after {
     content: "";
     display: table;
     clear: both;
   }
   
-  /* The expanding image container (positioning is needed to position the close button and the text) */
   .vehicle-detail--images-container {
     width: 100%;
     overflow: hidden;
@@ -528,7 +580,7 @@
   }
 
   .vehicle-detail-small-info {
-      text-align: left;
+      text-align: center;
       margin: 5px 0;
   }
 
@@ -546,7 +598,7 @@
   }
 
 
-@media (max-width: 992px){
+@media (max-width: 991px){
      .nav-item {
         line-height: 0;
     }
@@ -570,6 +622,21 @@
     .vehicle-container {
         min-height: 200px;
     }
+
+    .btn--reserve-now {
+        width: 90%;
+        position: unset;
+        right: unset;
+        top: unset;
+        font-weight: bold;
+        margin: 0 auto;
+    }
+
+    .btn--black-border {
+        font-weight: bold;
+        width: 90%;
+        margin: 0 auto;
+    }
 }
 
 @media (max-width: 767px){
@@ -591,5 +658,14 @@
 
     .vehicle-container--body {
         padding: 10px 30px;
+    }
+
+    .btn--reserve-now {
+        margin: 5px 0;
+        width: 100%;
+    }
+
+    .btn--black-border {
+        width: 100%;
     }
 }
