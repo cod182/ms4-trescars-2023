@@ -48,13 +48,17 @@
                             </div>
 
                             <div class="col-3 vehicle-detail-small-info">
-                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/paint.png" alt="Colour">
-                                {{ vehicle.colour | capfirst}}
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/paint.png" alt="Colour">
+                                    {{ vehicle.colour | capfirst}}
+                                </p>
                             </div>
 
                             <div class="col-3 vehicle-detail-small-info">
-                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/fuel.png" alt="Fuel">
-                                {{ vehicle.fuel | capfirst }}
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/fuel.png" alt="Fuel">
+                                    {{ vehicle.fuel | capfirst }}
+                                </p>
                             </div>
 
                             <div class="col-3 vehicle-detail-small-info">
@@ -63,36 +67,59 @@
                             </div>
 
                             <div class="col-3 vehicle-detail-small-info">
-                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/car.png" alt="Body Type">
-                                {{ vehicle.body_type | upper }}
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/car.png" alt="Body Type">
+                                    {{ vehicle.body_type | upper }}
+                                </p>
                             </div>
 
                             <div class="col-3 vehicle-detail-small-info">
-                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/gearbox.png" alt="Gearbox">
-                                {{ vehicle.gearbox | capfirst }}
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/gearbox.png" alt="Gearbox">
+                                    {{ vehicle.gearbox | capfirst }}
+                                </p>
                             </div>
 
                             <div class="col-3 vehicle-detail-small-info">
-                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/drivetrain.png" alt="Drivetrain">
-                                {{ vehicle.drivetrain |upper }}
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/drivetrain.png" alt="Drivetrain">
+                                    {{ vehicle.drivetrain |upper }}
+                                </p>
                             </div>
 
                             <div class="col-3 vehicle-detail-small-info">
-                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/seat.png" alt="Seat">
-                                {{ vehicle.seats }}
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/seat.png" alt="Seat">
+                                    {{ vehicle.seats }}
+                                </p>
                             </div>
 
                             <div class="col-3 vehicle-detail-small-info">
-                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/door.png" alt="Door">
-                                {{ vehicle.doors }}
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/door.png" alt="Door">
+                                    {{ vehicle.doors }}
+                                </p>
                             </div>
 
-                            <div class="col-6 vehicle-lookup">
-                                <p>MOT: </p>
+                            <div class="col-4 vehicle-detail-small-info">
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/co2.png" alt="CO2">
+                                    {{ dvla_data.co2Emissions }} g/Km
+                                </p>
                             </div>
 
-                            <div class="col-6 vehicle-lookup">
-                                <p>Tax: </p>
+                            <div class="col-4 vehicle-detail-small-info">
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/mot.png" alt="MOT">
+                                    {{ dvla_data.motExpiryDate }}
+                                </p>
+                            </div>
+
+                            <div class="col-4 vehicle-detail-small-info">
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/tax.png" alt="TAX">
+                                    {{ dvla_data.taxDueDate }}
+                                </p>
                             </div>
 
                             <div class="col-12 vehicle-detail--description">

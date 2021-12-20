@@ -5,7 +5,7 @@ import requests
 import json
 
 
-def request_info_from_dvla(registration):
+def request_info_from_dvla(reg):
     """[requests data from dvla on the requested vehicle form it's registration]
 
     Args:
@@ -15,19 +15,19 @@ def request_info_from_dvla(registration):
         [json]: [DVLA data on vehicle]
     """
 
-url = "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles"
+    url = "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles"
 
-payload = json.dumps({
-  "registrationNumber": registration
-})
-headers = {
-  'x-api-key': settings.DVLA_API,
-  'Content-Type': 'application/json'
-}
+    payload = json.dumps({
+    "registrationNumber": reg,
+    })
+    headers = {
+    'x-api-key': settings.DVLA_API_KEY,
+    'Content-Type': 'application/json'
+    }
 
-response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload)
 
-print(response.text)
+    return response.json
 
 
 def all_vehicles(request):
@@ -97,7 +97,9 @@ def vehicle_detail(request, vehicle_sku):
 
     images = VehicleImages.objects.filter(vehicle_name=vehicle.pk)
 
-    dvla_data = request_info_from_dvla(vehicle.registration)
+    dvla_data = request_info_from_dvla(reg=vehicle.registration)
+
+    print(dvla_data)
 
     context = {
         'vehicle': vehicle,
