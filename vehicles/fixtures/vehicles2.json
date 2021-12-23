@@ -1,0 +1,26 @@
+[
+  {
+    "pk":3,
+    "model": "vehicles.vehicle",
+    "fields": {
+      "name": "nissan-ma58frx",
+      "sku": "ma58frx",
+      "registration": "ma58 frx",
+      "make": "nissan",
+      "model": "350z",
+      "trim": "gt",
+      "colour": "black",
+      "fuel": "petrol",
+      "engine_size": 3.5,
+      "body_type": "coupe",
+      "gearbox": "manaul",
+      "drivetrain": "2wd",
+      "seats": 2,
+      "description": "Next MOT due 12/11/2021, Full service history, Clean bodywork, Black Full leather interior - Clean Condition, Tyre condition Good, Metallic Black, 5+ owners.",
+      "price": 10995,
+      "mileage": 53000,
+      "model_year": 2008,
+      "doors": 2
+    }
+  }
+]

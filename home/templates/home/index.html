@@ -14,21 +14,21 @@
                 <div class="search-box--text">
                     <p class="m-0 bold">Start the search for your new vehicle here!</p>
                 </div>
-                <form class="welcome-search-form" action="" method="POST">
+                <form class="welcome-search-form" action="{% url 'vehicles' %}" method="GET">
+                    {% csrf_token %}
                     <div>
                         <input class="welcome-search-form-input roboto" type="text" name="vehicle-make" placeholder="Make" list="vehicle-makes" autocomplete="off" autofocus required>
                             <datalist id="vehicle-makes">
-                                <option>Nissan</option>
-                                <option>Peugeot</option>
-                                <option>Audi</option>
-                                <option>BMW</option>
+                                {% for make in vehicle_makes %}
+                                    <option value="{{ make | capfirst}}"></option>
+                                {% endfor %}
                             </datalist>
                       </div>
 
                       <div>
-                        <input class="welcome-search-form-input roboto" type="text" name="vehicle-model" placeholder="Model" list="vehicle-models" autocomplete="off" autofocus required>
-                            <datalist id="vehicle-makes">
-                                
+                        <input class="welcome-search-form-input roboto" type="text" name="vehicle-model" placeholder="Model" list="vehicle-models" autocomplete="off" autofocus>
+                            <datalist id="vehicle-models">
+                                <option value="Model"></option>
                             </datalist>
                       </div>
 

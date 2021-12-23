@@ -29,3 +29,34 @@ class Vehicle(models.Model):
 
     def __str__(self):
         return self.name
+
+    
+class unique_vehicle_parameters():
+
+    def unique_vehicle_makes():
+        vehicles = Vehicle.objects.all()
+        vehicle_makes = []
+        vehicle_makes.clear()
+
+        for vehicle in vehicles:
+            if vehicle.make not in vehicle_makes:
+                vehicle_makes.append(vehicle.make)
+
+        if len(vehicle_makes) > 1:
+            makes = vehicle_makes.sort()
+        else:
+            makes = vehicle_makes
+
+        return makes
+
+
+    def unique_vehicle_models():
+        vehicles = Vehicle.objects.all()
+        vehicle_models = []
+        vehicle_models.clear()
+
+        for vehicle in vehicles:
+            if vehicle.model not in vehicle_models:
+                vehicle_models.append(vehicle.model)
+
+        return vehicle_models.sort()

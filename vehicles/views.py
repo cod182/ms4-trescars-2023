@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.contrib import messages
 from django.conf import settings
-from .models import Vehicle, VehicleImages
-from datetime import datetime
+from .models import Vehicle, VehicleImages, unique_vehicle_parameters
+from django.db.models import Q
 import requests
 import json
 
@@ -19,12 +20,12 @@ def request_info_from_dvla(reg):
     url = "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles"
 
     payload = json.dumps({
-    "registrationNumber": reg,
-    })
+        "registrationNumber": reg,
+        })
     headers = {
-    'x-api-key': settings.DVLA_API_KEY,
-    'Content-Type': 'application/json'
-    }
+        'x-api-key': settings.DVLA_API_KEY,
+        'Content-Type': 'application/json'
+        }
 
     response = requests.request("POST", url, headers=headers, data=payload)
 
@@ -40,19 +41,8 @@ def all_vehicles(request):
     query = None
     sort = None
     direction = None
-    vehicle_makes = []
-    vehicle_models = []
 
-    vehicle_makes.clear()
-    for vehicle in vehicles:
-        if vehicle.make not in vehicle_makes:
-            vehicle_makes.append(vehicle.make)
-
-        if vehicle.model not in vehicle_models:
-            vehicle_models.append(vehicle.model)
-
-    vehicle_makes.sort()
-    vehicle_models.sort()
+    vehicle_makes = unique_vehicle_parameters.unique_vehicle_makes()
 
     if request.GET:
         if 'sort' in request.GET:
@@ -68,13 +58,19 @@ def all_vehicles(request):
                     sortkey = f'-{sortkey}'
             vehicles = vehicles.order_by(sortkey)
 
-        if 'q' in request.GET:
-            query = request.GET['q']
-            if not query:
-                messages.error(request, "You didn't enter a search term")
+        if 'vehicle-make' in request.GET:
+            query_make = request.GET['vehicle-make']
+            query_model = request.GET['vehicle-model']
+            if not query_make:
+                messages.error(request, "Please choose a vehicle make")
                 return redirect(reverse('vehicles'))
-            queries = Q(name__icontains=query) | Q(description__icontains=query)
-            products = products.filter(queries)
+
+            if len(query_model) < 1:
+                vehicles = vehicles.filter(Q(make__icontains=query_make))
+            else:
+                vehicles_make = vehicles.filter(Q(make__icontains=query_make))
+                vehicles = vehicles_make.filter(Q(model=query_model))
+
 
     current_sorting = f'{sort}_{direction}'
 
@@ -85,7 +81,6 @@ def all_vehicles(request):
         'static': settings.STATIC_URL,
         'media': settings.MEDIA_URL,
         'vehicle_makes': vehicle_makes,
-        'vehicle_models': vehicle_models
     }
     return render(request, 'vehicles/vehicles.html', context)
 

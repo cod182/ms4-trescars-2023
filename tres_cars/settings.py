@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-purple-donkey-md18192i.ws-eu23.gitpod.io']
+CSRF_TRUSTED_ORIGINS = ['https://8000-purple-donkey-md18192i.ws-eu25.gitpod.io']
 
 # Application definition
 

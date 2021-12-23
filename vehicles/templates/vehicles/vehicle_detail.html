@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block extra_title %}
- - Vehicle Search 
+ - {{ vehicle.make | capfirst  }} {{ vehicle.model | capfirst }} {{ vehicle.registration | upper }}
  {% endblock %}
 
  {% block page_header %}
@@ -22,10 +22,15 @@
                         <!-- The large image container -->
                         <div class="vehicle-detail--images-container">
                             <!-- large image -->
-                            <img id="expandedImg" class="vehicle-detail--image-large" src="{{ media }}{{ vehicle.sku }}-1.jpeg" alt="Image of {{ vehicle.registration | upper }}">
+                            {% for image in images %}
+                                {% if forloop.first %}
+                                    <img id="expandedImg" class="vehicle-detail--image-large" src="{{ media }}{{ image.image }}" alt="Image of {{ vehicle.registration | upper }}">
+                                {% endif %}
+                            {% endfor %}
 
                         </div>
 
+                        <!-- Small image container -->
                         <div class="row image-row">
                             {% for image in images %}
                                 <!-- Small Image -->
@@ -33,8 +38,8 @@
                                     <img class="vehicle-detail--image-small" src="{{ media }}{{ image.image }}" alt="Image of {{ vehicle.registration | upper }}" onclick="myFunction(this);">
                                 </div>
                             {%endfor%}
-
                         </div>
+
                     </div>
                     <div class="col-12 col-lg-6">
                         <div class="row">
@@ -58,6 +63,7 @@
                                 <p>{{ vehicle.mileage }} Miles</p>
                             </div>
                         </div>
+
                         <!-- Info -->
                         <div class="row">
                             <div class="col-3 vehicle-detail-small-info">
