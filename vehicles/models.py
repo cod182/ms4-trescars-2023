@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from operator import attrgetter
 
 class VehicleImages(models.Model):
     name = models.CharField(max_length=254, null=False, blank=False)
@@ -34,6 +35,9 @@ class Vehicle(models.Model):
 class unique_vehicle_parameters():
 
     def unique_vehicle_makes():
+        """
+        Gets all the unique vehicle makes
+        """
         vehicles = Vehicle.objects.all()
         vehicle_makes = []
         vehicle_makes.clear()
@@ -42,21 +46,27 @@ class unique_vehicle_parameters():
             if vehicle.make not in vehicle_makes:
                 vehicle_makes.append(vehicle.make)
 
-        if len(vehicle_makes) > 1:
-            makes = vehicle_makes.sort()
-        else:
-            makes = vehicle_makes
-
-        return makes
+        return vehicle_makes
 
 
     def unique_vehicle_models():
+        """
+        Gets the unique vehicle models with make
+        """
         vehicles = Vehicle.objects.all()
         vehicle_models = []
         vehicle_models.clear()
 
-        for vehicle in vehicles:
-            if vehicle.model not in vehicle_models:
-                vehicle_models.append(vehicle.model)
+        all_values = [value for elem in vehicle_models for value in elem.values()]
 
-        return vehicle_models.sort()
+        for vehicle in vehicles:
+
+            all_values = [value for elem in vehicle_models for value in elem.values()]
+            if vehicle.model not in all_values:
+                vehicle_models.append({
+                    'make': vehicle.make,
+                    'model': vehicle.model
+                    },
+                )
+
+        return vehicle_models

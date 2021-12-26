@@ -58,7 +58,7 @@ def all_vehicles(request):
                     sortkey = f'-{sortkey}'
             vehicles = vehicles.order_by(sortkey)
 
-        if 'vehicle-make' in request.GET:
+        if 'home-search' in request.GET:
             query_make = request.GET['vehicle-make']
             query_model = request.GET['vehicle-model']
             if not query_make:
@@ -68,8 +68,10 @@ def all_vehicles(request):
             if len(query_model) < 1:
                 vehicles = vehicles.filter(Q(make__icontains=query_make))
             else:
-                vehicles_make = vehicles.filter(Q(make__icontains=query_make))
-                vehicles = vehicles_make.filter(Q(model=query_model))
+                vehicles_make = vehicles.filter(Q(
+                    make__icontains=query_make.lower()))
+                vehicles = vehicles_make.filter(Q(
+                    model=query_model.lower()))
 
 
     current_sorting = f'{sort}_{direction}'

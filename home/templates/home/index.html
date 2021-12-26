@@ -16,6 +16,7 @@
                 </div>
                 <form class="welcome-search-form" action="{% url 'vehicles' %}" method="GET">
                     {% csrf_token %}
+                    <input type="text" class="d-none" name="home-search">
                     <div>
                         <input class="welcome-search-form-input roboto" type="text" name="vehicle-make" placeholder="Make" list="vehicle-makes" autocomplete="off" autofocus required>
                             <datalist id="vehicle-makes">
@@ -28,7 +29,9 @@
                       <div>
                         <input class="welcome-search-form-input roboto" type="text" name="vehicle-model" placeholder="Model" list="vehicle-models" autocomplete="off" autofocus>
                             <datalist id="vehicle-models">
-                                <option value="Model"></option>
+                                {% for vehicle in vehicles %}
+                                        <option value="{{ vehicle.model | capfirst }}" data-vehicle-make='{{ vehicle.make }}'></option>
+                                {% endfor %}
                             </datalist>
                       </div>
 
