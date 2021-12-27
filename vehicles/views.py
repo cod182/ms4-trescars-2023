@@ -61,9 +61,6 @@ def all_vehicles(request):
         if 'home-search' in request.GET:
             query_make = request.GET['vehicle-make']
             query_model = request.GET['vehicle-model']
-            if not query_make:
-                messages.error(request, "Please choose a vehicle make")
-                return redirect(reverse('vehicles'))
 
             if len(query_model) < 1:
                 vehicles = vehicles.filter(Q(make__icontains=query_make))

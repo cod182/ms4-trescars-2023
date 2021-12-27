@@ -6,6 +6,10 @@
     padding: 0;
 }
 
+.hidden {
+    display: none;
+}
+
 /* Colours */
 
 .black {
@@ -22,6 +26,10 @@
 
 .blue {
     color: #2e4796;
+}
+
+.greyed {
+    color: rgb(124 124 124);
 }
 
 /* fonts */

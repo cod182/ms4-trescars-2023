@@ -4,6 +4,10 @@
  - Home 
  {% endblock %}
 
+ {% block extra_js %}
+ 
+ {% endblock %}
+
  {% block page_header %}
 
  {% endblock %}
@@ -18,28 +22,28 @@
                     {% csrf_token %}
                     <input type="text" class="d-none" name="home-search">
                     <div>
-                        <input class="welcome-search-form-input roboto" type="text" name="vehicle-make" placeholder="Make" list="vehicle-makes" autocomplete="off" autofocus required>
-                            <datalist id="vehicle-makes">
+                        <select id="make" class="welcome-search-form-input roboto" type="text" name="vehicle-make" placeholder="Make" list="vehicle-makes" autocomplete="off" autofocus required>
+                                <option selected value="" data-disable>Make</option>
                                 {% for make in vehicle_makes %}
-                                    <option value="{{ make | capfirst}}"></option>
+                                    <option value="{{ make | capfirst}}">{{ make | capfirst}}</option>
                                 {% endfor %}
-                            </datalist>
+                        </select>
                       </div>
 
                       <div>
-                        <input class="welcome-search-form-input roboto" type="text" name="vehicle-model" placeholder="Model" list="vehicle-models" autocomplete="off" autofocus>
-                            <datalist id="vehicle-models">
-                                {% for vehicle in vehicles %}
-                                        <option value="{{ vehicle.model | capfirst }}" data-vehicle-make='{{ vehicle.make }}'></option>
-                                {% endfor %}
-                            </datalist>
+                        <select id="model" class="welcome-search-form-input roboto" type="text" name="vehicle-model" placeholder="Model" list="vehicle-models" disabled>
+                            <option selected value="" class="greyed">Model</option>
+                            {% for vehicle in vehicles %}
+                                    <option class="hidden" value="{{ vehicle.model | capfirst }}" data-vehicle-make='{{ vehicle.make }}'>{{ vehicle.model | capfirst }}</option>
+                            {% endfor %}
+                        </select>
                       </div>
 
                       <button class="btn-search" type="submit">Search</button>
 
                 </form>
 
-                <a class="btn--more-options" href="">More Options</a>
+                <a class="btn--more-options" href="{% url 'vehicles' %}">More Options</a>
             </div>
         </div>
 
@@ -101,4 +105,8 @@
             </div>
         </div>
 
+{% endblock %}
+
+{% block postload_js%}
+    <script src="{% static 'js/home-script.js' %}"></script>
 {% endblock %}
