@@ -53,7 +53,6 @@ def all_vehicles(request):
     vehicle_drivetrains = unique_vehicle_parameters.unique_vehicle_drivetrains()
     query_years = unique_vehicle_parameters.unique_vehicle_years()
 
-    print(vehicle_engines)
     if request.GET:
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
@@ -82,6 +81,7 @@ def all_vehicles(request):
                 vehicles = vehicles.filter(Q(make__icontains=query_make))
 
         if 'vehicle-detailed-search' in request.GET:
+
             query_make = request.GET['vehicle-make']
             query_model = request.GET['vehicle-model']
             query_price = request.GET['price-range']
@@ -94,7 +94,24 @@ def all_vehicles(request):
             query_drivetrain = request.GET['vehicle-drivetrain']
             query_year = request.GET['vehicle-model-year']
 
-            search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__icontains=query_price) & Q(mileage__icontains=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__icontains=query_engine) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+            if int(query_price) > 30000:
+                if int(query_mileage) > 100000:
+                    print('1 - Mileage + Price')
+                    search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__icontains=query_engine) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+                else:
+                    print('1 - Price')
+                    search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__lte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__icontains=query_engine) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+
+            elif int(query_mileage) > 100000:
+                if int(query_price) > 30000:
+                    print('2 - Mileage + Price')
+                    search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__icontains=query_engine) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+                else:
+                    print('2 - Mileage')
+                    search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__lte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__icontains=query_engine) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+            else:
+                print('3 - Price & Mileage below threshhold')
+                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__lte=query_price) & Q(mileage__lte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__icontains=query_engine) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
 
             vehicles = vehicles.filter(search)
 
