@@ -50,7 +50,7 @@
                             {% else %}
                                 <option selected value="" data-disable>Year</option>
                             {% endif %}
-                            {% for year in query_years %}
+                            {% for year in vehicle_years %}
                                     <option value="{{ year }}">{{ year }}</option>
                             {% endfor %}
                         </select>
@@ -139,8 +139,8 @@
                     <!-- Vehicle Body Type Search -->
                     <div class="col-12 col-md-4 m-auto">
                         <select id="vehicle-body-search" class="vehicle-search-input" type="text" name="vehicle-body">
-                            {% if remembered_search.body %}
-                                <option selected value="{{ remembered_search.body }}">{{ remembered_search.body }}</option>
+                            {% if remembered_search.body_type %}
+                                <option selected value="{{ remembered_search.body_type }}">{{ remembered_search.body_type }}</option>
                             {% else %}
                                 <option selected value="" data-disable>Body Type</option>
                             {% endif %}
@@ -176,12 +176,12 @@
                         </select>
                     </div>
                     <!-- Search button -->
-                    <div class="col-11 col-md-3 my-auto">
+                    <div class="col-9 col-md-3 my-auto">
                         <button class="btn btn--vehicle-search-page" type="submit">Search</button>
                     </div>
                     <!-- Reset button -->
-                    <div class="col-1 col-md-1 my-auto">
-                        <a class="btn btn--vehicle-search-page--reset" href="{% url 'vehicles' %}">
+                    <div class="col-3 col-md-1 my-auto">
+                        <a class="btn btn--vehicle-search-page--reset" href="{% url 'vehicles' %}" alt="Reset Search">
                             <i class="fa fa-refresh" aria-hidden="true"></i>
                         </a>
                     </div>
@@ -205,8 +205,8 @@
                         <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
                         <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to high)</option>
                         <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high to low)</option>
-                        <option value="age_asc" {% if current_sorting == 'age_asc' %}selected{% endif %}>Age (oldest to newest)</option>
-                        <option value="age_desc" {% if current_sorting == 'age_desc' %}selected{% endif %}>Age (newest to oldest)</option>
+                        <option value="model_asc" {% if current_sorting == 'model_asc' %}selected{% endif %}>Age (oldest to newest)</option>
+                        <option value="model_desc" {% if current_sorting == 'model_desc' %}selected{% endif %}>Age (newest to oldest)</option>
                     </select>
                 </div>
             </div>
@@ -216,76 +216,52 @@
     <!-- Vehicles Found -->
     <div class="container">
         <div class="row">
-            {% for vehicle in vehicles %}
-                <div class="col-md-12 col-lg-3">
-                    <a href="{% url 'vehicle_detail' vehicle.sku %}" class="btn--vehicle-detail">
-                        <div class="vehicle-container">
-                            <div class="row">
-                                <div class="vehicle--image col-12 col-md-6 col-lg-12" style="background-image:url('{{ media }}{{ vehicle.sku}}-1.jpeg');" title="{{ vehicle.make }} {{ vehicle.model }} {{vehicle.trim}}- {{ vehicle.registration}}">
-                                </div>
-                                <div class="vehicle-container--body roboto col-12 col-md-6 col-lg-12">
-                                    <div class="vehicle--title">
-                                        <h4><span>{{ vehicle.make | capfirst }} {{ vehicle.model | capfirst }}</span></h4>
-                                        <p>{{ vehicle.trim | capfirst}}</p>
+            {% if vehicles %}
+                {% for vehicle in vehicles %}
+                    <div class="col-md-12 col-lg-3">
+                        <a href="{% url 'vehicle_detail' vehicle.sku %}" class="btn--vehicle-detail">
+                            <div class="vehicle-container">
+                                <div class="row">
+                                    <div class="vehicle--image col-12 col-md-6 col-lg-12" style="background-image:url('{{ media }}{{ vehicle.sku}}-1.jpeg');" title="{{ vehicle.make }} {{ vehicle.model }} {{vehicle.trim}}- {{ vehicle.registration}}">
                                     </div>
-                                    <div class="vehicle-info">
-                                        <p>
-                                            <i class="fa fa-car" aria-hidden="true"></i> {{ vehicle.registration|upper }}
-                                        </p>
-                                        <p>
-                                            <i class="fa fa-road" aria-hidden="true"></i> {{ vehicle.mileage }} miles
-                                        </p>
-                                        <p class="bold">
-                                            <i class="fa fa-money" aria-hidden="true"></i> £{{ vehicle.price }}
-                                        </p>
+                                    <div class="vehicle-container--body roboto col-12 col-md-6 col-lg-12">
+                                        <div class="vehicle--title">
+                                            <h4><span>{{ vehicle.make | capfirst }} {{ vehicle.model | capfirst }}</span></h4>
+                                            <p>{{ vehicle.trim | capfirst}}</p>
+                                        </div>
+                                        <div class="vehicle-info">
+                                            <p>
+                                                <i class="fa fa-car" aria-hidden="true"></i> {{ vehicle.registration|upper }}
+                                            </p>
+                                            <p>
+                                                <i class="fa fa-road" aria-hidden="true"></i> {{ vehicle.mileage }} miles
+                                            </p>
+                                            <p class="bold">
+                                                <i class="fa fa-money" aria-hidden="true"></i> £{{ vehicle.price }}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% else %}
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h4><span><i class="fa fa-car" aria-hidden="true"></i></span> Sorry, there aren't are vehicle that match! Try adjusting your search</h4>
                         </div>
-                    </a>
+                    </div>
                 </div>
-            {% endfor %}
+
+            {% endif %}
         </div>
     </div>
         
 {% endblock %}
 
 {% block postload_js %}
-    
-
-    <script>
-        let make = document.getElementById('vehicle-make-search');
-        let model = document.getElementById('vehicle-model-search');
-
-        function makeEnteredAllowModel() {
-            model.removeAttribute('disabled');
-        }
-
-        function checkCorrectMakesForModel() {
-            for (var x=0; x < model.options.length; x++) {
-                makeCheck = model.options[x].getAttribute('data-vehicle-make')
-                if ( make.value.toLowerCase() == makeCheck ) {
-                    model.options[x].classList.remove('hidden');
-                    model.value = model.options[0].value;
-                } else if (makeCheck != make.value.toLowerCase()){
-                    model.options[x].classList.add('hidden');
-                    model.value = model.options[0].value;
-                }
-            }
-        }
-
-        make.addEventListener('change', function() {
-            makeEnteredAllowModel();
-            checkCorrectMakesForModel();
-            if (make.selectedOptions[0].innerHTML == 'Make') {
-                make.classList.add('greyed');
-                model.classList.add('greyed');
-            } else {
-                make.classList.remove('greyed');
-                model.classList.remove('greyed');
-            }
-        })
-
-        
-    </script>
+    <script src="{% static 'js/vechicle-page.js' %}"></script>
 {% endblock %}

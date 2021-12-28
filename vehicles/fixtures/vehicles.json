@@ -99,6 +99,7 @@
       "pk": 4,
       "model": "vehicles.vehicle",
       "fields": {
+        "name": "toyota-sm64mty",
         "sku": "sm64mty",
         "registration": "sm64 mty",
         "make": "toyota",
