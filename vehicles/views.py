@@ -41,9 +41,19 @@ def all_vehicles(request):
     query = None
     sort = None
     direction = None
+    remembered_search = None
 
     vehicle_makes = unique_vehicle_parameters.unique_vehicle_makes()
+    vehicle_models = unique_vehicle_parameters.unique_vehicle_models()
+    vehicle_colours = unique_vehicle_parameters.unique_vehicle_colours()
+    vehicle_doors = unique_vehicle_parameters.unique_vehicle_doors()
+    vehicle_body = unique_vehicle_parameters.unique_vehicle_body()
+    vehicle_fuels = unique_vehicle_parameters.unique_vehicle_fuels()
+    vehicle_engines = unique_vehicle_parameters.unique_vehicle_engines()
+    vehicle_drivetrains = unique_vehicle_parameters.unique_vehicle_drivetrains()
+    query_years = unique_vehicle_parameters.unique_vehicle_years()
 
+    print(vehicle_engines)
     if request.GET:
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
@@ -62,16 +72,48 @@ def all_vehicles(request):
             query_make = request.GET['vehicle-make']
             query_model = request.GET['vehicle-model']
 
-            if len(query_model) < 1:
-                vehicles = vehicles.filter(Q(make__icontains=query_make))
-            else:
-                vehicles_make = vehicles.filter(Q(
-                    make__icontains=query_make.lower()))
-                vehicles = vehicles_make.filter(Q(
-                    model=query_model.lower()))
+            if query_model:
+                search = Q(
+                    make__icontains=query_make) & Q(
+                        model__icontains=query_model)
 
+                vehicles = vehicles.filter(search)
+            else:
+                vehicles = vehicles.filter(Q(make__icontains=query_make))
+
+        if 'vehicle-detailed-search' in request.GET:
+            query_make = request.GET['vehicle-make']
+            query_model = request.GET['vehicle-model']
+            query_price = request.GET['price-range']
+            query_mileage = request.GET['mileage']
+            query_colour = request.GET['vehicle-colour']
+            query_engine = request.GET['vehicle-engine']
+            query_doors = request.GET['vehicle-doors']
+            query_body = request.GET['vehicle-body']
+            query_fuel = request.GET['vehicle-fuel']
+            query_drivetrain = request.GET['vehicle-drivetrain']
+            query_year = request.GET['vehicle-model-year']
+
+            search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__icontains=query_price) & Q(mileage__icontains=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__icontains=query_engine) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+
+            vehicles = vehicles.filter(search)
+
+            remembered_search = {
+                'make': query_make,
+                'model': query_model,
+                'year': query_year,
+                'price': query_price,
+                'mileage': query_mileage,
+                'colour': query_colour,
+                'engine': query_engine,
+                'doors': query_doors,
+                'body_type': query_body,
+                'fuel': query_fuel,
+                'drivetrain': query_drivetrain,
+            }
 
     current_sorting = f'{sort}_{direction}'
+
 
     context = {
         'vehicles': vehicles,
@@ -80,6 +122,15 @@ def all_vehicles(request):
         'static': settings.STATIC_URL,
         'media': settings.MEDIA_URL,
         'vehicle_makes': vehicle_makes,
+        'vehicle_models':  vehicle_models,
+        'query_years': query_years,
+        'vehicle_colours': vehicle_colours,
+        'vehicle_engines': vehicle_engines,
+        'vehicle_doors': vehicle_doors,
+        'vehicle_body': vehicle_body,
+        'vehicle_fuels': vehicle_fuels,
+        'vehicle_drivetrains': vehicle_drivetrains,
+        'remembered_search': remembered_search
     }
     return render(request, 'vehicles/vehicles.html', context)
 
@@ -93,10 +144,6 @@ def vehicle_detail(request, vehicle_sku):
     images = VehicleImages.objects.filter(vehicle_name=vehicle.pk)
 
     dvla_data = request_info_from_dvla(reg=vehicle.registration)
-
-    # original_date = datetime.strptime(dvla_data.get('motExpiryDate'), '%Y-%m-%d')
-    # formatted_date = original_date.strftime("%d:%m:%Y")
-    # print(formatted_date)
 
     context = {
         'vehicle': vehicle,

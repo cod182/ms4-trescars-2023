@@ -31,7 +31,7 @@
                       </div>
 
                       <div>
-                        <select id="model" class="welcome-search-form-input roboto" type="text" name="vehicle-model" placeholder="Model" list="vehicle-models" disabled>
+                        <select id="model" class="welcome-search-form-input roboto" type="text" name="vehicle-model" disabled>
                             <option selected value="" class="greyed">Model</option>
                             {% for vehicle in vehicles %}
                                     <option class="hidden" value="{{ vehicle.model | capfirst }}" data-vehicle-make='{{ vehicle.make }}'>{{ vehicle.model | capfirst }}</option>

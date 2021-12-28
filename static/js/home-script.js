@@ -1,5 +1,5 @@
 let make = document.getElementById('make');
-var model = document.getElementById('model');
+let model = document.getElementById('model');
 
 function makeEnteredAllowModel() {
     model.removeAttribute('disabled');

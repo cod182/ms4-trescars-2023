@@ -118,6 +118,30 @@
     transition: .2s ease-in-out;
 }
 
+.btn--vehicle-search-page--reset {
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-weight: bolder;
+    font-family: roboto, sans-serif;
+    height: 30px;
+    padding: 0;
+}
+
+.btn--vehicle-search-page--reset:hover,
+.btn--vehicle-search-page--reset:active,
+.btn--vehicle-search-page--reset:focus,
+.btn--vehicle-search-page--reset:active:focus {
+    background-color: black;
+    color: white;
+}
+
+.btn--vehicle-search-page--reset i {
+    vertical-align: middle;
+}
+
+
+
 .btn--reserve-now {
     width: fit-content;
     background-color: white;
@@ -490,7 +514,6 @@
     border-radius: 5px;
     margin: 10px 0;
     text-align: center;
-    color: black;
 }
 
 .vehicle-container {
