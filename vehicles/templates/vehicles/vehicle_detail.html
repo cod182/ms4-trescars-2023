@@ -9,6 +9,15 @@
  {% endblock %}
 
 {% block content %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="{% url 'vehicles' %}">
+                            <i class="fa fa-arrow-left vehicle-details-back" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <div class="container vehicle-detail-container">
                 <div class="vehicle-detail--banner">
                     <p>Reserve Now <br> for £200</p>
@@ -25,8 +34,12 @@
                             {% for image in images %}
                                 {% if forloop.first %}
                                     <img id="expandedImg" class="vehicle-detail--image-large" src="{{ media }}{{ image.image }}" alt="Image of {{ vehicle.registration | upper }}">
+                                    {% if image not in images %}
+                                        <img id="expandedImg" class="vehicle-detail--image-large" src="{{ media }}coming-soon.png" alt="Image of {{ vehicle.registration | upper }} coming soon">
+                                    {% endif %}
                                 {% endif %}
                             {% endfor %}
+
 
                         </div>
 

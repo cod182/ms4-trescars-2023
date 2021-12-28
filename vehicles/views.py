@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.conf import settings
+from django.core.paginator import Paginator
 from .models import Vehicle, VehicleImages, unique_vehicle_parameters
 from django.db.models import Q
 import requests
@@ -110,6 +111,8 @@ def all_vehicles(request):
 
             vehicles = vehicles.filter(search)
 
+
+
             remembered_search = {
                 'make': query_make,
                 'model': query_model,
@@ -126,8 +129,12 @@ def all_vehicles(request):
 
     current_sorting = f'{sort}_{direction}'
 
+    paginator = Paginator(vehicles, 25)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'vehicles': vehicles,
+        'vehicles': page_obj,
         'search_term': query,
         'current_sorting': current_sorting,
         'static': settings.STATIC_URL,

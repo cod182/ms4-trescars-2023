@@ -539,6 +539,34 @@
     background-size: cover;
 }
 
+.vehicle-pagination-container {
+    display: block;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+    font-family: roboto, sans-serif;
+}
+
+.vehicle-pagination-container a {
+    color: #0da7e8;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.vehicle-pagination-container a:hover {
+    color: black;
+}
+
+.vehicle-details-back {
+    color: black;
+    margin-top: 1rem;
+}
+
+.vehicle-details-back:hover {
+    color: #0da7e8;
+}
+
 .vehicle-container--body {
     padding: 15px;
     margin: auto 0;
@@ -556,7 +584,7 @@
     border: 1px solid black;
     border-radius: 10px;
     min-height: 600px;
-    margin: 2rem auto;
+    margin: 1rem auto;
     padding: 20px;
     position: relative;
     overflow: hidden;

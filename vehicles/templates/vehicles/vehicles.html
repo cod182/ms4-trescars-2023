@@ -259,6 +259,30 @@
             {% endif %}
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="pagination vehicle-pagination-container">
+                    <span class="step-links">
+                        {% if vehicles.has_previous %}
+                            <a href="?page=1">&lt&lt</a>
+                            <a href="?page={{ vehicles.previous_page_number }}">&lt</a>
+                        {% endif %}
+                
+                        <span class="current">
+                            Page {{ vehicles.number }} of {{ vehicles.paginator.num_pages }}
+                        </span>
+                
+                        {% if vehicles.has_next %}
+                            <a href="?page={{ vehicles.next_page_number }}">&gt</a>
+                            <a href="?page={{ vehicles.paginator.num_pages }}">&gt&gt;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
         
 {% endblock %}
 
