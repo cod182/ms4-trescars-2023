@@ -111,8 +111,6 @@ WSGI_APPLICATION = 'tres_cars.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {'default': dj_database_url.parse('postgres://xflchzrrjjtdrz:4de9c45616955486782575554bea7b20dee07abd987c7afc155ee18bd930048a@ec2-52-213-119-221.eu-west-1.compute.amazonaws.com:5432/dah9reqg0jjiim')}
-
 if 'DATABASE_URL' in os.environ:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
