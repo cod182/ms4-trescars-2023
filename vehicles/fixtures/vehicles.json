@@ -20,7 +20,9 @@
       "price": 17934,
       "mileage": 54829,
       "model_year": 2018,
-      "doors": 5
+      "doors": 5,
+      "type": "vehicle",
+      "available": "yes"
     }
   },
   {
@@ -44,7 +46,9 @@
       "price": 11195,
       "mileage": 48700,
       "model_year": 2014,
-      "doors": 5
+      "doors": 5,
+      "type": "vehicle",
+      "available": "yes"
     }
   },
   {
@@ -68,7 +72,9 @@
       "price": 10995,
       "mileage": 53000,
       "model_year": 2008,
-      "doors": 2
+      "doors": 2,
+      "type": "vehicle",
+      "available": "yes"
     }
   },
   {
@@ -92,7 +98,9 @@
         "price": 7995,
         "mileage": 48000,
         "model_year": 2015,
-        "doors": 3
+        "doors": 3,
+        "type": "vehicle",
+        "available": "yes"
       }
     },
     {
@@ -116,7 +124,9 @@
         "price": 4795,
         "mileage": 88764,
         "model_year": 2015,
-        "doors": 5
+        "doors": 5,
+        "type": "vehicle",
+        "available": "yes"
       }
     }
 ]

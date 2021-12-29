@@ -13,23 +13,23 @@ def bag_contents(request):
 
     for vehicle_sku, item_data in bag.items():
         if isinstance(item_data, int):
-            item = get_object_or_404(Vehicle, sku=vehicle_sku)
-            total += item_data * item.price
+            vehicle = get_object_or_404(Vehicle, sku=vehicle_sku)
+            total += item_data * vehicle.price
             item_count += item_data
             bag_items.append({
                 'vehicle_sku': vehicle_sku,
                 'quantity': item_data,
-                'item': item,
+                'vehicle': vehicle,
             })
         else:
-            item = get_object_or_404(Vehicle, sku=vehicle_sku)
+            vehicle = get_object_or_404(Vehicle, sku=vehicle_sku)
             for quantity in item_data['items_by_size'].items():
-                total += quantity * item.price
+                total += quantity * vehicle.price
                 item_count += quantity
                 bag_items.append({
                     'vehicle_sku': vehicle_sku,
                     'quantity': quantity,
-                    'item': item,
+                    'vehicle': vehicle,
                 })
 
     delivery = 0
