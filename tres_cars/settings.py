@@ -20,14 +20,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-z1bij!(*8^%g819r8t5jdotkuqtln3i_+-&%z)0p%fz)2zvin0'
+SECRET_KEY = os.environ.get('SECRET_KEY', '')
+
+DVLA_API_KEY = os.environ.get('DVLA_API_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-purple-donkey-md18192i.ws-eu23.gitpod.io']
+CSRF_TRUSTED_ORIGINS = ['https://8000-purple-donkey-md18192i.ws-eu25.gitpod.io']
 
 # Application definition
 

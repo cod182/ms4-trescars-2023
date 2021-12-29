@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_title %}
+ - Vehicle Search 
+ {% endblock %}
+
+ {% block page_header %}
+
+ {% endblock %}
+
+{% block content %}
+    <hr>
+    <div class="container search-contaienr">
+        <div class="row">
+            <form class="" action="{% url 'vehicles' %}" method="GET">
+                {% csrf_token%}
+                <input type="text" class="d-none" name="vehicle-detailed-search">
+                <div class="row">
+                    <!-- Vehicel Make Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <select id="vehicle-make-search" class="vehicle-search-input" type="text" name="vehicle-make">
+                            {% if remembered_search.make %}
+                                <option selected value="{{ remembered_search.make }}">{{ remembered_search.make }}</option>
+                            {% else %}
+                                <option selected value="" data-disable>Make</option>
+                            {% endif %}
+                            {% for make in vehicle_makes %}
+                                <option value="{{ make | capfirst}}">{{ make | capfirst}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!-- Vehicel Model Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <select id="vehicle-model-search" class="vehicle-search-input" type="text" name="vehicle-model">
+                            {% if remembered_search.model %}
+                                <option selected value="{{ remembered_search.model }}">{{ remembered_search.model }}</option>
+                            {% else %}
+                                <option selected value="" data-disable>Model</option>
+                            {% endif %}
+                            {% for vehicle in vehicle_models %}
+                                    <option class="hidden" value="{{ vehicle.model | capfirst }}" data-vehicle-make='{{ vehicle.make }}'>{{ vehicle.model | capfirst }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!-- Vehicel year Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <select id="vehicle-year-search" class="vehicle-search-input" type="text" name="vehicle-model-year">
+                            {% if remembered_search.year %}
+                                <option selected value="{{ remembered_search.year }}">{{ remembered_search.year }}</option>
+                            {% else %}
+                                <option selected value="" data-disable>Year</option>
+                            {% endif %}
+                            {% for year in vehicle_years %}
+                                    <option value="{{ year }}">{{ year }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!-- Price Range Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <select id="vehicle-price-range-search" class="vehicle-search-input" type="text" name="price-range">
+                            {% if  remembered_search.price == '9999999' or remembered_search == None %}
+                                <option selected value="9999999" data-disable>Price</option>
+                            {% elif remembered_search.price != '9999999' %}
+                                {% if remembered_search.price == '30001' %}
+                                    <option selected value="{{ remembered_search.price }}">Over £30000</option>
+                                {% else %}
+                                    <option selected value="{{ remembered_search.price }}">Up to £{{ remembered_search.price }}</option>
+                                {% endif %}
+                            {% endif %}
+                            <option value="5000">Up to £5000</option>
+                            <option value="10000">Up to £10000</option>
+                            <option value="15000">Up to £15000</option>
+                            <option value="20000">Up to £20000</option>
+                            <option value="25000">Up to £25000</option>
+                            <option value="30000">Up to £30000</option>
+                            <option value="30001">Over £30000</option>
+                        </select>
+                    </div>
+                    <!-- Mileage Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <select id="vehicle-mileage-search" class="vehicle-search-input" type="text" name="mileage">
+                            {% if remembered_search.mileage == '9999999'  or remembered_search == None %}
+                                <option selected value="9999999" data-disable>Mileage</option>
+                            {% elif remembered_search.mileage != '9999999' %}
+                                {% if remembered_search.mileage == '100001' %}
+                                    <option selected value="{{ remembered_search.price }}">Over 100000 Miles</option>
+                                {% else %}
+                                    <option selected value="{{ remembered_search.mileage }}">Up to {{ remembered_search.mileage }} Miles</option>
+                                {% endif %}
+                            {% endif %}
+                            <option value="5000">Up to 5000 miles</option>
+                            <option value="10000">Up to 10000 miles</option>
+                            <option value="20000">Up to 20000 miles</option>
+                            <option value="40000">Up to 40000 miles</option>
+                            <option value="60000">Up to 60000 miles</option>
+                            <option value="100000">Up to 100000 miles</option>
+                            <option value="100001">Over 100000 miles</option>
+                        </select>
+                    </div>
+                    <!-- Vehicle Colour Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <select id="vehicle-colour-search" class="vehicle-search-input" type="text" name="vehicle-colour">
+                            {% if remembered_search.colour %}
+                                <option selected value="{{ remembered_search.colour }}">{{ remembered_search.colour }}</option>
+                            {% else %}
+                                <option selected value="" data-disable>Colour</option>
+                            {% endif %}
+                            {% for colour in vehicle_colours %}
+                                <option value="{{ colour | capfirst}}">{{ colour | capfirst}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!-- Vehicle Engine Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <select id="vehicle-engine-search" class="vehicle-search-input" type="text" name="vehicle-engine">
+                            {% if remembered_search.engine %}
+                                <option selected value="{{ remembered_search.engine }}">{{ remembered_search.engine }}</option>
+                            {% else %}
+                                <option selected value="" data-disable>Engine</option>
+                            {% endif %}
+                            {% for engine in vehicle_engines %}
+                                <option value="{{ engine }}">{{ engine }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!-- Vehicle Doors Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <select id="vehicle-door-search" class="vehicle-search-input" type="text" name="vehicle-doors">
+                            {% if remembered_search.doors %}
+                                <option selected value="{{ remembered_search.doors }}">{{ remembered_search.doors }}</option>
+                            {% else %}
+                                <option selected value="" data-disable>Number of Doors</option>
+                            {% endif %}
+                            {% for doors in vehicle_doors %}
+                                <option value="{{ doors }}">{{ doors }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!-- Vehicle Body Type Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <select id="vehicle-body-search" class="vehicle-search-input" type="text" name="vehicle-body">
+                            {% if remembered_search.body_type %}
+                                <option selected value="{{ remembered_search.body_type }}">{{ remembered_search.body_type }}</option>
+                            {% else %}
+                                <option selected value="" data-disable>Body Type</option>
+                            {% endif %}
+                            {% for body in vehicle_body %}
+                                <option value="{{ body | capfirst }}">{{ body | capfirst }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!-- Vehicle Fuel Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <select id="vehicle-fuel-search" class="vehicle-search-input" type="text" name="vehicle-fuel">
+                            {% if remembered_search.fuel %}
+                                <option selected value="{{ remembered_search.fuel }}">{{ remembered_search.fuel }}</option>
+                            {% else %}
+                                <option selected value="" data-disable>Fuel Type</option>
+                            {% endif %}
+                            {% for fuel in vehicle_fuels %}
+                                <option value="{{ fuel | capfirst }}">{{ fuel | capfirst }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!-- Vehicle Drivetrain Search -->
+                    <div class="col-12 col-md-4 m-auto">
+                        <select id="vehicle-drivetrain-search" class="vehicle-search-input" type="text" name="vehicle-drivetrain">
+                            {% if remembered_search.drivetrain %}
+                                <option selected value="{{ remembered_search.drivetrain }}">{{ remembered_search.drivetrain }}</option>
+                            {% else %}
+                                <option selected value="" data-disable>Drivetrain</option>
+                            {% endif %}
+                            {% for drivetrain in vehicle_drivetrains %}
+                                <option value="{{ drivetrain | upper }}">{{ drivetrain | upper }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!-- Search button -->
+                    <div class="col-9 col-md-3 my-auto">
+                        <button class="btn btn--vehicle-search-page" type="submit">Search</button>
+                    </div>
+                    <!-- Reset button -->
+                    <div class="col-3 col-md-1 my-auto">
+                        <a class="btn btn--vehicle-search-page--reset" href="{% url 'vehicles' %}" alt="Reset Search">
+                            <i class="fa fa-refresh" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+    <hr>
+    <div class="container sort-container">
+        <div class="row">
+            <!-- Number of vehicles found -->
+            <div class="col-12 col-md-6">
+                <p>Number of vehicles found: <strong>{{ vehicles | length }}</strong></p>
+            </div>
+            <!-- Sort Vehicles By: -->
+            <div class="col-12 col-md-6">
+                <div class="text-end">
+                    <select id="sort-selector" class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
+                        <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
+                        <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to high)</option>
+                        <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high to low)</option>
+                        <option value="model_asc" {% if current_sorting == 'model_asc' %}selected{% endif %}>Age (oldest to newest)</option>
+                        <option value="model_desc" {% if current_sorting == 'model_desc' %}selected{% endif %}>Age (newest to oldest)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- Vehicles Found -->
+    <div class="container">
+        <div class="row">
+            {% if vehicles %}
+                {% for vehicle in vehicles %}
+                    <div class="col-md-12 col-lg-3">
+                        <a href="{% url 'vehicle_detail' vehicle.sku %}" class="btn--vehicle-detail">
+                            <div class="vehicle-container">
+                                <div class="row">
+                                    <div class="vehicle--image col-12 col-md-6 col-lg-12" style="background-image:url('{{ media }}{{ vehicle.sku}}-1.jpeg');" title="{{ vehicle.make }} {{ vehicle.model }} {{vehicle.trim}}- {{ vehicle.registration}}">
+                                    </div>
+                                    <div class="vehicle-container--body roboto col-12 col-md-6 col-lg-12">
+                                        <div class="vehicle--title">
+                                            <h4><span>{{ vehicle.make | capfirst }} {{ vehicle.model | capfirst }}</span></h4>
+                                            <p>{{ vehicle.trim | capfirst}}</p>
+                                        </div>
+                                        <div class="vehicle-info">
+                                            <p>
+                                                <i class="fa fa-car" aria-hidden="true"></i> {{ vehicle.registration|upper }}
+                                            </p>
+                                            <p>
+                                                <i class="fa fa-road" aria-hidden="true"></i> {{ vehicle.mileage }} miles
+                                            </p>
+                                            <p class="bold">
+                                                <i class="fa fa-money" aria-hidden="true"></i> £{{ vehicle.price }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% else %}
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h4><span><i class="fa fa-car" aria-hidden="true"></i></span> Sorry, there aren't are vehicle that match! Try adjusting your search</h4>
+                        </div>
+                    </div>
+                </div>
+
+            {% endif %}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="pagination vehicle-pagination-container">
+                    <span class="step-links">
+                        {% if vehicles.has_previous %}
+                            <a href="?page=1">&lt&lt</a>
+                            <a href="?page={{ vehicles.previous_page_number }}">&lt</a>
+                        {% endif %}
+                
+                        <span class="current">
+                            Page {{ vehicles.number }} of {{ vehicles.paginator.num_pages }}
+                        </span>
+                
+                        {% if vehicles.has_next %}
+                            <a href="?page={{ vehicles.next_page_number }}">&gt</a>
+                            <a href="?page={{ vehicles.paginator.num_pages }}">&gt&gt;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        
+{% endblock %}
+
+{% block postload_js %}
+    <script src="{% static 'js/vechicle-page.js' %}"></script>
+{% endblock %}

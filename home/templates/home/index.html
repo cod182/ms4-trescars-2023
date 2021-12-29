@@ -4,6 +4,10 @@
  - Home 
  {% endblock %}
 
+ {% block extra_js %}
+ 
+ {% endblock %}
+
  {% block page_header %}
 
  {% endblock %}
@@ -14,29 +18,32 @@
                 <div class="search-box--text">
                     <p class="m-0 bold">Start the search for your new vehicle here!</p>
                 </div>
-                <form class="welcome-search-form" action="" method="POST">
+                <form class="welcome-search-form" action="{% url 'vehicles' %}" method="GET">
+                    {% csrf_token %}
+                    <input type="text" class="d-none" name="home-search">
                     <div>
-                        <input class="welcome-search-form-input roboto" type="text" name="vehicle-make" placeholder="Make" list="vehicle-makes" autocomplete="off" autofocus required>
-                            <datalist id="vehicle-makes">
-                                <option>Nissan</option>
-                                <option>Peugeot</option>
-                                <option>Audi</option>
-                                <option>BMW</option>
-                            </datalist>
+                        <select id="make" class="welcome-search-form-input roboto" type="text" name="vehicle-make" placeholder="Make" list="vehicle-makes" autocomplete="off" autofocus required>
+                                <option selected value="" data-disable>Make</option>
+                                {% for make in vehicle_makes %}
+                                    <option value="{{ make | capfirst}}">{{ make | capfirst}}</option>
+                                {% endfor %}
+                        </select>
                       </div>
 
                       <div>
-                        <input class="welcome-search-form-input roboto" type="text" name="vehicle-model" placeholder="Model" list="vehicle-models" autocomplete="off" autofocus required>
-                            <datalist id="vehicle-makes">
-                                
-                            </datalist>
+                        <select id="model" class="welcome-search-form-input roboto" type="text" name="vehicle-model" disabled>
+                            <option selected value="" class="greyed">Model</option>
+                            {% for vehicle in vehicles %}
+                                    <option class="hidden" value="{{ vehicle.model | capfirst }}" data-vehicle-make='{{ vehicle.make }}'>{{ vehicle.model | capfirst }}</option>
+                            {% endfor %}
+                        </select>
                       </div>
 
                       <button class="btn-search" type="submit">Search</button>
 
                 </form>
 
-                <a class="btn--more-options" href="">More Options</a>
+                <a class="btn--more-options" href="{% url 'vehicles' %}">More Options</a>
             </div>
         </div>
 
@@ -45,7 +52,7 @@
 
                 <div class="quick-links--box quick-link">
                     <p class="white">All Vehicles</p>
-                    <a href="#">
+                    <a href="{% url 'vehicles' %}">
                         <div class="quick-link--image" style="background-image:url('{{ static }}images/all-vehicles.jpg');">
                         </div>
                     </a>
@@ -98,4 +105,8 @@
             </div>
         </div>
 
+{% endblock %}
+
+{% block postload_js%}
+    <script src="{% static 'js/home-script.js' %}"></script>
 {% endblock %}

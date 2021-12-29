@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_title %}
+ - {{ vehicle.make | capfirst  }} {{ vehicle.model | capfirst }} {{ vehicle.registration | upper }}
+ {% endblock %}
+
+ {% block page_header %}
+
+ {% endblock %}
+
+{% block content %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="{% url 'vehicles' %}">
+                            <i class="fa fa-arrow-left vehicle-details-back" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="container vehicle-detail-container">
+                <div class="vehicle-detail--banner">
+                    <p>Reserve Now <br> for £200</p>
+                </div>
+
+                <a href="" class="btn btn--reserve-now d-none d-lg-block">Reserve Now!</a>
+                    
+                <div class="row vehicle-detail--image-viewer">
+                    <div class="col-12 col-lg-6">
+
+                        <!-- The large image container -->
+                        <div class="vehicle-detail--images-container">
+                            <!-- large image -->
+                            {% for image in images %}
+                                {% if forloop.first %}
+                                    <img id="expandedImg" class="vehicle-detail--image-large" src="{{ media }}{{ image.image }}" alt="Image of {{ vehicle.registration | upper }}">
+                                    {% if image not in images %}
+                                        <img id="expandedImg" class="vehicle-detail--image-large" src="{{ media }}coming-soon.png" alt="Image of {{ vehicle.registration | upper }} coming soon">
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+
+
+                        </div>
+
+                        <!-- Small image container -->
+                        <div class="row image-row">
+                            {% for image in images %}
+                                <!-- Small Image -->
+                                <div class="col-2">
+                                    <img class="vehicle-detail--image-small" src="{{ media }}{{ image.image }}" alt="Image of {{ vehicle.registration | upper }}" onclick="myFunction(this);">
+                                </div>
+                            {%endfor%}
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-12 vehicle-detail--title">
+                                <h3>{{ vehicle.model_year }} {{ vehicle.make | capfirst}} {{ vehicle.model | capfirst}}</h3>
+                            </div>
+
+                            <div class="col-lg-12 vehicle-detail--title">
+                                <h5>{{ vehicle.trim | upper }}</h5>
+                            </div>
+
+                            <div class="col-12 vehicle-detail--title">
+                                <h5>{{ vehicle.registration | upper }}</h5>
+                            </div>
+
+                            <div class="col-12 vehicle-detail--title">
+                                <h5>£{{ vehicle.price}}</h5>
+                            </div>
+
+                            <div class="col-12 vehicle-detail--title">
+                                <p>{{ vehicle.mileage }} Miles</p>
+                            </div>
+                        </div>
+
+                        <!-- Info -->
+                        <div class="row">
+                            <div class="col-3 vehicle-detail-small-info">
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/paint.png" alt="Colour Icon">
+                                    <br class="d-block d-md-none">
+                                    {{ vehicle.colour | capfirst}}
+                                </p>
+                            </div>
+
+                            <div class="col-3 vehicle-detail-small-info">
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/fuel.png" alt="Fuel Icon">
+                                    <br class="d-block d-md-none">
+                                    {{ vehicle.fuel | capfirst }}
+                                </p>
+                            </div>
+
+                            <div class="col-3 vehicle-detail-small-info">
+                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/engine.png" alt="Engine Size Icon">
+                                <br class="d-block d-md-none">
+                                {{ vehicle.engine_size }}
+                            </div>
+
+                            <div class="col-3 vehicle-detail-small-info">
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/car.png" alt="Body Type Icon">
+                                    <br class="d-block d-md-none">
+                                    {{ vehicle.body_type | upper }}
+                                </p>
+                            </div>
+
+                            <div class="col-3 vehicle-detail-small-info">
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/gearbox.png" alt="Gearbox Icon">
+                                    <br class="d-block d-md-none">
+                                    {{ vehicle.gearbox | capfirst }}
+                                </p>
+                            </div>
+
+                            <div class="col-3 vehicle-detail-small-info">
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/drivetrain.png" alt="Drivetrain Icon">
+                                    <br class="d-block d-md-none">
+                                    {{ vehicle.drivetrain |upper }}
+                                </p>
+                            </div>
+
+                            <div class="col-3 vehicle-detail-small-info">
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/seat.png" alt="Seat Icon">
+                                    <br class="d-block d-md-none">
+                                    {{ vehicle.seats }}
+                                </p>
+                            </div>
+
+                            <div class="col-3 vehicle-detail-small-info">
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/door.png" alt="Door Icon">
+                                    <br class="d-block d-md-none">
+                                    {{ vehicle.doors }}
+                                </p>
+                            </div>
+
+                            <div class="col-4 vehicle-detail-small-info">
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/co2.png" alt="CO2 Icon">
+                                    <br class="d-block d-md-none">
+                                    {{ dvla_data.co2Emissions }} g/Km
+                                </p>
+                            </div>
+
+                            <div class="col-4 vehicle-detail-small-info">
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/mot.png" alt="MOT Icon">
+                                    <br class="d-block d-md-none">
+                                    <span id="mot-date">{{ dvla_data.motExpiryDate }}</span>
+                                </p>
+                            </div>
+
+                            <div class="col-4 vehicle-detail-small-info">
+                                <p>
+                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/tax.png" alt="Tax Icon">
+                                    <br class="d-block d-md-none">
+                                    <span id="tax-date">{{ dvla_data.taxDueDate }}</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 vehicle-detail--description">
+                                <p>{{ vehicle.description }}</p>
+                            </div>
+                        </div>
+
+                        <div class="row d-lg-none gx-0">
+                            <div class="col-12 col-md-6 text-center">
+                                <a href="" class="btn btn--reserve-now">Reserve Now!</a>
+                            </div>
+
+                            <div class="col-12 col-md-6 text-center">
+                                <a href="" class="btn btn--black-border">Contact us about {{ vehicle.registration | upper }}</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                        
+
+
+            </div>
+{% endblock %}
+
+{% block postload_js%}
+<script>
+    function myFunction(imgs) {
+        // Get the expanded image
+        var expandImg = document.getElementById("expandedImg");
+        // Get the image text
+        var imgText = document.getElementById("imgtext");
+        // Use the same src in the expanded image as the image being clicked on from the grid
+        expandImg.src = imgs.src;
+        // Show the container element (hidden with CSS)
+        expandImg.parentElement.style.display = "block";
+    }
+
+    let motContainer = document.getElementById('mot-date');
+    let taxContaienr = document.getElementById('tax-date');
+
+    function ChangeFormateDate(container, oldDate) {
+            newDate = oldDate.toString().split("-").reverse().join("/");
+            container.innerHTML = newDate
+        }
+
+    ChangeFormateDate(motContainer, motContainer.innerHTML); // Changes the date from DB format to readable for MOT date
+    ChangeFormateDate(taxContaienr, taxContaienr.innerHTML); // Changes the date from DB format to readable for Tax date
+
+</script>
+{% endblock %}
