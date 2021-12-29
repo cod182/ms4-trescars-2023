@@ -1,7 +1,7 @@
 from decimal import Decimal
 from django.conf import settings
 from django.shortcuts import get_object_or_404
-from accessories.models import Accesory
+# from accessories.models import Accesory
 
 def bag_contents(request):
     bag_items = []
