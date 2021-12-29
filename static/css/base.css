@@ -147,9 +147,6 @@
     background-color: white;
     border: 2px solid #0da7e8;
     color: #0da7e8;
-    position: absolute;
-    right: 70px;
-    top: 100px;
 }
 
 .btn--reserve-now:hover,
@@ -561,6 +558,12 @@
 .vehicle-details-back {
     color: black;
     margin-top: 1rem;
+}
+
+.vehicle-reserve-continaer {
+    position: absolute;
+    right: 70px;
+    top: 100px;
 }
 
 .vehicle-details-back:hover {

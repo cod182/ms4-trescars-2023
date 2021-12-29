@@ -1,45 +1,47 @@
 from decimal import Decimal
 from django.conf import settings
 from django.shortcuts import get_object_or_404
-# from accessories.models import Accesory
+from vehicles.models import Vehicle
+
 
 def bag_contents(request):
+
     bag_items = []
     total = 0
-    product_count = 0
-    delivery = Decimal(5.00)
+    item_count = 0
     bag = request.session.get('bag', {})
 
-    for item_id, item_data in bag.items():
+    for vehicle_sku, item_data in bag.items():
         if isinstance(item_data, int):
-            accessory = get_object_or_404(accessory, pk=item_id)
-            total += item_data * product.price
-            accessory_count += item_data
+            item = get_object_or_404(Vehicle, sku=vehicle_sku)
+            total += item_data * item.price
+            item_count += item_data
             bag_items.append({
-                'item_id': item_id,
+                'vehicle_sku': vehicle_sku,
                 'quantity': item_data,
-                'accessory': accessory,
+                'item': item,
             })
         else:
-            product = get_object_or_404(Product, pk=item_id)
-            for size, quantity in item_data['items_by_size'].items():
-                total += quantity * product.price
-                product_count += quantity
+            item = get_object_or_404(Vehicle, sku=vehicle_sku)
+            for quantity in item_data['items_by_size'].items():
+                total += quantity * item.price
+                item_count += quantity
                 bag_items.append({
-                    'item_id': item_id,
+                    'vehicle_sku': vehicle_sku,
                     'quantity': quantity,
-                    'product': product,
-                    'size': size,
+                    'item': item,
                 })
 
+    delivery = 0
 
-    grand_total = total + delivery
+    grand_total = delivery + total
+
     context = {
         'bag_items': bag_items,
         'total': total,
-        'product_count': product_count,
+        'item_count': item_count,
         'delivery': delivery,
-        'grand_total': grand_total
+        'grand_total': grand_total,
     }
 
     return context
