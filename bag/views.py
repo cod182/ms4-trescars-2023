@@ -13,5 +13,7 @@ def view_bag(request):
     vehicles = unique_vehicle_parameters.unique_vehicle_models()
 
     template = 'bag/bag.html'
-
-    return render(request, template)
+    context = {
+        'static': settings.STATIC_URL,
+    }
+    return render(request, template, context)
