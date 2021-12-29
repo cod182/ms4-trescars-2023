@@ -95,8 +95,15 @@
                             <a class="nav-link" href="#">Logout</a>
                         </li>
 
+                        <hr class="d-block d-lg-none">
+
+                        <li class="nav-item">
+                            <a class="nav-link d-none d-lg-block" href="{% url 'view_bag' %}"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
+                        </li>
+
                     </ul>
                 </div>
+                <a class="nav-link d-block d-lg-none" href="{% url 'view_bag' %}"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
             </div>
           </nav>
 

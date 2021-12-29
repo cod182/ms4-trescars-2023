@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_title %}
+ - Bag 
+ {% endblock %}
+
+ {% block extra_js %}
+ 
+ {% endblock %}
+
+ {% block page_header %}
+
+ {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Shopping Bag</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            {% if bag_items %}
+            {% else %}
+                <p class="lead mb-5">Your bag is empty.</p>
+                <a href="#" class="btn btn-outline-black rounded-0 btn-lg">
+                    <span class="icon">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                    <span class="text-uppercase">Search for Accessories</span>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+        
+{% endblock %}
+
+{% block postload_js%}
+
+{% endblock %}
