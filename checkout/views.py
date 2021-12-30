@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
+from django.conf import settings
 from .forms import OrderForm
 # Create your views here.
 
@@ -14,6 +15,7 @@ def checkout(request):
     template = 'checkout/checkout.html'
     context = {
         'order_form': order_form,
+        'static': settings.STATIC_URL,
     }
 
     return render(request, template, context)

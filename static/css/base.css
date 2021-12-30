@@ -582,6 +582,24 @@
     background-size: cover;
 }
 
+.vehicle--image-sold {
+    height: 150px;
+    padding: 0;
+    height: fit-content;
+}
+
+.vehicle-sold {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: xx-large;
+    font-weight: bold;
+    background-color: grey;
+    width: 100%;
+    text-align: center;
+}
+
 .vehicle-pagination-container {
     display: block;
     text-align: center;
