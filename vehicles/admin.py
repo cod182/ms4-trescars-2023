@@ -31,6 +31,8 @@ class VehicleAdmin(admin.ModelAdmin):
         'mileage',
         'model_year',
         'doors',
+        'type',
+        'available'
     )
 
     ordering = ('name',)

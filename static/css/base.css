@@ -140,16 +140,11 @@
     vertical-align: middle;
 }
 
-
-
 .btn--reserve-now {
     width: fit-content;
     background-color: white;
     border: 2px solid #0da7e8;
     color: #0da7e8;
-    position: absolute;
-    right: 70px;
-    top: 100px;
 }
 
 .btn--reserve-now:hover,
@@ -159,6 +154,21 @@
     background-color: #0da7e8;
     color: white;
     transition: .2s ease-in-out;
+}
+
+.btn--blue-border {
+    background-color: white;
+    border: 2px solid #0da7e8;
+    color: black;
+    width: fit-content;
+}
+
+.btn--blue-border:hover,
+.btn--blue-border:focus,
+.btn--blue-border:active,
+.btn--blue-border:active:focus {
+    background-color: #0da7e8;
+    color: white;
 }
 
 .btn--black-border {
@@ -175,6 +185,39 @@
     background-color: black;
     color: white;
 }
+
+.btn--update-link {
+    cursor:pointer;
+    text-decoration: none;
+    color: #0da7e8;
+}
+
+.btn--update-link:hover {
+    color: #2e4796;
+}
+.btn--update-link:active,
+.btn--update-link:focus,
+.btn--update-link:active:focus {
+    color: #22cc22;
+}
+
+.btn--remove-item {
+    color: rgb(199, 6, 6);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn--remove-item:hover {
+    color: rgb(170, 5, 5);
+}
+
+.btn--remove-item:active,
+.btn--remove-item:focus,
+.btn--remove-item:active:focus {
+    color: rgb(255, 0, 0);
+}
+
+
 
 .navbar {
     min-height: 100px;
@@ -561,6 +604,12 @@
 .vehicle-details-back {
     color: black;
     margin-top: 1rem;
+}
+
+.vehicle-reserve-continaer {
+    position: absolute;
+    right: 70px;
+    top: 100px;
 }
 
 .vehicle-details-back:hover {

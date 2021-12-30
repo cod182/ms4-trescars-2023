@@ -218,6 +218,7 @@
         <div class="row">
             {% if vehicles %}
                 {% for vehicle in vehicles %}
+                    {% if vehicle.available == 'yes' %}
                     <div class="col-md-12 col-lg-3">
                         <a href="{% url 'vehicle_detail' vehicle.sku %}" class="btn--vehicle-detail">
                             <div class="vehicle-container">
@@ -245,6 +246,7 @@
                             </div>
                         </a>
                     </div>
+                    {% endif %}
                 {% endfor %}
             {% else %}
 

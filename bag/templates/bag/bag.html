@@ -5,7 +5,6 @@
  {% endblock %}
 
  {% block extra_js %}
- 
  {% endblock %}
 
  {% block page_header %}
@@ -14,18 +13,83 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container mb-2">
     <div class="row">
-        <div class="col-12">
-            <h2>Accessories Shopping Bag</h2>
+        <div class="col">
+            <hr>
+            <h2 class="logo-font mb-4">Shopping Bag</h2>
+            <hr>
         </div>
     </div>
+
     <div class="row">
-        <div class="col-12">
+        <div class="col">
             {% if bag_items %}
+                <div class="table-responsive rounded">
+                    <table class="table table-sm table-borderless">
+                        <thead class="text-black">
+                            <tr>
+                                <th scope="col">Item Info</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Subtotal</th>
+                            </tr>
+                        </thead>
+
+                        {% for item in bag_items %}
+                            <tr>
+                                <td class="py-3">
+                                    <p class="my-0"><strong>{{ item.vehicle.make | upper }} {{ item.vehicle.model | upper }} {{ item.vehicle.trim | upper }}</strong></p>
+                                    <p class="my-0 small text-muted">SKU: {{ item.vehicle.sku|upper }}</p>
+                                </td>
+                                <td class="py-3">
+                                    <p class="my-0">£{{ item.vehicle.price }}</p>
+                                </td>
+                                <td class="py-3 w-25">
+                                    <form class="form update-form" method="POST" action="{% url 'adjust_bag' item.vehicle.sku %}">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            {% if item.vehicle.type != 'vehicle' %}
+                                            <div class="input-group">
+                                                <input class="form-control form-control-sm qty_input" type="number" name="quantity" value="{{ item.quantity }}" min="1" max="99" data-item_id="{{ item.vehicle.sku }}" id="id_qty_{{ item.vehicle.sku }}">
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <a class="btn--update-link"><small>Update</small></a>
+                                    {% endif %}
+                                    <a class="btn--remove-item float-right" id="remove_{{ item.vehicle.sku }}"><small>Remove</small></a>
+                                </td>
+                                <td class="py-3">
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="5" class="pt-5 text-right">
+                                <h6><strong>Total: £{{ total|floatformat:2 }}</strong></h6>
+                                <h4 class="mt-4"><strong>Grand Total: ${{ grand_total|floatformat:2 }}</strong></h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="text-right">
+                                <a href="" class="btn btn--black-border">
+                                    <span class="icon">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="text-uppercase">Search for Accessories</span>
+                                </a>
+                                <a href="" class="btn btn--blue-border">
+                                    <span class="text-uppercase">Secure Checkout</span>
+                                    <span class="icon">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             {% else %}
-                <p class="lead mb-5">Your bag is empty.</p>
-                <a href="#" class="btn btn-outline-black rounded-0 btn-lg">
+                <p class="lead mb-5">Your bag is empty</p>
+                <a href="" class="btn btn-outline-black rounded-0 btn-lg">
                     <span class="icon">
                         <i class="fas fa-chevron-left"></i>
                     </span>
@@ -35,9 +99,31 @@
         </div>
     </div>
 </div>
-        
 {% endblock %}
 
 {% block postload_js%}
 
+<script type="text/javascript">
+    // Update quantity on click
+    $('.btn--update-link').click(function(e) {
+        var form = $(this).prev('.update-form');
+        form.submit();
+    })
+
+    // Remove item and reload on click
+    $('.btn--remove-item').click(function(e) {
+        var csrfToken = "{{ csrf_token }}";
+        var itemId = $(this).attr('id').split('remove_')[1];
+        var size = $(this).data('product_size');
+        var url = `/bag/remove/${itemId}/`;
+        var data = {
+            'csrfmiddlewaretoken': csrfToken,
+        };
+
+        $.post(url, data)
+            .done(function() {
+                location.reload();
+            });
+    })
+</script>
 {% endblock %}
