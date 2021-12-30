@@ -9,6 +9,9 @@ from vehicles.models import VehicleImages
 def checkout(request):
     bag = request.session.get('bag', {})
     images = VehicleImages.objects.all()
+    STRIPE_PUBLIC_KEY = settings.STRIPE_PUBLIC_KEY
+    SECRET_KEY = settings.SECRET_KEY
+
     if not bag:
         messages.error(request, "Bag is empty")
         return redirect(reverse('vehicles'))
@@ -18,7 +21,9 @@ def checkout(request):
     context = {
         'order_form': order_form,
         'media': settings.MEDIA_URL,
-        'images': images
+        'images': images,
+        'stripe_public_key':STRIPE_PUBLIC_KEY,
+        'client_secret': SECRET_KEY,
     }
 
     return render(request, template, context)
@@ -29,6 +34,8 @@ def checkout_now(request, item_id):
     quantity = int(request.POST.get('quantity'))
     bag = request.session.get('bag', {})
     images = VehicleImages.objects.all()
+    STRIPE_PUBLIC_KEY = settings.STRIPE_PUBLIC_KEY
+    SECRET_KEY = settings.SECRET_KEY
 
     if item_id in list(bag.keys()):
         messages.error(request, "Vehicle already in bag!")
@@ -43,7 +50,9 @@ def checkout_now(request, item_id):
     context = {
         'order_form': order_form,
         'media': settings.MEDIA_URL,
-        'images': images
+        'images': images,
+        'stripe_public_key':STRIPE_PUBLIC_KEY,
+        'client_secret': SECRET_KEY,
     }
 
     return render(request, template, context)
