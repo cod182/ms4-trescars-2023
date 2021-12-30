@@ -27,14 +27,12 @@
                     <p>Reserve Now <br> for £200</p>
                 </div>
                 <div class="d-md-none d-lg-block vehicle-reserve-continaer">
-                    <form class="form" action="{% url 'add_to_bag' vehicle.sku %}" method="post">
+                    <form class="form" action="{% url 'checkout_now' vehicle.sku %}" method="post">
                         {% csrf_token %}
 
                         <input class="hidden qty_input" type="number" name="quantity" value="1" min="1" max="1" data-item_id="{{ vehicle.sku }}" id="id_qty_{{ vehicle.sku }}">
                         
                         <button {% if vehicle.available != 'yes' %} disabled {% endif %}class="btn btn--reserve-now" type="submit">{% if vehicle.available == 'yes' %} Reserve Now! {% else %} Sorry, you've missed it! {% endif %}</button>
-
-                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
                     </form>
                 </div>
                     
@@ -186,15 +184,14 @@
 
                         <div class="row d-lg-none gx-0">
                             <div class="col-12 col-md-6 text-center">
-                                <form class="form" action="{% url 'add_to_bag' vehicle.sku %}" method="post">
+                                <form class="form" action="{% url 'checkout_now' vehicle.sku %}" method="post">
                                     {% csrf_token %}
             
                                     <input class="hidden qty_input" type="number" name="quantity" value="1" min="1" max="1" data-item_id="{{ vehicle.sku }}" id="id_qty_{{ vehicle.sku }}">
                                     
                                     <button {% if vehicle.available != 'yes' %} disabled {% endif %}class="btn btn--reserve-now" type="submit">{% if vehicle.available == 'yes' %} Reserve Now! {% else %} Sorry, you've missed it! {% endif %}</button>
-            
-                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                                </form>                            </div>
+                                </form>                            
+                            </div>
 
                             <div class="col-12 col-md-6 text-center">
                                 <a href="" class="btn btn--black-border">Contact us about {{ vehicle.registration | upper }}</a>
