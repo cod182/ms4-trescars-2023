@@ -6,7 +6,8 @@
     "fields": {
       "name":"ve67uto-1",
       "vehicle_name":0,
-      "image":"ve67uto-1.jpeg"
+      "image":"ve67uto-1.jpeg",
+      "main": true
     }
   },
   {
@@ -15,7 +16,8 @@
     "fields": {
       "name":"ve67uto-2",
       "vehicle_name":0,
-      "image":"ve67uto-2.jpeg"
+      "image":"ve67uto-2.jpeg",
+      "main": false
     }
   },
   {
@@ -24,7 +26,8 @@
     "fields": {
       "name":"ve67uto-3",
       "vehicle_name":0,
-      "image":"ve67uto-3.jpeg"
+      "image":"ve67uto-3.jpeg",
+      "main": false
     }
   },
   {
@@ -33,7 +36,8 @@
     "fields": {
       "name":"ve67uto-4",
       "vehicle_name":0,
-      "image":"ve67uto-4.jpeg"
+      "image":"ve67uto-4.jpeg",
+      "main": false
     }
   },
   {
@@ -42,7 +46,8 @@
     "fields": {
       "name":"ve67uto-5",
       "vehicle_name":0,
-      "image":"ve67uto-5.jpeg"
+      "image":"ve67uto-5.jpeg",
+      "main": false
     }
   },
   {
@@ -51,7 +56,8 @@
     "fields": {
       "name":"ve67uto-6",
       "vehicle_name":0,
-      "image":"ve67uto-6.jpeg"
+      "image":"ve67uto-6.jpeg",
+      "main": false
     }
   },
   {
@@ -60,7 +66,8 @@
     "fields": {
       "name":"ve67uto-7",
       "vehicle_name":0,
-      "image":"ve67uto-7.jpeg"
+      "image":"ve67uto-7.jpeg",
+      "main": false
     }
   },
   {
@@ -69,7 +76,8 @@
     "fields": {
       "name":"ve67uto-8",
       "vehicle_name":0,
-      "image":"ve67uto-8.jpeg"
+      "image":"ve67uto-8.jpeg",
+      "main": false
     }
   },
   {
@@ -78,7 +86,8 @@
     "fields": {
       "name":"ve67uto-9",
       "vehicle_name":0,
-      "image":"ve67uto-9.jpeg"
+      "image":"ve67uto-9.jpeg",
+      "main": false
     }
   },
   {
@@ -87,7 +96,8 @@
     "fields": {
       "name":"dv64xug-1",
       "vehicle_name":1,
-      "image":"dv64xug-1.jpeg"
+      "image":"dv64xug-1.jpeg",
+      "main": true
     }
   },
   {
@@ -96,7 +106,8 @@
     "fields": {
       "name":"dv64xug-2",
       "vehicle_name":1,
-      "image":"dv64xug-2.jpeg"
+      "image":"dv64xug-2.jpeg",
+      "main": false
     }
   },
   {
@@ -105,7 +116,8 @@
     "fields": {
       "name":"dv64xug-3",
       "vehicle_name":1,
-      "image":"dv64xug-3.jpeg"
+      "image":"dv64xug-3.jpeg",
+      "main": false
     }
   },
   {
@@ -114,7 +126,8 @@
     "fields": {
       "name":"dv64xug-4",
       "vehicle_name":1,
-      "image":"dv64xug-4.jpeg"
+      "image":"dv64xug-4.jpeg",
+      "main": false
     }
   },
   {
@@ -123,7 +136,8 @@
     "fields": {
       "name":"dv64xug-5",
       "vehicle_name":1,
-      "image":"dv64xug-5.jpeg"
+      "image":"dv64xug-5.jpeg",
+      "main": false
     }
   },
   {
@@ -132,7 +146,8 @@
     "fields": {
       "name":"dv64xug-6",
       "vehicle_name":1,
-      "image":"dv64xug-6.jpeg"
+      "image":"dv64xug-6.jpeg",
+      "main": false
     }
   },
   {
@@ -141,7 +156,8 @@
     "fields": {
       "name":"dv64xug-7",
       "vehicle_name":1,
-      "image":"dv64xug-7.jpeg"
+      "image":"dv64xug-7.jpeg",
+      "main": false
     }
   },
   {
@@ -150,7 +166,8 @@
     "fields": {
       "name":"dv64xug-8",
       "vehicle_name":1,
-      "image":"dv64xug-8.jpeg"
+      "image":"dv64xug-8.jpeg",
+      "main": false
     }
   },
   {
@@ -159,7 +176,8 @@
     "fields": {
       "name":"dv64xug-9",
       "vehicle_name":1,
-      "image":"dv64xug-9.jpeg"
+      "image":"dv64xug-9.jpeg",
+      "main": false
     }
   },
   {
@@ -168,7 +186,8 @@
     "fields": {
       "name":"ma58frx-1",
       "vehicle_name":2,
-      "image":"ma58frx-1.jpeg"
+      "image":"ma58frx-1.jpeg",
+      "main": true
     }
   },
   {
@@ -177,7 +196,8 @@
     "fields": {
       "name":"ma58frx-2",
       "vehicle_name":2,
-      "image":"ma58frx-2.jpeg"
+      "image":"ma58frx-2.jpeg",
+      "main": false
     }
   },
   {
@@ -186,7 +206,8 @@
     "fields": {
       "name":"ma58frx-3",
       "vehicle_name":2,
-      "image":"ma58frx-3.jpeg"
+      "image":"ma58frx-3.jpeg",
+      "main": false
     }
   },
   {
@@ -195,7 +216,8 @@
     "fields": {
       "name":"ma58frx-4",
       "vehicle_name":2,
-      "image":"ma58frx-4.jpeg"
+      "image":"ma58frx-4.jpeg",
+      "main": false
     }
   },
   {
@@ -204,7 +226,8 @@
     "fields": {
       "name":"ma58frx-5",
       "vehicle_name":2,
-      "image":"ma58frx-5.jpeg"
+      "image":"ma58frx-5.jpeg",
+      "main": false
     }
   },
   {
@@ -213,7 +236,8 @@
     "fields": {
       "name":"ma58frx-6",
       "vehicle_name":2,
-      "image":"ma58frx-6.jpeg"
+      "image":"ma58frx-6.jpeg",
+      "main": false
     }
   },
   {
@@ -222,7 +246,8 @@
     "fields": {
       "name":"ma58frx-7",
       "vehicle_name":2,
-      "image":"ma58frx-7.jpeg"
+      "image":"ma58frx-7.jpeg",
+      "main": false
     }
   },
   {
@@ -231,7 +256,8 @@
     "fields": {
       "name":"ma58frx-8",
       "vehicle_name":2,
-      "image":"ma58frx-8.jpeg"
+      "image":"ma58frx-8.jpeg",
+      "main": false
     }
   },
   {
@@ -240,7 +266,8 @@
     "fields": {
       "name":"ma58frx-9",
       "vehicle_name":2,
-      "image":"ma58frx-9.jpeg"
+      "image":"ma58frx-9.jpeg",
+      "main": false
     }
   },
   {
@@ -249,7 +276,8 @@
     "fields": {
       "name":"ma58frx-10",
       "vehicle_name":2,
-      "image":"ma58frx-10.jpeg"
+      "image":"ma58frx-10.jpeg",
+      "main": false
     }
   },
   {
@@ -258,7 +286,8 @@
     "fields": {
       "name":"ma58frx-11",
       "vehicle_name":2,
-      "image":"ma58frx-11.jpeg"
+      "image":"ma58frx-11.jpeg",
+      "main": false
     }
   },
   {
@@ -267,7 +296,8 @@
     "fields": {
       "name":"lx15zpu-1",
       "vehicle_name":3,
-      "image":"lx15zpu-1.jpeg"
+      "image":"lx15zpu-1.jpeg",
+      "main": true
     }
   },
   {
@@ -276,7 +306,8 @@
     "fields": {
       "name":"lx15zpu-2",
       "vehicle_name":3,
-      "image":"lx15zpu-2.jpeg"
+      "image":"lx15zpu-2.jpeg",
+      "main": false
     }
   },
   {
@@ -285,7 +316,8 @@
     "fields": {
       "name":"lx15zpu-3",
       "vehicle_name":3,
-      "image":"lx15zpu-3.jpeg"
+      "image":"lx15zpu-3.jpeg",
+      "main": false
     }
   },
   {
@@ -294,7 +326,8 @@
     "fields": {
       "name":"lx15zpu-4",
       "vehicle_name":3,
-      "image":"lx15zpu-4.jpeg"
+      "image":"lx15zpu-4.jpeg",
+      "main": false
     }
   },
   {
@@ -303,7 +336,8 @@
     "fields": {
       "name":"lx15zpu-5",
       "vehicle_name":3,
-      "image":"lx15zpu-5.jpeg"
+      "image":"lx15zpu-5.jpeg",
+      "main": false
     }
   },
   {
@@ -312,7 +346,8 @@
     "fields": {
       "name":"lx15zpu-6",
       "vehicle_name":3,
-      "image":"lx15zpu-6.jpeg"
+      "image":"lx15zpu-6.jpeg",
+      "main": false
     }
   },
   {
@@ -321,7 +356,8 @@
     "fields": {
       "name":"lx15zpu-7",
       "vehicle_name":3,
-      "image":"lx15zpu-7.jpeg"
+      "image":"lx15zpu-7.jpeg",
+      "main": false
     }
   },
   {
@@ -330,7 +366,8 @@
     "fields": {
       "name":"lx15zpu-8",
       "vehicle_name":3,
-      "image":"lx15zpu-8.jpeg"
+      "image":"lx15zpu-8.jpeg",
+      "main": false
     }
   },
   {
@@ -339,7 +376,8 @@
     "fields": {
       "name":"sm64mty-1",
       "vehicle_name":4,
-      "image":"sm64mty-1.jpeg"
+      "image":"sm64mty-1.jpeg",
+      "main": true
     }
   },
   {
@@ -348,7 +386,8 @@
     "fields": {
       "name":"sm64mty-2",
       "vehicle_name":4,
-      "image":"sm64mty-2.jpeg"
+      "image":"sm64mty-2.jpeg",
+      "main": false
     }
   },
   {
@@ -357,7 +396,8 @@
     "fields": {
       "name":"sm64mty-3",
       "vehicle_name":4,
-      "image":"sm64mty-3.jpeg"
+      "image":"sm64mty-3.jpeg",
+      "main": false
     }
   },
   {
@@ -366,7 +406,8 @@
     "fields": {
       "name":"sm64mty-4",
       "vehicle_name":4,
-      "image":"sm64mty-4.jpeg"
+      "image":"sm64mty-4.jpeg",
+      "main": false
     }
   },
   {
@@ -375,7 +416,8 @@
     "fields": {
       "name":"sm64mty-5",
       "vehicle_name":4,
-      "image":"sm64mty-5.jpeg"
+      "image":"sm64mty-5.jpeg",
+      "main": false
     }
   },
   {
@@ -384,7 +426,8 @@
     "fields": {
       "name":"sm64mty-6",
       "vehicle_name":4,
-      "image":"sm64mty-6.jpeg"
+      "image":"sm64mty-6.jpeg",
+      "main": false
     }
   },
   {
@@ -393,7 +436,8 @@
     "fields": {
       "name":"sm64mty-7",
       "vehicle_name":4,
-      "image":"sm64mty-7.jpeg"
+      "image":"sm64mty-7.jpeg",
+      "main": false
     }
   }
 ]

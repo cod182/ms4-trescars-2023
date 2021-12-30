@@ -2,11 +2,13 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from django.conf import settings
 from .forms import OrderForm
+from vehicles.models import VehicleImages
 # Create your views here.
 
 
 def checkout(request):
     bag = request.session.get('bag', {})
+    images = VehicleImages.objects.all()
     if not bag:
         messages.error(request, "Bag is empty")
         return redirect(reverse('vehicles'))
@@ -15,7 +17,8 @@ def checkout(request):
     template = 'checkout/checkout.html'
     context = {
         'order_form': order_form,
-        'static': settings.STATIC_URL,
+        'media': settings.MEDIA_URL,
+        'images': images
     }
 
     return render(request, template, context)

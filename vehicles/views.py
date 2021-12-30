@@ -39,6 +39,7 @@ def all_vehicles(request):
     and search queries
     """
     vehicles = Vehicle.objects.all()
+    images = VehicleImages.objects.all()
     query = None
     sort = None
     direction = None
@@ -135,9 +136,9 @@ def all_vehicles(request):
 
     context = {
         'vehicles': page_obj,
+        'images': images,
         'search_term': query,
         'current_sorting': current_sorting,
-        'static': settings.STATIC_URL,
         'media': settings.MEDIA_URL,
         'vehicle_makes': vehicle_makes,
         'vehicle_models':  vehicle_models,
@@ -167,7 +168,6 @@ def vehicle_detail(request, vehicle_sku):
         'vehicle': vehicle,
         'images': images,
         'dvla_data': dvla_data,
-        'static': settings.STATIC_URL,
         'media': settings.MEDIA_URL,
     }
     return render(request, 'vehicles/vehicle_detail.html', context)

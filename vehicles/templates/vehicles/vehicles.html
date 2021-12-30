@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
 {% block extra_title %}
- - Vehicle Search 
- {% endblock %}
+- Vehicle Search 
+{% endblock %}
 
- {% block page_header %}
+{% block page_header %}
 
- {% endblock %}
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'vehicles/css/vehicles.css' %}">
+{% endblock %}
 
 {% block content %}
     <hr>
@@ -223,13 +227,25 @@
                             <div class="vehicle-container">
                                 <div class="row">
                                     {% if vehicle.available == 'yes' %}
-                                        <div class="vehicle--image col-12 col-md-6 col-lg-12" style="background-image:url('{{ media }}{{ vehicle.sku}}-1.jpeg');" title="{{ vehicle.make }} {{ vehicle.model }} {{vehicle.trim}}- {{ vehicle.registration}}">
-                                        </div>
+                                        {% for image in images %}
+                                            {% if vehicle.sku in image.name %}
+                                                {% if image.main %}
+                                                    <div class="vehicle--image col-12" style="background-image:url('{{ media }}{{ image.image }}');" title="{{ vehicle.make }} {{ vehicle.model }} {{vehicle.trim}}- {{ vehicle.registration}}">
+                                                    </div>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
                                     {% else %}
                                         <div class="position-relative vehicle--image-sold col-12 col-md-6 col-lg-12">
                                             <p class="vehicle-sold">Sold</p>
-                                            <div class="vehicle--image col-12" style="background-image:url('{{ media }}{{ vehicle.sku}}-1.jpeg');opacity: 0.2;" title="{{ vehicle.make }} {{ vehicle.model }} {{vehicle.trim}}- {{ vehicle.registration}}">
-                                            </div>
+                                            {% for image in images %}
+                                                {% if vehicle.sku in image.name %}
+                                                    {% if image.main %}
+                                                        <div class="vehicle--image col-12" style="background-image:url('{{ media }}{{ image.image }}');opacity: 0.2;" title="{{ vehicle.make }} {{ vehicle.model }} {{vehicle.trim}}- {{ vehicle.registration}}">
+                                                        </div>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
                                         </div>
                                     {% endif %}
                                     <div class="vehicle-container--body roboto col-12 col-md-6 col-lg-12">

@@ -7,6 +7,7 @@ class VehicleImages(models.Model):
     name = models.CharField(max_length=254, null=False, blank=False)
     vehicle_name = models.ForeignKey('Vehicle', null=True, blank=True, on_delete=models.SET_NULL)
     image = models.ImageField(null=True, blank=True, upload_to='vehicles/')
+    main = models.BooleanField(null=False, blank=False, default=False)
 
 
 class Vehicle(models.Model):

@@ -7,6 +7,7 @@ class VehicleImagesAdmin(admin.ModelAdmin):
         'name',
         'vehicle_name',
         'image',
+        'main',
     )
 
     ordering = ('vehicle_name',)
