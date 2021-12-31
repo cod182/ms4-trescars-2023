@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'checkout',
 
     'crispy_forms',
+    'mathfilters',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -192,3 +193,4 @@ else:
 
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+STRIPE_CURRENCY = 'gbp'

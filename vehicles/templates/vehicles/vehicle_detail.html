@@ -24,7 +24,7 @@
             </div>
             <div class="container vehicle-detail-container">
                 <div class="vehicle-detail--banner">
-                    <p>Reserve Now <br> for £200</p>
+                    <p>Reserve Now <br> for £{{ vehicle.price }}</p>
                 </div>
                 <div class="d-md-none d-lg-block vehicle-reserve-continaer">
                     <form class="form" action="{% url 'checkout_now' vehicle.sku %}" method="post">
@@ -80,7 +80,7 @@
                             </div>
 
                             <div class="col-12 vehicle-detail--title">
-                                <h5>£{{ vehicle.price}}</h5>
+                                <h5>£{{ vehicle.full_price}}</h5>
                             </div>
 
                             <div class="col-12 vehicle-detail--title">

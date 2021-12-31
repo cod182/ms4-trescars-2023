@@ -26,6 +26,7 @@ class Vehicle(models.Model):
     seats = models.IntegerField(null=False, blank=False)
     description = models.TextField()
     price = models.IntegerField(null=False, blank=False)
+    full_price = models.IntegerField(null=False, blank=False, default=200)
     mileage = models.IntegerField(null=False, blank=False)
     model_year = models.IntegerField(null=False, blank=False)
     doors = models.IntegerField(null=False, blank=False)

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load mathfilters %}
 {% load bag_tools %}
 {% block extra_title %}
 - Checkout
@@ -55,6 +56,7 @@
                             <div class="col-7">
                                 <p class="my-0">
                                     <strong>{{ item.vehicle.make | capfirst}} {{ item.vehicle.model | capfirst}} {{ item.vehicle.registration | upper }}</strong>
+                                    <p class="my-0 small text-muted">To pay on collection: £{{ item.vehicle.full_price | sub:item.vehicle.price }}</p>
                                 </p>
                             </div>
                             <div class="col-3 text-right">

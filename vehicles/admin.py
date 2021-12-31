@@ -29,6 +29,7 @@ class VehicleAdmin(admin.ModelAdmin):
         'seats',
         'description',
         'price',
+        'full_price',
         'mileage',
         'model_year',
         'doors',
