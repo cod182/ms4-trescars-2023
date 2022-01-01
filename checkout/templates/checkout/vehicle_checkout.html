@@ -39,9 +39,8 @@
                         <p class="mb-1 mt-0 small text-muted">Subtotal</p>
                     </div>
                 </div>
-                {% for item in vehicle_bag_items %}
                     <div class="row">
-                        {% if item.vehicle %}
+                        {% for item in vehicle_bag_items %}
                             <div class="col-2 mb-1">
                                 <a href="{% url 'vehicle_detail' item.vehicle.sku %}">
                                     {% for image in images %}
@@ -62,39 +61,14 @@
                             <div class="col-3 text-right">
                                 <p class="my-0 small text-muted">£{{ item.vehicle.price | calc_subtotal:item.quantity }}</p>
                             </div>
-                        </div>
-
-                        {% elif item.accessory %}
-                            <div class="col-2 mb-1">
-                                <a href="{% url 'vehicle_detail' item.accessory.sku %}">
-                                    {% for image in images %}
-                                        {% if item.accessory.sku in image.name %}
-                                            {% if image.main %}
-                                                <img class="w-100" src="{{ media }}{{ image.image }}" alt="{{ item.accessory.sku }}">
-                                            {% endif %}
-                                        {% endif %}
-                                    {% endfor %}
-                                </a>
-                            </div>
-                            <div class="col-7">
-                                <p class="my-0">
-                                    <strong>{{ item.vehicle.make | capfirst}} {{ item.vehicle.model | capfirst}} {{ item.vehicle.registration | upper }}</strong>
-                                </p>
-                            </div>
-                            <div class="col-3 text-right">
-                                <p class="my-0 small text-muted">£{{ item.vehicle.price | calc_subtotal:item.quantity }}</p>
-                            </div>
-                        </div>
-                        {% endif %}
-                {% endfor %}
+                        {% endfor %}
+                    </div>
                 <hr class="my-0">
                 <div class="row text-black text-right">
                     <div class="col-7 offset-2">
-                        <p class="my-0">Order Total:</p>
-                        <p class="my-0">Grand Total:</p>
+                        <p class="my-0">Amount to confirm reservation:</p>
                     </div>
                     <div class="col-3">
-                        <p class="my-0">£{{ vehicle_total | floatformat:2 }}</p>
                         <p class="my-0"><strong>£{{ vehicle_grand_total | floatformat:2 }}</strong></p>
                     </div>
                 </div>
@@ -102,7 +76,7 @@
 
             <div class="col-12 col-lg-6">
                 <p>Please fill out the form below</p>
-                <form action="{% url 'checkout' %}" method="POST" id="payment-form">
+                <form action="{% url 'reserve_vehicle_checkout' None %}" method="POST" id="payment-form">
                     {% csrf_token %}
                     <fieldset class="rounded px-3 mb-5">
                         <legend class="fieldset-label info-label">Details</legend>

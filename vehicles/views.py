@@ -38,6 +38,7 @@ def all_vehicles(request):
     A view to show all vehicles, including sorting
     and search queries
     """
+    request.session['vehicle_bag'] = {}
     vehicles = Vehicle.objects.all()
     images = VehicleImages.objects.all()
     query = None
@@ -158,6 +159,7 @@ def vehicle_detail(request, vehicle_sku):
     """
     A view to show a vehicle detail page
     """
+    request.session['vehicle_bag'] = {}
     vehicle = get_object_or_404(Vehicle, sku=vehicle_sku)
 
     images = VehicleImages.objects.filter(vehicle_name=vehicle.pk)

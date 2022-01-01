@@ -27,7 +27,7 @@
                     <p>Reserve Now <br> for £{{ vehicle.price }}</p>
                 </div>
                 <div class="d-md-none d-lg-block vehicle-reserve-continaer">
-                    <form class="form" action="{% url 'checkout_now' vehicle.sku %}" method="post">
+                    <form class="form" action="{% url 'reserve_vehicle_checkout' vehicle.sku %}" method="get">
                         {% csrf_token %}
 
                         <input class="hidden qty_input" type="number" name="quantity" value="1" min="1" max="1" data-item_id="{{ vehicle.sku }}" id="id_qty_{{ vehicle.sku }}">
@@ -184,7 +184,7 @@
 
                         <div class="row d-lg-none gx-0">
                             <div class="col-12 col-md-6 text-center">
-                                <form class="form" action="{% url 'checkout_now' vehicle.sku %}" method="post">
+                                <form class="form" action="{% url 'reserve_vehicle_checkout' vehicle.sku %}" method="get">
                                     {% csrf_token %}
             
                                     <input class="hidden qty_input" type="number" name="quantity" value="1" min="1" max="1" data-item_id="{{ vehicle.sku }}" id="id_qty_{{ vehicle.sku }}">

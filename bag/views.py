@@ -11,7 +11,7 @@ def view_bag(request):
     """
     A view to return the bag content page
     """
-
+    request.session['vehicle_bag'] = {}
     template = 'bag/bag.html'
     context = {
         'static': settings.STATIC_URL,

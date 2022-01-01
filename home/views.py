@@ -6,7 +6,7 @@ from vehicles.models import unique_vehicle_parameters, Vehicle
 # Create your views here.
 
 def index(request):
-
+    request.session['vehicle_bag'] = {}
     vehicle_makes = unique_vehicle_parameters.unique_vehicle_makes()
     vehicles = unique_vehicle_parameters.unique_vehicle_models()
 
