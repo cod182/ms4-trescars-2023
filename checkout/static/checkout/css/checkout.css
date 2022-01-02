@@ -19,12 +19,6 @@
     z-index: 9999;
 }
 
-.loading {
-    display: flex;
-    width: 25vw;
-    height: 15vw;
-}
-
 .StripeElement,
 .stripe-style-input {
   box-sizing: border-box;
@@ -82,4 +76,15 @@ select option[value=""] {
     height: 100%;
     background: rgba(23, 162, 184, .85);
     z-index: 9999;
+}
+
+.loading {
+  display: flex;
+  width: 25vw;
+  display: flex;
+  position: absolute;
+  width: 25vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

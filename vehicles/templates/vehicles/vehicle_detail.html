@@ -26,7 +26,7 @@
                 <div class="vehicle-detail--banner">
                     <p>Reserve Now <br> for £{{ vehicle.price }}</p>
                 </div>
-                <div class="d-md-none d-lg-block vehicle-reserve-continaer">
+                <div class="d-none d-lg-block vehicle-reserve-continaer">
                     <form class="form" action="{% url 'reserve_vehicle_checkout' vehicle.sku %}" method="get">
                         {% csrf_token %}
 
@@ -58,7 +58,7 @@
                         <div class="row image-row">
                             {% for image in images %}
                                 <!-- Small Image -->
-                                <div class="col-2">
+                                <div class="col-3 col-sm-2">
                                     <img class="vehicle-detail--image-small" src="{{ media }}{{ image.image }}" alt="Image of {{ vehicle.registration | upper }}" onclick="myFunction(this);">
                                 </div>
                             {%endfor%}
@@ -90,7 +90,7 @@
 
                         <!-- Info -->
                         <div class="row">
-                            <div class="col-3 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/paint.png' %}" alt="Colour Icon">
                                     <br class="d-block d-md-none">
@@ -98,7 +98,7 @@
                                 </p>
                             </div>
 
-                            <div class="col-3 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/fuel.png' %}" alt="Fuel Icon">
                                     <br class="d-block d-md-none">
@@ -106,13 +106,13 @@
                                 </p>
                             </div>
 
-                            <div class="col-3 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/engine.png' %}" alt="Engine Size Icon">
                                 <br class="d-block d-md-none">
                                 {{ vehicle.engine_size }}
                             </div>
 
-                            <div class="col-3 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/car.png' %}" alt="Body Type Icon">
                                     <br class="d-block d-md-none">
@@ -120,7 +120,7 @@
                                 </p>
                             </div>
 
-                            <div class="col-3 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/gearbox.png' %}" alt="Gearbox Icon">
                                     <br class="d-block d-md-none">
@@ -128,7 +128,7 @@
                                 </p>
                             </div>
 
-                            <div class="col-3 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/drivetrain.png' %}" alt="Drivetrain Icon">
                                     <br class="d-block d-md-none">
@@ -136,7 +136,7 @@
                                 </p>
                             </div>
 
-                            <div class="col-3 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/seat.png' %}" alt="Seat Icon">
                                     <br class="d-block d-md-none">
@@ -144,7 +144,7 @@
                                 </p>
                             </div>
 
-                            <div class="col-3 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/door.png' %}" alt="Door Icon">
                                     <br class="d-block d-md-none">
@@ -152,7 +152,7 @@
                                 </p>
                             </div>
 
-                            <div class="col-4 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/co2.png' %}" alt="CO2 Icon">
                                     <br class="d-block d-md-none">
@@ -160,7 +160,7 @@
                                 </p>
                             </div>
 
-                            <div class="col-4 vehicle-detail-small-info">
+                            <div class="col-6 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/mot.png' %}" alt="MOT Icon">
                                     <br class="d-block d-md-none">
@@ -168,7 +168,7 @@
                                 </p>
                             </div>
 
-                            <div class="col-4 vehicle-detail-small-info">
+                            <div class="col-6 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/tax.png' %}" alt="Tax Icon">
                                     <br class="d-block d-md-none">
