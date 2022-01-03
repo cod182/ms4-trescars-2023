@@ -38,7 +38,9 @@ def all_vehicles(request):
     A view to show all vehicles, including sorting
     and search queries
     """
+    request.session['vehicle_bag'] = {}
     vehicles = Vehicle.objects.all()
+    images = VehicleImages.objects.all()
     query = None
     sort = None
     direction = None
@@ -135,9 +137,9 @@ def all_vehicles(request):
 
     context = {
         'vehicles': page_obj,
+        'images': images,
         'search_term': query,
         'current_sorting': current_sorting,
-        'static': settings.STATIC_URL,
         'media': settings.MEDIA_URL,
         'vehicle_makes': vehicle_makes,
         'vehicle_models':  vehicle_models,
@@ -157,6 +159,7 @@ def vehicle_detail(request, vehicle_sku):
     """
     A view to show a vehicle detail page
     """
+    request.session['vehicle_bag'] = {}
     vehicle = get_object_or_404(Vehicle, sku=vehicle_sku)
 
     images = VehicleImages.objects.filter(vehicle_name=vehicle.pk)
@@ -167,7 +170,6 @@ def vehicle_detail(request, vehicle_sku):
         'vehicle': vehicle,
         'images': images,
         'dvla_data': dvla_data,
-        'static': settings.STATIC_URL,
         'media': settings.MEDIA_URL,
     }
     return render(request, 'vehicles/vehicle_detail.html', context)

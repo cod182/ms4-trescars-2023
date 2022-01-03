@@ -4,6 +4,10 @@
  - {{ vehicle.make | capfirst  }} {{ vehicle.model | capfirst }} {{ vehicle.registration | upper }}
  {% endblock %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'vehicles/css/vehicles.css' %}">
+{% endblock %}
+
  {% block page_header %}
 
  {% endblock %}
@@ -20,17 +24,15 @@
             </div>
             <div class="container vehicle-detail-container">
                 <div class="vehicle-detail--banner">
-                    <p>Reserve Now <br> for £200</p>
+                    <p>Reserve Now <br> for £{{ vehicle.price }}</p>
                 </div>
-                <div class="vehicle-reserve-continaer">
-                    <form class="form" action="{% url 'add_to_bag' vehicle.sku %}" method="post">
+                <div class="d-none d-lg-block vehicle-reserve-continaer">
+                    <form class="form" action="{% url 'reserve_vehicle_checkout' vehicle.sku %}" method="get">
                         {% csrf_token %}
 
                         <input class="hidden qty_input" type="number" name="quantity" value="1" min="1" max="1" data-item_id="{{ vehicle.sku }}" id="id_qty_{{ vehicle.sku }}">
                         
-                        <button class="btn btn--reserve-now" type="submit">Reserve Now!</button>
-
-                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                        <button {% if vehicle.available != 'yes' %} disabled {% endif %}class="btn btn--reserve-now" type="submit">{% if vehicle.available == 'yes' %} Reserve Now! {% else %} Sorry, you've missed it! {% endif %}</button>
                     </form>
                 </div>
                     
@@ -56,7 +58,7 @@
                         <div class="row image-row">
                             {% for image in images %}
                                 <!-- Small Image -->
-                                <div class="col-2">
+                                <div class="col-3 col-sm-2">
                                     <img class="vehicle-detail--image-small" src="{{ media }}{{ image.image }}" alt="Image of {{ vehicle.registration | upper }}" onclick="myFunction(this);">
                                 </div>
                             {%endfor%}
@@ -78,7 +80,7 @@
                             </div>
 
                             <div class="col-12 vehicle-detail--title">
-                                <h5>£{{ vehicle.price}}</h5>
+                                <h5>£{{ vehicle.full_price}}</h5>
                             </div>
 
                             <div class="col-12 vehicle-detail--title">
@@ -88,87 +90,87 @@
 
                         <!-- Info -->
                         <div class="row">
-                            <div class="col-3 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
-                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/paint.png" alt="Colour Icon">
+                                    <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/paint.png' %}" alt="Colour Icon">
                                     <br class="d-block d-md-none">
                                     {{ vehicle.colour | capfirst}}
                                 </p>
                             </div>
 
-                            <div class="col-3 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
-                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/fuel.png" alt="Fuel Icon">
+                                    <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/fuel.png' %}" alt="Fuel Icon">
                                     <br class="d-block d-md-none">
                                     {{ vehicle.fuel | capfirst }}
                                 </p>
                             </div>
 
-                            <div class="col-3 vehicle-detail-small-info">
-                                <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/engine.png" alt="Engine Size Icon">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
+                                <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/engine.png' %}" alt="Engine Size Icon">
                                 <br class="d-block d-md-none">
                                 {{ vehicle.engine_size }}
                             </div>
 
-                            <div class="col-3 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
-                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/car.png" alt="Body Type Icon">
+                                    <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/car.png' %}" alt="Body Type Icon">
                                     <br class="d-block d-md-none">
                                     {{ vehicle.body_type | upper }}
                                 </p>
                             </div>
 
-                            <div class="col-3 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
-                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/gearbox.png" alt="Gearbox Icon">
+                                    <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/gearbox.png' %}" alt="Gearbox Icon">
                                     <br class="d-block d-md-none">
                                     {{ vehicle.gearbox | capfirst }}
                                 </p>
                             </div>
 
-                            <div class="col-3 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
-                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/drivetrain.png" alt="Drivetrain Icon">
+                                    <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/drivetrain.png' %}" alt="Drivetrain Icon">
                                     <br class="d-block d-md-none">
                                     {{ vehicle.drivetrain |upper }}
                                 </p>
                             </div>
 
-                            <div class="col-3 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
-                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/seat.png" alt="Seat Icon">
+                                    <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/seat.png' %}" alt="Seat Icon">
                                     <br class="d-block d-md-none">
                                     {{ vehicle.seats }}
                                 </p>
                             </div>
 
-                            <div class="col-3 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
-                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/door.png" alt="Door Icon">
+                                    <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/door.png' %}" alt="Door Icon">
                                     <br class="d-block d-md-none">
                                     {{ vehicle.doors }}
                                 </p>
                             </div>
 
-                            <div class="col-4 vehicle-detail-small-info">
+                            <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
-                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/co2.png" alt="CO2 Icon">
+                                    <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/co2.png' %}" alt="CO2 Icon">
                                     <br class="d-block d-md-none">
                                     {{ dvla_data.co2Emissions }} g/Km
                                 </p>
                             </div>
 
-                            <div class="col-4 vehicle-detail-small-info">
+                            <div class="col-6 col-sm-3 vehicle-detail-small-info">
                                 <p>
-                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/mot.png" alt="MOT Icon">
+                                    <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/mot.png' %}" alt="MOT Icon">
                                     <br class="d-block d-md-none">
                                     <span id="mot-date">{{ dvla_data.motExpiryDate }}</span>
                                 </p>
                             </div>
 
-                            <div class="col-4 vehicle-detail-small-info">
+                            <div class="col-6 col-sm-3 vehicle-detail-small-info">
                                 <p>
-                                    <img class="vehicle-detail-small-info--icon" src="{{ static }}images/icons/tax.png" alt="Tax Icon">
+                                    <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/tax.png' %}" alt="Tax Icon">
                                     <br class="d-block d-md-none">
                                     <span id="tax-date">{{ dvla_data.taxDueDate }}</span>
                                 </p>
@@ -182,7 +184,13 @@
 
                         <div class="row d-lg-none gx-0">
                             <div class="col-12 col-md-6 text-center">
-                                <a href="" class="btn btn--reserve-now">Reserve Now!</a>
+                                <form class="form" action="{% url 'reserve_vehicle_checkout' vehicle.sku %}" method="get">
+                                    {% csrf_token %}
+            
+                                    <input class="hidden qty_input" type="number" name="quantity" value="1" min="1" max="1" data-item_id="{{ vehicle.sku }}" id="id_qty_{{ vehicle.sku }}">
+                                    
+                                    <button {% if vehicle.available != 'yes' %} disabled {% endif %}class="btn btn--reserve-now" type="submit">{% if vehicle.available == 'yes' %} Reserve Now! {% else %} Sorry, you've missed it! {% endif %}</button>
+                                </form>                            
                             </div>
 
                             <div class="col-12 col-md-6 text-center">

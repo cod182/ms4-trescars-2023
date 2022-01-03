@@ -7,6 +7,7 @@ class VehicleImagesAdmin(admin.ModelAdmin):
         'name',
         'vehicle_name',
         'image',
+        'main',
     )
 
     ordering = ('vehicle_name',)
@@ -28,6 +29,7 @@ class VehicleAdmin(admin.ModelAdmin):
         'seats',
         'description',
         'price',
+        'full_price',
         'mileage',
         'model_year',
         'doors',
