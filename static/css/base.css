@@ -186,6 +186,21 @@
     color: white;
 }
 
+.btn--black-border--home {
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+    width: fit-content;
+}
+
+.btn--black-border--home:hover,
+.btn--black-border--home:focus,
+.btn--black-border--home:active,
+.btn--black-border--home:active:focus {
+    background-color: black;
+    color: white;
+}
+
 .btn--update-link {
     cursor:pointer;
     text-decoration: none;
@@ -215,10 +230,6 @@
 .btn--remove-item:focus,
 .btn--remove-item:active:focus {
     color: rgb(255, 0, 0);
-}
-
-.btn--complete-order {
-    
 }
 
 .navbar {
@@ -562,6 +573,20 @@
     text-align: center;
 }
 
+.allauth-form-inner-content {
+    display: block;
+    margin: 10% auto;
+    padding: 40px;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 30px;
+    width: 50%;
+}
+
+.form-group {
+    text-align: left;
+}
+
 @media (max-width: 991px){
      .nav-item {
         line-height: 0;
@@ -592,6 +617,10 @@
         font-weight: bold;
         width: 90%;
         margin: 0 auto;
+    }
+
+    .allauth-form-inner-content {
+        width: 100%;
     }
 }
 
