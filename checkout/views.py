@@ -51,6 +51,7 @@ def reserve_vehicle_checkout(request, vehicle):
             'street_address1': request.POST['street_address1'],
             'street_address2': request.POST['street_address2'],
             'county': request.POST['county'],
+            'country': request.POST['country'],
         }
 
         order_form = OrderForm(form_data)
@@ -159,6 +160,7 @@ def checkout(request):
             'street_address1': request.POST['street_address1'],
             'street_address2': request.POST['street_address2'],
             'county': request.POST['county'],
+            'default_country': order.country,
         }
 
         order_form = OrderForm(form_data)
