@@ -207,8 +207,8 @@
                 <div class="text-end">
                     <select id="sort-selector" class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
                         <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
-                        <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to high)</option>
-                        <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high to low)</option>
+                        <option value="pricex_asc" {% if current_sorting == 'full_price_asc' %}selected{% endif %}>Price (low to high)</option>
+                        <option value="pricex_desc" {% if current_sorting == 'full_price_desc' %}selected{% endif %}>Price (high to low)</option>
                         <option value="model_asc" {% if current_sorting == 'model_asc' %}selected{% endif %}>Age (oldest to newest)</option>
                         <option value="model_desc" {% if current_sorting == 'model_desc' %}selected{% endif %}>Age (newest to oldest)</option>
                     </select>
