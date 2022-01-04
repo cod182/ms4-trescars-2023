@@ -79,6 +79,6 @@
 {% endblock %}
 
 {% block postload_js %}
-{% block.super}
+{{ block.super }}
     <script src="{% static 'profiles/js/profile.js' %}"></script>
 {% endblock%}

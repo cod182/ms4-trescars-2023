@@ -1,6 +1,10 @@
 let countryField = document.getElementById('id_default_country');
 
-countryField.classList.add('greyed');
+window.addEventListener('load', function() {
+    if (countryField.value == '') {
+        countryField.classList.add('greyed');
+    }
+})
 
 countryField.addEventListener('change', function() {
     if (countryField.value == '') {
