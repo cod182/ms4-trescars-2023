@@ -12,10 +12,6 @@
 
 /* Colours */
 
-.black {
-    color: black;
-}
-
 .white {
     color: white;
 }
@@ -30,6 +26,10 @@
 
 .greyed {
     color: rgb(124 124 124);
+}
+
+.black {
+    color: black;
 }
 
 /* fonts */
