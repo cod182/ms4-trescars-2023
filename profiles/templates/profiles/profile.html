@@ -41,30 +41,35 @@
         <div class="mx-auto col-12 col-md-8 col-lg-8 my-3 ">
             <table class="table table-lg table-borderless text-center align-middle">
                 <thead>
-                    <tr>
+                    <tr>                        
+                        <th>Item Type</th>
                         <th>Order Number</th>
                         <th>Order Date</th>
-                        <th>Item Type</th>
                         <th>Items</th>
                         <th>Order Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for order in orders %}
+
                     <tr>
+                        <td>{{ order.order_type | capfirst }}</td>
                         <td>
-                            <a href="#" title="{{ order.order_number }}">
+                            <a href="{% url 'order_detail' order.order_number %}" title="{{ order.order_number }}">
                                 {{ order.order_number|truncatechars:10 }}
                             </a>
                         </td>
                         <td>{{ order.date }}</td>
                             {% for item in order.lineitems.all %}
-                                <td>{{ item.vehicle.type | capfirst}}</td>
-                                <td>
-                                    {{ item.vehicle.make | capfirst}} {{ item.vehicle.model | capfirst }} 
-                                    <br>
-                                    {{ item.vehicle.registration | upper }}
-                                </td>
+                                {% if item.vehicle %}
+                                    <td>
+                                        {{ item.vehicle.make | capfirst}} {{ item.vehicle.model | capfirst }} 
+                                        <br>
+                                        {{ item.vehicle.registration | upper }}
+                                    </td>
+                                {% elif item.accessory %}
+
+                                {% endif %}
                         {% endfor %}
                         <td>£{{ order.grand_total }}</td>
                     </tr>

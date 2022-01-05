@@ -24,12 +24,14 @@ def cache_checkout_data(request):
                 'bag': json.dumps(request.session.get('vehicle_bag', {})),
                 'save_info': request.POST.get('save_info'),
                 'username': request.user,
+                'order_type': 'vehicle',
             })
         else:
             stripe.PaymentIntent.modify(pid, metadata={
                 'bag': json.dumps(request.session.get('accessory_bag', {})),
                 'save_info': request.POST.get('save_info'),
                 'username': request.user,
+                'order_type': 'accessories',
             })
 
         return HttpResponse(status=200)
@@ -44,6 +46,26 @@ def reserve_vehicle_checkout(request, vehicle):
     STRIPE_PUBLIC_KEY = settings.STRIPE_PUBLIC_KEY
     STRIPE_SECRET_KEY = settings.STRIPE_SECRET_KEY
 
+    # Auto fill save info
+    if request.user.is_authenticated:
+        try:
+            profile = UserProfile.objects.get(user=request.user)
+            order_form = OrderForm(initial={
+                'full_name': profile.user.get_full_name(),
+                'email': profile.user.email,
+                'phone_number': profile.default_phone_number,
+                'street_address1': profile.default_street_address1,
+                'street_address2': profile.default_street_address2,
+                'town_or_city': profile.default_town_or_city,
+                'county': profile.default_county,
+                'postcode': profile.default_postcode,
+                'country': profile.default_country,
+            })
+        except UserProfile.DoesNotExist:
+            order_form = OrderForm()
+    else:
+        order_form = OrderForm()
+
     if request.method == 'POST':
         if 'reserve_vehicle' in request.POST:
 
@@ -54,30 +76,11 @@ def reserve_vehicle_checkout(request, vehicle):
 
             request.session['vehicle_bag'] = vehicle_bag
 
-            # Attempt to fill the form with any info in profile
-            if request.user.is_authenticated:
-                try:
-                    profile = UserProfile.objects.get(user=request.user)
-                    order_form = OrderForm(initial={
-                        'full_name': profile.user.get_full_name(),
-                        'email': profile.user.email,
-                        'phone_number': profile.default_phone_number,
-                        'street_address1': profile.default_street_address1,
-                        'street_address2': profile.default_street_address2,
-                        'town_or_city': profile.default_town_or_city,
-                        'county': profile.default_county,
-                        'postcode': profile.default_postcode,
-                        'country': profile.default_country,
-                    })
-                except UserProfile.DoesNotExist:
-                    order_form = OrderForm()
-            else:
-                order_form = OrderForm()
-
         else:
             vehicle_bag = request.session.get('vehicle_bag', {})
 
             form_data = {
+                'order_type': request.POST['order_type'],
                 'full_name': request.POST['full_name'],
                 'email': request.POST['email'],
                 'phone_number': request.POST['phone_number'],
@@ -87,12 +90,14 @@ def reserve_vehicle_checkout(request, vehicle):
                 'street_address2': request.POST['street_address2'],
                 'county': request.POST['county'],
                 'country': request.POST['country'],
+                'order_type': request.POST['order_type']
             }
 
             order_form = OrderForm(form_data)
             if order_form.is_valid():
                 order = order_form.save(commit=False)
                 pid = request.POST.get('client_secret').split('_secret')[0]
+                order.order_type = request.POST['order_type']
                 order.stripe_pid = pid
                 order.original_bag = json.dumps(vehicle_bag)
                 order.save()
@@ -112,7 +117,7 @@ def reserve_vehicle_checkout(request, vehicle):
                             "Please call us for assistance!")
                         )
                         order.delete()
-                        return redirect(reverse('view_bag'))
+                        return redirect(reverse('vehicles'))
 
                 # Save the info to the user's profile
                 request.session['save_info'] = 'save-info' in request.POST
@@ -167,6 +172,7 @@ def checkout_vehicle_success(request, order_number):
                 'default_street_address1': order.street_address1,
                 'default_street_address2': order.street_address2,
                 'default_county': order.county,
+                'default_country': order.country,
             }
             user_profile_form = UserProfileForm(profile_data, instance=profile)
             if user_profile_form.is_valid():
@@ -181,9 +187,10 @@ def checkout_vehicle_success(request, order_number):
             Vehicle.objects.filter(sku=item).update(available='no')
             del request.session['vehicle_bag']
 
-    template = 'checkout/checkout_vehicle_success.html'
+    template = 'checkout/checkout_success.html'
     context = {
         'order': order,
+        'order_type': 'vehicle',
     }
 
     return render(request, template, context)
@@ -207,7 +214,7 @@ def checkout(request):
             'street_address1': request.POST['street_address1'],
             'street_address2': request.POST['street_address2'],
             'county': request.POST['county'],
-            'default_country': order.country,
+            'default_country': request.POST['country'],
         }
 
         order_form = OrderForm(form_data)
@@ -275,6 +282,8 @@ def checkout_success(request, order_number):
     bag = request.session.get('bag', {})
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
+    order_type = request.POST.get('order_type')
+
 
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \

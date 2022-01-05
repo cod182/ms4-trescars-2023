@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load mathfilters %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
@@ -19,14 +20,16 @@
         <div class="row">
             <div class="col">
                 <hr>
-                <h2 class="logo-font mb-4">Thank You!</h2>
+                <h2 class="logo-font mb-4">
+                    {% if order_type == 'vehicle' %}Your vehicle has been reserved{% elif order_type == 'accessories' %}Your order has been placed{% endif %}
+                </h2>
                 <hr>
-                <p class="text-black">Your order information is below. A confirmation email will be sent to <strong>{{ order.email }}</strong>.</p>
+                <p class="text-black">Your confirmaiton information is below. Am email will be sent to <strong>{{ order.email }}</strong>.</p>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-12 col-lg-7">
+            <div class="col-12">
                 <div class="order-confirmation-wrapper p-2 border">
 
                     <div class="row">
@@ -37,7 +40,7 @@
 
                     <div class="row">
                         <div class="col-12 col-md-4">
-                            <p class="mb-0 text-black font-weight-bold">Order Number</p>
+                            <p class="mb-0 bold">Order Number</p>
                         </div>
                         <div class="col-12 col-md-8 text-md-right">
                             <p class="mb-0">{{ order.order_number }}</p>
@@ -46,40 +49,41 @@
 
                     <div class="row">
                         <div class="col-12 col-md-4">
-                            <p class="mb-0 text-black font-weight-bold">Order Date</p>
+                            <p class="mb-0 bold">Order Date</p>
                         </div>
                         <div class="col-12 col-md-8 text-md-right">
                             <p class="mb-0">{{ order.date }}</p>
                         </div>
                     </div>
 
+                    <hr>
+
                     <div class="row">
-                        <div class="col">
-                            <small class="text-muted">Order Details:</small>
+                        <div class="col-12 col-md-4">
+                            <p class="mb-0 bold">{% if order_type == 'vehicle' %}Reserved Vehicle{% elif order_type == 'accessories' %}Ordered Items{% endif %}</p>
                         </div>
-                    </div>
                     {% for item in order.lineitems.all %}
-                        <div class="row">
-                            <div class="col-12 col-md-4">
-                                <p class="small mb-0 text-black font-weight-bold">
-                                    {{ item.product.name }}{% if item.prodyct_size %} - Size {{ item.product_size|upper }}{% endif %}
+                        {% if item.vehicle %}
+                            <div class="col-12 col-md-8 text-md-right">
+                                <p class="mb-0">
+                                    {{ item.vehicle.make | capfirst }} {{ item.vehicle.model | capfirst }} - {{ item.vehicle.registration | upper }}
                                 </p>
                             </div>
-                            <div class="col-12 col-md-8 text-md-right">
-                                <p class=" small mb-0">{{ item.quantity }} @ ${{ item.product.price}} each</p>
-                            </div>
                         </div>
+                        {% endif %}
                     {% endfor %}
+
+                    <hr>
 
                     <div class="row">
                         <div class="col">
-                            <small class="text-muted">Delivering To:</small>
+                                <small class="text-muted">Your Details:</small>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-12 col-md-4">
-                            <p class="mb-0 text-black font-weight-bold">Full Name</p>
+                            <small class="bold">Name:</small>
                         </div>
                         <div class="col-12 col-md-8 text-md-right">
                             <p class="mb-0">{{ order.full_name }}</p>
@@ -88,72 +92,37 @@
 
                     <div class="row">
                         <div class="col-12 col-md-4">
-                            <p class="mb-0 text-black font-weight-bold">Address 1</p>
+                            <small class="bold">Address:</small>
                         </div>
                         <div class="col-12 col-md-8 text-md-right">
                             <p class="mb-0">{{ order.street_address1 }}</p>
-                        </div>
-                    </div>
-
-                    {% if order.street_address2 %}
-                        <div class="row">
-                            <div class="col-12 col-md-4">
-                                <p class="mb-0 text-black font-weight-bold">Address 2</p>
-                            </div>
-                            <div class="col-12 col-md-8 text-md-right">
+                            {% if order.street_address2 %}
                                 <p class="mb-0">{{ order.street_address2 }}</p>
-                            </div>
-                        </div>
-                    {% endif %}
-
-                    {% if order.county %}
-                        <div class="row">
-                            <div class="col-12 col-md-4">
-                                <p class="mb-0 text-black font-weight-bold">County</p>
-                            </div>
-                            <div class="col-12 col-md-8 text-md-right">
+                            {% endif %}
+        
+                            {% if order.county %}
                                 <p class="mb-0">{{ order.county }}</p>
-                            </div>
-                        </div>
-                    {% endif %}
-
-                    <div class="row">
-                        <div class="col-12 col-md-4">
-                            <p class="mb-0 text-black font-weight-bold">Town or City</p>
-                        </div>
-                        <div class="col-12 col-md-8 text-md-right">
-                            <p class="mb-0">{{ order.town_or_city }}</p>
-                        </div>
-                    </div>
-
-                    {% if order.postcode %}
-                        <div class="row">
-                            <div class="col-12 col-md-4">
-                                <p class="mb-0 text-black font-weight-bold">Post Code</p>
-                            </div>
-                            <div class="col-12 col-md-8 text-md-right">
+                            {% endif %}
+                                <p class="mb-0">{{ order.town_or_city }}</p>
+                            {% if order.postcode %}
                                 <p class="mb-0">{{ order.postcode }}</p>
-                            </div>
-                        </div>
-                    {% endif %}
-
-                    <div class="row">
-                        <div class="col-12 col-md-4">
-                            <p class="mb-0 text-black font-weight-bold">Country</p>
-                        </div>
-                        <div class="col-12 col-md-8 text-md-right">
+                            {% endif %}
                             <p class="mb-0">{{ order.country }}</p>
                         </div>
                     </div>
 
+
+
                     <div class="row">
                         <div class="col-12 col-md-4">
-                            <p class="mb-0 text-black font-weight-bold">Phone Number</p>
+                            <small class="bold">Phone Number:</small>
                         </div>
                         <div class="col-12 col-md-8 text-md-right">
                             <p class="mb-0">{{ order.phone_number }}</p>
                         </div>
                     </div>
+
+                    <hr>
 
                     <div class="row">
                         <div class="col">
@@ -162,20 +131,43 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-12 col-md-4">
-                            <p class="mb-0 text-black font-weight-bold">Order Total</p>
+                        <div class="col-12 col-sm-4">
+                            <p class="mb-0 bold">Paid Today:</p>
                         </div>
-                        <div class="col-12 col-md-8 text-md-right">
-                            <p class="mb-0">{{ order.order_total }}</p>
+                        <div class="col-12 col-sm-8 text-md-right">
+                            <p class="mb-0">£{{ order.order_total }}</p>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-12 col-md-4">
-                            <p class="mb-0 text-black font-weight-bold">Grand Total</p>
+                        <div class="col-12 col-sm-4">
+                            <p class="mb-0 bold">To Pay On Collection:</p>
                         </div>
-                        <div class="col-12 col-md-8 text-md-right">
-                            <p class="mb-0">{{ order.grand_total }}</p>
+                        {% for item in order.lineitems.all %}
+                            <div class="col-8 text-sm-right">
+                                <p class="mb-0">£{{ item.vehicle.full_price | sub:item.vehicle.price }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-12">
+                            {% if order_type == 'vehicle' %}
+
+                                <p class="mb-0 text-small">
+                                    Thank you for your reservation, we will call you on {{ order.phone_number }} within the next hour to confirm a date and time for you to collect your new vehicle.
+                                <br>
+                                If you have ordered after working hours or on a weekend, we will call the next working day.
+                                </p>
+                                <br>
+                                <p class="bold">Please note, vehicles must be taxed and insured before leaving our premesis.</p>
+                                
+                            {% elif order_type == 'accessories' %}
+                                <p class="mb-0 text-small">Thank you for your order. We will ship your package the same day if placed before 12:00 or the next working day.</p>
+                            {% endif %}
+
                         </div>
                     </div>
 
@@ -183,9 +175,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-lg-7 text-right">
+            <div class="col-12 my-2 more-button-container">
                 {% if from_profile %}
-                    <a href="{% url 'profile' %}" class="btn btn-black rounded-0 my-2">
+                    <a href="{% url 'profile' %}" class="btn btn--black-border">
                     
                         <span class="icon mr-2">
                             <i class="fas fa-angle-left" aria-hidden="true"></i>
@@ -193,13 +185,22 @@
                         <span class="text-uppercase">Back To Profile</span>
                     </a>
                 {% else %}
-                    <a href="" class="btn btn-black rounded-0 my-2">
-                    
-                        <span class="icon mr-2">
-                            <i class="fas fa-gifts" aria-hidden="true"></i>
-                        </span>
-                        <span class="text-uppercase">Now check out the latest deals!</span>
-                    </a>
+                    {% if order_type == 'vehicle' %}
+                        <a href="#" class="btn btn--black-border">
+                            <span class="icon mr-2">
+                                <i class="fa fa-cog" aria-hidden="true"></i>
+                            </span>
+                            <span class="text-uppercase">Vehicle Accessories</span>
+                        </a>
+                    {% elif order_type == 'accessories' %}
+                        <a href="#" class="btn btn--black-border">
+                            <span class="icon mr-2">
+                                <i class="fa fa-cog" aria-hidden="true"></i>
+                            </span>
+                            <span class="text-uppercase">More Accessories</span>
+                        </a>
+                    {% endif %}
+
                 {% endif %}
             </div>
         </div>
