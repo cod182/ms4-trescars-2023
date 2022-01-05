@@ -39,7 +39,7 @@ def all_vehicles(request):
     and search queries
     """
     request.session['vehicle_bag'] = {}
-    vehicles = Vehicle.objects.all()
+    vehicles = Vehicle.objects.filter(available='yes')
     images = VehicleImages.objects.all()
     query = None
     sort = None

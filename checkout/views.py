@@ -45,91 +45,91 @@ def reserve_vehicle_checkout(request, vehicle):
     images = VehicleImages.objects.all()
     STRIPE_PUBLIC_KEY = settings.STRIPE_PUBLIC_KEY
     STRIPE_SECRET_KEY = settings.STRIPE_SECRET_KEY
-    vehicle_check = Vehicle.objects.get(sku=vehicle)
-    
-    if vehicle_check.available != 'yes':
-        return redirect(reverse('vehicles'))
-    else:
 
-        # Auto fill save info
-        if request.user.is_authenticated:
-            try:
-                profile = UserProfile.objects.get(user=request.user)
-                order_form = OrderForm(initial={
-                    'full_name': profile.user.get_full_name(),
-                    'email': profile.user.email,
-                    'phone_number': profile.default_phone_number,
-                    'street_address1': profile.default_street_address1,
-                    'street_address2': profile.default_street_address2,
-                    'town_or_city': profile.default_town_or_city,
-                    'county': profile.default_county,
-                    'postcode': profile.default_postcode,
-                    'country': profile.default_country,
-                })
-            except UserProfile.DoesNotExist:
-                order_form = OrderForm()
-        else:
+    # Auto fill save info
+    if request.user.is_authenticated:
+        try:
+            profile = UserProfile.objects.get(user=request.user)
+            order_form = OrderForm(initial={
+                'full_name': profile.user.get_full_name(),
+                'email': profile.user.email,
+                'phone_number': profile.default_phone_number,
+                'street_address1': profile.default_street_address1,
+                'street_address2': profile.default_street_address2,
+                'town_or_city': profile.default_town_or_city,
+                'county': profile.default_county,
+                'postcode': profile.default_postcode,
+                'country': profile.default_country,
+            })
+        except UserProfile.DoesNotExist:
             order_form = OrderForm()
+    else:
+        order_form = OrderForm()
 
-        if request.method == 'POST':
-            if 'reserve_vehicle' in request.POST:
+    if request.method == 'POST':
+        if 'reserve_vehicle' in request.POST:
+
+            vehicle_check = Vehicle.objects.get(sku=vehicle)
+            print(vehicle_check)
+            if vehicle_check.available != 'yes':
+                return redirect(reverse('vehicles'))
+            else:
 
                 if vehicle in list(vehicle_bag.keys()):
                     messages.error(request, "Vehicle already in bag!")
-                
+
                 else:
                     vehicle_bag[vehicle] = 1
 
                 request.session['vehicle_bag'] = vehicle_bag
 
-            else:
-                vehicle_bag = request.session.get('vehicle_bag', {})
+        else:
+            vehicle_bag = request.session.get('vehicle_bag', {})
 
-                form_data = {
-                    'order_type': request.POST['order_type'],
-                    'full_name': request.POST['full_name'],
-                    'email': request.POST['email'],
-                    'phone_number': request.POST['phone_number'],
-                    'postcode': request.POST['postcode'],
-                    'town_or_city': request.POST['town_or_city'],
-                    'street_address1': request.POST['street_address1'],
-                    'street_address2': request.POST['street_address2'],
-                    'county': request.POST['county'],
-                    'country': request.POST['country'],
-                    'order_type': request.POST['order_type']
-                }
+            form_data = {
+                'order_type': request.POST['order_type'],
+                'full_name': request.POST['full_name'],
+                'email': request.POST['email'],
+                'phone_number': request.POST['phone_number'],
+                'postcode': request.POST['postcode'],
+                'town_or_city': request.POST['town_or_city'],
+                'street_address1': request.POST['street_address1'],
+                'street_address2': request.POST['street_address2'],
+                'county': request.POST['county'],
+                'country': request.POST['country'],
+            }
 
-                order_form = OrderForm(form_data)
-                if order_form.is_valid():
-                    order = order_form.save(commit=False)
-                    pid = request.POST.get('client_secret').split('_secret')[0]
-                    order.order_type = request.POST['order_type']
-                    order.stripe_pid = pid
-                    order.original_bag = json.dumps(vehicle_bag)
-                    order.save()
-                    for item_id, item_data in vehicle_bag.items():
-                        try:
-                            vehicle = Vehicle.objects.get(sku=item_id)
-                            if isinstance(item_data, int):
-                                order_line_item = OrderLineItem(
-                                    order=order,
-                                    vehicle=vehicle,
-                                )
-                                order_line_item.save()
-                        except Vehicle.DoesNotExist:
-                            messages.error(request, (
-                                "One of the products in your bag wasn't found in our database."
-                                "Please call us for assistance!")
+            order_form = OrderForm(form_data)
+            if order_form.is_valid():
+                order = order_form.save(commit=False)
+                pid = request.POST.get('client_secret').split('_secret')[0]
+                order.order_type = request.POST['order_type']
+                order.stripe_pid = pid
+                order.original_bag = json.dumps(vehicle_bag)
+                order.save()
+                for item_id, item_data in vehicle_bag.items():
+                    try:
+                        vehicle = Vehicle.objects.get(sku=item_id)
+                        if isinstance(item_data, int):
+                            order_line_item = OrderLineItem(
+                                order=order,
+                                vehicle=vehicle,
                             )
-                            order.delete()
-                            return redirect(reverse('vehicles'))
+                            order_line_item.save()
+                    except Vehicle.DoesNotExist:
+                        messages.error(request, (
+                            "One of the products in your bag wasn't found in our database."
+                            "Please call us for assistance!")
+                        )
+                        order.delete()
+                        return redirect(reverse('vehicles'))
 
-                    # Save the info to the user's profile
-                    request.session['save_info'] = 'save-info' in request.POST
-                    return redirect(reverse('checkout_vehicle_success', args=[order.order_number]))
-                else:
-                    messages.error(request, 'There was an error with your form. \
-                        Please double check your information.')
+                # Save the info to the user's profile
+                request.session['save_info'] = 'save-info' in request.POST
+                return redirect(reverse('checkout_vehicle_success', args=[order.order_number]))
+            else:
+                messages.error(request, 'There was an error with your form. \
+                    Please double check your information.')
 
         current_bag = vehicle_bag_contents(request)
         total = current_bag['vehicle_grand_total']
