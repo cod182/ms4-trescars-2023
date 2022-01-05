@@ -60,17 +60,17 @@
                             </a>
                         </td>
                         <td>{{ order.date }}</td>
-                            {% for item in order.lineitems.all %}
-                                {% if item.vehicle %}
-                                    <td>
-                                        {{ item.vehicle.make | capfirst}} {{ item.vehicle.model | capfirst }} 
-                                        <br>
-                                        {{ item.vehicle.registration | upper }}
-                                    </td>
-                                {% elif item.accessory %}
-
-                                {% endif %}
-                        {% endfor %}
+                                {% for item in order.lineitems.all %}
+                                        {% if item.vehicle %}
+                                            <td>
+                                                {{ item.vehicle.make | capfirst}} {{ item.vehicle.model | capfirst }} 
+                                                <br>
+                                                {{ item.vehicle.registration | upper }}
+                                            </td>
+                                        {% elif item.accessory %}
+                                        
+                                        {% endif %}
+                                {% endfor %}
                         <td>£{{ order.grand_total }}</td>
                     </tr>
                     {% endfor %}

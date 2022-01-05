@@ -14,9 +14,22 @@ import time
 class StripeWH_Handler:
     """ Handles Stripe's Webhooks """
 
-
     def __init__(self, request):
         self.request = request
+
+    def _send_confirmation_email(self, order):
+        """sends a email confirmation to customer on succsessful order"""
+        customer_email = order.email
+        subject = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_subject.html',
+            {'order': order}
+            )
+
+        body = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_body.html',
+            {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL}
+            )
+        send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [customer_email])
 
 
     def handle_event(self, event):
@@ -86,6 +99,7 @@ class StripeWH_Handler:
                 attempt += 1
                 time.sleep(1)
         if order_exists:
+            self._send_confirmation_email(order)
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | Order already in database',
                 status=200)
@@ -113,20 +127,22 @@ class StripeWH_Handler:
 
                         if isinstance(item_data, int):
                             order_line_item = OrderLineItem(
-                            order=order,
-                            vehicle=order_items,
-                        )
+                                order=order,
+                                vehicle=order_items,
+                                )
                         order_line_item.save()
+                        Vehicle.objects.filter(sku=item_id).update(
+                            available='no')
 
                     else:
                         order_items = Accessory.objects.get(sku=item_id)
 
                         if isinstance(item_data, int):
                             order_line_item = OrderLineItem(
-                            order=order,
-                            accessory=order_items,
-                            quantity=item_data,
-                        )
+                                order=order,
+                                accessory=order_items,
+                                quantity=item_data,
+                            )
                         order_line_item.save()
 
             except Exception as e:
@@ -135,6 +151,7 @@ class StripeWH_Handler:
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
+        self._send_confirmation_email(order)
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | Order created via webhook',
             status=200)
