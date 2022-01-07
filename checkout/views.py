@@ -126,7 +126,7 @@ def reserve_vehicle_checkout(request, vehicle):
 
                 # Save the info to the user's profile
                 request.session['save_info'] = 'save-info' in request.POST
-                return redirect(reverse('checkout_vehicle_success', args=[order.order_number]))
+                return redirect(reverse('checkout_success', args=[order.order_number]))
             else:
                 messages.error(request, 'There was an error with your form. \
                     Please double check your information.')
@@ -195,7 +195,6 @@ def checkout_vehicle_success(request, order_number):
     template = 'checkout/checkout_success.html'
     context = {
         'order': order,
-        'order_type': 'vehicle',
     }
 
     return render(request, template, context)

@@ -21,10 +21,10 @@
             <div class="col">
                 <hr>
                 <h2 class="logo-font mb-4">
-                    {% if order_type == 'vehicle' %}Your vehicle has been reserved{% elif order_type == 'accessories' %}Your order has been placed{% endif %}
+                    {% if order.order_type == 'vehicle' %}Your vehicle has been reserved{% elif order.order_type == 'accessories' %}Your order has been placed{% endif %}
                 </h2>
                 <hr>
-                <p class="text-black">Your confirmaiton information is below. Am email will be sent to <strong>{{ order.email }}</strong>.</p>
+                <p class="text-black">Your confirmaiton information is below. An email {% if from_profile %}was{% else %}will be{% endif %} sent to <strong>{{ order.email }}</strong>.</p>
             </div>
         </div>
 
@@ -60,7 +60,7 @@
 
                     <div class="row">
                         <div class="col-12 col-md-4">
-                            <p class="mb-0 bold">{% if order_type == 'vehicle' %}Reserved Vehicle{% elif order_type == 'accessories' %}Ordered Items{% endif %}</p>
+                            <p class="mb-0 bold">{% if order.order_type == 'vehicle' %}Reserved Vehicle{% elif order.order_type == 'accessories' %}Ordered Items{% endif %}</p>
                         </div>
                     {% for item in order.lineitems.all %}
                         {% if item.vehicle %}
@@ -154,7 +154,7 @@
 
                     <div class="row">
                         <div class="col-12">
-                            {% if order_type == 'vehicle' %}
+                            {% if order.order_type == 'vehicle' %}
 
                                 <p class="mb-0 text-small">
                                     Thank you for your reservation, we will call you on {{ order.phone_number }} within the next hour to confirm a date and time for you to collect your new vehicle.
@@ -164,7 +164,7 @@
                                 <br>
                                 <p class="bold">Please note, vehicles must be taxed and insured before leaving our premesis.</p>
                                 
-                            {% elif order_type == 'accessories' %}
+                            {% elif order.order_type == 'accessories' %}
                                 <p class="mb-0 text-small">Thank you for your order. We will ship your package the same day if placed before 12:00 or the next working day.</p>
                             {% endif %}
 
@@ -185,14 +185,14 @@
                         <span class="text-uppercase">Back To Profile</span>
                     </a>
                 {% else %}
-                    {% if order_type == 'vehicle' %}
+                    {% if order.order_type == 'vehicle' %}
                         <a href="#" class="btn btn--black-border">
                             <span class="icon mr-2">
                                 <i class="fa fa-cog" aria-hidden="true"></i>
                             </span>
                             <span class="text-uppercase">Vehicle Accessories</span>
                         </a>
-                    {% elif order_type == 'accessories' %}
+                    {% elif order.order_type == 'accessories' %}
                         <a href="#" class="btn btn--black-border">
                             <span class="icon mr-2">
                                 <i class="fa fa-cog" aria-hidden="true"></i>
