@@ -16,8 +16,6 @@ function makeEnteredAllowModel() {
     model.removeAttribute('disabled');
 }
 
-// if make not select, model is disabled
-// if the make is selected, the model option is available
 // data-vehicle-make on the model options is checked and only ones matching the make are shown
 function checkCorrectMakesForModel() {
     for (var x=0; x < model.options.length; x++) {
@@ -32,7 +30,8 @@ function checkCorrectMakesForModel() {
     }
 }
 
-// 
+// if make not select, model is disabled
+// if the make is selected, the model option is available
 make.addEventListener('change', function() {
     makeEnteredAllowModel();
     checkCorrectMakesForModel();
@@ -45,7 +44,7 @@ make.addEventListener('change', function() {
     }
 })
 
-
+// when sort chaned submits to backend
 sortSelector.addEventListener('change', function() {
     let currentUrl = new URL(window.location);
     let sortSelectorVal = sortSelector.value;
@@ -65,6 +64,7 @@ sortSelector.addEventListener('change', function() {
     }
 })
 
+// hide extra search options and stores setting in storage
 function hideSearchOptions() {
     for (var i = 0; i < searchOptions.length; i++) {
         hideSearchBtn.innerText = 'Show'
@@ -73,6 +73,7 @@ function hideSearchOptions() {
     }
 }
 
+// shows extra search options and stores setting in storage
 function showSearchOptions() {
     for (var i = 0; i < searchOptions.length; i++) {
         hideSearchBtn.innerText = 'Hide'
@@ -81,6 +82,7 @@ function showSearchOptions() {
     }
 }
 
+// button clicked, hides/shows extra search options
 hideSearchBtn.addEventListener('click', function() {
     if (hideSearchBtn.innerText == 'Hide'){
         hideSearchOptions();
