@@ -14,10 +14,14 @@ def profile(request):
     user_profile = get_object_or_404(UserProfile, user=request.user)
 
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=user_profile)     
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Profile Updated')   
+        if 'delete-info' in request.GET:
+            form = UserProfileForm(request.POST, instance=user_profile)
+            form.delete()
+        else:
+            form = UserProfileForm(request.POST, instance=user_profile)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Profile Updated')
 
     form = UserProfileForm(instance=user_profile)
     orders = user_profile.orders.all()

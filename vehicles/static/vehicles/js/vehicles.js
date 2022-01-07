@@ -67,7 +67,7 @@ sortSelector.addEventListener('change', function() {
 // hide extra search options and stores setting in storage
 function hideSearchOptions() {
     for (var i = 0; i < searchOptions.length; i++) {
-        hideSearchBtn.innerText = 'Show'
+        hideSearchBtn.innerText = 'Show Options'
         searchOptions[i].classList.add('less-options')
         localStorage.setItem('searchOptions', 'hidden');
     }
@@ -76,7 +76,7 @@ function hideSearchOptions() {
 // shows extra search options and stores setting in storage
 function showSearchOptions() {
     for (var i = 0; i < searchOptions.length; i++) {
-        hideSearchBtn.innerText = 'Hide'
+        hideSearchBtn.innerText = 'Hide Options'
         searchOptions[i].classList.remove('less-options')
         localStorage.setItem('searchOptions', 'visable');
     }
@@ -84,7 +84,7 @@ function showSearchOptions() {
 
 // button clicked, hides/shows extra search options
 hideSearchBtn.addEventListener('click', function() {
-    if (hideSearchBtn.innerText == 'Hide'){
+    if (hideSearchBtn.innerText == 'Hide Options'){
         hideSearchOptions();
     } else {
         showSearchOptions();

@@ -4,3 +4,8 @@
 .profile-form {
     margin: 5px 0;
 }
+
+.bg-red {
+    background-color: #e80d0d;
+    color:black;
+}
