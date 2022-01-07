@@ -61,6 +61,29 @@
     border-radius: 10px;
     box-shadow: #686868 0px -3px;
 }
+.btn-hide {
+    background-color: #12a3e5;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-hide:hover,
+.btn-hide:focus,
+.btn-hide:active,
+.btn-hide:active:focus {
+    background-color: #12b6fc;
+}
+
+.btn-hide--search {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 20px;
+    width: fit-content;
+    font-size: small;
+    line-height: 0;
+    padding: 8px;
+}
 
 .btn--more-options {
     background-color: #a3a3a3;

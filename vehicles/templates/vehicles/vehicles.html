@@ -14,7 +14,8 @@
 
 {% block content %}
     <hr>
-    <div class="container search-contaienr">
+    <div class="container search-container">
+        <a class="btn btn-hide btn-hide--search" id="hide-search">Hide</a>
         <div class="row">
             <form class="" action="{% url 'vehicles' %}" method="GET">
                 {% csrf_token%}
@@ -47,7 +48,7 @@
                         </select>
                     </div>
                     <!-- Vehicel year Search -->
-                    <div class="col-12 col-md-4 m-auto">
+                    <div class="col-12 col-md-4 m-auto detail-options">
                         <select id="vehicle-year-search" class="vehicle-search-input" type="text" name="vehicle-model-year">
                             {% if remembered_search.year %}
                                 <option selected value="{{ remembered_search.year }}">{{ remembered_search.year }}</option>
@@ -60,7 +61,7 @@
                         </select>
                     </div>
                     <!-- Price Range Search -->
-                    <div class="col-12 col-md-4 m-auto">
+                    <div class="col-12 col-md-4 m-auto detail-options">
                         <select id="vehicle-price-range-search" class="vehicle-search-input" type="text" name="price-range">
                             {% if  remembered_search.price == '9999999' or remembered_search == None %}
                                 <option selected value="9999999" data-disable>Price</option>
@@ -81,7 +82,7 @@
                         </select>
                     </div>
                     <!-- Mileage Search -->
-                    <div class="col-12 col-md-4 m-auto">
+                    <div class="col-12 col-md-4 m-auto detail-options">
                         <select id="vehicle-mileage-search" class="vehicle-search-input" type="text" name="mileage">
                             {% if remembered_search.mileage == '9999999'  or remembered_search == None %}
                                 <option selected value="9999999" data-disable>Mileage</option>
@@ -102,7 +103,7 @@
                         </select>
                     </div>
                     <!-- Vehicle Colour Search -->
-                    <div class="col-12 col-md-4 m-auto">
+                    <div class="col-12 col-md-4 m-auto detail-options">
                         <select id="vehicle-colour-search" class="vehicle-search-input" type="text" name="vehicle-colour">
                             {% if remembered_search.colour %}
                                 <option selected value="{{ remembered_search.colour }}">{{ remembered_search.colour }}</option>
@@ -115,7 +116,7 @@
                         </select>
                     </div>
                     <!-- Vehicle Engine Search -->
-                    <div class="col-12 col-md-4 m-auto">
+                    <div class="col-12 col-md-4 m-auto detail-options">
                         <select id="vehicle-engine-search" class="vehicle-search-input" type="text" name="vehicle-engine">
                             {% if remembered_search.engine %}
                                 <option selected value="{{ remembered_search.engine }}">{{ remembered_search.engine }}</option>
@@ -128,7 +129,7 @@
                         </select>
                     </div>
                     <!-- Vehicle Doors Search -->
-                    <div class="col-12 col-md-4 m-auto">
+                    <div class="col-12 col-md-4 m-auto detail-options">
                         <select id="vehicle-door-search" class="vehicle-search-input" type="text" name="vehicle-doors">
                             {% if remembered_search.doors %}
                                 <option selected value="{{ remembered_search.doors }}">{{ remembered_search.doors }}</option>
@@ -141,7 +142,7 @@
                         </select>
                     </div>
                     <!-- Vehicle Body Type Search -->
-                    <div class="col-12 col-md-4 m-auto">
+                    <div class="col-12 col-md-4 m-auto detail-options">
                         <select id="vehicle-body-search" class="vehicle-search-input" type="text" name="vehicle-body">
                             {% if remembered_search.body_type %}
                                 <option selected value="{{ remembered_search.body_type }}">{{ remembered_search.body_type }}</option>
@@ -154,7 +155,7 @@
                         </select>
                     </div>
                     <!-- Vehicle Fuel Search -->
-                    <div class="col-12 col-md-4 m-auto">
+                    <div class="col-12 col-md-4 m-auto detail-options">
                         <select id="vehicle-fuel-search" class="vehicle-search-input" type="text" name="vehicle-fuel">
                             {% if remembered_search.fuel %}
                                 <option selected value="{{ remembered_search.fuel }}">{{ remembered_search.fuel }}</option>
@@ -167,7 +168,7 @@
                         </select>
                     </div>
                     <!-- Vehicle Drivetrain Search -->
-                    <div class="col-12 col-md-4 m-auto">
+                    <div class="col-12 col-md-4 m-auto detail-options">
                         <select id="vehicle-drivetrain-search" class="vehicle-search-input" type="text" name="vehicle-drivetrain">
                             {% if remembered_search.drivetrain %}
                                 <option selected value="{{ remembered_search.drivetrain }}">{{ remembered_search.drivetrain }}</option>
@@ -205,7 +206,7 @@
             <!-- Sort Vehicles By: -->
             <div class="col-12 col-md-6">
                 <div class="text-end">
-                    <select id="sort-selector" class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
+                    <select id="sort-selector" class="">
                         <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
                         <option value="pricex_asc" {% if current_sorting == 'full_price_asc' %}selected{% endif %}>Price (low to high)</option>
                         <option value="pricex_desc" {% if current_sorting == 'full_price_desc' %}selected{% endif %}>Price (high to low)</option>
@@ -311,5 +312,5 @@
 {% endblock %}
 
 {% block postload_js %}
-    <script src="{% static 'js/vechicle-page.js' %}"></script>
+    <script src="{% static 'vehicles/js/vehicles.js' %}"></script>
 {% endblock %}
