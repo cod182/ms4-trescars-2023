@@ -1,10 +1,22 @@
 let make = document.getElementById('vehicle-make-search');
 let model = document.getElementById('vehicle-model-search');
+let hideSearchBtn = document.getElementById('hide-search');
+let searchOptions = document.getElementsByClassName('detail-options');
+let storedSearchOption = localStorage.getItem('searchOptions');
+let sortSelector = document.getElementById('sort-selector');
 
+
+//Checks if latest games is enabled in local storage
+if (storedSearchOption === 'hidden') {
+    hideSearchOptions();
+};
+
+// removes the disabled attribute from the model input
 function makeEnteredAllowModel() {
     model.removeAttribute('disabled');
 }
 
+// data-vehicle-make on the model options is checked and only ones matching the make are shown
 function checkCorrectMakesForModel() {
     for (var x=0; x < model.options.length; x++) {
         makeCheck = model.options[x].getAttribute('data-vehicle-make')
@@ -18,6 +30,8 @@ function checkCorrectMakesForModel() {
     }
 }
 
+// if make not select, model is disabled
+// if the make is selected, the model option is available
 make.addEventListener('change', function() {
     makeEnteredAllowModel();
     checkCorrectMakesForModel();
@@ -30,8 +44,7 @@ make.addEventListener('change', function() {
     }
 })
 
-let sortSelector = document.getElementById('sort-selector');
-
+// when sort chaned submits to backend
 sortSelector.addEventListener('change', function() {
     let currentUrl = new URL(window.location);
     let sortSelectorVal = sortSelector.value;
@@ -48,5 +61,32 @@ sortSelector.addEventListener('change', function() {
         currentUrl.searchParams.delete("direction");
     
         window.location.replace(currentUrl);
+    }
+})
+
+// hide extra search options and stores setting in storage
+function hideSearchOptions() {
+    for (var i = 0; i < searchOptions.length; i++) {
+        hideSearchBtn.innerText = 'Show Options'
+        searchOptions[i].classList.add('less-options')
+        localStorage.setItem('searchOptions', 'hidden');
+    }
+}
+
+// shows extra search options and stores setting in storage
+function showSearchOptions() {
+    for (var i = 0; i < searchOptions.length; i++) {
+        hideSearchBtn.innerText = 'Hide Options'
+        searchOptions[i].classList.remove('less-options')
+        localStorage.setItem('searchOptions', 'visable');
+    }
+}
+
+// button clicked, hides/shows extra search options
+hideSearchBtn.addEventListener('click', function() {
+    if (hideSearchBtn.innerText == 'Hide Options'){
+        hideSearchOptions();
+    } else {
+        showSearchOptions();
     }
 })

@@ -1,3 +1,13 @@
+.search-container {
+    position: relative;
+    padding-bottom: 30px;
+}
+
+.less-options {
+    display: none;
+    transition: 2s ease-in-out;
+}
+
 .vehicle-search-input {
     width: 100%;
     height:30px;

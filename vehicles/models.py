@@ -43,7 +43,7 @@ class unique_vehicle_parameters():
         """
         Gets all the unique vehicle makes
         """
-        vehicles = Vehicle.objects.all()
+        vehicles = Vehicle.objects.filter(available='yes')
         vehicle_makes = []
         vehicle_makes.clear()
 
@@ -57,7 +57,7 @@ class unique_vehicle_parameters():
         """
         Gets the unique vehicle models with make
         """
-        vehicles = Vehicle.objects.all()
+        vehicles = Vehicle.objects.filter(available='yes')
         vehicle_models = []
         vehicle_models.clear()
 
@@ -79,7 +79,7 @@ class unique_vehicle_parameters():
         """
         Gets all the unique vehicle colours
         """
-        vehicles = Vehicle.objects.all()
+        vehicles = Vehicle.objects.filter(available='yes')
         vehicle_colours = []
         vehicle_colours.clear()
 
@@ -93,7 +93,7 @@ class unique_vehicle_parameters():
         """
         Gets all the unique vehicle engines
         """
-        vehicles = Vehicle.objects.all()
+        vehicles = Vehicle.objects.filter(available='yes')
         vehicle_engines = []
         vehicle_engines.clear()
 
@@ -107,7 +107,7 @@ class unique_vehicle_parameters():
         """
         Gets all the unique vehicle doors
         """
-        vehicles = Vehicle.objects.all()
+        vehicles = Vehicle.objects.filter(available='yes')
         vehicle_doors = []
         vehicle_doors.clear()
 
@@ -121,7 +121,7 @@ class unique_vehicle_parameters():
         """
         Gets all the unique vehicle body
         """
-        vehicles = Vehicle.objects.all()
+        vehicles = Vehicle.objects.filter(available='yes')
         vehicle_body = []
         vehicle_body.clear()
 
@@ -135,7 +135,7 @@ class unique_vehicle_parameters():
         """
         Gets all the unique vehicle fuels
         """
-        vehicles = Vehicle.objects.all()
+        vehicles = Vehicle.objects.filter(available='yes')
         vehicle_fuels = []
         vehicle_fuels.clear()
 
@@ -149,7 +149,7 @@ class unique_vehicle_parameters():
         """
         Gets all the unique vehicle drivetrains
         """
-        vehicles = Vehicle.objects.all()
+        vehicles = Vehicle.objects.filter(available='yes')
         vehicle_drivetrains = []
         vehicle_drivetrains.clear()
 
@@ -163,7 +163,7 @@ class unique_vehicle_parameters():
         """
         Gets all the unique vehicle year
         """
-        vehicles = Vehicle.objects.all()
+        vehicles = Vehicle.objects.filter(available='yes')
         vehicle_years = []
         vehicle_years.clear()
 

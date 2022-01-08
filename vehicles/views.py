@@ -39,7 +39,7 @@ def all_vehicles(request):
     and search queries
     """
     request.session['vehicle_bag'] = {}
-    vehicles = Vehicle.objects.all()
+    vehicles = Vehicle.objects.filter(available='yes')
     images = VehicleImages.objects.all()
     query = None
     sort = None
@@ -60,9 +60,9 @@ def all_vehicles(request):
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
             sort = sortkey
-            if sortkey == 'make':
-                sortkey == 'lower_name'
-                vehicles = vehicles.annotate(lower_name=Lower('make'))
+            if sortkey == 'pricex':
+                sortkey = 'full_price'
+                vehicles = vehicles.order_by(sortkey)
 
             if 'direction' in request.GET:
                 direction = request.GET['direction']

@@ -6,15 +6,17 @@
     padding: 0;
 }
 
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .hidden {
     display: none;
 }
 
 /* Colours */
-
-.black {
-    color: black;
-}
 
 .white {
     color: white;
@@ -30,6 +32,10 @@
 
 .greyed {
     color: rgb(124 124 124);
+}
+
+.black {
+    color: black;
 }
 
 /* fonts */
@@ -60,6 +66,29 @@
 .btn-search:active:focus {
     border-radius: 10px;
     box-shadow: #686868 0px -3px;
+}
+.btn-hide {
+    background-color: #12a3e5;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-hide:hover,
+.btn-hide:focus,
+.btn-hide:active,
+.btn-hide:active:focus {
+    background-color: #12b6fc;
+}
+
+.btn-hide--search {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 20px;
+    width: fit-content;
+    font-size: small;
+    line-height: 0;
+    padding: 8px;
 }
 
 .btn--more-options {
@@ -171,6 +200,26 @@
     color: white;
 }
 
+.btn--red-border {
+    background-color: white;
+    border: 2px solid #e80d0d;
+    color: black;
+    width: fit-content;
+}
+
+.btn--red-border:hover,
+.btn--red-border:focus,
+.btn--red-border:active,
+.btn--red-border:active:focus {
+    background-color: #e80d0d;
+    color: white;
+}
+
+.btn--profile-info {
+    width: 200px;
+    margin: 2px 0;
+}
+
 .btn--black-border {
     background-color: white;
     border: 2px solid black;
@@ -182,6 +231,21 @@
 .btn--black-border:focus,
 .btn--black-border:active,
 .btn--black-border:active:focus {
+    background-color: black;
+    color: white;
+}
+
+.btn--black-border--home {
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+    width: fit-content;
+}
+
+.btn--black-border--home:hover,
+.btn--black-border--home:focus,
+.btn--black-border--home:active,
+.btn--black-border--home:active:focus {
     background-color: black;
     color: white;
 }
@@ -217,10 +281,6 @@
     color: rgb(255, 0, 0);
 }
 
-.btn--complete-order {
-    
-}
-
 .navbar {
     min-height: 100px;
 }
@@ -251,6 +311,7 @@
 }
 
 .footer {
+    margin-top: auto;
     min-height: 60px;
     width: 100%;
     background-color: darkgrey;
@@ -562,6 +623,20 @@
     text-align: center;
 }
 
+.allauth-form-inner-content {
+    display: block;
+    margin: 10% auto;
+    padding: 40px;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 30px;
+    width: 50%;
+}
+
+.form-group {
+    text-align: left;
+}
+
 @media (max-width: 991px){
      .nav-item {
         line-height: 0;
@@ -593,6 +668,10 @@
         width: 90%;
         margin: 0 auto;
     }
+
+    .allauth-form-inner-content {
+        width: 100%;
+    }
 }
 
 @media (max-width: 767px){
@@ -611,5 +690,10 @@
 
     .btn--black-border {
         width: 100%;
+    }
+
+    .btn--profile-info {
+        width: 100%;
+        margin: 5px 0;
     }
 }
