@@ -166,10 +166,11 @@ def vehicle_detail(request, vehicle_sku):
 
     dvla_data = request_info_from_dvla(reg=vehicle.registration)
 
+    template = 'vehicles/vehicle_detail.html'
     context = {
         'vehicle': vehicle,
         'images': images,
         'dvla_data': dvla_data,
         'media': settings.MEDIA_URL,
     }
-    return render(request, 'vehicles/vehicle_detail.html', context)
+    return render(request, template, context)

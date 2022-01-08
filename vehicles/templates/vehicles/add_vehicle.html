@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_title %}
+- Add A Vehicle
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'management/css/management.css' %}">
+{% endblock %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 font-small my-2">
+            <span><a href="#">Manage</a> > 
+            </span><span><a href="#">Vehicle Management</a> > 
+            </span><p class="d-inline">Add a Vehicle</p></span></div>
+        <div class="col-12">
+            <h2 class="my-4">Add A Vehicle</h2>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block postload_js %}
+{% endblock %}
