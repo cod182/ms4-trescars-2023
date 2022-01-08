@@ -44,8 +44,8 @@
             </div>
         </div>
 
-        <div class="mx-auto col-12 col-md-8 col-lg-8 my-3 ">
-            <table class="table table-lg table-borderless text-center align-middle">
+        <div class="mx-auto col-12 col-md-8 col-lg-8 my-1 ">
+            <table class="d-none d-sm-table table table-lg table-borderless text-center align-middle">
                 <thead>
                     <tr>                        
                         <th>Item Type</th>
@@ -57,31 +57,85 @@
                 </thead>
                 <tbody>
                     {% for order in orders %}
-
-                    <tr>
-                        <td>{{ order.order_type | capfirst }}</td>
-                        <td>
-                            <a href="{% url 'order_detail' order.order_number %}" title="{{ order.order_number }}">
-                                {{ order.order_number|truncatechars:10 }}
-                            </a>
-                        </td>
-                        <td>{{ order.date }}</td>
-                                {% for item in order.lineitems.all %}
-                                        {% if item.vehicle %}
-                                            <td>
-                                                {{ item.vehicle.make | capfirst}} {{ item.vehicle.model | capfirst }} 
-                                                <br>
-                                                {{ item.vehicle.registration | upper }}
-                                            </td>
-                                        {% elif item.accessory %}
-                                        
-                                        {% endif %}
-                                {% endfor %}
-                        <td>£{{ order.grand_total }}</td>
-                    </tr>
+                        <tr>
+                            <td>{{ order.order_type | capfirst }}</td>
+                            <td>
+                                <a href="{% url 'order_detail' order.order_number %}" title="{{ order.order_number }}">
+                                    {{ order.order_number | truncatechars:10 }}
+                                </a>
+                            </td>
+                            <td>{{ order.date }}</td>
+                                    {% for item in order.lineitems.all %}
+                                            {% if item.vehicle %}
+                                                <td>
+                                                    {{ item.vehicle.make | capfirst}} {{ item.vehicle.model | capfirst }} 
+                                                    <br>
+                                                    {{ item.vehicle.registration | upper }}
+                                                </td>
+                                            {% elif item.accessory %}
+                                            
+                                            {% endif %}
+                                    {% endfor %}
+                            <td>£{{ order.grand_total }}</td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            <div class="d-inline d-sm-none m-auto align-middle container">
+                {% for order in orders %}
+                <div class="row">
+                    <div class="col-6 text-end">
+                        <p class="my-0 bold">Order Type:</p>
+                    </div>
+                    <div class="col-6 text-start">
+                        <p  class="my-0">{{ order.order_type | capfirst }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 text-end">
+                        <p class="my-0 bold">Order Number:</p>
+                    </div>
+                    <div class="col-6 text-start">
+                        <a href="{% url 'order_detail' order.order_number %}" title="{{ order.order_number }}">
+                            {{ order.order_number | truncatechars:10 }}
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 text-end">
+                        <p class="my-0 bold">Order Date:</p>
+                    </div>
+                    <div class="col-6 text-start">
+                        <p class="my-0">{{ order.date }}</p>
+                    </div>
+                </div>
+
+                {% for item in order.lineitems.all %}
+                        {% if item.vehicle %}
+                            <div class="row">
+                                <div class="col-6 text-end">
+                                    <p class="my-0 bold">Items:</p>
+                                </div>
+                                <div class="col-6 text-start">
+                                    <p class="my-0">
+                                        {{ item.vehicle.make | capfirst}} {{ item.vehicle.model | capfirst }} 
+                                        <br>
+                                        {{ item.vehicle.registration | upper }}
+                                    </p>
+                                </div>
+                            </div>
+                        {% elif item.accessory %}
+                        
+                        {% endif %}
+                {% endfor %}
+
+                <hr>
+
+                {% endfor %}
+
+            </div>
         </div>
         </div>
     </div>
