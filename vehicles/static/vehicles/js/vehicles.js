@@ -30,6 +30,10 @@ function checkCorrectMakesForModel() {
     }
 }
 
+// As soon as the window is ready, check for the correct makes from model
+// For use when a search is made and window reloads
+window.onload = checkCorrectMakesForModel()
+
 // if make not select, model is disabled
 // if the make is selected, the model option is available
 make.addEventListener('change', function() {
