@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.conf import settings
 from django.db.models import Q
 import requests
+from vehicles.models import Vehicle, VehicleImages
 from .forms import VehicleForm
 
 
@@ -41,9 +42,19 @@ def add_vehicle(request):
             'available': 'yes',
             }
         form = VehicleForm(form_data)
-        print(form)
+
+
+
         if form.is_valid():
-            vehicle = form.save()
+            vehicle=form.save()
+            image_number = 0
+            for image in request.FILES.getlist('images'):
+                image = VehicleImages.objects.create(
+                    name=form_data['sku'] + '-' + str(image_number),
+                    vehicle_name=Vehicle(vehicle.id),
+                    image=image
+                )
+                image_number += 1
             messages.success(
                 request,
                 'Sucsessfully added vehicle!'

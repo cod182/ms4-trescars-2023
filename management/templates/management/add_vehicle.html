@@ -30,7 +30,7 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <form action="{% url 'add_vehicle' %}" method="post">
+            <form action="{% url 'add_vehicle' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.registration | as_crispy_field }}
                 {{ form.make | as_crispy_field }}
@@ -48,6 +48,12 @@
                 {{ form.mileage | as_crispy_field }}
                 {{ form.model_year | as_crispy_field }}
                 {{ form.doors | as_crispy_field }}
+                
+                <div class="form-group my-2">
+                    <label for="images">Upload Images*</label>
+                    <input reqired class="d-block"type="file" multiple name="images" id="images">
+                </div>
+
                 <button class="btn btn-info my-2"type="submit">Add Vehicle</button>
             </form>
         </div>
