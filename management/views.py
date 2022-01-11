@@ -1,19 +1,32 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.db.models import Q
 import requests
 from vehicles.models import Vehicle, VehicleImages
 from .forms import VehicleForm, VehicleImagesForm
 
+@login_required
+def management_home(request):
+    template = 'management/home.html'
+    return render(request, template)
 
+
+@login_required
+def manage_vehicles(request):
+    template = 'management/manage_vehicles.html'
+    return render(request, template)
+
+
+@login_required
 def add_vehicle(request):
     """ Add a new vhicle to the site"""
 
     if not request.user.is_superuser:
         messages.error(
             request,
-            'Sorry, only authorised can do that!'
+            'Sorry, only authorised users can do that!'
         )
         return redirect(reverse('home'))
 

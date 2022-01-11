@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_title %}
+- Manage Vehicles
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'management/css/management.css' %}">
+{% endblock %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 font-small my-2">
+            <span><a href="{% url 'management_home' %}">Admin Management</a> > </span>
+            <p class="d-inline">Vehicle Management</p></span>
+        </div>
+        <div class="col-12">
+            <h2 class="mt-2 mb-4">Vehicle Management</h2>
+        </div>
+    </div>
+
+    <div class="row my-3">
+        <div class="col-12">
+            <p>
+                Please choose whether you need Add or Update a Vehicle.
+            </p>
+        </div>
+    </div>
+
+    <div class="row my-3">
+        <div class="col-12 col-md-6 mx-auto text-center my-1">
+            <a class="btn btn-info btn-lg"href="{% url 'add_vehicle' %}">Add a Vehicle</a>
+        </div>
+
+        <div class="col-12 col-md-6 mx-auto text-center my-1">
+            <a class="btn btn-warning btn-lg" href="">Update a Vehicle</a>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+{% endblock %}
+
+{% block postload_js %}
+    <script src="{% static 'management/js/add_vehicle.js' %}"></script>
+{% endblock %}
