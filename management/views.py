@@ -14,12 +14,6 @@ def management_home(request):
 
 
 @login_required
-def manage_vehicles(request):
-    template = 'management/manage_vehicles.html'
-    return render(request, template)
-
-
-@login_required
 def add_vehicle(request):
     """ Add a new vhicle to the site"""
 
@@ -101,5 +95,15 @@ def add_vehicle(request):
 
 @login_required
 def update_vehicle(request):
+    """ Update an existing vehicle """
+
+    if not request.user.is_superuser:
+        messages.error(
+            request,
+            'Sorry, only authorised users can do that!'
+        )
+        return redirect(reverse('home'))
+
+
     template = 'management/update_vehicle.html'
     return render(request, template)
