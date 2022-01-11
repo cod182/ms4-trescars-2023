@@ -40,15 +40,15 @@
         <div class="quick-links--box quick-link">
             <p class="white">Add a Vehicle</p>
             <a href="{% url 'add_vehicle' %}">
-                <div class="quick-link--image" style="background-image:url({% static 'images/all-vehicles.jpg' %});">
+                <div class="quick-link--image" style="background-image:url('{% static 'images/all-vehicles.jpg' %}');">
                 </div>
             </a>
         </div>
 
         <div class="quick-links--box quick-link">
             <p class="white">Update a Vehicle</p>
-            <a href="#">
-                <div class="quick-link--image" style="background-image:url({% static 'images/all-vehicles.jpg' %});">
+            <a href="{% url 'update_vehicle' %}">
+                <div class="quick-link--image" style="background-image:url('{% static 'images/all-vehicles.jpg' %}');">
                 </div>
             </a>
         </div>

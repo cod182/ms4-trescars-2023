@@ -97,3 +97,9 @@ def add_vehicle(request):
         'image_form': image_form,
     }
     return render(request, template, context)
+
+
+@login_required
+def update_vehicle(request):
+    template = 'management/update_vehicle.html'
+    return render(request, template)
