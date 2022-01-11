@@ -35,14 +35,22 @@
             </p>
         </div>
     </div>
-
-    <div class="row my-3">
-        <div class="col-12 col-md-6 mx-auto text-center my-1">
-            <a class="btn btn-info btn-lg"href="{% url 'add_vehicle' %}">Add a Vehicle</a>
+    
+    <div class="row">
+        <div class="quick-links--box quick-link">
+            <p class="white">Add a Vehicle</p>
+            <a href="{% url 'add_vehicle' %}">
+                <div class="quick-link--image" style="background-image:url({% static 'images/all-vehicles.jpg' %});">
+                </div>
+            </a>
         </div>
 
-        <div class="col-12 col-md-6 mx-auto text-center my-1">
-            <a class="btn btn-warning btn-lg" href="">Update a Vehicle</a>
+        <div class="quick-links--box quick-link">
+            <p class="white">Update a Vehicle</p>
+            <a href="#">
+                <div class="quick-link--image" style="background-image:url({% static 'images/all-vehicles.jpg' %});">
+                </div>
+            </a>
         </div>
     </div>
 </div>
