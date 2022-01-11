@@ -43,7 +43,7 @@
                         <div class="vehicle-detail--images-container">
                             <!-- large image -->
                             {% for image in images %}
-                                {% if forloop.first %}
+                                {% if image.main %}
                                     <img id="expandedImg" class="vehicle-detail--image-large" src="{{ media }}{{ image.image }}" alt="Image of {{ vehicle.registration | upper }}">
                                     {% if image not in images %}
                                         <img id="expandedImg" class="vehicle-detail--image-large" src="{{ media }}coming-soon.png" alt="Image of {{ vehicle.registration | upper }} coming soon">

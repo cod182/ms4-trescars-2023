@@ -48,11 +48,9 @@
                 {{ form.mileage | as_crispy_field }}
                 {{ form.model_year | as_crispy_field }}
                 {{ form.doors | as_crispy_field }}
-                
-                <div class="form-group my-2">
-                    <label for="images">Upload Images*</label>
-                    <input reqired class="d-block"type="file" multiple name="images" id="images">
-                </div>
+                <div id="images-container"></div>
+                {{ image_form.images }}
+            
 
                 <button class="btn btn-info my-2"type="submit">Add Vehicle</button>
             </form>
@@ -63,4 +61,39 @@
 {% endblock %}
 
 {% block postload_js %}
+<script>
+    let loadFile = function(event) {
+        let imgsContainer = document.getElementById('images-container')
+        for (let i=0; i < event.target.files.length; i++){
+            console.log(event)
+            let imgInputLabel = document.createElement('label');
+            let imgInput = document.createElement('input');
+            let img = document.createElement('img');
+
+            imgInputLabel.appendChild(imgInput);
+            imgInputLabel.appendChild(img);
+
+            imgInput.setAttribute('type', 'radio');
+            imgInput.setAttribute('name', 'main');
+            imgInput.setAttribute('required', true);
+            imgInput.setAttribute('value', event.target.files[i].name)
+
+            img.classList.add('img-thumb')
+            img.setAttribute('alt', 'image of vehicle');
+            img.setAttribute('src', URL.createObjectURL(event.target.files[i]));
+            
+            imgsContainer.appendChild(imgInputLabel);
+
+            
+            img.onload = function() {
+            URL.revokeObjectURL(img.src) // free memory
+                }
+        }
+    };
+
+
+
+
+
+  </script>
 {% endblock %}

@@ -1,4 +1,5 @@
 from django import forms
+from .widgets import CustomClearableFileInput
 from vehicles.models import Vehicle, VehicleImages
 
 class VehicleForm(forms.ModelForm):
@@ -38,3 +39,23 @@ class VehicleForm(forms.ModelForm):
         for field in self.fields:
             placeholder = placeholders[field]
             self.fields[field].widget.attrs['placeholder'] = placeholder
+
+
+class VehicleImagesForm(forms.ModelForm):
+    class Meta:
+        model = VehicleImages
+        fields = {
+            'image',
+            'main'
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['onchange'] = 'loadFile(event)'
+
+    images = forms.FileField(
+        label='Image',
+        required=False,
+        widget=CustomClearableFileInput(attrs={'multiple': True}),
+    )
