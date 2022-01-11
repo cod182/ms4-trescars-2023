@@ -15,7 +15,6 @@
     transform: scale(1.2);
 }
 
-/* HIDE RADIO */
 [type=radio] { 
     position: absolute;
     opacity: 0;
@@ -23,12 +22,10 @@
     height: 0;
   }
   
-/* IMAGE STYLES */
 [type=radio] + img {
-cursor: pointer;
+    cursor: pointer;
 }
 
-/* CHECKED STYLES */
 [type=radio]:checked + img {
     border: 3px solid green;
 }
