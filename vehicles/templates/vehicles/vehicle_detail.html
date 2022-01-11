@@ -93,7 +93,7 @@
                             <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/paint.png' %}" alt="Colour Icon">
-                                    <br class="d-block d-md-none">
+                                    <br>
                                     {{ vehicle.colour | capfirst}}
                                 </p>
                             </div>
@@ -101,29 +101,29 @@
                             <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/fuel.png' %}" alt="Fuel Icon">
-                                    <br class="d-block d-md-none">
+                                    <br>
                                     {{ vehicle.fuel | capfirst }}
                                 </p>
                             </div>
 
                             <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/engine.png' %}" alt="Engine Size Icon">
-                                <br class="d-block d-md-none">
+                                <br>
                                 {{ vehicle.engine_size }}
                             </div>
 
                             <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/car.png' %}" alt="Body Type Icon">
-                                    <br class="d-block d-md-none">
-                                    {{ vehicle.body_type | upper }}
+                                    <br>
+                                    {{ vehicle.body_type | capfirst }}
                                 </p>
                             </div>
 
                             <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/gearbox.png' %}" alt="Gearbox Icon">
-                                    <br class="d-block d-md-none">
+                                    <br>
                                     {{ vehicle.gearbox | capfirst }}
                                 </p>
                             </div>
@@ -131,7 +131,7 @@
                             <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/drivetrain.png' %}" alt="Drivetrain Icon">
-                                    <br class="d-block d-md-none">
+                                    <br>
                                     {{ vehicle.drivetrain |upper }}
                                 </p>
                             </div>
@@ -139,7 +139,7 @@
                             <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/seat.png' %}" alt="Seat Icon">
-                                    <br class="d-block d-md-none">
+                                    <br>
                                     {{ vehicle.seats }}
                                 </p>
                             </div>
@@ -147,35 +147,42 @@
                             <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/door.png' %}" alt="Door Icon">
-                                    <br class="d-block d-md-none">
+                                    <br>
                                     {{ vehicle.doors }}
                                 </p>
                             </div>
-
+                            
+                            {% if dvla_data.co2Emissions %}
                             <div class="col-4 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/co2.png' %}" alt="CO2 Icon">
-                                    <br class="d-block d-md-none">
+                                    <br>
                                     {{ dvla_data.co2Emissions }} g/Km
                                 </p>
                             </div>
+                            {% endif %}
 
-                            <div class="col-6 col-sm-3 vehicle-detail-small-info">
-                                <p>
-                                    <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/mot.png' %}" alt="MOT Icon">
-                                    <br class="d-block d-md-none">
-                                    <span id="mot-date">{{ dvla_data.motExpiryDate }}</span>
-                                </p>
-                            </div>
+                            {% if dvla_data.motExpiryDate %}
+                                <div class="col-6 col-sm-3 vehicle-detail-small-info">
+                                    <p>
+                                        <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/mot.png' %}" alt="MOT Icon">
+                                        <br>
+                                        <span id="mot-date">{{ dvla_data.motExpiryDate }}</span>
+                                    </p>
+                                </div>
+                            {% endif %}
 
+                            {% if dvla_data.taxDueDate %}
                             <div class="col-6 col-sm-3 vehicle-detail-small-info">
                                 <p>
                                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/tax.png' %}" alt="Tax Icon">
-                                    <br class="d-block d-md-none">
+                                    <br>
                                     <span id="tax-date">{{ dvla_data.taxDueDate }}</span>
                                 </p>
                             </div>
                         </div>
+                        {% endif %}
+
                         <div class="row">
                             <div class="col-12 vehicle-detail--description">
                                 <p>{{ vehicle.description }}</p>

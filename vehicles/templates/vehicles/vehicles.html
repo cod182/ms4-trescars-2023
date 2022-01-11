@@ -265,6 +265,14 @@
                                                 <i class="fa fa-money" aria-hidden="true"></i> £{{ vehicle.full_price }}
                                             </p>
                                         </div>
+                                        <div class="vehicle-info">
+                                            {% if request.user.is_superuser %}
+                                                <small class="ml-3">
+                                                    <a href="{% url 'update_vehicle' vehicle.sku %}">Update</a> |
+                                                    <a class="text-danger" href="#">Delete</a>
+                                                </small> 
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

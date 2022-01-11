@@ -94,7 +94,7 @@ def add_vehicle(request):
 
 
 @login_required
-def update_vehicle(request):
+def update_vehicle(request, vehicle_id):
     """ Update an existing vehicle """
 
     if not request.user.is_superuser:
@@ -103,6 +103,8 @@ def update_vehicle(request):
             'Sorry, only authorised users can do that!'
         )
         return redirect(reverse('home'))
+
+    vehicle = get_object_or_404(Vehicle, sku=vehicle_sku)
 
 
     template = 'management/update_vehicle.html'

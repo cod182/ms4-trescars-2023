@@ -75,6 +75,8 @@ def request_info_from_dvla(reg):
         }
 
     response = requests.request("POST", url, headers=headers, data=payload)
+    if response.status_code:
+        print('Number Plate Not Found')
 
     return response.json
 
