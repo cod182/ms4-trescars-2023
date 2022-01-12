@@ -4,6 +4,7 @@ let hideSearchBtn = document.getElementById('hide-search');
 let searchOptions = document.getElementsByClassName('detail-options');
 let storedSearchOption = localStorage.getItem('searchOptions');
 let sortSelector = document.getElementById('sort-selector');
+let deleteVehicleBtn = document.getElementsByClassName('delete-vehicle');
 
 
 //Checks if latest games is enabled in local storage
@@ -94,3 +95,14 @@ hideSearchBtn.addEventListener('click', function() {
         showSearchOptions();
     }
 })
+
+for (let i = 0; i < deleteVehicleBtn.length; i++) {
+    deleteVehicleBtn[i].addEventListener('click', function(event) {
+        if (deleteVehicleBtn[i].innerText == "Are Your Sure?") {
+            deleteVehicleBtn[i].innerText = "Delete";
+        } else {
+            event.preventDefault();
+            deleteVehicleBtn[i].innerText = "Are Your Sure?";
+        }
+    })
+}

@@ -164,6 +164,27 @@ def update_vehicle(request, vehicle_sku):
 
 
 @login_required
+def delete_vehicle(request, vehicle_sku):
+    """ delete vehicle from the database """
+
+    if not request.user.is_superuser:
+        messages.error(
+            request,
+            'Sorry, only authorised users can do that!'
+        )
+        return redirect(reverse('home'))
+
+    vehicle = get_object_or_404(Vehicle, sku=vehicle_sku)
+
+    vehicle.delete()
+    messages.success(
+        request,
+        'Vehicle deleted!'
+        )
+    return redirect(reverse('vehicles'))
+
+
+@login_required
 def delete_vehicle_image(request, image_name):
     """ delete a vehicle's image """
 
