@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_title %}
+- Add A Vehicle
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'management/css/management.css' %}">
+{% endblock %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 font-small my-2">
+            <span><a href="{% url 'management_home' %}">Admin Management</a> > </span>
+            <p class="d-inline">Add a Vehicle</p></span>
+        </div>
+        <div class="col-12">
+            <h2 class="mt-2 mb-4">Add A Vehicle</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form action="{% url 'add_vehicle' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.registration | as_crispy_field }}
+                {{ form.make | as_crispy_field }}
+                {{ form.model | as_crispy_field }}
+                {{ form.trim | as_crispy_field }}
+                {{ form.colour | as_crispy_field }}
+                {{ form.fuel | as_crispy_field }}
+                {{ form.engine_size | as_crispy_field }}
+                {{ form.body_type | as_crispy_field }}
+                {{ form.gearbox | as_crispy_field }}
+                {{ form.drivetrain | as_crispy_field }}
+                {{ form.seats | as_crispy_field }}
+                {{ form.description | as_crispy_field }}
+                {{ form.full_price | as_crispy_field }}
+                {{ form.mileage | as_crispy_field }}
+                {{ form.model_year | as_crispy_field }}
+                {{ form.doors | as_crispy_field }}
+                <div id="images-container"></div>
+                {{ image_form.images }}
+            
+
+                <button class="btn btn-info my-2"type="submit">Add Vehicle</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block postload_js %}
+    <script src="{% static 'management/js/add_vehicle.js' %}"></script>
+{% endblock %}

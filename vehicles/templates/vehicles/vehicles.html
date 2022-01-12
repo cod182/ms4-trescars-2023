@@ -118,13 +118,13 @@
                     <!-- Vehicle Engine Search -->
                     <div class="col-12 col-md-4 m-auto detail-options">
                         <select id="vehicle-engine-search" class="vehicle-search-input" type="text" name="vehicle-engine">
-                            {% if remembered_search.engine %}
-                                <option selected value="{{ remembered_search.engine }}">{{ remembered_search.engine }}</option>
+                            {% if remembered_search.engine == '0'  or remembered_search == None %}
+                                <option selected value="0" data-disable>Engine</option>
                             {% else %}
-                                <option selected value="" data-disable>Engine</option>
+                                <option selected value="{{ remembered_search.engine }}">{{ remembered_search.engine }}L</option>
                             {% endif %}
                             {% for engine in vehicle_engines %}
-                                <option value="{{ engine }}">{{ engine }}</option>
+                                <option value="{{ engine }}">{{ engine }}L</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -182,7 +182,7 @@
                     </div>
                     <!-- Search button -->
                     <div class="col-9 col-md-3 my-auto">
-                        <button class="btn btn--vehicle-search-page" type="submit">Search</button>
+                        <button id="vehicle-search-button" class="btn btn--vehicle-search-page" type="submit">Search</button>
                     </div>
                     <!-- Reset button -->
                     <div class="col-3 col-md-1 my-auto">
@@ -264,6 +264,14 @@
                                             <p class="bold">
                                                 <i class="fa fa-money" aria-hidden="true"></i> £{{ vehicle.full_price }}
                                             </p>
+                                        </div>
+                                        <div class="vehicle-info">
+                                            {% if request.user.is_superuser %}
+                                                <small class="ml-3">
+                                                    <a href="{% url 'update_vehicle' vehicle.sku %}">Update</a> |
+                                                    <a class="text-danger delete-vehicle" href="{% url 'delete_vehicle' vehicle.sku %}">Delete</a>
+                                                </small> 
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>

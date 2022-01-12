@@ -52,9 +52,11 @@ hideSearchBtn.addEventListener('click', function() {
     }
 })
 
+// initial click prevents delete button from working and changes
+// text to 'are you sure?
+// second click completes button funciton
 deleteProfileInfoBtn.addEventListener('click', function(event) {
     if (deleteProfileInfoBtn.innerText == "Are Your Sure?") {
-        console.log('hello')
         deleteProfileInfoBtn.innerText = "Delete Info";
         deleteProfileInfoBtn.classList.remove('bg-red');
     } else {

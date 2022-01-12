@@ -4,8 +4,54 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from .models import Vehicle, VehicleImages, unique_vehicle_parameters
 from django.db.models import Q
+from decimal import Decimal
 import requests
 import json
+
+
+def vehicle_search(request):
+    query_make = request.GET['vehicle-make']
+    query_model = request.GET['vehicle-model']
+    query_price = request.GET['price-range']
+    query_mileage = request.GET['mileage']
+    query_colour = request.GET['vehicle-colour']
+    query_engine = request.GET['vehicle-engine']
+    query_doors = request.GET['vehicle-doors']
+    query_body = request.GET['vehicle-body']
+    query_fuel = request.GET['vehicle-fuel']
+    query_drivetrain = request.GET['vehicle-drivetrain']
+    query_year = request.GET['vehicle-model-year']
+
+    if Decimal(query_engine) == 0:
+        if int(query_price) == 30001:
+            if int(query_mileage) == 100001:
+                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__gte+Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+            else:
+                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__lte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__gte=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+
+        elif int(query_mileage) == 100001:
+            if int(query_price) == 30001:
+                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__gte=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+            else:
+                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__lte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__gte=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+        else:
+            search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__lte=query_price) & Q(mileage__lte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__gte=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+    else:
+        if int(query_price) == 30001:
+            if int(query_mileage) == 100001:
+                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+            else:
+                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__lte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+
+        elif int(query_mileage) == 100001:
+            if int(query_price) == 30001:
+                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+            else:
+                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__lte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+        else:
+            search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__lte=query_price) & Q(mileage__lte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+
+    return search
 
 
 def request_info_from_dvla(reg):
@@ -29,6 +75,8 @@ def request_info_from_dvla(reg):
         }
 
     response = requests.request("POST", url, headers=headers, data=payload)
+    if response.status_code == 404:
+        print('Number Plate Not Found')
 
     return response.json
 
@@ -85,48 +133,22 @@ def all_vehicles(request):
 
         if 'vehicle-detailed-search' in request.GET:
 
-            query_make = request.GET['vehicle-make']
-            query_model = request.GET['vehicle-model']
-            query_price = request.GET['price-range']
-            query_mileage = request.GET['mileage']
-            query_colour = request.GET['vehicle-colour']
-            query_engine = request.GET['vehicle-engine']
-            query_doors = request.GET['vehicle-doors']
-            query_body = request.GET['vehicle-body']
-            query_fuel = request.GET['vehicle-fuel']
-            query_drivetrain = request.GET['vehicle-drivetrain']
-            query_year = request.GET['vehicle-model-year']
-
-            if int(query_price) == 30001:
-                if int(query_mileage) == 100001:
-                    search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__icontains=query_engine) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
-                else:
-                    search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__lte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__icontains=query_engine) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
-
-            elif int(query_mileage) == 100001:
-                if int(query_price) == 30001:
-                    search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__icontains=query_engine) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
-                else:
-                    search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__lte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__icontains=query_engine) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
-            else:
-                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__lte=query_price) & Q(mileage__lte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__icontains=query_engine) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+            search = vehicle_search(request)
 
             vehicles = vehicles.filter(search)
 
-
-
             remembered_search = {
-                'make': query_make,
-                'model': query_model,
-                'year': query_year,
-                'price': query_price,
-                'mileage': query_mileage,
-                'colour': query_colour,
-                'engine': query_engine,
-                'doors': query_doors,
-                'body_type': query_body,
-                'fuel': query_fuel,
-                'drivetrain': query_drivetrain,
+                'make': request.GET['vehicle-make'],
+                'model': request.GET['vehicle-model'],
+                'year': request.GET['vehicle-model-year'],
+                'price': request.GET['price-range'],
+                'mileage': request.GET['mileage'],
+                'colour': request.GET['vehicle-colour'],
+                'engine': request.GET['vehicle-engine'],
+                'doors': request.GET['vehicle-doors'],
+                'body_type': request.GET['vehicle-body'],
+                'fuel': request.GET['vehicle-fuel'],
+                'drivetrain': request.GET['vehicle-drivetrain'],
             }
 
     current_sorting = f'{sort}_{direction}'
@@ -166,10 +188,11 @@ def vehicle_detail(request, vehicle_sku):
 
     dvla_data = request_info_from_dvla(reg=vehicle.registration)
 
+    template = 'vehicles/vehicle_detail.html'
     context = {
         'vehicle': vehicle,
         'images': images,
         'dvla_data': dvla_data,
         'media': settings.MEDIA_URL,
     }
-    return render(request, 'vehicles/vehicle_detail.html', context)
+    return render(request, template, context)

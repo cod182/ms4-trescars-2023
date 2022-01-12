@@ -4,6 +4,7 @@ let hideSearchBtn = document.getElementById('hide-search');
 let searchOptions = document.getElementsByClassName('detail-options');
 let storedSearchOption = localStorage.getItem('searchOptions');
 let sortSelector = document.getElementById('sort-selector');
+let deleteVehicleBtn = document.getElementsByClassName('delete-vehicle');
 
 
 //Checks if latest games is enabled in local storage
@@ -29,6 +30,10 @@ function checkCorrectMakesForModel() {
         }
     }
 }
+
+// As soon as the window is ready, check for the correct makes from model
+// For use when a search is made and window reloads
+window.onload = checkCorrectMakesForModel()
 
 // if make not select, model is disabled
 // if the make is selected, the model option is available
@@ -90,3 +95,17 @@ hideSearchBtn.addEventListener('click', function() {
         showSearchOptions();
     }
 })
+
+// initial click prevents delete button from working and changes
+// text to 'are you sure?
+// second click completes button funciton
+for (let i = 0; i < deleteVehicleBtn.length; i++) {
+    deleteVehicleBtn[i].addEventListener('click', function(event) {
+        if (deleteVehicleBtn[i].innerText == "Are Your Sure?") {
+            deleteVehicleBtn[i].innerText = "Delete";
+        } else {
+            event.preventDefault();
+            deleteVehicleBtn[i].innerText = "Are Your Sure?";
+        }
+    })
+}

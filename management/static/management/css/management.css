@@ -1,0 +1,31 @@
+.font-small {
+    font-size: small;
+}
+
+.img-thumb {
+    max-width: 80px;
+    max-height: 80px;
+
+    margin: 0 2px;
+}
+
+.img-thumb:hover {
+    border: 2px solid lightblue;
+    overflow: hidden;
+    transform: scale(1.2);
+}
+
+[type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+[type=radio] + img {
+    cursor: pointer;
+}
+
+[type=radio]:checked + img {
+    border: 3px solid green;
+}

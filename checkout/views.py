@@ -70,7 +70,7 @@ def reserve_vehicle_checkout(request, vehicle):
         if 'reserve_vehicle' in request.POST:
 
             vehicle_check = Vehicle.objects.get(sku=vehicle)
-            print(vehicle_check)
+
             if vehicle_check.available != 'yes':
                 return redirect(reverse('vehicles'))
             else:
@@ -126,31 +126,31 @@ def reserve_vehicle_checkout(request, vehicle):
 
                 # Save the info to the user's profile
                 request.session['save_info'] = 'save-info' in request.POST
-                return redirect(reverse('checkout_success', args=[order.order_number]))
+                return redirect(reverse('checkout_vehicle_success', args=[order.order_number]))
             else:
                 messages.error(request, 'There was an error with your form. \
                     Please double check your information.')
 
-        current_bag = vehicle_bag_contents(request)
-        total = current_bag['vehicle_grand_total']
-        stripe_total = round(total * 100)
-        stripe.api_key = STRIPE_SECRET_KEY
-        intent = stripe.PaymentIntent.create(
-            amount=stripe_total,
-            currency=settings.STRIPE_CURRENCY
-        )
+    current_bag = vehicle_bag_contents(request)
+    total = current_bag['vehicle_grand_total']
+    stripe_total = round(total * 100)
+    stripe.api_key = STRIPE_SECRET_KEY
+    intent = stripe.PaymentIntent.create(
+        amount=stripe_total,
+        currency=settings.STRIPE_CURRENCY
+    )
 
-        template = 'checkout/vehicle_checkout.html'
+    template = 'checkout/vehicle_checkout.html'
 
-        context = {
-            'order_form': order_form,
-            'media': settings.MEDIA_URL,
-            'images': images,
-            'stripe_public_key': STRIPE_PUBLIC_KEY,
-            'client_secret': intent.client_secret,
-        }
+    context = {
+        'order_form': order_form,
+        'media': settings.MEDIA_URL,
+        'images': images,
+        'stripe_public_key': STRIPE_PUBLIC_KEY,
+        'client_secret': intent.client_secret,
+    }
 
-        return render(request, template, context)
+    return render(request, template, context)
 
 
 def checkout_vehicle_success(request, order_number):
