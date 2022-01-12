@@ -96,6 +96,9 @@ hideSearchBtn.addEventListener('click', function() {
     }
 })
 
+// initial click prevents delete button from working and changes
+// text to 'are you sure?
+// second click completes button funciton
 for (let i = 0; i < deleteVehicleBtn.length; i++) {
     deleteVehicleBtn[i].addEventListener('click', function(event) {
         if (deleteVehicleBtn[i].innerText == "Are Your Sure?") {
