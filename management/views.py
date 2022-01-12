@@ -58,7 +58,6 @@ def add_vehicle(request):
             mainImage = False
             for image in request.FILES.getlist('images'):
 
-
                 if str(image) == str(request.POST['main']):
                     mainImage = True
 
@@ -133,7 +132,6 @@ def update_vehicle(request, vehicle_sku):
             }
 
         form = VehicleForm(form_data, instance=vehicle)
-        print(form)
 
         if form.is_valid():
             vehicle = form.save()
@@ -149,7 +147,9 @@ def update_vehicle(request, vehicle_sku):
                 'Failed to add vehicle. Please ensure the form is valid'
                 )
     else:
+
         form = VehicleForm(instance=vehicle)
+
         messages.info(
             request,
             f'You are editing {vehicle.make} {vehicle.model} - {vehicle.registration}'

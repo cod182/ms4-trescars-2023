@@ -10,9 +10,6 @@ class VehicleImages(models.Model):
     image = models.ImageField(null=True, blank=True)
     main = models.BooleanField(null=False, blank=False, default=False)
 
-    def __str__(self):
-        return self.name
-
 
 gearbox_choices = (
     ('manual', 'Manual'),

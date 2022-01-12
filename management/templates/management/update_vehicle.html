@@ -48,7 +48,16 @@
                 {{ form.model_year | as_crispy_field }}
                 {{ form.doors | as_crispy_field }}
                 {{ form.available | as_crispy_field }}
-
+                <!-- <div id="images-container">
+                {% for image in images %}
+                    <label>
+                        <input type="radio" name="main" id="main" value="{{ image.image }}" required>
+                        <img class="img-thumb" src="{{ media }}{{ image.image }}" alt="Image of {{image.name}}">
+                        <a href="{% url 'delete_vehicle_image' image.name %}">DELETE</a>
+                    </label>
+                {% endfor %}
+                </div>
+                {{ image_form.images }} -->
             
 
                 <button class="btn btn-info my-2"type="submit">Update Vehicle</button>
