@@ -10,6 +10,9 @@ class VehicleImages(models.Model):
     image = models.ImageField(null=True, blank=True)
     main = models.BooleanField(null=False, blank=False, default=False)
 
+    def __str__(self):
+        return self.name
+
 
 gearbox_choices = (
     ('manual', 'Manual'),
@@ -59,6 +62,11 @@ colour_choices = (
     ('yellow', 'Yellow'),
 )
 
+available_choices = (
+    ('yes', 'yes'),
+    ('no', 'no')
+)
+
 class Vehicle(models.Model):
     sku = models.CharField(max_length=9, null=False, blank=False)
     name = models.CharField(max_length=254, null=False, blank=False)
@@ -88,7 +96,7 @@ class Vehicle(models.Model):
     type = models.CharField(
         max_length=9, null=False, blank=False, default='vehicle')
     available = models.CharField(
-        max_length=9, null=False, blank=False, default="yes")
+        max_length=9, null=False, blank=False, default="yes", choices=available_choices)
 
     def __str__(self):
         return self.name

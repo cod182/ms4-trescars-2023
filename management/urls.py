@@ -5,5 +5,6 @@ from . import views
 urlpatterns = [
     path('home/', views.management_home, name='management_home'),
     path('add_vehicle/', views.add_vehicle, name='add_vehicle'),
-    path('update_vehicle/<vehicle_id>', views.update_vehicle, name='update_vehicle'),
+    path('update_vehicle/<vehicle_sku>', views.update_vehicle, name='update_vehicle'),
+    path('delete_vehicle_image/<image_name>', views.delete_vehicle_image, name='delete_vehicle_image'),
 ]

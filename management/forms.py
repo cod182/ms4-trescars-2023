@@ -5,7 +5,7 @@ from vehicles.models import Vehicle, VehicleImages
 class VehicleForm(forms.ModelForm):
     class Meta:
         model = Vehicle
-        exclude = ('price', 'type', 'available')
+        exclude = ('price', 'type')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

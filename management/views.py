@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -94,7 +94,7 @@ def add_vehicle(request):
 
 
 @login_required
-def update_vehicle(request, vehicle_id):
+def update_vehicle(request, vehicle_sku):
     """ Update an existing vehicle """
 
     if not request.user.is_superuser:
@@ -106,6 +106,80 @@ def update_vehicle(request, vehicle_id):
 
     vehicle = get_object_or_404(Vehicle, sku=vehicle_sku)
 
+    if request.method == 'POST':
+
+        form_data = {
+            'sku': request.POST['registration'].replace(" ", "").lower(),
+            'name': request.POST['make'].lower() + '-' + request.POST['registration'].replace(" ", "").lower(),
+            'registration': request.POST['registration'].lower(),
+            'make': request.POST['make'].lower(),
+            'model': request.POST['model'].lower(),
+            'trim': request.POST['trim'].lower(),
+            'colour': request.POST['colour'].lower(),
+            'fuel': request.POST['fuel'].lower(),
+            'engine_size': request.POST['engine_size'].lower(),
+            'body_type': request.POST['body_type'].lower(),
+            'gearbox': request.POST['gearbox'].lower(),
+            'drivetrain': request.POST['drivetrain'].lower(),
+            'seats': request.POST['seats'].lower(),
+            'description': request.POST['description'].lower(),
+            'price': 200,
+            'full_price': request.POST['full_price'].lower(),
+            'mileage': request.POST['mileage'].lower(),
+            'model_year': request.POST['model_year'].lower(),
+            'doors': request.POST['doors'].lower(),
+            'type': 'vehicle',
+            'available': request.POST['available'],
+            }
+
+        form = VehicleForm(form_data, instance=vehicle)
+        print(form)
+
+        if form.is_valid():
+            vehicle = form.save()
+
+            messages.success(
+                request,
+                'Sucsessfully added vehicle!'
+            )
+            return redirect(reverse('vehicle_detail', args=[form_data['sku']]))
+        else:
+            messages.error(
+                request,
+                'Failed to add vehicle. Please ensure the form is valid'
+                )
+    else:
+        form = VehicleForm(instance=vehicle)
+        messages.info(
+            request,
+            f'You are editing {vehicle.make} {vehicle.model} - {vehicle.registration}'
+        )
 
     template = 'management/update_vehicle.html'
-    return render(request, template)
+    context = {
+        'form': form,
+        'vehicle': vehicle,
+    }
+    return render(request, template, context)
+
+
+@login_required
+def delete_vehicle_image(request, image_name):
+    """ delete a vehicle's image """
+
+    if not request.user.is_superuser:
+        messages.error(
+            request,
+            'Sorry, only store owners can do that!'
+        )
+        return redirect(reverse('home'))
+
+    image = get_object_or_404(VehicleImages, name=image_name)
+
+    # image.delete()
+    messages.success(
+        request,
+        'Image deleted!'
+        )
+
+    return HttpResponse(status=200)
