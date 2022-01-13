@@ -31,7 +31,7 @@ DEBUG = 'DEVELOPMENT' in os.environ
 
 ALLOWED_HOSTS = ['tres-cars.herokuapp.com', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-purple-donkey-md18192i.ws-eu25.gitpod.io', 'https://tres-cars.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['https://8000-purple-donkey-md18192i.ws-eu27.gitpod.io', 'https://tres-cars.herokuapp.com']
 
 # Application definition
 
@@ -128,7 +128,7 @@ if 'DATABASE_URL' in os.environ:
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
 else:
-    DATABASES = {\
+    DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
@@ -186,7 +186,7 @@ if 'USE_AWS' in os.environ:
     AWS_S3_REGION_NAME = 'eu-west-2'
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3-website.{AWS_S3_REGION_NAME}.amazonaws.com/'
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
     # static files storage
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
@@ -195,8 +195,8 @@ if 'USE_AWS' in os.environ:
     MEDIAFILES_LOCATION = 'media'
 
     # Override static and media URLs in production
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
-    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+    STATIC_URL = f'http://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
+    MEDIA_URL = f'http://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
