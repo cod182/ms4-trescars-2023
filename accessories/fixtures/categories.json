@@ -1,19 +1,19 @@
 [{
-  "pk": 1,
+  "pk": 0,
   "model": "accessories.category",
   "fields": {
     "name": "exterior",
     "friendly_name": "Exterior"
   }
 }, {
-  "pk": 2,
+  "pk": 1,
   "model": "accessories.category",
   "fields": {
     "name": "interior",
     "friendly_name": "Interior"
   }
 }, {
-  "pk": 3,
+  "pk": 2,
   "model": "accessories.category",
   "fields": {
     "name": "safety",
