@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_title %}
+- Accessories
+{% endblock %}
+
+{% block page_header %}
+
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'accessories/css/accessories.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <!-- Search Options -->
+    </div>
+
+    <div class="row">
+        <!-- Sort Options -->
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Accessories -->
+        {% if not accessories %}
+            {% for accessory in accessories %}
+                <div class="col-md-12 col-lg-3">
+                    <a href="#" class="btn--accessory-detail">
+                        <div class="accessory-container">
+                            <div class="row">
+                                {% if accessory.available == 'yes' %}
+                                    {% for image in images %}
+                                        {% if vehicle.sku in image.name %}
+                                            {% if image.main %}
+                                                <div class="accessory--image col-12" style="background-image:url('{{ media }}{{ image.image }}');" title="">
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="position-relative accessory--image-sold col-12 col-md-6 col-lg-12">
+                                        <p class="accessory-sold">Sold</p>
+                                        {% for image in images %}
+                                            {% if vehicle.sku in image.name %}
+                                                {% if image.main %}
+                                                    <div class="vehicle--image col-12" style="background-image:url('{{ media }}{{ image.image }}');opacity: 0.2;" title="">
+                                                    </div>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="accessory-container--body roboto col-12 col-md-6 col-lg-12">
+                                    <div class="vehicle--title">
+                                        <h4><span>{{ accessory.brand | capfirst }} {{ accessory.accessory_type | capfirst}} for {{ accessory.vehicle_make | capfirst }}</span></h4>
+                                    </div>
+                                    <div class="vehicle-info">
+                                        {% if request.user.is_superuser %}
+                                            <small class="ml-3">
+                                                <a href="#">Update</a> |
+                                                <a class="text-danger delete-accessory" href="#">Delete</a>
+                                            </small> 
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% else %}
+        <!-- No accessories found -->
+        <div class="col-12 text-center mx-auto my-2">Sorry, no accessories found.</div>
+        {% endif %}
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block postload_js %}
+
+{% endblock %}
