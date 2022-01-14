@@ -18,6 +18,9 @@ class Category(models.Model):
 
 
 class Accessory(models.Model):
+    class Meta:
+        verbose_name_plural = 'Accessories'
+
     category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
     sku = models.CharField(max_length=254, null=False, blank=False)
     name = models.CharField(max_length=254, null=False, blank=False)

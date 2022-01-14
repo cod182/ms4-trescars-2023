@@ -9,7 +9,7 @@ class AccessoryAdmin(admin.ModelAdmin):
         'name',
         'brand',
         'vehicle_make',
-        'vehicle_mode',
+        'vehicle_model',
         'price',
         'accessory_type',
         'quantity_available',
@@ -17,7 +17,7 @@ class AccessoryAdmin(admin.ModelAdmin):
         'image'
     )
 
-    ordering = ('sku',)
+    ordering = ('brand',)
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -25,7 +25,6 @@ class CategoryAdmin(admin.ModelAdmin):
         'friendly_name',
         'name'
     )
-
 
 
 admin.site.register(Accessory, AccessoryAdmin)

@@ -1,0 +1,13 @@
+
+[
+  {
+    "pk":0,
+    "model": "vehicles.vehicleimages",
+    "fields": {
+      "name":"ve67uto-1",
+      "vehicle_name":0,
+      "image":"ve67uto-1.jpeg",
+      "main": true
+    }
+  }
+]
