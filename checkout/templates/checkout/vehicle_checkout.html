@@ -42,11 +42,9 @@
                             <div class="col-2 mb-1">
                                 <a href="{% url 'vehicle_detail' item.vehicle.sku %}">
                                     {% for image in images %}
-                                        {% if item.vehicle.sku in image.name %}
                                             {% if image.main %}
                                                 <img class="w-100" src="{{ media }}{{ image.image }}" alt="{{ item.vehicle.sku }}">
                                             {% endif %}
-                                        {% endif %}
                                     {% endfor %}
                                 </a>
                             </div>

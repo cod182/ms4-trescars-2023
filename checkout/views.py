@@ -40,9 +40,13 @@ def cache_checkout_data(request):
             processed right now. Please try again later.')
         return HttpResponse(content=e, status=400)
 
+
 def reserve_vehicle_checkout(request, vehicle):
     vehicle_bag = request.session.get('vehicle_bag', {})
-    images = VehicleImages.objects.all()
+
+    selected_vehicle = Vehicle.objects.get(sku=vehicle)
+    images = VehicleImages.objects.filter(vehicle_name=selected_vehicle)
+
     STRIPE_PUBLIC_KEY = settings.STRIPE_PUBLIC_KEY
     STRIPE_SECRET_KEY = settings.STRIPE_SECRET_KEY
 
