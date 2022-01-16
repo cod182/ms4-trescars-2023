@@ -6,7 +6,7 @@
     overflow: hidden;
 }
 
-.vehicle-container:hover {
+.accessory-container:hover {
     transition: .5s ease-in-out;
     transform: scale(1.05);
     box-shadow: #12a3e5 0px 0px 20px;
@@ -56,7 +56,7 @@
 .accessories-pagination-container a:hover {
     color: black;
 }
-/* 
+
 .accessory-details-back {
     color: black;
     margin-top: 1rem;
@@ -68,24 +68,26 @@
     top: 100px;
 }
 
-.vehicle-details-back:hover {
+.accessory-details-back:hover {
     color: #0da7e8;
 }
 
-.vehicle-container--body {
+.accessory-container--body {
     padding: 15px 15px 15px 25px;
     margin: auto 0;
 }
 
-.vehicle-container p {
+.accessory-container p {
     margin: 0;
 }
 
-.vehicle-container h4 {
+.accessory-container h4 {
     margin: 0;
 }
 
-.vehicle-detail-container {
+/*
+
+.accessory-detail-container {
     border: 1px solid black;
     border-radius: 10px;
     min-height: 600px;
@@ -95,7 +97,7 @@
     overflow: hidden;
 }
 
-.vehicle-detail--banner {
+.accessory-detail--banner {
     position: absolute;
     right: -52px;
     top: -13px;
@@ -105,7 +107,7 @@
     background-color: #0da7e8;
 }
 
-.vehicle-detail--banner p {
+.accessory-detail--banner p {
     margin: 42px auto 0 auto;
     font-size: 13px;
     font-weight: bold;
@@ -113,17 +115,6 @@
     text-align: center;
 }
   
-  .vehicle-detail--image-small {
-    opacity: 0.8;
-    cursor: pointer;
-    width: 100%;
-    margin: 5px auto;
-    border-radius: 10px;
-  }
-  
-  .vehicle-detail--image-small:hover {
-    opacity: 1;
-  }
   
   .image-row:after {
     content: "";
@@ -131,7 +122,7 @@
     clear: both;
   }
   
-  .vehicle-detail--images-container {
+  .accessory-detail--images-container {
     width: 100%;
     overflow: hidden;
     background: rgb(223, 223, 223);
@@ -140,24 +131,24 @@
     margin: 10px auto;
   }
 
-  .vehicle-detail--image-large {
+  .accessory-detail--image-large {
       width: 100%;
   }
 
-  .vehicle-detail-small-info {
+  .accessory-detail-small-info {
       text-align: center;
       margin: 5px 0;
   }
 
-  .vehicle-detail-small-info--icon {
+  .accessory-detail-small-info--icon {
       width: 20px;
   }
 
-  .vehicle-lookup {
+  .accessory-lookup {
       margin: 20px 0;
   }
 
-  .vehicle-detail--description {
+  .accessory-detail--description {
     margin: 20px 0px;
     font-family: roboto, sans-serif;
   } */

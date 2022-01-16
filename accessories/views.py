@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.conf import settings
 from django.db.models import Q
+from django.core.paginator import Paginator
 from .models import Category, Accessory
 
 # Create your views here.
@@ -36,8 +37,13 @@ def accessories_search(request):
             queries = Q(name__icontains=query) | Q(description__icontains=query)
             accessories = Accessory.objects.filter(queries)
 
+    paginator = Paginator(accessories, 25)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'accessories': accessories,
+        'accessories': page_obj,
+        'media': settings.MEDIA_URL
     }
 
     template = 'accessories/accessories_search.html'

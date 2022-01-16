@@ -38,6 +38,18 @@ body{
     color: black;
 }
 
+.red {
+    color: red;
+}
+
+.green {
+    color: rgb(2, 207, 2);
+}
+
+.orange {
+    color: orange;
+}
+
 /* fonts */
 
 .roboto {
@@ -279,6 +291,15 @@ body{
 .btn--remove-item:focus,
 .btn--remove-item:active:focus {
     color: rgb(255, 0, 0);
+}
+
+.btn--accessory-detail {
+    color: black;
+    text-decoration: none;
+}
+
+.btn--accessory-detail:hover {
+    color: black
 }
 
 .navbar {
