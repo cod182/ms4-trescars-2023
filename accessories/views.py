@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.conf import settings
+from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator
 from .models import Category, Accessory
@@ -22,8 +23,12 @@ def accessories(request):
 
 
 def accessories_search(request):
+    query = None
+    sort = None
+    direction = None
 
     if request.GET:
+        accessories = Accessory.objects.all()
 
         if 'category' in request.GET:
             categories = request.GET['category'].split(',')
@@ -34,8 +39,21 @@ def accessories_search(request):
             if not query:
                 messages.error(request, "You didn't enter a search term")
                 return redirect(reverse('accessories'))
-            queries = Q(name__icontains=query) | Q(description__icontains=query)
+            queries = Q(name__icontains=query) | Q(description__icontains=query) | Q(vehicle_make__icontains=query)  | Q(vehicle_model__icontains=query)
             accessories = Accessory.objects.filter(queries)
+
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            if sortkey == 'price':
+                sortkey = 'price'
+                accessories = accessories.order_by(sortkey)
+
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+                accessories = accessories.order_by(sortkey)
 
     paginator = Paginator(accessories, 25)
     page_number = request.GET.get('page')

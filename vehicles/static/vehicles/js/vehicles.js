@@ -7,7 +7,7 @@ let sortSelector = document.getElementById('sort-selector');
 let deleteVehicleBtn = document.getElementsByClassName('delete-vehicle');
 
 
-//Checks if latest games is enabled in local storage
+//Checks if hide options is enabled in local storage
 if (storedSearchOption === 'hidden') {
     hideSearchOptions();
 };
