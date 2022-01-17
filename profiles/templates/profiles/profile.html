@@ -83,7 +83,7 @@
                     <tr>
                         <td>{{ a_order.order_type | capfirst }}</td>
                         <td>
-                            <a href="#" title="{{ a_order.order_number }}">
+                            <a href="{% url 'accessory_order_detail' a_order.order_number %}" title="{{ a_order.order_number }}">
                                 {{ a_order.order_number | truncatechars:10 }}
                             </a>
                         </td>

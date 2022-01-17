@@ -55,3 +55,21 @@ def order_detail(request, order_number):
         'from_profile': True,
     }
     return render(request, template, context)
+
+
+@login_required
+def accessory_order_detail(request, order_number):
+
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    order = get_object_or_404(AccessoryOrder, order_number=order_number)
+
+    messages.info(request, (
+        f'This is a past order: {order_number}.'
+        ))
+
+    template = 'checkout/checkout_success.html'
+    context = {
+        'order': order,
+        'from_profile': True,
+    }
+    return render(request, template, context)
