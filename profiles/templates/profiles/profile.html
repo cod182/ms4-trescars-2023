@@ -56,6 +56,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Vehicle orders md > -->
                     {% for order in orders %}
                         <tr>
                             <td>{{ order.order_type | capfirst }}</td>
@@ -72,15 +73,38 @@
                                                     <br>
                                                     {{ item.vehicle.registration | upper }}
                                                 </td>
-                                            {% elif item.accessory %}
-                                            
                                             {% endif %}
                                     {% endfor %}
                             <td>£{{ order.grand_total }}</td>
                         </tr>
                     {% endfor %}
+                    <!-- Accessories Orders md > -->
+                    {% for a_order in accessory_orders %}
+                    <tr>
+                        <td>{{ a_order.order_type | capfirst }}</td>
+                        <td>
+                            <a href="{% url 'accessory_order_detail' a_order.order_number %}" title="Order Number: {{ a_order.order_number }}">
+                                {{ a_order.order_number | truncatechars:10 }}
+                            </a>
+                        </td>
+                        <td>{{ a_order.date }}</td>
+                                    <td>
+                                        {% for item in a_order.accessorylineitems.all %}
+                                        <p class="m-0">
+                                            {{ item.quantity }} x {{ item.accessory.brand | capfirst }} {{ item.accessory.accessory_type | capfirst }}
+                                        </p>
+                                        {% endfor %}
+                                    </td>
+                        <td>£{{ a_order.grand_total }}</td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
+
+            <!-- Small container for orders -->
+
+
+            <!-- Vehicles -->
             <div class="d-inline d-sm-none m-auto align-middle container">
                 {% for order in orders %}
                 <div class="row">
@@ -134,6 +158,57 @@
                 <hr>
 
                 {% endfor %}
+                
+                <!-- Accessories -->
+
+                {% for a_order in accessory_orders %}
+                <div class="row">
+                    <div class="col-6 text-end">
+                        <p class="my-0 bold">Order Type:</p>
+                    </div>
+                    <div class="col-6 text-start">
+                        <p  class="my-0">{{ a_order.order_type | capfirst }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 text-end">
+                        <p class="my-0 bold">Order Number:</p>
+                    </div>
+                    <div class="col-6 text-start">
+                        <a href="{% url 'accessory_order_detail' a_order.order_number %}" title="Order Number: {{ a_order.order_number }}">
+                            {{ a_order.order_number | truncatechars:10 }}
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 text-end">
+                        <p class="my-0 bold">Order Date:</p>
+                    </div>
+                    <div class="col-6 text-start">
+                        <p class="my-0">{{ a_order.date }}</p>
+                    </div>
+                </div>
+
+                
+                    <div class="row">
+                        <div class="col-6 text-end">
+                            <p class="my-0 bold">Items:</p>
+                        </div>
+                        <div class="col-6 text-start">
+                            {% for item in a_order.accessorylineitems.all %}
+                                <p class="my-0">
+                                    {{ item.quantity }} x {{ item.accessory.brand | capfirst }} {{ item.accessory.accessory_type | capfirst }}
+                                </p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                <hr>
+
+                {% endfor %}
+
 
             </div>
         </div>

@@ -43,8 +43,6 @@
 
 <body>
     <header>
-        
-
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,7 +64,7 @@
                         <hr class="d-block d-lg-none">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Accessories</a>
+                            <a class="nav-link" href="{% url 'accessories' %}">Accessories</a>
                         </li>
                         
                         <hr class="d-block d-lg-none">
@@ -133,9 +131,19 @@
                 
             </div>
           </nav>
-
-
     </header>
+
+    <div class="container-fluid g-0">
+        {% if messages %}
+            <div class="message-container">
+                {% for message in messages %}
+                    <p>
+                        {{message}}
+                    </p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 
     {% block page_header %}
     {% endblock %}

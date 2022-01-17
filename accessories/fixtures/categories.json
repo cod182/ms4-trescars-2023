@@ -1,0 +1,28 @@
+[{
+  "pk": 0,
+  "model": "accessories.category",
+  "fields": {
+    "name": "exterior",
+    "friendly_name": "Exterior",
+    "image":"exterior-bg.jpg"
+  }
+}, {
+  "pk": 1,
+  "model": "accessories.category",
+  "fields": {
+    "name": "interior",
+    "friendly_name": "Interior",
+    "image":"interior-bg.jpg"
+
+  }
+}, {
+  "pk": 2,
+  "model": "accessories.category",
+  "fields": {
+    "name": "safety",
+    "friendly_name": "Safety",
+    "image":"safety-bg.jpg"
+
+  }
+}
+]

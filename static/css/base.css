@@ -38,6 +38,18 @@ body{
     color: black;
 }
 
+.red {
+    color: red;
+}
+
+.green {
+    color: rgb(2, 207, 2);
+}
+
+.orange {
+    color: orange;
+}
+
 /* fonts */
 
 .roboto {
@@ -281,6 +293,15 @@ body{
     color: rgb(255, 0, 0);
 }
 
+.btn--accessory-detail {
+    color: black;
+    text-decoration: none;
+}
+
+.btn--accessory-detail:hover {
+    color: black
+}
+
 .navbar {
     min-height: 100px;
 }
@@ -308,6 +329,20 @@ body{
 .nav-link:focus:active {
     color: blue;
     font-weight: bold;
+}
+
+.message-container {
+    height: 50px;
+    background-color: #0da7e8;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+.message-container {
+    margin: 0;
+    padding: 0;
+    line-height: 50px;
 }
 
 .footer {

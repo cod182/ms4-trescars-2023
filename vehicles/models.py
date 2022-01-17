@@ -4,6 +4,9 @@ from operator import attrgetter
 
 
 class VehicleImages(models.Model):
+    class Meta:
+        verbose_name_plural = 'Vehicle Images'
+
     name = models.CharField(max_length=254, null=False, blank=False)
     vehicle_name = models.ForeignKey(
         'Vehicle', null=True, blank=True, on_delete=models.CASCADE)
