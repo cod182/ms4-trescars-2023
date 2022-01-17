@@ -77,6 +77,7 @@ class StripeWH_Handler:
 
         order_exists = False
         attempt = 1
+
         if order_type == 'vehicle':
             while attempt <= 5:
                 try:

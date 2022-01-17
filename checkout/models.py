@@ -79,7 +79,7 @@ class OrderLineItem(models.Model):
 
 class AccessoryOrder(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
-    order_type = models.CharField(max_length=15, null=False, blank=False, default='accessory')
+    order_type = models.CharField(max_length=15, null=False, blank=False, default='accessories')
     user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
                                      null=True, blank=True, related_name='accessoryOrders')
     full_name = models.CharField(max_length=50, null=False, blank=False)
@@ -111,7 +111,7 @@ class AccessoryOrder(models.Model):
         """
         self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
         self.delivery_cost = 0
-        self.grand_total = self.order_total + self.delivery_cost
+        self.grand_total = self.order_total
         self.save()
 
     def save(self, *args, **kwargs):
@@ -129,7 +129,7 @@ class AccessoryOrder(models.Model):
 class AccessoryOrderLineItem(models.Model):
     order = models.ForeignKey(AccessoryOrder, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
     accessory = models.ForeignKey(Accessory, null=False, blank=False, on_delete=models.CASCADE)
-    quantity = models.IntegerField(null=False, blank=False, default=0)
+    quantity = models.IntegerField(null=False, blank=False, default=1)
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=0, null=False, blank=False, editable=False)
 
     def save(self, *args, **kwargs):
@@ -137,7 +137,7 @@ class AccessoryOrderLineItem(models.Model):
         Override the original save method to set the lineitem total
         and update the order total.
         """
-        self.lineitem_total = int(self.accessory.price)
+        self.lineitem_total = int(self.accessory.price  * self.quantity)
         super().save(*args, **kwargs)
 
     def __str__(self):

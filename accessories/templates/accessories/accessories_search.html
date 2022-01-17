@@ -84,7 +84,7 @@
                                         <p class="bold green">
                                             <i class="fa fa-box" aria-hidden="true"></i> In Stock
                                         </p>
-                                    {% elif accessory.quantity_available == 0 %}
+                                    {% elif accessory.quantity_available <= 0 %}
                                         <p class="bold red">
                                             <i class="fa fa-box" aria-hidden="true"></i> Out of Stock
                                         </p>
