@@ -83,7 +83,7 @@
                     <tr>
                         <td>{{ a_order.order_type | capfirst }}</td>
                         <td>
-                            <a href="{% url 'accessory_order_detail' a_order.order_number %}" title="{{ a_order.order_number }}">
+                            <a href="{% url 'accessory_order_detail' a_order.order_number %}" title="Order Number: {{ a_order.order_number }}">
                                 {{ a_order.order_number | truncatechars:10 }}
                             </a>
                         </td>
@@ -176,7 +176,7 @@
                         <p class="my-0 bold">Order Number:</p>
                     </div>
                     <div class="col-6 text-start">
-                        <a href="#" title="{{ order.order_number }}">
+                        <a href="{% url 'accessory_order_detail' a_order.order_number %}" title="Order Number: {{ a_order.order_number }}">
                             {{ a_order.order_number | truncatechars:10 }}
                         </a>
                     </div>
