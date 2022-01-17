@@ -3,8 +3,9 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
 
-from .models import Order, OrderLineItem
+from .models import Order, OrderLineItem, AccessoryOrder, AccessoryOrderLineItem
 from vehicles.models import Vehicle
+from accessories.models import Accessory
 from profiles.models import UserProfile
 
 import json
@@ -76,28 +77,53 @@ class StripeWH_Handler:
 
         order_exists = False
         attempt = 1
-        while attempt <= 5:
-            try:
-                order = Order.objects.get(
-                    order_type=order_type,
-                    full_name__iexact=shipping_details.name,
-                    email__iexact=billing_details.email,
-                    phone_number__iexact=shipping_details.phone,
-                    country__iexact=shipping_details.address.country,
-                    postcode__iexact=shipping_details.address.postal_code,
-                    town_or_city__iexact=shipping_details.address.city,
-                    street_address1__iexact=shipping_details.address.line1,
-                    street_address2__iexact=shipping_details.address.line2,
-                    county__iexact=shipping_details.address.state,
-                    grand_total=grand_total,
-                    original_bag=bag,
-                    stripe_pid=pid,
-                )
-                order_exists = True
-                break
-            except Order.DoesNotExist:
-                attempt += 1
-                time.sleep(1)
+        if order_type == 'vehicle':
+            while attempt <= 5:
+                try:
+                    order = Order.objects.get(
+                        order_type=order_type,
+                        full_name__iexact=shipping_details.name,
+                        email__iexact=billing_details.email,
+                        phone_number__iexact=shipping_details.phone,
+                        country__iexact=shipping_details.address.country,
+                        postcode__iexact=shipping_details.address.postal_code,
+                        town_or_city__iexact=shipping_details.address.city,
+                        street_address1__iexact=shipping_details.address.line1,
+                        street_address2__iexact=shipping_details.address.line2,
+                        county__iexact=shipping_details.address.state,
+                        grand_total=grand_total,
+                        original_bag=bag,
+                        stripe_pid=pid,
+                    )
+                    order_exists = True
+                    break
+                except Order.DoesNotExist:
+                    attempt += 1
+                    time.sleep(1)
+        elif order_type == 'accessories':
+            while attempt <= 5:
+                try:
+                    order = AccessoryOrder.objects.get(
+                        order_type=order_type,
+                        full_name__iexact=shipping_details.name,
+                        email__iexact=billing_details.email,
+                        phone_number__iexact=shipping_details.phone,
+                        country__iexact=shipping_details.address.country,
+                        postcode__iexact=shipping_details.address.postal_code,
+                        town_or_city__iexact=shipping_details.address.city,
+                        street_address1__iexact=shipping_details.address.line1,
+                        street_address2__iexact=shipping_details.address.line2,
+                        county__iexact=shipping_details.address.state,
+                        grand_total=grand_total,
+                        original_bag=bag,
+                        stripe_pid=pid,
+                    )
+                    order_exists = True
+                    break
+                except AccessoryOrder.DoesNotExist:
+                    attempt += 1
+                    time.sleep(1)
+
         if order_exists:
             self._send_confirmation_email(order)
             return HttpResponse(
@@ -105,52 +131,90 @@ class StripeWH_Handler:
                 status=200)
         else:
             order = None
-            try:
-                order = Order.objects.create(
-                    order_type=order_type,
-                    full_name=shipping_details.name,
-                    user_profile=profile,
-                    email=billing_details.email,
-                    phone_number=shipping_details.phone,
-                    country=shipping_details.address.country,
-                    postcode=shipping_details.address.postal_code,
-                    town_or_city=shipping_details.address.city,
-                    street_address1=shipping_details.address.line1,
-                    street_address2=shipping_details.address.line2,
-                    county=shipping_details.address.state,
-                    original_bag=bag,
-                    stripe_pid=pid,
-                )
-                for item_id, item_data in json.loads(bag).items():
-                    if Vehicle.objects.get(sku=item_id):
-                        order_items = Vehicle.objects.get(sku=item_id)
+            if order_type == 'vehicle':
+                try:
+                    order = Order.objects.create(
+                        order_type=order_type,
+                        full_name=shipping_details.name,
+                        user_profile=profile,
+                        email=billing_details.email,
+                        phone_number=shipping_details.phone,
+                        country=shipping_details.address.country,
+                        postcode=shipping_details.address.postal_code,
+                        town_or_city=shipping_details.address.city,
+                        street_address1=shipping_details.address.line1,
+                        street_address2=shipping_details.address.line2,
+                        county=shipping_details.address.state,
+                        original_bag=bag,
+                        stripe_pid=pid,
+                    )
+                    for item_id, item_data in json.loads(bag).items():
+                        if Vehicle.objects.get(sku=item_id):
+                            order_items = Vehicle.objects.get(sku=item_id)
 
-                        if isinstance(item_data, int):
-                            order_line_item = OrderLineItem(
-                                order=order,
-                                vehicle=order_items,
+                            if isinstance(item_data, int):
+                                order_line_item = OrderLineItem(
+                                    order=order,
+                                    vehicle=order_items,
+                                    )
+                            order_line_item.save()
+                            Vehicle.objects.filter(sku=item_id).update(
+                                available='no')
+
+                        else:
+                            order_items = Accessory.objects.get(sku=item_id)
+
+                            if isinstance(item_data, int):
+                                order_line_item = OrderLineItem(
+                                    order=order,
+                                    accessory=order_items,
+                                    quantity=item_data,
                                 )
-                        order_line_item.save()
-                        Vehicle.objects.filter(sku=item_id).update(
-                            available='no')
+                            order_line_item.save()
 
-                    else:
-                        order_items = Accessory.objects.get(sku=item_id)
+                except Exception as e:
+                    if order:
+                        order.delete()
+                    return HttpResponse(
+                        content=f'Webhook received: {event["type"]} | ERROR: {e}',
+                        status=500)
+            elif order_type == 'accessories':
+                try:
+                    order = AccessoryOrder.objects.create(
+                        order_type=order_type,
+                        full_name=shipping_details.name,
+                        user_profile=profile,
+                        email=billing_details.email,
+                        phone_number=shipping_details.phone,
+                        country=shipping_details.address.country,
+                        postcode=shipping_details.address.postal_code,
+                        town_or_city=shipping_details.address.city,
+                        street_address1=shipping_details.address.line1,
+                        street_address2=shipping_details.address.line2,
+                        county=shipping_details.address.state,
+                        original_bag=bag,
+                        stripe_pid=pid,
+                    )
+                    for item_id, item_data in json.loads(bag).items():
+                            order_item = Accessory.objects.get(pk=item_id)
 
-                        if isinstance(item_data, int):
-                            order_line_item = OrderLineItem(
-                                order=order,
-                                accessory=order_items,
-                                quantity=item_data,
-                            )
-                        order_line_item.save()
+                            if isinstance(item_data, int):
+                                order_line_item = AccessoryOrderLineItem(
+                                    order=order,
+                                    accessory=order_item,
+                                    quantity=item_data,
+                                )
+                            order_line_item.save()
+                            order_item.quantity_available -= 1
+                            order_item.save()
 
-            except Exception as e:
-                if order:
-                    order.delete()
-                return HttpResponse(
-                    content=f'Webhook received: {event["type"]} | ERROR: {e}',
-                    status=500)
+                except Exception as e:
+                    if order:
+                        order.delete()
+                    return HttpResponse(
+                        content=f'Webhook received: {event["type"]} | ERROR: {e}',
+                        status=500)
+
         self._send_confirmation_email(order)
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | Order created via webhook',
