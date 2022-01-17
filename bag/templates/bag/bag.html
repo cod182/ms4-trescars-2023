@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load mathfilters %}
 {% block extra_title %}
  - Bag 
  {% endblock %}
@@ -17,7 +18,7 @@
     <div class="row">
         <div class="col">
             <hr>
-            <h2 class="logo-font mb-4">Shopping Bag</h2>
+            <h2 class="logo-font mb-4">Shopping Bag ({{ accessory_count }} items)</h2>
             <hr>
         </div>
     </div>
@@ -37,39 +38,20 @@
                         </thead>
 
                         {% for item in bag_items %}
-                            {% if item.vehicle %}
                                 <tr>
                                     <td class="py-3">
-                                        <p class="my-0"><strong>{{ item.vehicle.make | upper }} {{ item.vehicle.model | upper }} {{ item.vehicle.trim | upper }}</strong></p>
-                                        <p class="my-0 small text-muted">SKU: {{ item.vehicle.sku|upper }}</p>
-                                    </td>
-                                    <td class="py-3">
-                                        <p class="my-0">£{{ item.vehicle.price }}</p>
-                                    </td>
-                                    <td class="py-3 w-25">
-                                        <form class="form update-form" method="POST" action="{% url 'adjust_bag' item.vehicle.sku %}">
-                                            {% csrf_token %}
-                                            <div class="form-group">
-                                        <a class="btn--remove-item float-right" id="remove_{{ item.vehicle.sku }}"><small>Remove</small></a>
-                                    </td>
-                                    <td class="py-3">
-                                    </td>
-                                </tr>
-                            {% elif item.accessory %}
-                                <tr>
-                                    <td class="py-3">
-                                        <p class="my-0"><strong>{{ item.accessory | upper }}</strong></p>
+                                        <p class="my-0"><strong>{{ item.accessory.brand | upper }} {{item.accessory.accessory_type | upper}}</strong></p>
                                         <p class="my-0 small text-muted">SKU: {{ item.accessory }}</p>
                                     </td>
                                     <td class="py-3">
                                         <p class="my-0">£{{ item.accessory.price }}</p>
                                     </td>
                                     <td class="py-3 w-25">
-                                        <form class="form update-form" method="POST" action="{% url 'adjust_bag' item.vehicle.sku %}">
+                                        <form class="form update-form" method="POST" action="#">
                                             {% csrf_token %}
                                             <div class="form-group">
                                                 <div class="input-group">
-                                                    <input class="form-control form-control-sm qty_input" type="number" name="quantity" value="{{ item.quantity }}" min="1" max="99" data-item_id="{{ item.accessory.sku }}" id="id_qty_{{ item.accessory.sku }}">
+                                                    <input class="form-control form-control-sm qty_input" type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.accessory.quantity_available }}" data-item_id="{{ item.accessory.sku }}" id="id_qty">
                                                 </div>
                                             </div>
                                         </form>
@@ -77,10 +59,9 @@
                                         <a class="btn--remove-item float-right" id="remove_{{ item.accessory.sku }}"><small>Remove</small></a>
                                     </td>
                                     <td class="py-3">
+                                        <p class="my-0">£{{ item.accessory.price | mul:item.quantity }}</p>
                                     </td>
                                 </tr>
-
-                            {% endif %}
                         {% endfor %}
                         <tr>
                             <td colspan="5" class="pt-5 text-right">
