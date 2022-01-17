@@ -67,3 +67,17 @@ def accessories_search(request):
     template = 'accessories/accessories_search.html'
 
     return render(request, template, context)
+
+
+def accessory_detail(request, accessory_sku):
+
+    accessory = Accessory.objects.get(sku=accessory_sku)
+
+    template = 'accessories/accessory_detail.html'
+
+    context = {
+        'accessory': accessory,
+        'media': settings.MEDIA_URL
+    }
+
+    return render(request, template, context)

@@ -57,7 +57,7 @@
         {% if accessories %}
             {% for accessory in accessories %}
             <div class="col-md-12 col-lg-3">
-                <a href="#" class="btn--accessory-detail">
+                <a href="{% url 'accessory_detail' accessory.sku %}" class="btn--accessory-detail">
                     <div class="accessory-container">
                         <div class="row">
                         <div class="accessory--image col-12" style="background-image:url('{{ media }}{{ accessory.image }}');" title="{{ accessory.brnad }} {{ accessory.type }}"></div>
