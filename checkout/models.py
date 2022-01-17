@@ -109,7 +109,7 @@ class AccessoryOrder(models.Model):
         Update grand total each time a line item is added,
         accounting for delivery costs.
         """
-        self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
+        self.order_total = self.accessorylineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
         self.delivery_cost = 0
         self.grand_total = self.order_total
         self.save()
@@ -127,7 +127,7 @@ class AccessoryOrder(models.Model):
         return self.order_number
 
 class AccessoryOrderLineItem(models.Model):
-    order = models.ForeignKey(AccessoryOrder, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
+    order = models.ForeignKey(AccessoryOrder, null=False, blank=False, on_delete=models.CASCADE, related_name='accessorylineitems')
     accessory = models.ForeignKey(Accessory, null=False, blank=False, on_delete=models.CASCADE)
     quantity = models.IntegerField(null=False, blank=False, default=1)
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=0, null=False, blank=False, editable=False)

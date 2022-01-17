@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import UserProfile
 from .forms import UserProfileForm
-from checkout.models import Order
+from checkout.models import Order, AccessoryOrder
 
 
 @login_required
@@ -25,12 +25,14 @@ def profile(request):
 
     form = UserProfileForm(instance=user_profile)
     orders = user_profile.orders.all()
+    accessory_orders = user_profile.accessoryOrders.all()
 
     template = 'profiles/profile.html'
     context = {
         'profile': user_profile,
         'form': form,
         'orders': orders,
+        'accessory_orders': accessory_orders,
         'on_profile': True
     }
 

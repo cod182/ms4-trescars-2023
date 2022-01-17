@@ -63,19 +63,18 @@
                             <p class="mb-0 bold">{% if order.order_type == 'vehicle' %}Reserved Vehicle:{% else %}Ordered Items:{% endif %}</p>
                         </div>
                         {% for item in order.lineitems.all %}
-                            {% if item.vehicle %}
                                 <div class="col-12 text-md-right">
                                     <p class="mb-0">
                                         {{ item.vehicle.make | capfirst }} {{ item.vehicle.model | capfirst }} - {{ item.vehicle.registration | upper }}
                                     </p>
                                 </div>
-                            {% else %}
-                                <div class="col-12 text-md-right">
-                                    <p class="mb-0">
-                                        {{ item.quantity }} x {{ item.accessory.brand | capfirst }} {{ item.accessory.accessory_type | capfirst }}
-                                    </p>
-                                </div>
-                            {% endif %}
+                        {% endfor %}
+                        {% for item in order.accessorylineitems.all %}
+                            <div class="col-12 text-md-right">
+                                <p class="mb-0">
+                                    {{ item.quantity }} x {{ item.accessory.brand | capfirst }} {{ item.accessory.accessory_type | capfirst }}
+                                </p>
+                            </div>
                         {% endfor %}
                     </div>
 
