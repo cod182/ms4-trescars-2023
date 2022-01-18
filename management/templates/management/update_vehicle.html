@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'management/css/management.css' %}">
+<link rel="stylesheet" href="{% static 'management/css/management.css' %}">
 {% endblock %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
-        </div>
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
@@ -29,7 +29,7 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <form action="{% url 'update_vehicle' vehicle.sku %}" method="post" enctype="multipart/form-data">
+            <form action="{%url 'update_vehicle' vehicle.sku %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.registration | as_crispy_field }}
                 {{ form.make | as_crispy_field }}
@@ -48,6 +48,9 @@
                 {{ form.model_year | as_crispy_field }}
                 {{ form.doors | as_crispy_field }}
                 {{ form.available | as_crispy_field }}
+
+                <hr>
+                <p class="bold">Images:</p>
                 <!-- <div id="images-container">
                 {% for image in images %}
                     <label>
@@ -56,18 +59,38 @@
                         <a href="{% url 'delete_vehicle_image' image.name %}">DELETE</a>
                     </label>
                 {% endfor %}
-                </div>
-                {{ image_form.images }} -->
-            
-
-                <button class="btn btn-info my-2"type="submit">Update Vehicle</button>
-            </form>
+                </div>-->
         </div>
+
+        {% for x in image_form %}
+        <div class="col-4 mt-2 current_image">
+            <hr>
+            {{ x | crispy }}
+        </div>
+        {% endfor %}
+
+        <button class="btn btn-info my-2" type="submit">Update Vehicle</button>
+        </form>
     </div>
+</div>
 </div>
 
 {% endblock %}
 
 {% block postload_js %}
-    <script src="{% static 'management/js/add_vehicle.js' %}"></script>
+<script src="{% static 'management/js/add_vehicle.js' %}"></script>
+<script>
+    let currImgCont = document.getElementsByClassName('current_image')
+
+    for (x = 0; x < currImgCont.length; x++) {
+        let img = document.createElement('img');
+        if (currImgCont[x].children[2].children[1].children[0].getAttribute('href')) {
+            img.setAttribute('src', currImgCont[x].children[2].children[1].children[0].getAttribute('href'));
+            img.setAttribute('width', '100px');
+            img.setAttribute('height', 'auto');
+
+            currImgCont[x].children[2].prepend(img);
+        }
+    }
+</script>
 {% endblock %}
