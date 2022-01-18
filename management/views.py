@@ -1,214 +1,110 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.db import models
 from django.conf import settings
-from django.db.models import Q
-from django.forms import inlineformset_factory
-import requests
-from vehicles.models import Vehicle, VehicleImages
-from .forms import VehicleForm, VehicleImagesForm
+from operator import attrgetter
 
 
-@login_required
-def management_home(request):
-    template = "management/home.html"
-    return render(request, template)
+class VehicleImages(models.Model):
+    class Meta:
+        verbose_name_plural = "Vehicle Images"
+
+    name = models.CharField(max_length=254, null=False, blank=False)
+    vehicle_name = models.ForeignKey(
+        "Vehicle", null=True, blank=True, on_delete=models.CASCADE
+    )
+    image = models.ImageField(null=True, blank=True)
+    main = models.BooleanField(null=False, blank=False, default=False)
+
+    def __str__(self):
+        return self.name
 
 
-@login_required
-def add_vehicle(request):
-    """Add a new vhicle to the site"""
+gearbox_choices = (
+    ("manual", "Manual"),
+    ("automatic", "Automatic"),
+    ("semi-automatic", "Semi-Automatic"),
+)
 
-    if not request.user.is_superuser:
-        messages.error(request, "Sorry, only authorised users can do that!")
-        return redirect(reverse("home"))
+body_type_choices = (
+    ("4x4", "4x4"),
+    ("convertible", "Convertible"),
+    ("coupe", "Coupe"),
+    ("estate", "Estate"),
+    ("hatchback", "Hatchback"),
+    ("motorhome", "Motorhome"),
+    ("mpv", "MPV"),
+    ("pickup", "Pickup"),
+    ("saloon", "Saloon"),
+    ("suv", "SUV"),
+    ("van", "Van"),
+)
 
-    if request.method == "POST":
-        form_data = {
-            "sku": request.POST["registration"].replace(" ", "").lower(),
-            "name": request.POST["make"].lower()
-            + "-"
-            + request.POST["registration"].replace(" ", "").lower(),
-            "registration": request.POST["registration"].lower(),
-            "make": request.POST["make"].lower(),
-            "model": request.POST["model"].lower(),
-            "trim": request.POST["trim"].lower(),
-            "colour": request.POST["colour"].lower(),
-            "fuel": request.POST["fuel"].lower(),
-            "engine_size": request.POST["engine_size"].lower(),
-            "body_type": request.POST["body_type"].lower(),
-            "gearbox": request.POST["gearbox"].lower(),
-            "drivetrain": request.POST["drivetrain"].lower(),
-            "seats": request.POST["seats"].lower(),
-            "description": request.POST["description"].lower(),
-            "price": 200,
-            "full_price": request.POST["full_price"].lower(),
-            "mileage": request.POST["mileage"].lower(),
-            "model_year": request.POST["model_year"].lower(),
-            "doors": request.POST["doors"].lower(),
-            "type": "vehicle",
-            "available": "yes",
-        }
-        form = VehicleForm(form_data)
-        image_form = VehicleImagesForm(request.FILES)
+drivetrain_choices = (
+    ("2wd", "2WD"),
+    ("4wd", "4WD"),
+)
 
-        if form.is_valid():
-            vehicle = form.save()
+fuel_choices = (
+    ("petrol", "Petrol"),
+    ("diesel", "Diesel"),
+    ("petrol-hybrid", "Petrol-Hybrid"),
+    ("diesel-hybrid", "Diesel-Hybrid"),
+    ("hydrogen", "Hydrogen"),
+    ("electricity", "Electricity"),
+)
 
-            image_number = 0
-            mainImage = False
-            for image in request.FILES.getlist("images"):
+colour_choices = (
+    ("blue", "Blue"),
+    ("black", "Black"),
+    ("green", "Green"),
+    ("multi-coloured", "Multi-Coloured"),
+    ("orange", "Orange"),
+    ("pink", "Pink"),
+    ("purple", "Purple"),
+    ("red", "Red"),
+    ("silver", "Silver"),
+    ("white", "White"),
+    ("yellow", "Yellow"),
+)
 
-                if str(image) == str(request.POST["main"]):
-                    mainImage = True
-
-                image = VehicleImages.objects.create(
-                    name=form_data["sku"] + "-" + str(image_number),
-                    vehicle_name=Vehicle(vehicle.id),
-                    image=image,
-                    main=mainImage,
-                )
-                image_number += 1
-                mainImage = False
-
-            messages.success(request, "Sucsessfully added vehicle!")
-            return redirect(reverse("vehicle_detail", args=[form_data["sku"]]))
-        else:
-            messages.error(
-                request, "Failed to add vehicle. Please ensure the form is valid"
-            )
-    else:
-        form = VehicleForm()
-        image_form = VehicleImagesForm()
-
-    template = "management/add_vehicle.html"
-    context = {
-        "form": form,
-        "image_form": image_form,
-    }
-    return render(request, template, context)
+available_choices = (("yes", "yes"), ("no", "no"))
 
 
-@login_required
-def update_vehicle(request, vehicle_sku):
-    """Update an existing vehicle"""
+class Vehicle(models.Model):
+    sku = models.CharField(max_length=9, null=False, blank=False)
+    name = models.CharField(max_length=254, null=False, blank=False)
+    registration = models.CharField(max_length=254, null=False, blank=False)
+    make = models.CharField(max_length=50, null=False, blank=False)
+    model = models.CharField(max_length=50, null=False, blank=False)
+    trim = models.CharField(max_length=50, null=False, blank=False)
+    colour = models.CharField(
+        max_length=50, null=False, blank=False, choices=colour_choices
+    )
+    fuel = models.CharField(
+        max_length=20, null=False, blank=False, choices=fuel_choices
+    )
+    engine_size = models.DecimalField(
+        max_digits=2, decimal_places=1, null=False, blank=False
+    )
+    body_type = models.CharField(
+        max_length=15, null=False, blank=False, choices=body_type_choices
+    )
+    gearbox = models.CharField(
+        max_length=15, null=False, blank=False, choices=gearbox_choices
+    )
+    drivetrain = models.CharField(
+        max_length=10, null=False, blank=False, choices=drivetrain_choices
+    )
+    seats = models.IntegerField(null=False, blank=False)
+    description = models.TextField()
+    price = models.IntegerField(null=False, blank=False, default=200)
+    full_price = models.IntegerField(null=False, blank=False)
+    mileage = models.IntegerField(null=False, blank=False)
+    model_year = models.IntegerField(null=False, blank=False)
+    doors = models.IntegerField(null=False, blank=False)
+    type = models.CharField(max_length=9, null=False, blank=False, default="vehicle")
+    available = models.CharField(
+        max_length=9, null=False, blank=False, default="yes", choices=available_choices
+    )
 
-    if not request.user.is_superuser:
-        messages.error(request, "Sorry, only authorised users can do that!")
-        return redirect(reverse("home"))
-
-    vehicle = Vehicle.objects.get(sku=vehicle_sku)
-
-    if request.method == "POST":
-        print("-----------------------")
-        print("post", request.POST)
-
-        form_data = {
-            "sku": request.POST["registration"].replace(" ", "").lower(),
-            "name": request.POST["make"].lower()
-            + "-"
-            + request.POST["registration"].replace(" ", "").lower(),
-            "registration": request.POST["registration"].lower(),
-            "make": request.POST["make"].lower(),
-            "model": request.POST["model"].lower(),
-            "trim": request.POST["trim"].lower(),
-            "colour": request.POST["colour"].lower(),
-            "fuel": request.POST["fuel"].lower(),
-            "engine_size": request.POST["engine_size"].lower(),
-            "body_type": request.POST["body_type"].lower(),
-            "gearbox": request.POST["gearbox"].lower(),
-            "drivetrain": request.POST["drivetrain"].lower(),
-            "seats": request.POST["seats"].lower(),
-            "description": request.POST["description"].lower(),
-            "price": 200,
-            "full_price": request.POST["full_price"].lower(),
-            "mileage": request.POST["mileage"].lower(),
-            "model_year": request.POST["model_year"].lower(),
-            "doors": request.POST["doors"].lower(),
-            "type": "vehicle",
-            "available": request.POST["available"],
-        }
-        form = VehicleForm(form_data, instance=vehicle)
-
-        image_form = VehicleImagesForm(request.POST)
-
-        if form.is_valid():
-            vehicle = form.save()
-
-            image_number = 0
-            mainImage = False
-            for image in request.FILES.getlist("images"):
-
-                if str(image) == str(request.POST["main"]):
-                    mainImage = True
-
-                image = VehicleImages.objects.create(
-                    name=form_data["sku"] + "-" + str(image_number),
-                    vehicle_name=Vehicle(vehicle.id),
-                    image=image,
-                    main=mainImage,
-                )
-                image_number += 1
-                mainImage = False
-
-            messages.success(request, "Sucsessfully updated vehicle!")
-            return redirect(reverse("vehicle_detail", args=[form_data["sku"]]))
-        else:
-            messages.error(
-                request, "Failed to add vehicle. Please ensure the form is valid"
-            )
-    else:
-
-        LinkFormSet = inlineformset_factory(
-            Vehicle,
-            VehicleImages,
-            extra=1,
-            exclude=("name",),
-        )
-
-        messages.info(
-            request,
-            f"You are editing {vehicle.make.capitalize()} {vehicle.model.capitalize()} - {vehicle.registration.upper()}",
-        )
-
-        form = VehicleForm(instance=vehicle)
-        image_form = LinkFormSet(instance=vehicle)
-
-    template = "management/update_vehicle.html"
-    context = {
-        "form": form,
-        "image_form": image_form,
-        "vehicle": vehicle,
-    }
-    return render(request, template, context)
-
-
-@login_required
-def delete_vehicle(request, vehicle_sku):
-    """delete vehicle from the database"""
-
-    if not request.user.is_superuser:
-        messages.error(request, "Sorry, only authorised users can do that!")
-        return redirect(reverse("home"))
-
-    vehicle = get_object_or_404(Vehicle, sku=vehicle_sku)
-
-    vehicle.delete()
-    messages.success(request, "Vehicle deleted!")
-    return redirect(reverse("vehicles"))
-
-
-@login_required
-def delete_vehicle_image(request, image_name):
-    """delete a vehicle's image"""
-
-    if not request.user.is_superuser:
-        messages.error(request, "Sorry, only store owners can do that!")
-        return redirect(reverse("home"))
-
-    image = get_object_or_404(VehicleImages, name=image_name)
-
-    # image.delete()
-    messages.success(request, "Image deleted!")
-
-    return HttpResponse(status=200)
+    def __str__(self):
+        return self.name
