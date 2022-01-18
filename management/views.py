@@ -163,7 +163,9 @@ def update_vehicle(request, vehicle_sku):
             Vehicle,
             VehicleImages,
             extra=1,
-            exclude=("name",),
+            exclude=(
+                "name",
+            ),
         )
 
         messages.info(

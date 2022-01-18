@@ -2,50 +2,61 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {% block meta %}
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% endblock %}
 
     {% block extra_meta %}
     {% endblock %}
 
     {% block corecss %}
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap">
-        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% endblock %}
 
     {% block extra_css %}
     {% endblock %}
 
     {% block corejs %}
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-        <script src="https://kit.fontawesome.com/e9c73d7092.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-        <script src="{% static 'js/email_script.js' %}"></script>
-        <script>
-            (function () {
-                emailjs.init("user_g1KRgEDq9ymwiRfNP9t9s");
-            })();
-        </script>
-        <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/e9c73d7092.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script src="{% static 'js/email_script.js' %}"></script>
+    <script>
+        (function () {
+            emailjs.init("user_g1KRgEDq9ymwiRfNP9t9s");
+        })();
+    </script>
+    <script src="https://js.stripe.com/v3/"></script>
     {% endblock %}
 
     {% block extra_js %}
     {% endblock %}
+
+    <link rel="icon" href="{% static 'images/favicon/logo-16.png' %}" type="image/png" sizes="16x16">
+    <link rel="icon" href="{% static 'images/favicon/logo-32.png' %}" type="image/png" sizes="32x32">
+    <link rel="icon" href="{% static 'images/favicon/logo-96.png' %}" type="image/png" sizes="96x96">
 
     <title>Très Cars {% block extra_title %}{% endblock %}</title>
 </head>
 
 <body>
     <header>
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -60,13 +71,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'vehicles' %}">New Search</a>
                         </li>
-                        
+
                         <hr class="d-block d-lg-none">
 
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'accessories' %}">Accessories</a>
                         </li>
-                        
+
                         <hr class="d-block d-lg-none">
 
                         <a class="navbar-brand d-none d-lg-inline" href="{% url 'home' %}">
@@ -79,17 +90,17 @@
 
                         <hr class="d-block d-lg-none">
                         {% if request.user.is_superuser %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'management_home' %}">Manage</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'management_home' %}">Manage</a>
+                        </li>
 
-                            <hr class="d-block d-lg-none">
+                        <hr class="d-block d-lg-none">
                         {% endif %}
 
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                         </li>
-                        
+
                         <hr class="d-block d-lg-none">
                         {% endif %}
 
@@ -99,7 +110,7 @@
                         </li>
 
                         <hr class="d-block d-lg-none">
-                        
+
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
                         </li>
@@ -110,11 +121,11 @@
                         <li class="nav-item">
                             <a class="nav-link d-none d-lg-block" href="{% url 'view_bag' %}">
                                 <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                            {% if total %}
+                                {% if total %}
                                 £{{ total | floatformat:2 }}
-                            {% else %}
-                                    £0.00
-                            {% endif %}
+                                {% else %}
+                                £0.00
+                                {% endif %}
                             </a>
                         </li>
 
@@ -123,25 +134,25 @@
                 <a class="nav-link d-block d-lg-none" href="{% url 'view_bag' %}">
                     <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                     {% if total %}
-                        £{{ total | floatformat:2 }}
+                    £{{ total | floatformat:2 }}
                     {% else %}
-                            £0.00
+                    £0.00
                     {% endif %}
                 </a>
-                
+
             </div>
-          </nav>
+        </nav>
     </header>
 
     <div class="container-fluid g-0">
         {% if messages %}
-            <div class="message-container">
-                {% for message in messages %}
-                    <p>
-                        {{message}}
-                    </p>
-                {% endfor %}
-            </div>
+        <div class="message-container">
+            {% for message in messages %}
+            <p>
+                {{message}}
+            </p>
+            {% endfor %}
+        </div>
         {% endif %}
     </div>
 
@@ -160,7 +171,8 @@
             </div>
 
             <div class="col-12 col-sm-5 footer-links-container">
-                <a class="footer-link d-inline" href="#" data-bs-toggle="modal" data-bs-target="#contact-modal">Contact Us</a>
+                <a class="footer-link d-inline" href="#" data-bs-toggle="modal" data-bs-target="#contact-modal">Contact
+                    Us</a>
                 <a class="footer-link d-inline" href="#">Returns</a>
             </div>
 
@@ -189,7 +201,8 @@
 
                             <form onsubmit="return sendEmail(this)">
                                 <div>
-                                    <select class="contact-input contact-reasons" id="contact-reason" name="reason" required>
+                                    <select class="contact-input contact-reasons" id="contact-reason" name="reason"
+                                        required>
                                         <option value="">Contact Reason</option>
                                         <option value="General Enquiry">Vehicle Enquiry</option>
                                         <option value="Missing Data">Accessory Enquiry</option>
@@ -205,10 +218,11 @@
                                         placeholder="Enter Email Here..." required>
                                 </div>
                                 <div>
-                                    <textarea class="contact-message" cols="10" rows="5" id="contact-message" name="message"
-                                        placeholder="Enter Message Here..." required></textarea>
+                                    <textarea class="contact-message" cols="10" rows="5" id="contact-message"
+                                        name="message" placeholder="Enter Message Here..." required></textarea>
                                 </div>
-                                <button type="submit" class="btn btn--contact" id="contact-submit">Send Message!</button>
+                                <button type="submit" class="btn btn--contact" id="contact-submit">Send
+                                    Message!</button>
                                 <span id="message-status"></span>
                             </form>
                         </div>
@@ -225,6 +239,7 @@
 
     {% block postload_js%}
     {% endblock %}
-    
+
 </body>
+
 </html>
