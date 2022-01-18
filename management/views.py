@@ -100,8 +100,6 @@ def update_vehicle(request, vehicle_sku):
     vehicle = Vehicle.objects.get(sku=vehicle_sku)
 
     if request.method == "POST":
-        print("-----------------------")
-        print("post", request.POST)
 
         form_data = {
             "sku": request.POST["registration"].replace(" ", "").lower(),
@@ -131,13 +129,15 @@ def update_vehicle(request, vehicle_sku):
         form = VehicleForm(form_data, instance=vehicle)
 
         image_form = VehicleImagesForm(request.POST)
+        x = request.POST.getlist("vehicle")
+        print(x)
 
         if form.is_valid():
             vehicle = form.save()
 
             image_number = 0
             mainImage = False
-            for image in request.FILES.getlist("images"):
+            for image in request.POST.getlist("images"):
 
                 if str(image) == str(request.POST["main"]):
                     mainImage = True
