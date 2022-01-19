@@ -57,19 +57,20 @@ submitBtn.addEventListener('click', function (event) {
     }
 })
 
-
+// called by click on image upload
 let loadFile = function (event) {
     let imgsContainer = document.getElementById('images-container')
-    imgsContainer.innerHTML = ''
+    imgsContainer.innerHTML = '' // empties the images container on call
     for (let i = 0; i < event.target.files.length; i++) {
-        let img = document.createElement('img');
+        let img = document.createElement('img'); // creaters and image
 
-        img.classList.add('img-thumb')
-        img.setAttribute('alt', 'image of vehicle');
-        img.setAttribute('src', URL.createObjectURL(event.target.files[i]));
+        img.classList.add('img-thumb') // gives the image a class
+        img.setAttribute('alt', 'image of vehicle'); // give teh image an alt
+        img.setAttribute('src', URL.createObjectURL(event.target.files[i])); //sets the attribute of image
 
-        imgsContainer.appendChild(img);
+        imgsContainer.appendChild(img); //appends the image to the img container
 
+        // on load removes the image from memory
         img.onload = function () {
             URL.revokeObjectURL(img.src) // free memory
         }

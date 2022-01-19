@@ -230,7 +230,9 @@ def update_vehicle(request, vehicle_sku):
 
             handleMainImageChecked(request.POST)
             handleDeleteImages(request.POST)
-            handleImagesUpload(request.FILES, request.POST, form_data, vehicle, 'update_vehicle')
+            handleImagesUpload(
+                request.FILES, request.POST, form_data, vehicle, "update_vehicle"
+            )
 
             messages.success(request, "Sucsessfully updated vehicle!")
 

@@ -9,13 +9,12 @@ import requests
 import json
 
 
-class unique_vehicle_parameters():
-
+class unique_vehicle_parameters:
     def unique_vehicle_makes():
         """
         Gets all the unique vehicle makes
         """
-        vehicles = Vehicle.objects.filter(available='yes')
+        vehicles = Vehicle.objects.filter(available="yes")
         vehicle_makes = []
         vehicle_makes.clear()
 
@@ -29,7 +28,7 @@ class unique_vehicle_parameters():
         """
         Gets the unique vehicle models with make
         """
-        vehicles = Vehicle.objects.filter(available='yes')
+        vehicles = Vehicle.objects.filter(available="yes")
         vehicle_models = []
         vehicle_models.clear()
 
@@ -39,10 +38,8 @@ class unique_vehicle_parameters():
 
             all_values = [value for elem in vehicle_models for value in elem.values()]
             if vehicle.model not in all_values:
-                vehicle_models.append({
-                    'make': vehicle.make,
-                    'model': vehicle.model
-                    },
+                vehicle_models.append(
+                    {"make": vehicle.make, "model": vehicle.model},
                 )
 
         return vehicle_models
@@ -51,7 +48,7 @@ class unique_vehicle_parameters():
         """
         Gets all the unique vehicle colours
         """
-        vehicles = Vehicle.objects.filter(available='yes')
+        vehicles = Vehicle.objects.filter(available="yes")
         vehicle_colours = []
         vehicle_colours.clear()
 
@@ -65,7 +62,7 @@ class unique_vehicle_parameters():
         """
         Gets all the unique vehicle engines
         """
-        vehicles = Vehicle.objects.filter(available='yes')
+        vehicles = Vehicle.objects.filter(available="yes")
         vehicle_engines = []
         vehicle_engines.clear()
 
@@ -79,7 +76,7 @@ class unique_vehicle_parameters():
         """
         Gets all the unique vehicle doors
         """
-        vehicles = Vehicle.objects.filter(available='yes')
+        vehicles = Vehicle.objects.filter(available="yes")
         vehicle_doors = []
         vehicle_doors.clear()
 
@@ -93,7 +90,7 @@ class unique_vehicle_parameters():
         """
         Gets all the unique vehicle body
         """
-        vehicles = Vehicle.objects.filter(available='yes')
+        vehicles = Vehicle.objects.filter(available="yes")
         vehicle_body = []
         vehicle_body.clear()
 
@@ -107,7 +104,7 @@ class unique_vehicle_parameters():
         """
         Gets all the unique vehicle fuels
         """
-        vehicles = Vehicle.objects.filter(available='yes')
+        vehicles = Vehicle.objects.filter(available="yes")
         vehicle_fuels = []
         vehicle_fuels.clear()
 
@@ -121,7 +118,7 @@ class unique_vehicle_parameters():
         """
         Gets all the unique vehicle drivetrains
         """
-        vehicles = Vehicle.objects.filter(available='yes')
+        vehicles = Vehicle.objects.filter(available="yes")
         vehicle_drivetrains = []
         vehicle_drivetrains.clear()
 
@@ -135,7 +132,7 @@ class unique_vehicle_parameters():
         """
         Gets all the unique vehicle year
         """
-        vehicles = Vehicle.objects.filter(available='yes')
+        vehicles = Vehicle.objects.filter(available="yes")
         vehicle_years = []
         vehicle_years.clear()
 
@@ -146,48 +143,167 @@ class unique_vehicle_parameters():
         return sorted(vehicle_years)
 
 
-
 def vehicle_search(request):
-    query_make = request.GET['vehicle-make']
-    query_model = request.GET['vehicle-model']
-    query_price = request.GET['price-range']
-    query_mileage = request.GET['mileage']
-    query_colour = request.GET['vehicle-colour']
-    query_engine = request.GET['vehicle-engine']
-    query_doors = request.GET['vehicle-doors']
-    query_body = request.GET['vehicle-body']
-    query_fuel = request.GET['vehicle-fuel']
-    query_drivetrain = request.GET['vehicle-drivetrain']
-    query_year = request.GET['vehicle-model-year']
+    query_make = request.GET["vehicle-make"]
+    query_model = request.GET["vehicle-model"]
+    query_price = request.GET["price-range"]
+    query_mileage = request.GET["mileage"]
+    query_colour = request.GET["vehicle-colour"]
+    query_engine = request.GET["vehicle-engine"]
+    query_doors = request.GET["vehicle-doors"]
+    query_body = request.GET["vehicle-body"]
+    query_fuel = request.GET["vehicle-fuel"]
+    query_drivetrain = request.GET["vehicle-drivetrain"]
+    query_year = request.GET["vehicle-model-year"]
 
     if Decimal(query_engine) == 0:
         if int(query_price) == 30001:
             if int(query_mileage) == 100001:
-                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__gte+Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+                search = (
+                    Q(make__icontains=query_make)
+                    & Q(model__icontains=query_model)
+                    & Q(price__gte=query_price)
+                    & Q(mileage__gte=query_mileage)
+                    & Q(colour__icontains=query_colour)
+                    & Q(engine_size__gte + Decimal(query_engine))
+                    & Q(doors__icontains=query_doors)
+                    & Q(body_type__icontains=query_body)
+                    & Q(fuel__icontains=query_fuel)
+                    & Q(drivetrain__icontains=query_drivetrain)
+                    & Q(model_year__icontains=query_year)
+                )
             else:
-                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__lte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__gte=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+                search = (
+                    Q(make__icontains=query_make)
+                    & Q(model__icontains=query_model)
+                    & Q(price__gte=query_price)
+                    & Q(mileage__lte=query_mileage)
+                    & Q(colour__icontains=query_colour)
+                    & Q(engine_size__gte=Decimal(query_engine))
+                    & Q(doors__icontains=query_doors)
+                    & Q(body_type__icontains=query_body)
+                    & Q(fuel__icontains=query_fuel)
+                    & Q(drivetrain__icontains=query_drivetrain)
+                    & Q(model_year__icontains=query_year)
+                )
 
         elif int(query_mileage) == 100001:
             if int(query_price) == 30001:
-                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__gte=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+                search = (
+                    Q(make__icontains=query_make)
+                    & Q(model__icontains=query_model)
+                    & Q(price__gte=query_price)
+                    & Q(mileage__gte=query_mileage)
+                    & Q(colour__icontains=query_colour)
+                    & Q(engine_size__gte=Decimal(query_engine))
+                    & Q(doors__icontains=query_doors)
+                    & Q(body_type__icontains=query_body)
+                    & Q(fuel__icontains=query_fuel)
+                    & Q(drivetrain__icontains=query_drivetrain)
+                    & Q(model_year__icontains=query_year)
+                )
             else:
-                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__lte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__gte=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+                search = (
+                    Q(make__icontains=query_make)
+                    & Q(model__icontains=query_model)
+                    & Q(price__lte=query_price)
+                    & Q(mileage__gte=query_mileage)
+                    & Q(colour__icontains=query_colour)
+                    & Q(engine_size__gte=Decimal(query_engine))
+                    & Q(doors__icontains=query_doors)
+                    & Q(body_type__icontains=query_body)
+                    & Q(fuel__icontains=query_fuel)
+                    & Q(drivetrain__icontains=query_drivetrain)
+                    & Q(model_year__icontains=query_year)
+                )
         else:
-            search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__lte=query_price) & Q(mileage__lte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size__gte=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+            search = (
+                Q(make__icontains=query_make)
+                & Q(model__icontains=query_model)
+                & Q(price__lte=query_price)
+                & Q(mileage__lte=query_mileage)
+                & Q(colour__icontains=query_colour)
+                & Q(engine_size__gte=Decimal(query_engine))
+                & Q(doors__icontains=query_doors)
+                & Q(body_type__icontains=query_body)
+                & Q(fuel__icontains=query_fuel)
+                & Q(drivetrain__icontains=query_drivetrain)
+                & Q(model_year__icontains=query_year)
+            )
     else:
         if int(query_price) == 30001:
             if int(query_mileage) == 100001:
-                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+                search = (
+                    Q(make__icontains=query_make)
+                    & Q(model__icontains=query_model)
+                    & Q(price__gte=query_price)
+                    & Q(mileage__gte=query_mileage)
+                    & Q(colour__icontains=query_colour)
+                    & Q(engine_size=Decimal(query_engine))
+                    & Q(doors__icontains=query_doors)
+                    & Q(body_type__icontains=query_body)
+                    & Q(fuel__icontains=query_fuel)
+                    & Q(drivetrain__icontains=query_drivetrain)
+                    & Q(model_year__icontains=query_year)
+                )
             else:
-                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__lte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+                search = (
+                    Q(make__icontains=query_make)
+                    & Q(model__icontains=query_model)
+                    & Q(price__gte=query_price)
+                    & Q(mileage__lte=query_mileage)
+                    & Q(colour__icontains=query_colour)
+                    & Q(engine_size=Decimal(query_engine))
+                    & Q(doors__icontains=query_doors)
+                    & Q(body_type__icontains=query_body)
+                    & Q(fuel__icontains=query_fuel)
+                    & Q(drivetrain__icontains=query_drivetrain)
+                    & Q(model_year__icontains=query_year)
+                )
 
         elif int(query_mileage) == 100001:
             if int(query_price) == 30001:
-                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__gte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+                search = (
+                    Q(make__icontains=query_make)
+                    & Q(model__icontains=query_model)
+                    & Q(price__gte=query_price)
+                    & Q(mileage__gte=query_mileage)
+                    & Q(colour__icontains=query_colour)
+                    & Q(engine_size=Decimal(query_engine))
+                    & Q(doors__icontains=query_doors)
+                    & Q(body_type__icontains=query_body)
+                    & Q(fuel__icontains=query_fuel)
+                    & Q(drivetrain__icontains=query_drivetrain)
+                    & Q(model_year__icontains=query_year)
+                )
             else:
-                search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__lte=query_price) & Q(mileage__gte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+                search = (
+                    Q(make__icontains=query_make)
+                    & Q(model__icontains=query_model)
+                    & Q(price__lte=query_price)
+                    & Q(mileage__gte=query_mileage)
+                    & Q(colour__icontains=query_colour)
+                    & Q(engine_size=Decimal(query_engine))
+                    & Q(doors__icontains=query_doors)
+                    & Q(body_type__icontains=query_body)
+                    & Q(fuel__icontains=query_fuel)
+                    & Q(drivetrain__icontains=query_drivetrain)
+                    & Q(model_year__icontains=query_year)
+                )
         else:
-            search = Q(make__icontains=query_make) & Q(model__icontains=query_model) & Q(price__lte=query_price) & Q(mileage__lte=query_mileage) & Q(colour__icontains=query_colour) & Q(engine_size=Decimal(query_engine)) & Q(doors__icontains=query_doors) & Q(body_type__icontains=query_body) & Q(fuel__icontains=query_fuel) & Q(drivetrain__icontains=query_drivetrain) & Q(model_year__icontains=query_year)
+            search = (
+                Q(make__icontains=query_make)
+                & Q(model__icontains=query_model)
+                & Q(price__lte=query_price)
+                & Q(mileage__lte=query_mileage)
+                & Q(colour__icontains=query_colour)
+                & Q(engine_size=Decimal(query_engine))
+                & Q(doors__icontains=query_doors)
+                & Q(body_type__icontains=query_body)
+                & Q(fuel__icontains=query_fuel)
+                & Q(drivetrain__icontains=query_drivetrain)
+                & Q(model_year__icontains=query_year)
+            )
 
     return search
 
@@ -204,17 +320,16 @@ def request_info_from_dvla(reg):
 
     url = "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles"
 
-    payload = json.dumps({
-        "registrationNumber": reg,
-        })
-    headers = {
-        'x-api-key': settings.DVLA_API_KEY,
-        'Content-Type': 'application/json'
+    payload = json.dumps(
+        {
+            "registrationNumber": reg,
         }
+    )
+    headers = {"x-api-key": settings.DVLA_API_KEY, "Content-Type": "application/json"}
 
     response = requests.request("POST", url, headers=headers, data=payload)
     if response.status_code == 404:
-        print('Number Plate Not Found')
+        print("Number Plate Not Found")
 
     return response.json
 
@@ -224,8 +339,8 @@ def all_vehicles(request):
     A view to show all vehicles, including sorting
     and search queries
     """
-    request.session['vehicle_bag'] = {}
-    vehicles = Vehicle.objects.filter(available='yes')
+    request.session["vehicle_bag"] = {}
+    vehicles = Vehicle.objects.filter(available="yes")
     images = VehicleImages.objects.all()
     query = None
     sort = None
@@ -243,95 +358,92 @@ def all_vehicles(request):
     vehicle_years = unique_vehicle_parameters.unique_vehicle_years()
 
     if request.GET:
-        if 'sort' in request.GET:
-            sortkey = request.GET['sort']
+        if "sort" in request.GET:
+            sortkey = request.GET["sort"]
             sort = sortkey
-            if sortkey == 'pricex':
-                sortkey = 'full_price'
+            if sortkey == "pricex":
+                sortkey = "full_price"
                 vehicles = vehicles.order_by(sortkey)
 
-            if 'direction' in request.GET:
-                direction = request.GET['direction']
-                if direction == 'desc':
-                    sortkey = f'-{sortkey}'
+            if "direction" in request.GET:
+                direction = request.GET["direction"]
+                if direction == "desc":
+                    sortkey = f"-{sortkey}"
             vehicles = vehicles.order_by(sortkey)
 
-        if 'home-search' in request.GET:
-            query_make = request.GET['vehicle-make']
-            query_model = request.GET['vehicle-model']
+        if "home-search" in request.GET:
+            query_make = request.GET["vehicle-make"]
+            query_model = request.GET["vehicle-model"]
 
             if query_model:
-                search = Q(
-                    make__icontains=query_make) & Q(
-                        model__icontains=query_model)
+                search = Q(make__icontains=query_make) & Q(model__icontains=query_model)
 
                 vehicles = vehicles.filter(search)
             else:
                 vehicles = vehicles.filter(Q(make__icontains=query_make))
 
-        if 'vehicle-detailed-search' in request.GET:
+        if "vehicle-detailed-search" in request.GET:
 
             search = vehicle_search(request)
 
             vehicles = vehicles.filter(search)
 
             remembered_search = {
-                'make': request.GET['vehicle-make'],
-                'model': request.GET['vehicle-model'],
-                'year': request.GET['vehicle-model-year'],
-                'price': request.GET['price-range'],
-                'mileage': request.GET['mileage'],
-                'colour': request.GET['vehicle-colour'],
-                'engine': request.GET['vehicle-engine'],
-                'doors': request.GET['vehicle-doors'],
-                'body_type': request.GET['vehicle-body'],
-                'fuel': request.GET['vehicle-fuel'],
-                'drivetrain': request.GET['vehicle-drivetrain'],
+                "make": request.GET["vehicle-make"],
+                "model": request.GET["vehicle-model"],
+                "year": request.GET["vehicle-model-year"],
+                "price": request.GET["price-range"],
+                "mileage": request.GET["mileage"],
+                "colour": request.GET["vehicle-colour"],
+                "engine": request.GET["vehicle-engine"],
+                "doors": request.GET["vehicle-doors"],
+                "body_type": request.GET["vehicle-body"],
+                "fuel": request.GET["vehicle-fuel"],
+                "drivetrain": request.GET["vehicle-drivetrain"],
             }
 
-    current_sorting = f'{sort}_{direction}'
+    current_sorting = f"{sort}_{direction}"
 
     paginator = Paginator(vehicles, 25)
-    page_number = request.GET.get('page')
+    page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
     context = {
-        'vehicles': page_obj,
-        'images': images,
-        'search_term': query,
-        'current_sorting': current_sorting,
-        'media': settings.MEDIA_URL,
-        'vehicle_makes': vehicle_makes,
-        'vehicle_models':  vehicle_models,
-        'vehicle_years': vehicle_years,
-        'vehicle_colours': vehicle_colours,
-        'vehicle_engines': vehicle_engines,
-        'vehicle_doors': vehicle_doors,
-        'vehicle_body': vehicle_body,
-        'vehicle_fuels': vehicle_fuels,
-        'vehicle_drivetrains': vehicle_drivetrains,
-        'remembered_search': remembered_search
+        "vehicles": page_obj,
+        "images": images,
+        "search_term": query,
+        "current_sorting": current_sorting,
+        "media": settings.MEDIA_URL,
+        "vehicle_makes": vehicle_makes,
+        "vehicle_models": vehicle_models,
+        "vehicle_years": vehicle_years,
+        "vehicle_colours": vehicle_colours,
+        "vehicle_engines": vehicle_engines,
+        "vehicle_doors": vehicle_doors,
+        "vehicle_body": vehicle_body,
+        "vehicle_fuels": vehicle_fuels,
+        "vehicle_drivetrains": vehicle_drivetrains,
+        "remembered_search": remembered_search,
     }
-    return render(request, 'vehicles/vehicles.html', context)
+    return render(request, "vehicles/vehicles.html", context)
 
 
 def vehicle_detail(request, vehicle_sku):
     """
     A view to show a vehicle detail page
     """
-    request.session['vehicle_bag'] = {}
+    request.session["vehicle_bag"] = {}
     vehicle = get_object_or_404(Vehicle, sku=vehicle_sku)
 
     images = VehicleImages.objects.filter(vehicle_name=vehicle.pk)
 
     dvla_data = request_info_from_dvla(reg=vehicle.registration)
 
-    template = 'vehicles/vehicle_detail.html'
+    template = "vehicles/vehicle_detail.html"
     context = {
-        'vehicle': vehicle,
-        'images': images,
-        'dvla_data': dvla_data,
-        'media': settings.MEDIA_URL,
+        "vehicle": vehicle,
+        "images": images,
+        "dvla_data": dvla_data,
+        "media": settings.MEDIA_URL,
     }
     return render(request, template, context)
-
