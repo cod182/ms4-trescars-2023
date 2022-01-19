@@ -7,6 +7,7 @@ from django.forms import inlineformset_factory
 import requests
 import datetime
 from vehicles.models import Vehicle, VehicleImages
+from accessories.models import Accessory
 from .forms import VehicleForm, VehicleImagesForm, AccessoryForm
 
 
@@ -329,6 +330,28 @@ def add_accessory(request):
 
     context = {
         "form": form,
+    }
+
+    return render(request, template, context)
+
+
+@login_required
+def update_accessory(request, accessory_id):
+    """Update a accessory on the site"""
+
+    if not request.user.is_superuser:
+        messages.error(request, "Sorry, only store owners can do that!")
+        return redirect(reverse("home"))
+
+    accessory = get_object_or_404(Accessory, pk=accessory_id)
+
+    form = AccessoryForm(instance=accessory)
+    messages.info(request, f"You are editing {accessory.name}")
+
+    template = "management/update_accessory.html"
+    context = {
+        "form": form,
+        "accessory": accessory,
     }
 
     return render(request, template, context)

@@ -103,7 +103,7 @@
                             <div class="accessory-info">
                                 {% if request.user.is_superuser %}
                                 <small class="ml-3">
-                                    <a href="#">Update</a> |
+                                    <a href="{% url 'update_accessory' accessory.id %}">Update</a> |
                                     <a class="text-danger delete-accessory" href="#">Delete</a>
                                 </small>
                                 {% endif %}
