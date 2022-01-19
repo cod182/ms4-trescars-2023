@@ -75,6 +75,23 @@ class AccessoryForm(forms.ModelForm):
         categories = Category.objects.all()
         friendly_names = [(c.id, c.get_friendly_name()) for c in categories]
 
+        placeholders = {
+            "sku": "sku autofills",
+            "name": "name autofills",
+            "category": "Category of item",
+            "brand": "Brand of Item",
+            "vehicle_make": "Vehicel Make the item will fit E.g Nissan or all",
+            "vehicle_model": "Vehicel mode the item will fit E.g Qashqai or all",
+            "price": "Price of item",
+            "quantity_available": "Number of item available",
+            "accessory_type": "Type of Item. E.g Mudflaps",
+            "description": "Description of Item",
+            "image": "",
+        }
+
         self.fields["category"].choices = friendly_names
         for field_name, field in self.fields.items():
             field.widget.attrs["class"] = "border-black rounded-0"
+        for field in self.fields:
+            placeholder = placeholders[field]
+            self.fields[field].widget.attrs["placeholder"] = placeholder

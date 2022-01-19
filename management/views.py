@@ -5,6 +5,7 @@ from django.conf import settings
 from django.db.models import Q
 from django.forms import inlineformset_factory
 import requests
+import datetime
 from vehicles.models import Vehicle, VehicleImages
 from .forms import VehicleForm, VehicleImagesForm, AccessoryForm
 
@@ -292,7 +293,37 @@ def add_accessory(request):
         messages.error(request, "Sorry, only authorised users can do that!")
         return redirect(reverse("home"))
 
-    form = AccessoryForm
+    if request.method == "POST":
+        form_data = {
+            "category": request.POST["category"].lower(),
+            "sku": request.POST["brand"].replace(" ", "-").lower()
+            + "-"
+            + request.POST["accessory_type"].replace(" ", "-").lower()
+            + "-"
+            + request.POST["vehicle_model"].replace(" ", "-").lower()
+            + "-"
+            + str(datetime.datetime.now().year),
+            "name": request.POST["brand"].lower()
+            + request.POST["accessory_type"].lower(),
+            "brand": request.POST["brand"].lower(),
+            "vehicle_make": request.POST["vehicle_make"].lower(),
+            "vehicle_model": request.POST["vehicle_model"].lower(),
+            "price": request.POST["price"].lower(),
+            "quantity_available": request.POST["quantity_available"].lower(),
+            "accessory_type": request.POST["accessory_type"].lower(),
+            "description": request.POST["description"].lower(),
+        }
+        form = AccessoryForm(form_data, request.FILES)
+        if form.is_valid():
+            accessory = form.save()
+            messages.success(request, "Sucsessfully added product!")
+            return redirect(reverse("accessory_detail", args=[form_data["sku"]]))
+        else:
+            messages.error(
+                request, "Failed to add accessory. Please ensure the form is valid"
+            )
+    else:
+        form = AccessoryForm
 
     template = "management/add_accessory.html"
 

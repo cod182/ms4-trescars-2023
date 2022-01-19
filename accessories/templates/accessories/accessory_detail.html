@@ -9,121 +9,127 @@
 {% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'accessories/css/accessories.css' %}">
+<link rel="stylesheet" href="{% static 'accessories/css/accessories.css' %}">
 {% endblock %}
 
 {% block content %}
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <a href="{% url 'accessories' %}">
-                            <i class="fa fa-arrow-left vehicle-details-back" aria-hidden="true"></i>
-                        </a>
-                    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <a href="{% url 'accessories' %}">
+                <i class="fa fa-arrow-left vehicle-details-back" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="container accessory-detail-container">
+    <div class="row accessory-detail--image-viewer">
+
+        <div class="col-12 col-lg-6">
+            <!-- The large image container -->
+            <div class="accessory-detail--images-container">
+                <!-- large image -->
+                <img id="expandedImg" class="accessory-detail--image-large" src="{{ media }}{{ accessory.image }}"
+                    alt="Image of {{ accessory.brand }} {{ accessory.accessory_type }}">
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <div class="row">
+                <div class="col-lg-12 accessory-detail--title">
+                    <h3>{{ accessory.brand | capfirst }} {{ accessory.accessory_type | capfirst}}</h3>
+                </div>
+
+                <div class="col-lg-12 accessory-detail--title">
+                    <h5>{{ vehicle.trim | upper }}</h5>
+                </div>
+
+                <div class="col-12 accessory-detail--title">
+                    <h5>{{ vehicle.registration | upper }}</h5>
+                </div>
+
+                <div class="col-12 accessory-detail--title">
+                    <h5>£{{ accessory.price }}</h5>
                 </div>
             </div>
-            <div class="container accessory-detail-container">
-                <div class="row accessory-detail--image-viewer">
 
-                    <div class="col-12 col-lg-6">
-                        <!-- The large image container -->
-                        <div class="accessory-detail--images-container">
-                            <!-- large image -->
-                            <img id="expandedImg" class="accessory-detail--image-large" src="{{ media }}{{ accessory.image }}" alt="Image of {{ accessory.brand }} {{ accessory.accessory_type }}">
-                        </div>
+            <!-- Info -->
+            <div class="row">
+                <div class="col-12 accessory-detail-small-info">
+                    {% if accessory.vehicle_make == 'all' %}
+                    <p>
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                        <br>
+                        Fits All Vehicles
+                    </p>
+                    {% else %}
+                    <p>
+                        <i class="fa fa-car" aria-hidden="true"></i>
+                        <br>
+                        Fitment: {{ accessory.vehicle_make | capfirst }} {{ accessory.vehicle_model | capfirst }}
+                    </p>
+                    {% endif %}
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-12 accessory-detail--description">
+                        <p>{{ accessory.description }}</p>
+                    </div>
+                </div>
+
+                <div class="row gx-0">
+                    <div class="col-12 col-md-6 text-center">
+                        <form class="form" action="{% url 'add_to_bag' accessory.id %}" method="POST">
+                            {% csrf_token %}
+
+                            <div class="form-row">
+                                <div class="col-12">
+                                    {% if accessory.quantity_available <= 0 %}
+                                    <input type="submit" class="btn btn--red-border w-100 bold" value="Sold Out"
+                                        disabled>
+                                    {% else %}
+                                    <div class="form-group w-80 mx-auto">
+                                        <div class="input-group">
+                                            <div class="input-grou-prepend">
+                                                <button class="decrement-qty btn btn--black-border"
+                                                    data-item_id="{{ accessory.id }}" id="decrement-qty">
+                                                    <span class="icon">
+                                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            <input class="form-control qty_input" type="number" name="quantity"
+                                                value="1" min="1" max="{{accessory.quantity_available}}"
+                                                data-item_id="{{ accessory.id }}" id="id_qty">
+                                            <div class="input-group-append">
+                                                <button class="increment-qty btn btn--black-border"
+                                                    data-item_id="{{ accessory.id }}" id="increment-qty">
+                                                    <span class="icon">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="submit" class="btn btn--blue-border w-100 mt-2" value="Add to Bag">
+                                    {% endif %}
+
+                                </div>
+                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                            </div>
+                        </form>
                     </div>
 
-                    <div class="col-12 col-lg-6">
-                        <div class="row">
-                            <div class="col-lg-12 accessory-detail--title">
-                                <h3>{{ accessory.brand | capfirst }} {{ accessory.accessory_type | capfirst}}</h3>
-                            </div>
-
-                            <div class="col-lg-12 accessory-detail--title">
-                                <h5>{{ vehicle.trim | upper }}</h5>
-                            </div>
-
-                            <div class="col-12 accessory-detail--title">
-                                <h5>{{ vehicle.registration | upper }}</h5>
-                            </div>
-
-                            <div class="col-12 accessory-detail--title">
-                                <h5>£{{ accessory.price }}</h5>
-                            </div>
-                        </div>
-
-                        <!-- Info -->
-                        <div class="row">
-                            <div class="col-12 accessory-detail-small-info">
-                                {% if accessory.vehicle_make == 'all' %}
-                                    <p>
-                                        <i class="fa fa-cog" aria-hidden="true"></i>
-                                        <br>
-                                        Fits All Vehicles
-                                    </p>
-                                {% else %}
-                                    <p>
-                                        <i class="fa fa-car" aria-hidden="true"></i>
-                                        <br>
-                                        Fitment: {{ accessory.vehicle_make | capfirst }} {{ accessory.vehicle_model | capfirst }}
-                                    </p>
-                                {% endif %}
-                            </div>
-
-                            
-
-                        <div class="row">
-                            <div class="col-12 accessory-detail--description">
-                                <p>{{ accessory.description }}</p>
-                            </div>
-                        </div>
-
-                        <div class="row gx-0">
-                            <div class="col-12 col-md-6 text-center">
-                                <form class="form" action="{% url 'add_to_bag' accessory.id %}" method="POST">
-                                    {% csrf_token %}
-                                    
-                                        <div class="form-row">
-                                            <div class="col-12">
-                                            {% if accessory.quantity_available <= 0 %}
-                                                <input type="submit" class="btn btn--red-border w-100 bold" value="Sold Out" disabled>
-                                            {% else %}
-                                                <div class="form-group w-80 mx-auto">
-                                                    <div class="input-group">
-                                                        <div class="input-grou-prepend">
-                                                            <button class="decrement-qty btn btn--black-border" data-item_id="{{ accessory.id }}" id="decrement-qty">
-                                                                    <span class="icon">
-                                                                        <i class="fa fa-minus" aria-hidden="true"></i>
-                                                                    </span>
-                                                                </button>
-                                                        </div>
-                                                        <input class="form-control qty_input" type="number" name="quantity" value="1" min="1" max="{{accessory.quantity_available}}" data-item_id="{{ accessory.id }}" id="id_qty">
-                                                        <div class="input-group-append">
-                                                            <button class="increment-qty btn btn--black-border" data-item_id="{{ accessory.id }}" id="increment-qty">
-                                                                <span class="icon">
-                                                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                                                </span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <input type="submit" class="btn btn--blue-border w-100 mt-2" value="Add to Bag">
-                                            {% endif %}
-
-                                        </div>
-                                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div class="col-12 col-md-6 text-center">
-                                <a href="" class="btn btn--black-border">Contact us about this item</a>
-                            </div>
-                        </div>
+                    <div class="col-12 col-md-6 text-center">
+                        <a href="" class="btn btn--black-border">Contact us about this item</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
 {% endblock %}
 
