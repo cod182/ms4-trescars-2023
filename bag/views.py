@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from django.conf import settings
 from django.db import models
-from vehicles.models import unique_vehicle_parameters, Vehicle
+from vehicles.models import Vehicle
+from vehicles.views import unique_vehicle_parameters
 from accessories.models import Accessory
 from django.contrib import messages
 

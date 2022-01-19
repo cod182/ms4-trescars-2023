@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
 {% block extra_title %}
-- Add A Vehicle
+- Update A Vehicle
 {% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'management/css/management.css' %}">
+<link rel="stylesheet" href="{% static 'management/css/management.css' %}">
 {% endblock %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
-        </div>
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
@@ -29,7 +29,7 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <form action="{% url 'update_vehicle' vehicle.sku %}" method="post" enctype="multipart/form-data">
+            <form action="{%url 'update_vehicle' vehicle.sku %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.registration | as_crispy_field }}
                 {{ form.make | as_crispy_field }}
@@ -48,26 +48,37 @@
                 {{ form.model_year | as_crispy_field }}
                 {{ form.doors | as_crispy_field }}
                 {{ form.available | as_crispy_field }}
-                <!-- <div id="images-container">
-                {% for image in images %}
-                    <label>
-                        <input type="radio" name="main" id="main" value="{{ image.image }}" required>
-                        <img class="img-thumb" src="{{ media }}{{ image.image }}" alt="Image of {{image.name}}">
-                        <a href="{% url 'delete_vehicle_image' image.name %}">DELETE</a>
-                    </label>
-                {% endfor %}
-                </div>
-                {{ image_form.images }} -->
-            
 
-                <button class="btn btn-info my-2"type="submit">Update Vehicle</button>
-            </form>
+                <hr>
+                <p class="bold">Current Images:</p>
         </div>
+
+        {% for x in image_form %}
+        <div class="col-12 col-md-6 col-lg-4 mt-2 mb-3 current_image">
+            {% if x.image.value != None %}
+            <hr>
+            {{ x | crispy }}
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="col-12 mt-4">
+            <hr>
+            <p class="bold">Add More Images:</p>
+            <div id="images-container"></div>
+
+            {{ more_images_form.images }}
+        </div>
+        <div class="col-12" id="warning-message"></div>
+        <button class="btn btn-info my-2" type="submit" id="updateBtnVehicle">Update
+            Vehicle</button>
+        </form>
     </div>
+</div>
 </div>
 
 {% endblock %}
 
 {% block postload_js %}
-    <script src="{% static 'management/js/add_vehicle.js' %}"></script>
+<script src=" {% static 'management/js/update_vehicle.js' %}"></script>
 {% endblock %}

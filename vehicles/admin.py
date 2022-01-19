@@ -4,40 +4,47 @@ from .models import Vehicle, VehicleImages
 
 class VehicleImagesAdmin(admin.ModelAdmin):
     list_display = (
-        'name',
-        'vehicle_name',
-        'image',
-        'main',
+        "name",
+        "vehicle_name",
+        "image",
+        "main",
     )
 
-    ordering = ('vehicle_name',)
+    ordering = ("name",)
+
+
+class ImagesInline(admin.StackedInline):
+    model = VehicleImages
+
 
 class VehicleAdmin(admin.ModelAdmin):
     list_display = (
-        'name',
-        'sku',
-        'registration',
-        'make',
-        'model',
-        'trim',
-        'colour',
-        'fuel',
-        'engine_size',
-        'body_type',
-        'gearbox',
-        'drivetrain',
-        'seats',
-        'description',
-        'price',
-        'full_price',
-        'mileage',
-        'model_year',
-        'doors',
-        'type',
-        'available'
+        "name",
+        "sku",
+        "registration",
+        "make",
+        "model",
+        "trim",
+        "colour",
+        "fuel",
+        "engine_size",
+        "body_type",
+        "gearbox",
+        "drivetrain",
+        "seats",
+        "description",
+        "price",
+        "full_price",
+        "mileage",
+        "model_year",
+        "doors",
+        "type",
+        "available",
     )
 
-    ordering = ('name',)
+    ordering = ("name",)
+
+    inlines = [ImagesInline]
 
 
 # Register your models here.

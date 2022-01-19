@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.db import models
-from vehicles.models import unique_vehicle_parameters, Vehicle
+from vehicles.models import Vehicle
+from vehicles.views import unique_vehicle_parameters
 
 # Create your views here.
 
