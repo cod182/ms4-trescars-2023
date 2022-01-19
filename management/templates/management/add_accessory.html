@@ -36,6 +36,7 @@
                 {{ field | as_crispy_field }}
                 {% else %}
                 <hr>
+                <div id="upload-image-container" class="mb-2"></div>
                 {{ field }}
                 {% endif %}
                 {% endfor %}
@@ -50,5 +51,5 @@
 {% endblock %}
 
 {% block postload_js %}
-<script src="{% static 'management/js/add_vehicle.js' %}"></script>
+<script src="{% static 'management/js/add_accessory.js' %}"></script>
 {% endblock %}
