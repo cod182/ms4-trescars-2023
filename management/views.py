@@ -9,6 +9,49 @@ from vehicles.models import Vehicle, VehicleImages
 from .forms import VehicleForm, VehicleImagesForm
 
 
+def handleMainImageChecked(request):
+    p_list = dict()
+
+    for x in request:
+        if "vehicleimages" in x:
+            if request[x] != "":
+                p_list[x] = request[x]
+
+    image_id = None
+    main = False
+    id_key = ""
+    p = ""
+
+    for key, value in p_list.items():
+
+        if "main" in key:
+            main = True
+
+            p = key.split("-main")[0]
+            id_key = p + "-id"
+
+            for k, v in p_list.items():
+                if id_key in k:
+                    image_id = v
+
+                    obj = VehicleImages.objects.get(pk=image_id)
+                    obj.main = main
+                    obj.save()
+
+                    image_id = None
+                    main = False
+
+        if key != id_key:
+            if "id" in key:
+                main = False
+                imgId = value
+                obj = VehicleImages.objects.get(pk=imgId)
+                obj.main = main
+                obj.save()
+
+                imgId = None
+
+
 @login_required
 def management_home(request):
     template = "management/home.html"
@@ -131,46 +174,7 @@ def update_vehicle(request, vehicle_sku):
         if form.is_valid():
             vehicle = form.save()
 
-            p_list = dict()
-
-            for x in request.POST:
-                if "vehicleimages" in x:
-                    if request.POST[x] != "":
-                        p_list[x] = request.POST[x]
-
-            image_id = None
-            main = False
-            id_key = ""
-            p = ""
-
-            for key, value in p_list.items():
-
-                if "main" in key:
-                    main = True
-
-                    p = key.split("-main")[0]
-                    id_key = p + "-id"
-
-                    for k, v in p_list.items():
-                        if id_key in k:
-                            image_id = v
-
-                            obj = VehicleImages.objects.get(pk=image_id)
-                            obj.main = main
-                            obj.save()
-
-                            image_id = None
-                            main = False
-
-                if key != id_key:
-                    if "id" in key:
-                        main = False
-                        imgId = value
-                        obj = VehicleImages.objects.get(pk=imgId)
-                        obj.main = main
-                        obj.save()
-
-                        imgId = None
+            handleMainImageChecked(request.POST)
 
             image_number = 0
             mainImage = False
@@ -189,7 +193,7 @@ def update_vehicle(request, vehicle_sku):
                 mainImage = False
 
             messages.success(request, "Sucsessfully updated vehicle!")
-            # return redirect(reverse("vehicle_detail", args=[form_data["sku"]]))
+            return redirect(reverse("vehicle_detail", args=[form_data["sku"]]))
         else:
             messages.error(
                 request, "Failed to add vehicle. Please ensure the form is valid"

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'management/css/management.css' %}">
+
 {% endblock %}
 
 {% block page_header %}
@@ -59,8 +59,9 @@
             {{ x | crispy }}
         </div>
         {% endfor %}
-
-        <button class="btn btn-info my-2" type="submit">Update Vehicle</button>
+        <div class="col-12" id="warning-message"></div>
+        <button class="btn btn-info my-2" type="submit" id="updateBtnVehicle">Update
+            Vehicle</button>
         </form>
     </div>
 </div>
@@ -69,19 +70,5 @@
 {% endblock %}
 
 {% block postload_js %}
-<script src="{% static 'management/js/add_vehicle.js' %}"></script>
-<script>
-    let currImgCont = document.getElementsByClassName('current_image')
-
-    for (x = 0; x < currImgCont.length; x++) {
-        let img = document.createElement('img');
-        if (currImgCont[x].children[2].children[1].children[0].getAttribute('href')) {
-            img.setAttribute('src', currImgCont[x].children[2].children[1].children[0].getAttribute('href'));
-            img.setAttribute('width', '100px');
-            img.setAttribute('height', 'auto');
-
-            currImgCont[x].children[2].prepend(img);
-        }
-    }
-</script>
+<script src=" {% static 'management/js/update_vehicle.js' %}"></script>
 {% endblock %}
