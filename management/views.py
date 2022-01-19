@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.forms import inlineformset_factory
 import requests
 from vehicles.models import Vehicle, VehicleImages
-from .forms import VehicleForm, VehicleImagesForm
+from .forms import VehicleForm, VehicleImagesForm, AccessoryForm
 
 
 def handleDeleteImages(request):
@@ -282,3 +282,22 @@ def delete_vehicle(request, vehicle_sku):
 
     messages.success(request, "Vehicle deleted!")
     return redirect(reverse("vehicles"))
+
+
+@login_required
+def add_accessory(request):
+    """Add a new accessory to the site"""
+
+    if not request.user.is_superuser:
+        messages.error(request, "Sorry, only authorised users can do that!")
+        return redirect(reverse("home"))
+
+    form = AccessoryForm
+
+    template = "management/add_accessory.html"
+
+    context = {
+        "form": form,
+    }
+
+    return render(request, template, context)

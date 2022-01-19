@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_title %}
+- Add An Accessory
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'management/css/management.css' %}">
+{% endblock %}
+
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 font-small my-2">
+            <span><a href="{% url 'management_home' %}">Admin Management</a> > </span>
+            <p class="d-inline">Add an Accessory</p></span>
+        </div>
+        <div class="col-12">
+            <h2 class="mt-2 mb-4">Add an Accessory</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form action="{% url 'add_accessory' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form%}
+                {% if field.name != 'image' %}
+                {{ field | as_crispy_field }}
+                {% else %}
+                <hr>
+                {{ field }}
+                {% endif %}
+                {% endfor %}
+
+
+                <button class="btn btn-info my-2" type="submit">Add Accessory</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block postload_js %}
+<script src="{% static 'management/js/add_vehicle.js' %}"></script>
+{% endblock %}
