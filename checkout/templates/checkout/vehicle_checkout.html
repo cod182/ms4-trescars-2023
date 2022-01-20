@@ -7,156 +7,160 @@
 {% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+<link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
 {% endblock %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
-        </div>
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2 class="my-4">Checkout</h2>
-            </div>
-        </div>
-
-        <div class="row">
-
-            <div class="col-12 col-lg-6 order-lg-last mb-5">
-                <div class="row">
-                    <div class="col-7 offset-2">
-                        <p class="mb-1 mt-0 small text-muted">Item</p>
-                    </div>
-                    <div class="col-3 text-right">
-                        <p class="mb-1 mt-0 small text-muted">Subtotal</p>
-                    </div>
-                </div>
-                    <div class="row">
-                        {% for item in vehicle_bag_items %}
-                            <div class="col-2 mb-1">
-                                <a href="{% url 'vehicle_detail' item.vehicle.sku %}">
-                                    {% for image in images %}
-                                            {% if image.main %}
-                                                <img class="w-100" src="{{ media }}{{ image.image }}" alt="{{ item.vehicle.sku }}">
-                                            {% endif %}
-                                    {% endfor %}
-                                </a>
-                            </div>
-                            <div class="col-7">
-                                <p class="my-0">
-                                    <strong>{{ item.vehicle.make | capfirst}} {{ item.vehicle.model | capfirst}} {{ item.vehicle.registration | upper }}</strong>
-                                    <p class="my-0 small text-muted">To pay on collection: £{{ item.vehicle.full_price | sub:item.vehicle.price }}</p>
-                                </p>
-                            </div>
-                            <div class="col-3 text-right">
-                                <p class="my-0 small text-muted">£{{ item.vehicle.price | calc_subtotal:item.quantity }}</p>
-                            </div>
-                        {% endfor %}
-                    </div>
-                <div class="row text-black text-right">
-                    <div class="col-7 offset-2">
-                        <p class="my-0">Amount to confirm reservation:</p>
-                    </div>
-                    <div class="col-3">
-                        <p class="my-0"><strong>£{{ vehicle_grand_total | floatformat:2 }}</strong></p>
-                    </div>
-                </div>
-                <hr class="my-2">
-            </div>
-
-            <div class="col-12 col-lg-6">
-                <p>Please fill out the form below</p>
-                <form action="{% url 'reserve_vehicle_checkout' None %}" method="POST" id="payment-form" class="payment-form">
-                    {% csrf_token %}
-                    <fieldset class="rounded px-3 mb-5">
-                        <legend class="fieldset-label info-label">Details</legend>
-                        {{ order_form.full_name | as_crispy_field }}
-                        {{ order_form.email | as_crispy_field }}
-                        {{ order_form.phone_number | as_crispy_field }}
-                    </fieldset>
-                    <fieldset class="rounded px-3 mb-5">
-                        <legend class="fieldset-label info-label">Address</legend>
-                        {{ order_form.street_address1 | as_crispy_field }}
-                        {{ order_form.street_address2 | as_crispy_field }}
-                        {{ order_form.town_or_city | as_crispy_field }}
-                        {{ order_form.county | as_crispy_field }}
-                        {{ order_form.postcode | as_crispy_field }}
-                        {{ order_form.country | as_crispy_field }}
-                        <div class="form-check form-check-inline mr-0">
-							{% if user.is_authenticated %}
-								<label class="form-check-label" for="id-save-info">Save this delivery information to my profile</label>
-                                <input class="form-check-input ml-2 mr-0" type="checkbox" id="id-save-info" name="save-info" checked>
-							{% else %}
-								<label class="form-check-label" for="id-save-info">
-                                    <a class="text-info" href="{% url 'account_signup' %}">Create an account</a> or 
-                                    <a class="text-info" href="{% url 'account_login' %}">login</a> to save this information
-                                </label>
-							{% endif %}
-						</div>
-                    </fieldset>
-                    {% if vehicle_bag_items %}
-                        <input class="hidden" type="text" name="order_type" value="vehicle">
-                    {% elif accessories_bag %}
-                        <input class="hidden" type="text" name="order_type" value="vehicle">
-                    {% else %}
-                    bugger!
-                    {% endif %}
-                    <fieldset class="px-3">
-                        <legend class="fieldset-label info-label">Payment</legend>
-                        <!-- A Stripe card element will go here -->
-                        <div class="mb-3" id="card-element" class="card-element"></div>
-
-                        <!-- Used to display form errors -->
-                        <div class="mb-3 text-danger" id="card-errors" role="alert" class="card-element"></div>
-                        <input type="hidden" name="client_secret" value="{{ client_secret }}">
-                    </fieldset>
-
-                    <div class="submit-button text-right mt-5 mb-2">    
-                        {% for item in bag_items %}
-                                <a href="{% url 'view_bag' %}" class="btn btn-outline-black rounded-0">
-                                    <span class="icon">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </span>
-                                    <span class="font-weight-bold">Adjust Bag</span>
-                                </a>
-                        {% endfor %}
-						<button id="submit-button" class="btn btn--blue-border btn--complete-order">
-							<span class="font-weight-bold">Complete Order</span>
-							<span class="icon">
-								<i class="fas fa-lock"></i>
-							</span>
-						</button>
-						<p class="small text-danger my-0">
-							<span class="icon">
-								<i class="fas fa-exclamation-circle"></i>
-							</span>
-							<span>You will be charged <strong>£{{ vehicle_grand_total|floatformat:2 }}</strong></span>
-						</p>
-					</div>
-                </form>
-            </div>
+<div class="container my-auto">
+    <div class="row">
+        <div class="col">
+            <h2 class="my-4">Checkout</h2>
         </div>
     </div>
 
-    <div id="loading-overlay" class="loading-overlay">
-        <h1 class="">
-            <span class="icon ">
-                <img class="loading" src="{{ media }}loading.gif" alt="Loading graphic">
-            </span>
-        </h1>
+    <div class="row">
+        <div class="col-12 col-lg-6 order-lg-last mb-5">
+            <div class="row">
+                <div class="col-7 offset-2">
+                    <p class="mb-1 mt-0 small text-muted">Item</p>
+                </div>
+                <div class="col-3 text-right">
+                    <p class="mb-1 mt-0 small text-muted">Subtotal</p>
+                </div>
+            </div>
+            <div class="row">
+                {% for item in vehicle_bag_items %}
+                <div class="col-2 mb-1">
+                    <a href="{% url 'vehicle_detail' item.vehicle.sku %}">
+                        {% for image in images %}
+                        {% if image.main %}
+                        <img class="w-100" src="{{ media }}{{ image.image }}" alt="{{ item.vehicle.sku }}">
+                        {% endif %}
+                        {% endfor %}
+                    </a>
+                </div>
+                <div class="col-7">
+                    <p class="my-0">
+                        <strong>{{ item.vehicle.make | capfirst}} {{ item.vehicle.model | capfirst}}
+                            {{ item.vehicle.registration | upper }}</strong>
+                        <p class="my-0 small text-muted">To pay on collection:
+                            £{{ item.vehicle.full_price | sub:item.vehicle.price }}</p>
+                    </p>
+                </div>
+                <div class="col-3 text-right">
+                    <p class="my-0 small text-muted">£{{ item.vehicle.price | calc_subtotal:item.quantity }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="row text-black text-right">
+                <div class="col-7 offset-2">
+                    <p class="my-0">Amount to confirm reservation:</p>
+                </div>
+                <div class="col-3">
+                    <p class="my-0"><strong>£{{ vehicle_grand_total | floatformat:2 }}</strong></p>
+                </div>
+            </div>
+            <hr class="my-2">
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <p>Please fill out the form below</p>
+            <form action="{% url 'reserve_vehicle_checkout' None %}" method="POST" id="payment-form"
+                class="payment-form">
+                {% csrf_token %}
+                <fieldset class="rounded px-3 mb-5">
+                    <legend class="fieldset-label info-label">Details</legend>
+                    {{ order_form.full_name | as_crispy_field }}
+                    {{ order_form.email | as_crispy_field }}
+                    {{ order_form.phone_number | as_crispy_field }}
+                </fieldset>
+                <fieldset class="rounded px-3 mb-5">
+                    <legend class="fieldset-label info-label">Address</legend>
+                    {{ order_form.street_address1 | as_crispy_field }}
+                    {{ order_form.street_address2 | as_crispy_field }}
+                    {{ order_form.town_or_city | as_crispy_field }}
+                    {{ order_form.county | as_crispy_field }}
+                    {{ order_form.postcode | as_crispy_field }}
+                    {{ order_form.country | as_crispy_field }}
+                    <div class="form-check form-check-inline mr-0">
+                        {% if user.is_authenticated %}
+                        <label class="form-check-label" for="id-save-info">Save this delivery information to my
+                            profile</label>
+                        <input class="form-check-input ml-2 mr-0" type="checkbox" id="id-save-info" name="save-info"
+                            checked>
+                        {% else %}
+                        <label class="form-check-label" for="id-save-info">
+                            <a class="text-info" href="{% url 'account_signup' %}">Create an account</a> or
+                            <a class="text-info" href="{% url 'account_login' %}">login</a> to save this information
+                        </label>
+                        {% endif %}
+                    </div>
+                </fieldset>
+                {% if vehicle_bag_items %}
+                <input class="hidden" type="text" name="order_type" value="vehicle">
+                {% elif accessories_bag %}
+                <input class="hidden" type="text" name="order_type" value="vehicle">
+                {% else %}
+                bugger!
+                {% endif %}
+                <fieldset class="px-3">
+                    <legend class="fieldset-label info-label">Payment</legend>
+                    <!-- A Stripe card element will go here -->
+                    <div class="mb-3" id="card-element" class="card-element"></div>
+
+                    <!-- Used to display form errors -->
+                    <div class="mb-3 text-danger" id="card-errors" role="alert" class="card-element"></div>
+                    <input type="hidden" name="client_secret" value="{{ client_secret }}">
+                </fieldset>
+
+                <div class="submit-button text-right mt-5 mb-2">
+                    {% for item in bag_items %}
+                    <a href="{% url 'view_bag' %}" class="btn btn-outline-black rounded-0">
+                        <span class="icon">
+                            <i class="fas fa-chevron-left"></i>
+                        </span>
+                        <span class="font-weight-bold">Adjust Bag</span>
+                    </a>
+                    {% endfor %}
+                    <button id="submit-button" class="btn btn--blue-border btn--complete-order">
+                        <span class="font-weight-bold">Complete Order</span>
+                        <span class="icon">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </button>
+                    <p class="small text-danger my-0">
+                        <span class="icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </span>
+                        <span>You will be charged <strong>£{{ vehicle_grand_total|floatformat:2 }}</strong></span>
+                    </p>
+                </div>
+            </form>
+        </div>
     </div>
+</div>
+
+<div id="loading-overlay" class="loading-overlay">
+    <h1 class="">
+        <span class="icon ">
+            <img class="loading" src="{{ media }}loading.gif" alt="Loading graphic">
+        </span>
+    </h1>
+</div>
 {% endblock %}
 
 {% block postload_js %}
 {{ block.super }}
-    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
-    {{ client_secret|json_script:"id_client_secret" }}
-    <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
+{{ stripe_public_key|json_script:"id_stripe_public_key" }}
+{{ client_secret|json_script:"id_client_secret" }}
+<script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
 </script>
 {% endblock %}

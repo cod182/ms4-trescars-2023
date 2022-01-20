@@ -1,0 +1,1 @@
+{{ order.type }} Purchase - {% if order.type == 'vehicle' %}{{ order.vehicle.registration }}{% else %}{{ order.accessory.brand }} {{ order.accessory.accessory_type }}{% endif %}

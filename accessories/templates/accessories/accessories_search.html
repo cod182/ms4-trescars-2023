@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'accessories/css/accessories.css' %}">
+<link rel="stylesheet" href="{% static 'accessories/css/accessories.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -19,7 +19,7 @@
         <!-- Search Options -->
         <div class="col-12 my-3">
             <form method="GET" action="">
-                <div class="input-group w-50 mx-auto">
+                <div class="input-group mx-auto">
                     <input class="form-control" type="text" name="q" placeholder="Search for accessories">
                     <div class="input-group-append">
                         <button class="form-control btn btn--border-black" type="submit">
@@ -41,73 +41,88 @@
             <div class="text-end">
                 <select id="sort-selector" class="">
                     <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
-                    <option value="price_asc" {% if current_sorting == 'full_price_asc' %}selected{% endif %}>Price (low to high)</option>
-                    <option value="price_desc" {% if current_sorting == 'full_price_desc' %}selected{% endif %}>Price (high to low)</option>
+                    <option value="price_asc" {% if current_sorting == 'full_price_asc' %}selected{% endif %}>Price (low
+                        to high)</option>
+                    <option value="price_desc" {% if current_sorting == 'full_price_desc' %}selected{% endif %}>Price
+                        (high to low)</option>
                 </select>
             </div>
         </div>
     </div>
 </div>
 
-<hr>
+<hr class="mb-auto">
 
 <div class="container">
     <div class="row">
         <!-- Accessories -->
         {% if accessories %}
-            {% for accessory in accessories %}
-            <div class="col-md-12 col-lg-3">
-                <a href="{% url 'accessory_detail' accessory.sku %}" class="btn--accessory-detail">
-                    <div class="accessory-container">
-                        <div class="row">
-                        <div class="accessory--image col-12" style="background-image:url('{{ media }}{{ accessory.image }}');" title="{{ accessory.brnad }} {{ accessory.type }}"></div>
-                            <div class="accessory-container--body roboto col-12 col-md-6 col-lg-12">
-                                <div class="accessory--title">
-                                    <h4><span>{{ accessory.brand | capfirst }} {{ accessory.accessory_type | capfirst }}</span></h4>
-                                </div>
-                                <div class="accessory-info">
-                                    {% if accessory.vehicle_make == "all" %}
-                                        <p class="bold">
-                                            <i class="fa fa-cog" aria-hidden="true"></i> Fits All Vehicles
-                                        </p>
-                                    {% else %}
-                                        <p class="bold">
-                                            <i class="fa fa-money" aria-hidden="true"></i> Fits: {{ accessory.vehicle_make | capfirst }} {{accessory.vehicle_model | capfirst }}
-                                        </p>
-                                    {% endif %}
+        {% for accessory in accessories %}
+        <div class="col-md-12 col-lg-3">
+            <a href="{% url 'accessory_detail' accessory.sku %}" class="btn--accessory-detail">
+                <div class="accessory-container">
+                    <div class="row">
+                        {% if accessory.image %}
+                        <div class="accessory--image col-12"
+                            style="background-image:url('{{ media }}{{ accessory.image }}');"
+                            title="{{ accessory.brnad }} {{ accessory.type }}">
+                        </div>
+                        {% else %}
+                        <div class="accessory--no-image col-12"
+                            style="background-image:url('{{ media }}coming-soon.png');"
+                            title="{{ accessory.brnad }} {{ accessory.type }}">
+                        </div>
+                        {% endif %}
+                        <div class="accessory-container--body roboto col-12 col-md-6 col-lg-12">
+                            <div class="accessory--title">
+                                <h4><span>{{ accessory.brand | capfirst }}
+                                        {{ accessory.accessory_type | capfirst }}</span></h4>
+                            </div>
+                            <div class="accessory-info">
+                                {% if accessory.vehicle_make == "all" %}
+                                <p class="bold">
+                                    <i class="fa fa-cog" aria-hidden="true"></i> Fits All Vehicles
+                                </p>
+                                {% else %}
+                                <p class="bold">
+                                    <i class="fa fa-cog" aria-hidden="true"></i> Fits:
+                                    {{ accessory.vehicle_make | capfirst }} {{accessory.vehicle_model | capfirst }}
+                                </p>
+                                {% endif %}
 
-                                    <p class="bold">
-                                        <i class="fa fa-money" aria-hidden="true"></i> £{{ accessory.price }}
-                                    </p>
+                                <p class="bold">
+                                    <i class="fa fa-money" aria-hidden="true"></i> £{{ accessory.price }}
+                                </p>
 
-                                    {% if accessory.quantity_available >= 10 %}
-                                        <p class="bold green">
-                                            <i class="fa fa-box" aria-hidden="true"></i> In Stock
-                                        </p>
-                                    {% elif accessory.quantity_available <= 0 %}
-                                        <p class="bold red">
-                                            <i class="fa fa-box" aria-hidden="true"></i> Out of Stock
-                                        </p>
-                                    {% else %}
-                                        <p class="bold orange">
-                                            <i class="fa fa-box" aria-hidden="true"></i> Low Stock
-                                        </p>
-                                    {% endif %}
-                                </div>
-                                <div class="accessory-info">
-                                    {% if request.user.is_superuser %}
-                                        <small class="ml-3">
-                                            <a href="#">Update</a> |
-                                            <a class="text-danger delete-accessory" href="#">Delete</a>
-                                        </small> 
-                                    {% endif %}
-                                </div>
+                                {% if accessory.quantity_available >= 10 %}
+                                <p class="bold green">
+                                    <i class="fa fa-box" aria-hidden="true"></i> In Stock
+                                </p>
+                                {% elif accessory.quantity_available <= 0 %}
+                                <p class="bold red">
+                                    <i class="fa fa-box" aria-hidden="true"></i> Out of Stock
+                                </p>
+                                {% else %}
+                                <p class="bold orange">
+                                    <i class="fa fa-box" aria-hidden="true"></i> Low Stock
+                                </p>
+                                {% endif %}
+                            </div>
+                            <div class="accessory-info">
+                                {% if request.user.is_superuser %}
+                                <small class="ml-3">
+                                    <a href="{% url 'update_accessory' accessory.id %}">Update</a> |
+                                    <a class="text-danger delete-accessory"
+                                        href="{% url 'delete_accessory' accessory.id %}">Delete</a>
+                                </small>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
-                </a>
-            </div>
-            {% endfor %}
+                </div>
+            </a>
+        </div>
+        {% endfor %}
         {% else %}
         <!-- No accessories found -->
         <div class="col-12 text-center mx-auto my-2">Sorry, no accessories found.</div>
@@ -115,23 +130,23 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container mt-auto mb-2">
     <div class="row">
         <div class="col-12">
             <div class="pagination accessories-pagination-container">
                 <span class="step-links">
                     {% if accessories.has_previous %}
-                        <a href="?page=1">&lt&lt</a>
-                        <a href="?page={{ accessories.previous_page_number }}">&lt</a>
+                    <a href="?page=1">&lt&lt</a>
+                    <a href="?page={{ accessories.previous_page_number }}">&lt</a>
                     {% endif %}
-            
+
                     <span class="current">
                         Page {{ accessories.number }} of {{ accessories.paginator.num_pages }}
                     </span>
-            
+
                     {% if accessories.has_next %}
-                        <a href="?page={{ accessories.next_page_number }}">&gt</a>
-                        <a href="?page={{ accessories.paginator.num_pages }}">&gt&gt;</a>
+                    <a href="?page={{ accessories.next_page_number }}">&gt</a>
+                    <a href="?page={{ accessories.paginator.num_pages }}">&gt&gt;</a>
                     {% endif %}
                 </span>
             </div>
@@ -144,5 +159,5 @@
 {% endblock %}
 
 {% block postload_js %}
-    <script src="{% static 'accessories/js/accessories.js' %}"></script>
+<script src="{% static 'accessories/js/accessories.js' %}"></script>
 {% endblock %}

@@ -5,22 +5,24 @@
 {% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'management/css/management.css' %}">
+<link rel="stylesheet" href="{% static 'management/css/management.css' %}">
 {% endblock %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
-        </div>
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-12 font-small my-2">
-            <span><p class="d-inline">Admin Management</p></span>
+            <span>
+                <p class="d-inline">Admin Management</p>
+            </span>
         </div>
         <div class="col-12">
             <h2 class="mt-2 mb-4">Manage an Accessory or a Vehicle</h2>
@@ -35,7 +37,9 @@
             </p>
         </div>
     </div>
+</div>
 
+<div class="container my-auto">
     <div class="row">
         <div class="quick-links--box quick-link">
             <p class="white">Add Vehicles</p>
@@ -47,16 +51,15 @@
 
         <div class="quick-links--box quick-link">
             <p class="white">Add Accessories</p>
-            <a href="#">
+            <a href="{% url 'add_accessory' %}">
                 <div class="quick-link--image" style="background-image:url('{% static 'images/accessories.jpg' %}');">
                 </div>
             </a>
         </div>
     </div>
-
 </div>
 {% endblock %}
 
 {% block postload_js %}
-    <script src="{% static 'management/js/add_vehicle.js' %}"></script>
+<script src="{% static 'management/js/add_vehicle.js' %}"></script>
 {% endblock %}

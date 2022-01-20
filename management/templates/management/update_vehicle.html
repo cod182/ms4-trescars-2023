@@ -53,11 +53,11 @@
                 <p class="bold">Current Images:</p>
         </div>
 
-        {% for x in image_form %}
+        {% for image in image_form %}
         <div class="col-12 col-md-6 col-lg-4 mt-2 mb-3 current_image">
-            {% if x.image.value != None %}
+            {% if image.image.value != None %}
             <hr>
-            {{ x | crispy }}
+            {{ image | crispy }}
             {% endif %}
         </div>
         {% endfor %}
