@@ -10,6 +10,9 @@ from vehicles.views import unique_vehicle_parameters
 
 
 def index(request):
+    """
+    Displays the home page
+    """
     request.session["vehicle_bag"] = {}
     vehicle_makes = unique_vehicle_parameters.unique_vehicle_makes()
     vehicles = unique_vehicle_parameters.unique_vehicle_models()
@@ -20,3 +23,12 @@ def index(request):
         "vehicles": vehicles,
     }
     return render(request, template, context)
+
+
+def returns(request):
+    """
+    Displays the returns information page
+    """
+    template = "home/returns.html"
+
+    return render(request, template)
