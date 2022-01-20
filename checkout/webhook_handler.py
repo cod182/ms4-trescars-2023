@@ -1,15 +1,14 @@
+import json
+import time
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
 
-from .models import Order, OrderLineItem, AccessoryOrder, AccessoryOrderLineItem
 from vehicles.models import Vehicle
 from accessories.models import Accessory
 from profiles.models import UserProfile
-
-import json
-import time
+from .models import Order, OrderLineItem, AccessoryOrder, AccessoryOrderLineItem
 
 
 class StripeWH_Handler:
