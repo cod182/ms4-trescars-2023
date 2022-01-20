@@ -1,0 +1,1 @@
+{% if item == None %} .General Enquiry:{% endif %}{{ user | capfirst }} has sent a message{% if item != None %} regarding {{ item | upper }}{% endif %}.

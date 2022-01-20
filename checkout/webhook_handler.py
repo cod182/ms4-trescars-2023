@@ -230,6 +230,7 @@ class StripeWH_Handler:
                         status=500,
                     )
 
+        self._send_company_alert_email(order)
         self._send_confirmation_email(order)
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | Order created via webhook',
