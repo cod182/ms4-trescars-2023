@@ -13,7 +13,7 @@ import time
 
 
 class StripeWH_Handler:
-    """ Handles Stripe's Webhooks """
+    """Handles Stripe's Webhooks"""
 
     def __init__(self, request):
         self.request = request
@@ -22,24 +22,36 @@ class StripeWH_Handler:
         """sends a email confirmation to customer on succsessful order"""
         customer_email = order.email
         subject = render_to_string(
-            'checkout/confirmation_emails/confirmation_email_subject.txt',
-            {'order': order}
-            )
+            "checkout/confirmation_emails/confirmation_email_subject.txt",
+            {"order": order},
+        )
 
         body = render_to_string(
-            'checkout/confirmation_emails/confirmation_email_body.txt',
-            {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL}
-            )
+            "checkout/confirmation_emails/confirmation_email_body.txt",
+            {"order": order, "contact_email": settings.DEFAULT_FROM_EMAIL},
+        )
         send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [customer_email])
 
+    def _send_company_alert_email(self, order):
+        """Sends the company an alert about the order"""
+        company_email = settings.DEFAULT_RECEIVING_EMAIL
+        subject = render_to_string(
+            "checkout/confirmation_emails/company_alert_subject.txt", {"order": order}
+        )
+
+        body = render_to_string(
+            "checkout/confirmation_emails/company_alert_body.txt", {"order": order}
+        )
+
+        send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [company_email])
 
     def handle_event(self, event):
         """
         Handle a unexpected webhook
         """
         return HttpResponse(
-            content=f'Unhandled webhook received: {event["type"]}',
-            status=200)
+            content=f'Unhandled webhook received: {event["type"]}', status=200
+        )
 
     def handle_payment_intent_succeeded(self, event):
         """
@@ -63,7 +75,7 @@ class StripeWH_Handler:
         # Update profile information if save_info was checked
         profile = None
         username = intent.metadata.username
-        if username != 'AnonymousUser':
+        if username != "AnonymousUser":
             profile = UserProfile.objects.get(user__username=username)
             if save_info:
                 profile.default_phone_number = shipping_details.phone
@@ -78,7 +90,7 @@ class StripeWH_Handler:
         order_exists = False
         attempt = 1
 
-        if order_type == 'vehicle':
+        if order_type == "vehicle":
             while attempt <= 5:
                 try:
                     order = Order.objects.get(
@@ -101,7 +113,7 @@ class StripeWH_Handler:
                 except Order.DoesNotExist:
                     attempt += 1
                     time.sleep(1)
-        elif order_type == 'accessories':
+        elif order_type == "accessories":
             while attempt <= 5:
                 try:
                     order = AccessoryOrder.objects.get(
@@ -127,12 +139,14 @@ class StripeWH_Handler:
 
         if order_exists:
             self._send_confirmation_email(order)
+            self._send_company_alert_email(order)
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | Order already in database',
-                status=200)
+                status=200,
+            )
         else:
             order = None
-            if order_type == 'vehicle':
+            if order_type == "vehicle":
                 try:
                     order = Order.objects.create(
                         order_type=order_type,
@@ -157,10 +171,9 @@ class StripeWH_Handler:
                                 order_line_item = OrderLineItem(
                                     order=order,
                                     vehicle=order_items,
-                                    )
+                                )
                             order_line_item.save()
-                            Vehicle.objects.filter(sku=item_id).update(
-                                available='no')
+                            Vehicle.objects.filter(sku=item_id).update(available="no")
 
                         else:
                             order_items = Accessory.objects.get(sku=item_id)
@@ -178,8 +191,9 @@ class StripeWH_Handler:
                         order.delete()
                     return HttpResponse(
                         content=f'Webhook received: {event["type"]} | ERROR: {e}',
-                        status=500)
-            elif order_type == 'accessories':
+                        status=500,
+                    )
+            elif order_type == "accessories":
                 try:
                     order = AccessoryOrder.objects.create(
                         order_type=order_type,
@@ -197,34 +211,34 @@ class StripeWH_Handler:
                         stripe_pid=pid,
                     )
                     for item_id, item_data in json.loads(bag).items():
-                            order_item = Accessory.objects.get(pk=item_id)
+                        order_item = Accessory.objects.get(pk=item_id)
 
-                            if isinstance(item_data, int):
-                                order_line_item = AccessoryOrderLineItem(
-                                    order=order,
-                                    accessory=order_item,
-                                    quantity=item_data,
-                                )
-                            order_line_item.save()
-                            order_item.quantity_available -= 1
-                            order_item.save()
+                        if isinstance(item_data, int):
+                            order_line_item = AccessoryOrderLineItem(
+                                order=order,
+                                accessory=order_item,
+                                quantity=item_data,
+                            )
+                        order_line_item.save()
+                        order_item.quantity_available -= 1
+                        order_item.save()
 
                 except Exception as e:
                     if order:
                         order.delete()
                     return HttpResponse(
                         content=f'Webhook received: {event["type"]} | ERROR: {e}',
-                        status=500)
+                        status=500,
+                    )
 
         self._send_confirmation_email(order)
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | Order created via webhook',
-            status=200)
+            status=200,
+        )
 
     def handle_payment_intent_payment_failed(self, event):
         """
         Handle a payment intent failed webhook
         """
-        return HttpResponse(
-            content=f'Payment Failed: {event["type"]}',
-            status=200)
+        return HttpResponse(content=f'Payment Failed: {event["type"]}', status=200)
