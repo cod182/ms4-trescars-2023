@@ -398,3 +398,19 @@ def update_accessory(request, accessory_id):
     }
 
     return render(request, template, context)
+
+
+@login_required
+def delete_accessory(request, accessory_id):
+    """delete accessory from the database"""
+
+    if not request.user.is_superuser:
+        messages.error(request, "Sorry, only authorised users can do that!")
+        return redirect(reverse("home"))
+
+    accessory = get_object_or_404(Accessory, pk=accessory_id)
+
+    accessory.delete()
+    messages.success(request, "Accessory deleted!")
+
+    return redirect(reverse("accessories"))

@@ -112,7 +112,8 @@
                                 {% if request.user.is_superuser %}
                                 <small class="ml-3">
                                     <a href="{% url 'update_accessory' accessory.id %}">Update</a> |
-                                    <a class="text-danger delete-accessory" href="#">Delete</a>
+                                    <a class="text-danger delete-accessory"
+                                        href="{% url 'delete_accessory' accessory.id %}">Delete</a>
                                 </small>
                                 {% endif %}
                             </div>

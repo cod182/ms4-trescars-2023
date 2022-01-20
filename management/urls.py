@@ -9,8 +9,13 @@ urlpatterns = [
     path("delete_vehicle/<vehicle_sku>", views.delete_vehicle, name="delete_vehicle"),
     path("add_accessory/", views.add_accessory, name="add_accessory"),
     path(
-        "update_accessory/<accessory_id>",
+        "update_accessory/<int:accessory_id>",
         views.update_accessory,
         name="update_accessory",
+    ),
+    path(
+        "delete_accessory/<int:accessory_id>",
+        views.delete_accessory,
+        name="delete_accessory",
     ),
 ]
