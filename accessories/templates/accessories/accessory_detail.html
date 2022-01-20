@@ -26,11 +26,14 @@
     <div class="row accessory-detail--image-viewer">
 
         <div class="col-12 col-lg-6">
-            <!-- The large image container -->
             <div class="accessory-detail--images-container">
-                <!-- large image -->
+                {% if accessory.image %}
                 <img id="expandedImg" class="accessory-detail--image-large" src="{{ media }}{{ accessory.image }}"
                     alt="Image of {{ accessory.brand }} {{ accessory.accessory_type }}">
+                {% else %}
+                <img id="expandedImg" class="accessory-detail--image-large" src="{{ media }}coming-soon.png"
+                    alt="Image of {{ accessory.brand }} {{ accessory.accessory_type }}">
+                {% endif %}
             </div>
         </div>
 

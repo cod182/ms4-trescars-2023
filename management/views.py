@@ -119,6 +119,15 @@ def handleImagesUpload(requestFiles, requestPost, form_data, vehicle, FROM):
         mainImage = False
 
 
+def handleDeleteAccessoryImage(accessory_id):
+    """
+    Takes in the accessory_id. Finds the accessory and delets the images
+    """
+    accessory = Accessory.objects.get(pk=accessory_id)
+    accessory.image.delete()
+    accessory.save()
+
+
 @login_required
 def management_home(request):
     template = "management/home.html"
@@ -305,7 +314,8 @@ def add_accessory(request):
             + "-"
             + str(datetime.datetime.now().year),
             "name": request.POST["brand"].lower()
-            + request.POST["accessory_type"].lower(),
+            + "-"
+            + +request.POST["accessory_type"].lower(),
             "brand": request.POST["brand"].lower(),
             "vehicle_make": request.POST["vehicle_make"].lower(),
             "vehicle_model": request.POST["vehicle_model"].lower(),
@@ -345,8 +355,41 @@ def update_accessory(request, accessory_id):
 
     accessory = get_object_or_404(Accessory, pk=accessory_id)
 
-    form = AccessoryForm(instance=accessory)
-    messages.info(request, f"You are editing {accessory.name}")
+    if request.method == "POST":
+        form_data = {
+            "sku": accessory.sku,
+            "name": request.POST["brand"].lower()
+            + "-"
+            + request.POST["accessory_type"].lower(),
+            "category": request.POST["category"].lower(),
+            "brand": request.POST["brand"].lower(),
+            "vehicle_make": request.POST["vehicle_make"].lower(),
+            "vehicle_model": request.POST["vehicle_model"].lower(),
+            "price": request.POST["price"].lower(),
+            "quantity_available": request.POST["quantity_available"].lower(),
+            "accessory_type": request.POST["accessory_type"].lower(),
+            "description": request.POST["description"].lower(),
+        }
+
+        form = AccessoryForm(form_data, request.FILES, instance=accessory)
+        if form.is_valid():
+            form.save()
+            if "image-clear" in request.POST:
+                handleDeleteAccessoryImage(accessory_id)
+
+            messages.success(
+                request,
+                "Updated Successfully",
+            )
+            return redirect(reverse("accessory_detail", args=[accessory.sku]))
+        else:
+            messages.error(
+                request, "Failed to update accessory.  Please ensure form is valid"
+            )
+    else:
+
+        form = AccessoryForm(instance=accessory)
+        messages.info(request, f"You are editing {accessory.name}")
 
     template = "management/update_accessory.html"
     context = {

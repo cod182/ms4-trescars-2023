@@ -62,9 +62,17 @@
             <a href="{% url 'accessory_detail' accessory.sku %}" class="btn--accessory-detail">
                 <div class="accessory-container">
                     <div class="row">
+                        {% if accessory.image %}
                         <div class="accessory--image col-12"
                             style="background-image:url('{{ media }}{{ accessory.image }}');"
-                            title="{{ accessory.brnad }} {{ accessory.type }}"></div>
+                            title="{{ accessory.brnad }} {{ accessory.type }}">
+                        </div>
+                        {% else %}
+                        <div class="accessory--no-image col-12"
+                            style="background-image:url('{{ media }}coming-soon.png');"
+                            title="{{ accessory.brnad }} {{ accessory.type }}">
+                        </div>
+                        {% endif %}
                         <div class="accessory-container--body roboto col-12 col-md-6 col-lg-12">
                             <div class="accessory--title">
                                 <h4><span>{{ accessory.brand | capfirst }}
@@ -77,7 +85,7 @@
                                 </p>
                                 {% else %}
                                 <p class="bold">
-                                    <i class="fa fa-money" aria-hidden="true"></i> Fits:
+                                    <i class="fa fa-cog" aria-hidden="true"></i> Fits:
                                     {{ accessory.vehicle_make | capfirst }} {{accessory.vehicle_model | capfirst }}
                                 </p>
                                 {% endif %}
