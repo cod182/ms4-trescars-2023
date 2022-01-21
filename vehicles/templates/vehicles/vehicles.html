@@ -243,7 +243,8 @@
                         {% if vehicle.sku in image.name %}
                         {% if image.main %}
                         <div class="vehicle--image col-12" style="background-image:url('{{ media }}{{ image.image }}');"
-                            title="{{ vehicle.make }} {{ vehicle.model }} {{vehicle.trim}}- {{ vehicle.registration}}">
+                            title="{{ vehicle.make }} {{ vehicle.model }} {{vehicle.trim}}- {{ vehicle.registration}}"
+                            loading="lazy">
                         </div>
                         {% endif %}
                         {% endif %}

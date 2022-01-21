@@ -29,10 +29,10 @@
             <div class="accessory-detail--images-container">
                 {% if accessory.image %}
                 <img id="expandedImg" class="accessory-detail--image-large" src="{{ media }}{{ accessory.image }}"
-                    alt="Image of {{ accessory.brand }} {{ accessory.accessory_type }}">
+                    alt="Image of {{ accessory.brand }} {{ accessory.accessory_type }}" loading="lazy">
                 {% else %}
                 <img id="expandedImg" class="accessory-detail--image-large" src="{{ media }}coming-soon.png"
-                    alt="Image of {{ accessory.brand }} {{ accessory.accessory_type }}">
+                    alt="Image of {{ accessory.brand }} {{ accessory.accessory_type }}" loading="lazy">
                 {% endif %}
             </div>
         </div>

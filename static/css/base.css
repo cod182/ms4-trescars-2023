@@ -337,6 +337,7 @@ body {
 
 .nav-logo {
     height: 70px;
+    width: fit-content;
     width: auto;
 }
 
@@ -406,7 +407,7 @@ body {
 }
 
 .footer-link {
-    color: white;
+    color: black;
     text-decoration: none;
     text-align: center;
     margin: auto 10px;
@@ -416,7 +417,7 @@ body {
 .footer-link:active,
 .footer-link:focus,
 .footer-link:focus:active {
-    color: blue;
+    color: white;
     text-decoration: none;
     transform: scale(1.05);
 }

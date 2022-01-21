@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="welcome-image" style="background-image: url('{{ static }}images/welcome-image.jpg');">
+<div class="welcome-image" style="background-image: url('{{ static }}images/welcome-image.webp');">
     <div class="search-box">
         <div class="search-box--text">
             <p class="m-0 bold">Start the search for your new vehicle here!</p>
@@ -54,24 +54,25 @@
 
         <div class="quick-links--box quick-link">
             <p class="white">All Vehicles</p>
-            <a href="{% url 'vehicles' %}">
-                <div class="quick-link--image" style="background-image:url('{{ static }}images/all-vehicles.jpg');">
+            <a href="{% url 'vehicles' %}" alt="goes to view all all vehicles" aria-label="All vehicels page">
+                <div class="quick-link--image" style="background-image:url('{{ static }}images/all-vehicles.webp');">
                 </div>
             </a>
         </div>
 
         <div class="quick-links--box quick-link">
             <p class="white">Accessories</p>
-            <a href="#">
-                <div class="quick-link--image" style="background-image:url('{{ static }}images/accessories.jpg');">
+            <a href="{% url 'accessories' %}" alt="goes to view accessorie categories"
+                aria-label="Accessories Categories Page">
+                <div class="quick-link--image" style="background-image:url('{{ static }}images/accessories.webp');">
                 </div>
             </a>
         </div>
 
         <div class="quick-links--box quick-link">
             <p class="black">Contact Us</p>
-            <a href="{% url 'sendEmail' %}">
-                <div class="quick-link--image" style="background-image:url('{{ static }}images/contact.jpg');">
+            <a href="{% url 'sendEmail' %}" alt="goes to contact us page" aria-label="Contact Us Page">
+                <div class="quick-link--image" style="background-image:url('{{ static }}images/contact.webp');">
                 </div>
             </a>
         </div>
@@ -87,7 +88,8 @@
         </div>
 
         <div class="about-box about-values">
-            <div class="about-values--image" style="background-image:url('{{ static }}images/about-values.jpg');"></div>
+            <div class="about-values--image" style="background-image:url('{{ static }}images/about-values.webp');">
+            </div>
             <div class="about-values--body">
                 <h4 class="about-box--title">Our Values</h4>
                 <p>We are commited to helping customers make great choices by delivering great value and customer
@@ -96,7 +98,7 @@
         </div>
 
         <div class="about-box about-location">
-            <div class="about-location--image" style="background-image:url('{{ static }}images/location-image.png');">
+            <div class="about-location--image" style="background-image:url('{{ static }}images/location-image.webp');">
             </div>
             <div class="about-location--body">
                 <h4 class="about-box--title">Visit Us!</h4>

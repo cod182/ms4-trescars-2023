@@ -19,12 +19,12 @@ function makeEnteredAllowModel() {
 
 // data-vehicle-make on the model options is checked and only ones matching the make are shown
 function checkCorrectMakesForModel() {
-    for (var x=0; x < model.options.length; x++) {
+    for (var x = 0; x < model.options.length; x++) {
         makeCheck = model.options[x].getAttribute('data-vehicle-make')
-        if ( make.value.toLowerCase() == makeCheck ) {
+        if (make.value.toLowerCase() == makeCheck) {
             model.options[x].classList.remove('hidden');
             model.value = model.options[0].value;
-        } else if (makeCheck != make.value.toLowerCase()){
+        } else if (makeCheck != make.value.toLowerCase()) {
             model.options[x].classList.add('hidden');
             model.value = model.options[0].value;
         }
@@ -37,7 +37,7 @@ window.onload = checkCorrectMakesForModel()
 
 // if make not select, model is disabled
 // if the make is selected, the model option is available
-make.addEventListener('change', function() {
+make.addEventListener('change', function () {
     makeEnteredAllowModel();
     checkCorrectMakesForModel();
     if (make.selectedOptions[0].innerHTML == 'Make') {
@@ -50,21 +50,21 @@ make.addEventListener('change', function() {
 })
 
 // when sort chaned submits to backend
-sortSelector.addEventListener('change', function() {
+sortSelector.addEventListener('change', function () {
     let currentUrl = new URL(window.location);
     let sortSelectorVal = sortSelector.value;
     if (sortSelectorVal != 'reset') {
         let sort = sortSelectorVal.split("_")[0];
         let direction = sortSelectorVal.split("_")[1];
-    
+
         currentUrl.searchParams.set("sort", sort);
         currentUrl.searchParams.set("direction", direction);
-    
+
         window.location.replace(currentUrl)
     } else {
         currentUrl.searchParams.delete("sort");
         currentUrl.searchParams.delete("direction");
-    
+
         window.location.replace(currentUrl);
     }
 })
@@ -88,8 +88,8 @@ function showSearchOptions() {
 }
 
 // button clicked, hides/shows extra search options
-hideSearchBtn.addEventListener('click', function() {
-    if (hideSearchBtn.innerText == 'Hide Options'){
+hideSearchBtn.addEventListener('click', function () {
+    if (hideSearchBtn.innerText == 'Hide Options') {
         hideSearchOptions();
     } else {
         showSearchOptions();
@@ -100,7 +100,7 @@ hideSearchBtn.addEventListener('click', function() {
 // text to 'are you sure?
 // second click completes button funciton
 for (let i = 0; i < deleteVehicleBtn.length; i++) {
-    deleteVehicleBtn[i].addEventListener('click', function(event) {
+    deleteVehicleBtn[i].addEventListener('click', function (event) {
         if (deleteVehicleBtn[i].innerText == "Are Your Sure?") {
             deleteVehicleBtn[i].innerText = "Delete";
         } else {
