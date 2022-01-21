@@ -1,20 +1,17 @@
-
-[
-  {
-    "pk":0,
-    "model": "accessories.accessory",
-    "fields": {
-      "category":0,
-      "sku":"generic-mudflap-all-2022",
-      "brand":"generic",
-      "name":"generic-mudflap",
-      "vehicle_make":"all",
-      "vehicle_model":"all",
-      "price":15.00,
-      "quantity_available":10,
-      "accessory_type":"mudflap",
-      "image":"generic-mudflap-2022.jpg",
-      "description":"Set of 4 UNIVERSAL FIT Car Mudflaps & Fitting Screws Dimensions (Per Mudflap): Width 225mm Height 380mm Depth 10mm Screw Length: 20mm Features: Manufactured using a flexible & durable, high density press-moulded rubber compound.  Alloy strip, embedded within the mudflap, ensures exact contour to the shape of the wheel arch.  Flexibility of the mudflap allows it to follow the contour of the wheel arch, providing a perfect fit.  Easy fitment to front & rear wheel arches, using Black Japanned Philips pan head self-tapper screws provided.  Screws keep the mudflap tighter against your car, preventing soil accumulating. This is the prefered method of fitment for most dealers. What's Included?: - Set (4) of blank mudflaps - Pack of 12 screws"
-    }
+[{
+  "pk": 1,
+  "model": "accessories.accessory",
+  "fields": {
+    "category": 0,
+    "sku": "generic-mudflap-all-2022",
+    "brand": "generic",
+    "name": "generic-mudflap",
+    "vehicle_make": "all",
+    "vehicle_model": "all",
+    "price": 15.00,
+    "quantity_available": 10,
+    "accessory_type": "mudflap",
+    "image": "generic-mudflap-2022.jpg",
+    "description": "Set of 4 UNIVERSAL FIT Car Mudflaps & Fitting Screws Dimensions (Per Mudflap): Width 225mm Height 380mm Depth 10mm Screw Length: 20mm Features: Manufactured using a flexible & durable, high density press-moulded rubber compound.  Alloy strip, embedded within the mudflap, ensures exact contour to the shape of the wheel arch.  Flexibility of the mudflap allows it to follow the contour of the wheel arch, providing a perfect fit.  Easy fitment to front & rear wheel arches, using Black Japanned Philips pan head self-tapper screws provided.  Screws keep the mudflap tighter against your car, preventing soil accumulating. This is the prefered method of fitment for most dealers. What's Included?: - Set (4) of blank mudflaps - Pack of 12 screws"
   }
-]
+}]

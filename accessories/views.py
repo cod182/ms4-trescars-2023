@@ -57,7 +57,7 @@ def accessories_search(request):
                     sortkey = f"-{sortkey}"
                 accessories = accessories.order_by(sortkey)
 
-    paginator = Paginator(accessories, 25)
+    paginator = Paginator(accessories, 24)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 

@@ -1,6 +1,4 @@
 from django.db import models
-from django.conf import settings
-from operator import attrgetter
 
 
 class VehicleImages(models.Model):
@@ -56,6 +54,7 @@ colour_choices = (
     ("blue", "Blue"),
     ("black", "Black"),
     ("green", "Green"),
+    ("grey", "Grey"),
     ("multi-coloured", "Multi-Coloured"),
     ("orange", "Orange"),
     ("pink", "Pink"),

@@ -404,7 +404,7 @@ def all_vehicles(request):
 
     current_sorting = f"{sort}_{direction}"
 
-    paginator = Paginator(vehicles, 25)
+    paginator = Paginator(vehicles, 24)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
