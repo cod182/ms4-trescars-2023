@@ -1,112 +1,119 @@
 {% extends "base.html" %}
 {% load static %}
 {% block extra_title %}
- - Home 
- {% endblock %}
+- Home
+{% endblock %}
 
- {% block extra_js %}
- 
- {% endblock %}
+{% block extra_js %}
 
- {% block page_header %}
+{% endblock %}
 
- {% endblock %}
+{% block page_header %}
+
+{% endblock %}
 
 {% block content %}
-        <div class="welcome-image" style="background-image: url('{{ static }}images/welcome-image.jpg');">
-            <div class="search-box">
-                <div class="search-box--text">
-                    <p class="m-0 bold">Start the search for your new vehicle here!</p>
+<div class="welcome-image" style="background-image: url('{{ static }}images/welcome-image.webp');">
+    <div class="search-box">
+        <div class="search-box--text">
+            <p class="m-0 bold">Start the search for your new vehicle here!</p>
+        </div>
+        <form class="welcome-search-form" action="{% url 'vehicles' %}" method="GET">
+            {% csrf_token %}
+            <input type="text" class="d-none" name="home-search">
+            <div>
+                <select id="make" class="welcome-search-form-input roboto" type="text" name="vehicle-make"
+                    placeholder="Make" list="vehicle-makes" autocomplete="off" autofocus required>
+                    <option selected value="" data-disable>Make</option>
+                    {% for make in vehicle_makes %}
+                    <option value="{{ make | capfirst}}">{{ make | capfirst}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <select id="model" class="welcome-search-form-input roboto" type="text" name="vehicle-model" disabled>
+                    <option selected value="" class="greyed">Model</option>
+                    {% for vehicle in vehicles %}
+                    <option class="hidden" value="{{ vehicle.model | capfirst }}"
+                        data-vehicle-make='{{ vehicle.make }}'>{{ vehicle.model | capfirst }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button class="btn-search" type="submit">Search</button>
+
+        </form>
+
+        <a class="btn--more-options" href="{% url 'vehicles' %}">More Options</a>
+    </div>
+</div>
+
+<div class="container-fluid quick-links-container">
+    <div class="row">
+
+        <div class="quick-links--box quick-link">
+            <p class="white">All Vehicles</p>
+            <a href="{% url 'vehicles' %}" alt="goes to view all all vehicles" aria-label="All vehicels page">
+                <div class="quick-link--image" style="background-image:url('{{ static }}images/all-vehicles.webp');">
                 </div>
-                <form class="welcome-search-form" action="{% url 'vehicles' %}" method="GET">
-                    {% csrf_token %}
-                    <input type="text" class="d-none" name="home-search">
-                    <div>
-                        <select id="make" class="welcome-search-form-input roboto" type="text" name="vehicle-make" placeholder="Make" list="vehicle-makes" autocomplete="off" autofocus required>
-                                <option selected value="" data-disable>Make</option>
-                                {% for make in vehicle_makes %}
-                                    <option value="{{ make | capfirst}}">{{ make | capfirst}}</option>
-                                {% endfor %}
-                        </select>
-                      </div>
+            </a>
+        </div>
 
-                      <div>
-                        <select id="model" class="welcome-search-form-input roboto" type="text" name="vehicle-model" disabled>
-                            <option selected value="" class="greyed">Model</option>
-                            {% for vehicle in vehicles %}
-                                    <option class="hidden" value="{{ vehicle.model | capfirst }}" data-vehicle-make='{{ vehicle.make }}'>{{ vehicle.model | capfirst }}</option>
-                            {% endfor %}
-                        </select>
-                      </div>
+        <div class="quick-links--box quick-link">
+            <p class="white">Accessories</p>
+            <a href="{% url 'accessories' %}" alt="goes to view accessorie categories"
+                aria-label="Accessories Categories Page">
+                <div class="quick-link--image" style="background-image:url('{{ static }}images/accessories.webp');">
+                </div>
+            </a>
+        </div>
 
-                      <button class="btn-search" type="submit">Search</button>
+        <div class="quick-links--box quick-link">
+            <p class="black">Contact Us</p>
+            <a href="{% url 'sendEmail' %}" alt="goes to contact us page" aria-label="Contact Us Page">
+                <div class="quick-link--image" style="background-image:url('{{ static }}images/contact.webp');">
+                </div>
+            </a>
+        </div>
 
-                </form>
+        <div class="about-box about-welcome">
+            <h3 class="about-welcome--heading">A warm welcome form the Très Cars Team!</h3>
+            <p class="about-welcome--body">Très Cars can be found at our premises in Cardiff.
+                <br>
+                Come to us for approved used vehicles and extensive accessories.
+                <br>
+                At Très Cars, we pride ourselves on stocking high quality used vehicles, bringing you a comprehensive
+                range of manufacturers and types for every budget.</p>
+        </div>
 
-                <a class="btn--more-options" href="{% url 'vehicles' %}">More Options</a>
+        <div class="about-box about-values">
+            <div class="about-values--image" style="background-image:url('{{ static }}images/about-values.webp');">
+            </div>
+            <div class="about-values--body">
+                <h4 class="about-box--title">Our Values</h4>
+                <p>We are commited to helping customers make great choices by delivering great value and customer
+                    service.</p>
             </div>
         </div>
 
-        <div class="container-fluid quick-links-container">
-            <div class="row">
-
-                <div class="quick-links--box quick-link">
-                    <p class="white">All Vehicles</p>
-                    <a href="{% url 'vehicles' %}">
-                        <div class="quick-link--image" style="background-image:url('{{ static }}images/all-vehicles.jpg');">
-                        </div>
-                    </a>
-                </div>
-
-                <div class="quick-links--box quick-link">
-                    <p class="white">Accessories</p>
-                    <a href="#">
-                        <div class="quick-link--image" style="background-image:url('{{ static }}images/accessories.jpg');">
-                        </div>
-                    </a>
-                </div>
-
-                <div class="quick-links--box quick-link">
-                    <p class="black">Contact Us</p>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#contact-modal">
-                        <div class="quick-link--image" style="background-image:url('{{ static }}images/contact.jpg');">
-                        </div>
-                    </a>
-                </div>
-
-                <div class="about-box about-welcome">
-                    <h3 class="about-welcome--heading">A warm welcome form the Très Cars Team!</h3>
-                    <p class="about-welcome--body">Très Cars can be found at our premises in Cardiff.
-                        <br>
-                        Come to us for approved used vehicles and extensive accessories. 
-                        <br>
-                        At Très Cars, we pride ourselves on stocking high quality used vehicles, bringing you a comprehensive range of manufacturers and types for every budget.</p>
-                </div>
-
-                <div class="about-box about-values">
-                    <div class="about-values--image" style="background-image:url('{{ static }}images/about-values.jpg');"></div>
-                    <div class="about-values--body">
-                        <h4 class="about-box--title">Our Values</h4>
-                        <p>We are commited to helping customers make great choices by delivering great value and customer service.</p>
-                    </div>
-                </div>
-
-                <div class="about-box about-location">
-                    <div class="about-location--image" style="background-image:url('{{ static }}images/location-image.png');"></div>
-                    <div class="about-location--body">
-                        <h4 class="about-box--title">Visit Us!</h4>
-                        <p>Très Cars</p>
-                        <p>12 Hadfield Road</p>
-                        <p>Cardiff</p>
-                        <p>CF11 8AQ</p>
-                    </div>
-                </div>
-
+        <div class="about-box about-location">
+            <div class="about-location--image" style="background-image:url('{{ static }}images/location-image.webp');">
+            </div>
+            <div class="about-location--body">
+                <h4 class="about-box--title">Visit Us!</h4>
+                <p>Très Cars</p>
+                <p>12 Hadfield Road</p>
+                <p>Cardiff</p>
+                <p>CF11 8AQ</p>
             </div>
         </div>
+
+    </div>
+</div>
 
 {% endblock %}
 
 {% block postload_js%}
-    <script src="{% static 'js/home-script.js' %}"></script>
+<script src="{% static 'js/home-script.js' %}"></script>
 {% endblock %}

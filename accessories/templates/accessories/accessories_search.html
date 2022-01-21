@@ -65,12 +65,12 @@
                         {% if accessory.image %}
                         <div class="accessory--image col-12"
                             style="background-image:url('{{ media }}{{ accessory.image }}');"
-                            title="{{ accessory.brnad }} {{ accessory.type }}">
+                            title="{{ accessory.brnad }} {{ accessory.type }}" loading="lazy">
                         </div>
                         {% else %}
                         <div class="accessory--no-image col-12"
                             style="background-image:url('{{ media }}coming-soon.png');"
-                            title="{{ accessory.brnad }} {{ accessory.type }}">
+                            title="{{ accessory.brnad }} {{ accessory.type }}" loading="lazy">
                         </div>
                         {% endif %}
                         <div class="accessory-container--body roboto col-12 col-md-6 col-lg-12">

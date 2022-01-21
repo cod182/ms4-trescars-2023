@@ -1,0 +1,4 @@
+{{ data.name }} has sent you a message{% if item != None %} regarding {{ item | upper }}{% endif %}.
+{{ data.recipient }}
+
+{{ message }}

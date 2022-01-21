@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "profiles",
     "management",
     "accessories",
+    "mailer",
     "crispy_forms",
     "mathfilters",
     "storages",

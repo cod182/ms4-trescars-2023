@@ -24,20 +24,14 @@
     {% endblock %}
 
     {% block corejs %}
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/e9c73d7092.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script defer src="https://kit.fontawesome.com/e9c73d7092.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-    <script src="{% static 'js/email_script.js' %}"></script>
-    <script>
-        (function () {
-            emailjs.init("user_g1KRgEDq9ymwiRfNP9t9s");
-        })();
-    </script>
-    <script src="https://js.stripe.com/v3/"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script defer src="https://js.stripe.com/v3/"></script>
     {% endblock %}
 
     {% block extra_js %}
@@ -64,58 +58,60 @@
 
                         <li class="nav-item d-inline d-lg-none">
                             <a class="nav-link" href="{% url 'home' %}">Home</a>
+                            <hr class="d-block d-lg-none">
                         </li>
 
-                        <hr class="d-block d-lg-none">
 
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'vehicles' %}">New Search</a>
+                            <hr class="d-block d-lg-none">
                         </li>
 
-                        <hr class="d-block d-lg-none">
 
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'accessories' %}">Accessories</a>
+                            <hr class="d-block d-lg-none">
                         </li>
 
-                        <hr class="d-block d-lg-none">
+                        <li class="nav-item">
+                            <a class="navbar-brand d-none d-lg-inline mx-auto" href="{% url 'home' %}">
+                                <img class="nav-logo" src="{% static 'images/logo.png' %}" alt="Très Cars Logo">
+                            </a>
+                        </li>
 
-                        <a class="navbar-brand d-none d-lg-inline" href="{% url 'home' %}">
-                            <img class="nav-logo" src="{% static 'images/logo.png' %}" alt="Très Cars Logo">
-                        </a>
                         {% if request.user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                            <hr class="d-block d-lg-none">
                         </li>
 
-                        <hr class="d-block d-lg-none">
                         {% if request.user.is_superuser %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'management_home' %}">Manage</a>
+                            <hr class="d-block d-lg-none">
                         </li>
 
-                        <hr class="d-block d-lg-none">
                         {% endif %}
 
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                            <hr class="d-block d-lg-none">
                         </li>
 
-                        <hr class="d-block d-lg-none">
                         {% endif %}
 
                         {% if not request.user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                            <hr class="d-block d-lg-none">
                         </li>
 
-                        <hr class="d-block d-lg-none">
 
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
+                            <hr class="d-block d-lg-none">
                         </li>
 
-                        <hr class="d-block d-lg-none">
                         {% endif %}
 
                         <li class="nav-item">
@@ -167,80 +163,34 @@
     {% endblock %}
 
     <footer class="footer container-fluid">
-        <div class="row">
-            <div class="col-12 col-sm-2 footer-logo-container">
+        <div class="row mt-1">
+            <div class="col-6 col-sm-2 footer-logo-container">
                 <a class="" href="#">
                     <img class="footer-logo" src="{% static 'images/logo.png' %}" alt="Très Cars Logo">
                 </a>
             </div>
 
-            <div class="col-12 col-sm-5 footer-links-container">
-                <a class="footer-link d-inline" href="#" data-bs-toggle="modal" data-bs-target="#contact-modal">Contact
+            <div class="col-6 col-sm-5 footer-links-container d-none d-sm-inline text-center">
+                <a class="footer-link d-inline" href="{% url 'sendEmail' %}">Contact
                     Us</a>
-                <a class="footer-link d-inline" href="#">Returns</a>
+                <a class="footer-link d-inline" href="{% url 'returns' %}">Returns</a>
             </div>
 
-            <div class="col-12 col-sm-5 footer-address-container">
-                <p class="footer-address--line d-inline d-sm-block">Très Cars</p>
-                <p class="footer-address--line d-inline d-sm-block">12 Hadfield Road</p>
-                <p class="footer-address--line d-inline d-sm-block">Cardiff</p>
-                <p class="footer-address--line d-inline d-sm-block">CF11 8AQ</p>
+            <div class="col-6 col-sm-5 footer-address-container">
+                <p class="footer-address--line d-block">Très Cars</p>
+                <p class="footer-address--line d-block">12 Hadfield Road</p>
+                <p class="footer-address--line d-block">Cardiff</p>
+                <p class="footer-address--line d-block">CF11 8AQ</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-5 footer-links-container d-inline d-sm-none text-center">
+                <a class="footer-link d-inline" href="{% url 'sendEmail' %}">Contact
+                    Us</a>
+                <a class="footer-link d-inline" href="{% url 'returns' %}">Returns</a>
             </div>
         </div>
     </footer>
-
-    <!-- Modal from bootstrap as start point-->
-    <!-- Contact Us Modal -->
-    <div class="modal fade" id="contact-modal" tabindex="-1" aria-labelledby="contact-modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content contact-modal-content">
-                <div class="modal-header contact-modal-header">
-                    <h5 class="modal-title contact-modal-title roboto" id="contactUsModalLabel">Get in touch!</h5>
-                    <button id="contact-modal-close" type="button" class="btn-close m-0 contact-modal-close"
-                        data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body container">
-                    <div class="row">
-                        <div class="col-12">
-
-                            <form onsubmit="return sendEmail(this)">
-                                <div>
-                                    <select class="contact-input contact-reasons" id="contact-reason" name="reason"
-                                        required>
-                                        <option value="">Contact Reason</option>
-                                        <option value="General Enquiry">Vehicle Enquiry</option>
-                                        <option value="Missing Data">Accessory Enquiry</option>
-                                        <option value="Website Issue">Other</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <input class="contact-input" type="text" id="contact-name" name="name"
-                                        placeholder="Enter Name Here..." required>
-                                </div>
-                                <div>
-                                    <input class="contact-input" type="email" id="contact-email" name="email"
-                                        placeholder="Enter Email Here..." required>
-                                </div>
-                                <div>
-                                    <textarea class="contact-message" cols="10" rows="5" id="contact-message"
-                                        name="message" placeholder="Enter Message Here..." required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn--contact" id="contact-submit">Send
-                                    Message!</button>
-                                <span id="message-status"></span>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <p>Or you can call us on: <span><a href="tel:02920 281765">02920 281765</a></span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     {% block postload_js%}
     {% endblock %}
 
