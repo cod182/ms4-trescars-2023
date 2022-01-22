@@ -1,21 +1,20 @@
+import json
+import stripe
 from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
 
-from .forms import OrderForm, AccessoryOrderForm
-from .models import Order, OrderLineItem, AccessoryOrder, AccessoryOrderLineItem
 from vehicles.models import Vehicle, VehicleImages
 from accessories.models import Accessory
 from bag.contexts import vehicle_bag_contents, bag_contents
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
+from .forms import OrderForm, AccessoryOrderForm
+from .models import Order, OrderLineItem, AccessoryOrder, AccessoryOrderLineItem
 
-import stripe
-import json
 
-
-def handleValidVehicleOrderForm(request, order_form, MODEL, bag):
+def handle_valid_vehicle_order_form(request, order_form, model, bag):
     order = order_form.save(commit=False)
     pid = request.POST.get("client_secret").split("_secret")[0]
     order.order_type = request.POST["order_type"]
@@ -24,14 +23,14 @@ def handleValidVehicleOrderForm(request, order_form, MODEL, bag):
     order.save()
     for item_id, item_data in bag.items():
         try:
-            vehicle = MODEL.objects.get(sku=item_id)
+            vehicle = model.objects.get(sku=item_id)
             if isinstance(item_data, int):
                 order_line_item = OrderLineItem(
                     order=order,
                     vehicle=vehicle,
                 )
                 order_line_item.save()
-        except MODEL.DoesNotExist:
+        except model.DoesNotExist:
             messages.error(
                 request,
                 (
@@ -46,7 +45,7 @@ def handleValidVehicleOrderForm(request, order_form, MODEL, bag):
     return order
 
 
-def handleValidAccessoryOrderForm(request, order_form, MODEL, bag):
+def handle_valid_accessory_order_form(request, order_form, MODEL, bag):
 
     order = order_form.save(commit=False)
     pid = request.POST.get("client_secret").split("_secret")[0]
@@ -78,7 +77,7 @@ def handleValidAccessoryOrderForm(request, order_form, MODEL, bag):
     return order
 
 
-def handleAuthenticatedUser(requestUser, FORM):
+def handle_authenticated_user(requestUser, FORM):
     try:
         profile = UserProfile.objects.get(user=requestUser)
         order_form = OrderForm(
@@ -100,7 +99,7 @@ def handleAuthenticatedUser(requestUser, FORM):
         return order_form
 
 
-def handleVehicleCheckOnSubmit(request, vehicle_bag, vehicle):
+def handle_vehicle_check_on_submit(request, vehicle_bag, vehicle):
     """
     checks vehicle availability on post
     """
@@ -120,7 +119,7 @@ def handleVehicleCheckOnSubmit(request, vehicle_bag, vehicle):
     return vehicle_bag
 
 
-def handleAddingUserToOrder(request, order, save_info):
+def handle_adding_user_to_order(request, order, save_info):
     """
     if a user is authenticated, adds the order to their account
     sets the vehicle availability to no
@@ -147,15 +146,38 @@ def handleAddingUserToOrder(request, order, save_info):
 
     messages.success(
         request,
-        f"Order successfully processed!",
+        "Order successfully processed!",
     )
 
     return order
 
 
-def handleOrderForm(request, FORM):
+def handle_order_form(request, form):
     """
-    collects the form data and enters it into the form
+    collects the vehicle form data and enters it into the form
+    returns the form
+    """
+    form_data = {
+        "order_type": request.POST["order_type"],
+        "full_name": request.POST["full_name"],
+        "email": request.POST["email"],
+        "phone_number": request.POST["phone_number"],
+        "postcode": request.POST["postcode"],
+        "town_or_city": request.POST["town_or_city"],
+        "street_address1": request.POST["street_address1"],
+        "street_address2": request.POST["street_address2"],
+        "county": request.POST["county"],
+        "country": request.POST["country"],
+    }
+
+    order_form = form(form_data)
+
+    return order_form
+
+
+def handle_accessory_order_form(request, form):
+    """
+    collects the vehicle form data and enters it into the form
     returns the form
     """
     form_data = {
@@ -169,8 +191,7 @@ def handleOrderForm(request, FORM):
         "county": request.POST["county"],
         "country": request.POST["country"],
     }
-
-    order_form = FORM(form_data)
+    order_form = form(form_data)
 
     return order_form
 
@@ -223,20 +244,20 @@ def reserve_vehicle_checkout(request, vehicle):
 
     # Auto fill save info
     if request.user.is_authenticated:
-        order_form = handleAuthenticatedUser(request.user, OrderForm)
+        order_form = handle_authenticated_user(request.user, OrderForm)
 
     if request.method == "POST":
         if "reserve_vehicle" in request.POST:
-            vehicle_bag = handleVehicleCheckOnSubmit(request, vehicle_bag, vehicle)
+            vehicle_bag = handle_vehicle_check_on_submit(request, vehicle_bag, vehicle)
             if vehicle_bag == "error":
                 return redirect(reverse("vehicles"))
         else:
             vehicle_bag = request.session.get("vehicle_bag", {})
 
-            order_form = handleOrderForm(request, OrderForm)
+            order_form = handle_order_form(request, OrderForm)
 
             if order_form.is_valid():
-                order = handleValidVehicleOrderForm(
+                order = handle_valid_vehicle_order_form(
                     request, order_form, Vehicle, vehicle_bag
                 )
                 if order == "failed":
@@ -287,7 +308,7 @@ def checkout_vehicle_success(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
 
     if request.user.is_authenticated:
-        order = handleAddingUserToOrder(request, order, save_info)
+        order = handle_adding_user_to_order(request, order, save_info)
 
     if "vehicle_bag" in request.session:
         for item in vehicle_bag:
@@ -309,15 +330,17 @@ def checkout(request):
     request.session["vehicle_bag"] = {}
     # Auto fill save info
     if request.user.is_authenticated:
-        order_form = handleAuthenticatedUser(request.user, AccessoryOrderForm)
+        order_form = handle_authenticated_user(request.user, AccessoryOrderForm)
 
     if request.method == "POST":
         bag = request.session.get("bag", {})
 
-        order_form = handleOrderForm(request, AccessoryOrderForm)
+        order_form = handle_accessory_order_form(request, AccessoryOrderForm)
 
         if order_form.is_valid():
-            order = handleValidAccessoryOrderForm(request, order_form, Accessory, bag)
+            order = handle_valid_accessory_order_form(
+                request, order_form, Accessory, bag
+            )
             if order == "error":
                 return redirect(reverse("view_bag"))
 
@@ -365,7 +388,7 @@ def checkout_success(request, order_number):
 
     if request.user.is_authenticated:
 
-        order = handleAddingUserToOrder(request, order, save_info)
+        order = handle_adding_user_to_order(request, order, save_info)
 
     if request.session.get("bag"):
         for item in bag:
