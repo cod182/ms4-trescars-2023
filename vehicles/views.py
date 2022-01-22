@@ -360,16 +360,18 @@ def all_vehicles(request):
     if request.GET:
         if "sort" in request.GET:
             sortkey = request.GET["sort"]
-            sort = sortkey
+
             if sortkey == "pricex":
                 sortkey = "full_price"
-                vehicles = vehicles.order_by(sortkey)
+            elif sortkey == "age":
+                sortkey = "model_year"
+            vehicles = vehicles.order_by(sortkey)
 
             if "direction" in request.GET:
                 direction = request.GET["direction"]
                 if direction == "desc":
                     sortkey = f"-{sortkey}"
-            vehicles = vehicles.order_by(sortkey)
+                vehicles = vehicles.order_by(sortkey)
 
         if "home-search" in request.GET:
             query_make = request.GET["vehicle-make"]

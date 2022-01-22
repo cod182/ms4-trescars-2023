@@ -215,13 +215,13 @@
             <div class="text-end">
                 <select id="sort-selector" class="">
                     <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
-                    <option value="pricex_asc" {% if current_sorting == 'full_price_asc' %}selected{% endif %}>Price
+                    <option value="pricex_asc" {% if current_sorting == 'pricex_asc' %}selected{% endif %}>Price
                         (low to high)</option>
-                    <option value="pricex_desc" {% if current_sorting == 'full_price_desc' %}selected{% endif %}>Price
+                    <option value="pricex_desc" {% if current_sorting == 'pricex_desc' %}selected{% endif %}>Price
                         (high to low)</option>
-                    <option value="model_asc" {% if current_sorting == 'model_asc' %}selected{% endif %}>Age (oldest to
+                    <option value="age_asc" {% if current_sorting == 'age_asc' %}selected{% endif %}>Age (oldest to
                         newest)</option>
-                    <option value="model_desc" {% if current_sorting == 'model_desc' %}selected{% endif %}>Age (newest
+                    <option value="age_desc" {% if current_sorting == 'age_desc' %}selected{% endif %}>Age (newest
                         to oldest)</option>
                 </select>
             </div>
