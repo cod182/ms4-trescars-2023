@@ -7,10 +7,15 @@ for (x = 0; x < currImgCont.length; x++) {
     if (currImgCont[x].innerText == '') {
         currImgCont[x].remove();
     } else {
-
-
         let check = currImgCont[x].children[3].children[0].children[0];
         let img = document.createElement('img');
+        currImgCont[x].children[2].children[0].childNodes[0].remove()
+        currImgCont[x].children[2].children[1].children[1].remove()
+        currImgCont[x].children[2].children[1].children[2].remove()
+        currImgCont[x].children[2].children[1].children[1].remove()
+        currImgCont[x].children[2].children[1].children[1].remove()
+        currImgCont[x].children[2].children[1].childNodes[4].remove()
+
 
         if (currImgCont[x].children[2].children[1].children[0].getAttribute('href')) {
             img.setAttribute('src', currImgCont[x].children[2].children[1].children[0].getAttribute(
@@ -23,18 +28,14 @@ for (x = 0; x < currImgCont.length; x++) {
         // on first loop, checks if a main image is selected
         if (check.checked) {
             main_list += 1
-            console.log(main_list);
         }
 
         // When a main image checkbox is selected, adds 1 to main_image list
         check.addEventListener('change', function () {
             if (check.checked) {
                 main_list += 1
-                console.log(main_list);
-
             } else {
                 main_list -= 1
-                console.log(main_list);
             }
         })
     }
