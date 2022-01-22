@@ -9,25 +9,54 @@ from .models import Category, Accessory
 
 
 def handleQuerySearch(request):
+    """
+    takes the request and gets the query (q)
+    searches the accessoeis
+    """
+    query = None
+
     query = request["q"]
+
     if not query:
-        messages.error(request, "You didn't enter a search term")
-        return redirect(reverse("accessories"))
+        return None
+
     queries = (
         Q(name__icontains=query)
         | Q(description__icontains=query)
         | Q(vehicle_make__icontains=query)
         | Q(vehicle_model__icontains=query)
     )
-    accessories = Accessory.objects.filter(queries)
-    return accessories
+
+    accessory_results = Accessory.objects.filter(queries)
+
+    return accessory_results
+
+
+def handleSorting(request, accessory_list):
+    """
+    takes the request and gets the sorting
+    sorts the accessories by the sort key and direction
+    """
+    direction = None
+    sortkey = None
+
+    sortkey = request["sort"]
+    if sortkey:
+        accessories_results = accessory_list.order_by(sortkey)
+
+    if "direction" in request:
+        direction = request["direction"]
+        if direction == "desc":
+            sortkey = f"-{sortkey}"
+        accessories_results = accessories_results.order_by(sortkey)
+
+    return accessories_results
 
 
 def accessories(request):
     """
     displayes the accessories category page
     """
-    accessories = Accessory.objects.all()
     categories = Category.objects.all()
 
     context = {"categories": categories, "media": settings.MEDIA_URL}
@@ -42,35 +71,27 @@ def accessories_search(request):
     if no category reutns to accessories
     gets all items with requested cateory
     """
-    query = None
-    sortkey = None
-    direction = None
+
     page_obj = None
     category = None
 
     if request.GET:
-        accessories = Accessory.objects.all()
-        category = request.GET["category"]
+        accessory_results = Accessory.objects.all()
+
         if "category" in request.GET:
+            category = request.GET["category"]
             categories = request.GET["category"].split(",")
-            accessories = Accessory.objects.filter(category__name__in=categories)
+            accessory_results = Accessory.objects.filter(category__name__in=categories)
         if "q" in request.GET:
-            accessories = handleQuerySearch(request.GET)
+            accessory_results = handleQuerySearch(request.GET)
+            if not accessory_results:
+                messages.error(request, "No Search Term Entered")
+                return redirect(reverse("accessories"))
 
         if "sort" in request.GET:
-            sortkey = request.GET["sort"]
-            sort = sortkey
-            if sortkey == "price":
-                sortkey = "price"
-                accessories = accessories.order_by(sortkey)
+            accessory_results = handleSorting(request.GET, accessory_results)
 
-            if "direction" in request.GET:
-                direction = request.GET["direction"]
-                if direction == "desc":
-                    sortkey = f"-{sortkey}"
-                accessories = accessories.order_by(sortkey)
-
-        paginator = Paginator(accessories, 24)
+        paginator = Paginator(accessory_results, 24)
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
 

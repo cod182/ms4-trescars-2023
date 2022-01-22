@@ -39,7 +39,7 @@
         <!-- Sort Options -->
         <div class="col-12 col-md-6">
             <div class="div text-start">
-                <h3>{{ category | title}} Accessories</h3>
+                <h3>{% if category != None %}{{ category | title }} Accessories {% else %} Results {% endif %}</h3>
             </div>
         </div>
         <div class="col-12 col-md-6">
