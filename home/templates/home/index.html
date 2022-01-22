@@ -23,7 +23,7 @@
             <input type="text" class="d-none" name="home-search">
             <div>
                 <select id="make" class="welcome-search-form-input roboto" type="text" name="vehicle-make"
-                    placeholder="Make" list="vehicle-makes" autocomplete="off" autofocus required>
+                    placeholder="Make" list="vehicle-makes" autocomplete="off" required>
                     <option selected value="" data-disable>Make</option>
                     {% for make in vehicle_makes %}
                     <option value="{{ make | capfirst}}">{{ make | capfirst}}</option>
@@ -32,7 +32,8 @@
             </div>
 
             <div>
-                <select id="model" class="welcome-search-form-input roboto" type="text" name="vehicle-model" disabled>
+                <select id="model" class="welcome-search-form-input roboto greyed" type="text" name="vehicle-model"
+                    disabled>
                     <option selected value="" class="greyed">Model</option>
                     {% for vehicle in vehicles %}
                     <option class="hidden" value="{{ vehicle.model | capfirst }}"

@@ -315,7 +315,7 @@ def add_accessory(request):
             + str(datetime.datetime.now().year),
             "name": request.POST["brand"].lower()
             + "-"
-            + +request.POST["accessory_type"].lower(),
+            + request.POST["accessory_type"].lower(),
             "brand": request.POST["brand"].lower(),
             "vehicle_make": request.POST["vehicle_make"].lower(),
             "vehicle_model": request.POST["vehicle_model"].lower(),

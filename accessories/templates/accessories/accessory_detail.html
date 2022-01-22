@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block extra_title %}
-- {{ accessory.brand | capfirst }} {{ accessory.accessory_type | capfirst}}
+- {{ accessory.brand | title }} {{ accessory.accessory_type | title }}
 {% endblock %}
 
 {% block page_header %}
@@ -35,12 +35,20 @@
                     alt="Image of {{ accessory.brand }} {{ accessory.accessory_type }}" loading="lazy">
                 {% endif %}
             </div>
+            <div class="accessory-info">
+                {% if request.user.is_superuser %}
+                <small class="ml-3">
+                    <a href="{% url 'update_accessory' accessory.id %}">Update</a> |
+                    <a class="text-danger delete-accessory" href="{% url 'delete_accessory' accessory.id %}">Delete</a>
+                </small>
+                {% endif %}
+            </div>
         </div>
 
         <div class="col-12 col-lg-6">
             <div class="row">
                 <div class="col-lg-12 accessory-detail--title">
-                    <h3>{{ accessory.brand | capfirst }} {{ accessory.accessory_type | capfirst}}</h3>
+                    <h3>{{ accessory.brand | title }} {{ accessory.accessory_type | title }}</h3>
                 </div>
 
                 <div class="col-lg-12 accessory-detail--title">
@@ -69,7 +77,7 @@
                     <p>
                         <i class="fa fa-car" aria-hidden="true"></i>
                         <br>
-                        Fitment: {{ accessory.vehicle_make | capfirst }} {{ accessory.vehicle_model | capfirst }}
+                        Fitment: {{ accessory.vehicle_make | title }} {{ accessory.vehicle_model | title }}
                     </p>
                     {% endif %}
                 </div>

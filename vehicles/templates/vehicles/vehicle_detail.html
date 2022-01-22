@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block extra_title %}
-- {{ vehicle.make | capfirst  }} {{ vehicle.model | capfirst }} {{ vehicle.registration | upper }}
+- {{ vehicle.make | title  }} {{ vehicle.model | title }} {{ vehicle.registration | upper }}
 {% endblock %}
 
 {% block extra_css %}
@@ -91,7 +91,7 @@
         <div class="col-12 col-lg-6">
             <div class="row">
                 <div class="col-lg-12 vehicle-detail--title">
-                    <h3>{{ vehicle.model_year }} {{ vehicle.make | capfirst}} {{ vehicle.model | capfirst}}</h3>
+                    <h3>{{ vehicle.model_year }} {{ vehicle.make | title}} {{ vehicle.model | title}}</h3>
                 </div>
 
                 <div class="col-lg-12 vehicle-detail--title">
@@ -116,24 +116,24 @@
                 <div class="col-4 col-sm-3 vehicle-detail-small-info">
                     <p>
                         <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/paint.png' %}"
-                            alt="Colour Icon">
+                            alt="Colour Icon" aria-label="colour Icon">
                         <br>
-                        {{ vehicle.colour | capfirst}}
+                        {{ vehicle.colour | title}}
                     </p>
                 </div>
 
                 <div class="col-4 col-sm-3 vehicle-detail-small-info">
                     <p>
                         <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/fuel.png' %}"
-                            alt="Fuel Icon">
+                            alt="Fuel Icon" aria-label="fuel type Icon">
                         <br>
-                        {{ vehicle.fuel | capfirst }}
+                        {{ vehicle.fuel | title }}
                     </p>
                 </div>
 
                 <div class="col-4 col-sm-3 vehicle-detail-small-info">
                     <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/engine.png' %}"
-                        alt="Engine Size Icon">
+                        alt="Engine Size Icon" aria-label="engine size Icon">
                     <br>
                     {{ vehicle.engine_size }}
                 </div>
@@ -141,25 +141,25 @@
                 <div class="col-4 col-sm-3 vehicle-detail-small-info">
                     <p>
                         <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/car.png' %}"
-                            alt="Body Type Icon">
+                            alt="Body Type Icon" aria-label="Body type Icon">
                         <br>
-                        {{ vehicle.body_type | capfirst }}
+                        {{ vehicle.body_type | title }}
                     </p>
                 </div>
 
                 <div class="col-4 col-sm-3 vehicle-detail-small-info">
                     <p>
                         <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/gearbox.png' %}"
-                            alt="Gearbox Icon">
+                            alt="Gearbox Icon" aria-label="Gearbox Icon">
                         <br>
-                        {{ vehicle.gearbox | capfirst }}
+                        {{ vehicle.gearbox | title }}
                     </p>
                 </div>
 
                 <div class="col-4 col-sm-3 vehicle-detail-small-info">
                     <p>
                         <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/drivetrain.png' %}"
-                            alt="Drivetrain Icon">
+                            alt="Drivetrain Icon" aria-label="Vehile Drivetrain Icon">
                         <br>
                         {{ vehicle.drivetrain |upper }}
                     </p>
@@ -168,7 +168,7 @@
                 <div class="col-4 col-sm-3 vehicle-detail-small-info">
                     <p>
                         <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/seat.png' %}"
-                            alt="Seat Icon">
+                            alt="Seat Icon" aria-label="Number of seats Icon">
                         <br>
                         {{ vehicle.seats }}
                     </p>
@@ -177,7 +177,7 @@
                 <div class="col-4 col-sm-3 vehicle-detail-small-info">
                     <p>
                         <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/door.png' %}"
-                            alt="Door Icon">
+                            alt="Door Icon" aria-label="Number of doors Icon">
                         <br>
                         {{ vehicle.doors }}
                     </p>
@@ -187,7 +187,7 @@
                 <div class="col-4 col-sm-3 vehicle-detail-small-info">
                     <p>
                         <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/co2.png' %}"
-                            alt="CO2 Icon">
+                            alt="CO2 Icon" aria-label="CO2 Emissions Icon">
                         <br>
                         {{ dvla_data.co2Emissions }} g/Km
                     </p>
@@ -198,7 +198,7 @@
                 <div class="col-6 col-sm-3 vehicle-detail-small-info">
                     <p>
                         <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/mot.png' %}"
-                            alt="MOT Icon">
+                            alt="MOT Icon" aria-label="MOT Due Icon">
                         <br>
                         <span id="mot-date">{{ dvla_data.motExpiryDate }}</span>
                     </p>
@@ -209,7 +209,7 @@
                 <div class="col-6 col-sm-3 vehicle-detail-small-info">
                     <p>
                         <img class="vehicle-detail-small-info--icon" src="{% static 'images/icons/tax.png' %}"
-                            alt="Tax Icon">
+                            alt="Tax Icon" aria-label="Tax Due Icon">
                         <br>
                         <span id="tax-date">{{ dvla_data.taxDueDate }}</span>
                     </p>

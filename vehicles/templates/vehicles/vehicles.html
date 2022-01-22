@@ -30,7 +30,7 @@
                         <option selected value="" data-disable>Make</option>
                         {% endif %}
                         {% for make in vehicle_makes %}
-                        <option value="{{ make | capfirst}}">{{ make | capfirst}}</option>
+                        <option value="{{ make | title}}">{{ make | title}}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -43,8 +43,8 @@
                         <option selected value="" data-disable>Model</option>
                         {% endif %}
                         {% for vehicle in vehicle_models %}
-                        <option class="hidden" value="{{ vehicle.model | capfirst }}"
-                            data-vehicle-make='{{ vehicle.make }}'>{{ vehicle.model | capfirst }}</option>
+                        <option class="hidden" value="{{ vehicle.model | title }}"
+                            data-vehicle-make='{{ vehicle.make }}'>{{ vehicle.model | title }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -114,7 +114,7 @@
                         <option selected value="" data-disable>Colour</option>
                         {% endif %}
                         {% for colour in vehicle_colours %}
-                        <option value="{{ colour | capfirst}}">{{ colour | capfirst}}</option>
+                        <option value="{{ colour | title}}">{{ colour | title}}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -154,7 +154,7 @@
                         <option selected value="" data-disable>Body Type</option>
                         {% endif %}
                         {% for body in vehicle_body %}
-                        <option value="{{ body | capfirst }}">{{ body | capfirst }}</option>
+                        <option value="{{ body | title }}">{{ body | title }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -167,7 +167,7 @@
                         <option selected value="" data-disable>Fuel Type</option>
                         {% endif %}
                         {% for fuel in vehicle_fuels %}
-                        <option value="{{ fuel | capfirst }}">{{ fuel | capfirst }}</option>
+                        <option value="{{ fuel | title }}">{{ fuel | title }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -243,7 +243,7 @@
                         {% if vehicle.sku in image.name %}
                         {% if image.main %}
                         <div class="vehicle--image col-12" style="background-image:url('{{ media }}{{ image.image }}');"
-                            title="{{ vehicle.make }} {{ vehicle.model }} {{vehicle.trim}}- {{ vehicle.registration}}"
+                            title="{{ vehicle.make | title }} {{ vehicle.model | title }} {{ vehicle.trim| title }} - {{ vehicle.registration | upper}}"
                             loading="lazy">
                         </div>
                         {% endif %}
@@ -266,8 +266,9 @@
                         {% endif %}
                         <div class="vehicle-container--body roboto col-12 col-md-6 col-lg-12">
                             <div class="vehicle--title">
-                                <h4><span>{{ vehicle.make | capfirst }} {{ vehicle.model | capfirst }}</span></h4>
-                                <p>{{ vehicle.trim | capfirst}}</p>
+                                <h4>{{ vehicle.make | title }}</h4>
+                                <h5 class="mb-0">{{ vehicle.model | title }}</h5>
+                                <p class="mt-0">{{ vehicle.trim | title}}</p>
                             </div>
                             <div class="vehicle-info">
                                 <p>

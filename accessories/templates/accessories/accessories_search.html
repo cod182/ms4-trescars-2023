@@ -37,7 +37,12 @@
 <div class="container">
     <div class="row">
         <!-- Sort Options -->
-        <div class="col-12 offset-md-6 col-md-6">
+        <div class="col-12 col-md-6">
+            <div class="div text-start">
+                <h3>{{ category | title}} Accessories</h3>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
             <div class="text-end">
                 <select id="sort-selector" class="">
                     <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
@@ -65,7 +70,7 @@
                         {% if accessory.image %}
                         <div class="accessory--image col-12"
                             style="background-image:url('{{ media }}{{ accessory.image }}');"
-                            title="{{ accessory.brnad }} {{ accessory.type }}" loading="lazy">
+                            title="{{ accessory.brand | title }} {{ accessory.accessory_type |title }}" loading="lazy">
                         </div>
                         {% else %}
                         <div class="accessory--no-image col-12"
@@ -75,8 +80,8 @@
                         {% endif %}
                         <div class="accessory-container--body roboto col-12 col-md-6 col-lg-12">
                             <div class="accessory--title">
-                                <h4><span>{{ accessory.brand | capfirst }}
-                                        {{ accessory.accessory_type | capfirst }}</span></h4>
+                                <h4><span>{{ accessory.brand | title }}
+                                        {{ accessory.accessory_type | title }}</span></h4>
                             </div>
                             <div class="accessory-info">
                                 {% if accessory.vehicle_make == "all" %}
@@ -86,7 +91,7 @@
                                 {% else %}
                                 <p class="bold">
                                     <i class="fa fa-cog" aria-hidden="true"></i> Fits:
-                                    {{ accessory.vehicle_make | capfirst }} {{accessory.vehicle_model | capfirst }}
+                                    {{ accessory.vehicle_make | title }} {{accessory.vehicle_model | title }}
                                 </p>
                                 {% endif %}
 
