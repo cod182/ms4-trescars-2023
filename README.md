@@ -1,12 +1,12 @@
-# Milestone-Project-4
-
-## 
+# Milestone Project 4 - Très Cars
 
 ## Project
-The purpose of this site is to allow a shopper to browse and purchase a vehicle. The shopper will also be able to purchase accessories for their selected vehicle. A user will be able to save their vehicle upon purchase and set reminders for important dates, such as service & MOT.
+The purpose of this site is to allow a user to browse and purchase a vehicle and browse and purchase accessories.
 
 # Showcase
+A deployed link to the site can be found on Heroku [here](https://mp3-game-corner.herokuapp.com/)
 
+![Preivew](static/images/responsive.png)
 # UX
 
 ## User Stories
@@ -50,16 +50,28 @@ A user needs to be able to purchase a vehilce or accessories with ease and in as
 
 ### Technical Capabilities
 
-
+It is possible to create this site efficiently using the bootstrap and Django frameworks as well as the HTML/CSS/Javascript/Python and heroku for deployment and postgres of a database. The DVLA API will also be used for getting extra information on vehicles added to the database.
 ### Business Vision
 
-The site will offer a wide variety of vehicles and accessories. Allowing a user to purchase easily and with great choice.
+Offer a wide variety of vehicles, from older vehicles to brand new ones and pices from affordably to luxury. THe site will also offer accessories for specific of all vehicles
 ## Scope
 
+The site will quickly show what it's purpose is for a user. From the home page users will be ale to enact a somple vehicle search with a mode detail search to follow.
+
+Informaiton about the site can be found lower down on the home page, along with contact informaitn and a location. The site will be easy to navigate and 
+The site will include an about section detailing what the site does and what a user can gain from it. It will be easy to enact a search and read the results. All information will be clearly laid out and easy to understand at a glance
 
 ## Structure
 
-
+- The site will be detailed but simply laid out, cover 20 pages in total with pages generated when clicked on.
+- navigation will give quick access to the main features of the site
+- Site pages 
+    - Home, Returns, Login, Logout, Vehicle Search, Vehicle Details, Accessory Select, accessory search, accesssory detail
+    - Bag, Vehicle Checkout, Checkout, Checkout success, Profile, Management Home, Add Vehicle, Update Vehicle
+    - Add Accessory, Update Accessory, contact Page
+- A user will be able to quickly search for a vehicel fomr the home page, or run a more detail search from the vehicle search page. They will be able to select a type of accesory via the accessoeis link in the nav bar.
+- Users can create a profil where purchases and account details can be stored
+- An admin panel will be accesiable by admin users to allow for Adding/Updating Vehicles & accessories
 ## Skeleton
 
 ### Wireframes
@@ -72,21 +84,103 @@ The site will offer a wide variety of vehicles and accessories. Allowing a user 
 
 
 ## Surface
-
-
-
-
+The site will be set over multiple pages. Users will be able to search for a purchase accessories / vehicles
 ## Visual Design
+### Home
+- The page will contiane a quick simple search for a vehicle
+- An introduction and information panes wil lbe displayed futher down the page.
+
+### Returns Page
+- A simple page displaying the terms and conditions of sales and returns
+
+### Contact Page
+- A form to submit to the company.
+- If the link to the page comes from a vehicle detail / accessory detail page, the informaiton onf the itme is included.
+### Vehicle Search Page
+- Linked to via the quick search and more options on the home page or via the New Search button in the header
+- Without a search, contains all the vehicles on the site, with a search, displayed the matching vehicles.
+- Able to filter vehicels by pre-defined search parameters.
+- Sort the returned vehicles
+
+### Vehicle Detail Page
+- shows all the details and images of the selected vehicle
+- able to see live data from DVLA api on the MOT,TAX and Co2 status
+- Able to go to contact page taking the vehicle info
+- Able to click to reserve the vehicle
+- if an admin, vehicles can be updated/deleted
+### Vehicle Reserve Page
+- Can only take 1 vehicle at a time
+- Enter user data, or prefilled if user logged in with saved data
+- Enter payment details and reserve vehicle
+- Confirmation mail sent to customer
+- Info email sent to company
+
+### Accessories Page
+- Shows the categories of accessories available
+- Clicking one filters the accessories by the category
+- Search box available to search by term
+### Accessories Search Page
+- displays all accessories available for the category
+- Accessoeis can be sorted
+- Search box available to search by term
+- if an admin, accessories can be updated / deleted
+### Accessory Detail Page
+- Displays the image and data available for the accessory
+- Add to bag link for added teh accessory to bag
+- + / - buttons for changing quantity required
+- if an admin, accessories can be updated / deleted
+- Able to go to contact page taking the accessory info
+### Bag Page
+- Displays all the accessories currently in the bag
+- Link to more accessoeis
+- Link to the secure checkout page
+### Acessories Checkout Page
+- Enter user data, or prefilled if user logged in with saved data
+- Enter payment details and complete order
+- Confirmation mail sent to customer
+- Info email sent to company
 
 
+## Admin Pages
+
+### Management Home
+- Displayed the links to Add A vehicle or accessory
+
+### Add vehicle
+- Allows a vehicle to be added
+- Allows text information
+- Allows multi image upload with requirment to select a main image
+
+### Update a vehicle
+- Accessed via vehicles search page or vehicle page
+- Allows text information to be edited
+- Allows images to be removed
+- Allows a new main image to be selected
+- Allows more images to be added
+
+### Add an acessory
+- Allows an accessory to be added
+- Allows text information
+- Allows single image upload
 ## Features
 
 ### Existing Features
 
 ### Features to be implemented
+
+- Service Reminders
+- MOT Reminders
 ## Technoogies used
 
-
+- HTML
+- CSS
+- Javascript (Jquery & Vanilla)
+- Bootstrap (Styling Framework)
+- DVLA API (getting Vehicle Info)
+- Django (Framework)
+- Heroku (Deployment)
+- Postgres (Database)
+- AWS S3 Bucket (Storage)
 
 # Testing
 ## Planning
