@@ -18,7 +18,7 @@
     <div class="row">
         <!-- Search Options -->
         <div class="col-12 my-3">
-            <form method="GET" action="">
+            <form method="GET" action="{% url 'accessories_search' %}">
                 <div class="input-group mx-auto">
                     <input class="form-control" type="text" name="q" placeholder="Search for accessories">
                     <div class="input-group-append">
@@ -70,12 +70,12 @@
                         {% if accessory.image %}
                         <div class="accessory--image col-12"
                             style="background-image:url('{{ media }}{{ accessory.image }}');"
-                            title="{{ accessory.brand | title }} {{ accessory.accessory_type |title }}" loading="lazy">
+                            title="{{ accessory.brand | title }} {{ accessory.accessory_type |title }}">
                         </div>
                         {% else %}
                         <div class="accessory--no-image col-12"
                             style="background-image:url('{{ media }}coming-soon.png');"
-                            title="{{ accessory.brnad }} {{ accessory.type }}" loading="lazy">
+                            title="{{ accessory.brnad }} {{ accessory.type }}">
                         </div>
                         {% endif %}
                         <div class="accessory-container--body roboto col-12 col-md-6 col-lg-12">

@@ -245,6 +245,7 @@ def reserve_vehicle_checkout(request, vehicle):
     # Auto fill save info
     if request.user.is_authenticated:
         order_form = handle_authenticated_user(request.user, OrderForm)
+    order_form = OrderForm()
 
     if request.method == "POST":
         if "reserve_vehicle" in request.POST:
@@ -331,6 +332,7 @@ def checkout(request):
     # Auto fill save info
     if request.user.is_authenticated:
         order_form = handle_authenticated_user(request.user, AccessoryOrderForm)
+    order_form = AccessoryOrderForm()
 
     if request.method == "POST":
         bag = request.session.get("bag", {})

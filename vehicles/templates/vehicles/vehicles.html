@@ -23,7 +23,7 @@
             <div class="row">
                 <!-- Vehicel Make Search -->
                 <div class="col-12 col-md-4 m-auto">
-                    <select id="vehicle-make-search" class="vehicle-search-input" type="text" name="vehicle-make">
+                    <select id="vehicle-make-search" class="vehicle-search-input" name="vehicle-make">
                         {% if remembered_search.make %}
                         <option selected value="{{ remembered_search.make }}">{{ remembered_search.make }}</option>
                         {% else %}
@@ -36,7 +36,7 @@
                 </div>
                 <!-- Vehicel Model Search -->
                 <div class="col-12 col-md-4 m-auto">
-                    <select id="vehicle-model-search" class="vehicle-search-input" type="text" name="vehicle-model">
+                    <select id="vehicle-model-search" class="vehicle-search-input" name="vehicle-model">
                         {% if remembered_search.model %}
                         <option selected value="{{ remembered_search.model }}">{{ remembered_search.model }}</option>
                         {% else %}
@@ -50,7 +50,7 @@
                 </div>
                 <!-- Vehicel year Search -->
                 <div class="col-12 col-md-4 m-auto detail-options">
-                    <select id="vehicle-year-search" class="vehicle-search-input" type="text" name="vehicle-model-year">
+                    <select id="vehicle-year-search" class="vehicle-search-input" name="vehicle-model-year">
                         {% if remembered_search.year %}
                         <option selected value="{{ remembered_search.year }}">{{ remembered_search.year }}</option>
                         {% else %}
@@ -63,7 +63,7 @@
                 </div>
                 <!-- Price Range Search -->
                 <div class="col-12 col-md-4 m-auto detail-options">
-                    <select id="vehicle-price-range-search" class="vehicle-search-input" type="text" name="price-range">
+                    <select id="vehicle-price-range-search" class="vehicle-search-input" name="price-range">
                         {% if  remembered_search.price == '9999999' or remembered_search == None %}
                         <option selected value="9999999" data-disable>Price</option>
                         {% elif remembered_search.price != '9999999' %}
@@ -85,7 +85,7 @@
                 </div>
                 <!-- Mileage Search -->
                 <div class="col-12 col-md-4 m-auto detail-options">
-                    <select id="vehicle-mileage-search" class="vehicle-search-input" type="text" name="mileage">
+                    <select id="vehicle-mileage-search" class="vehicle-search-input" name="mileage">
                         {% if remembered_search.mileage == '9999999'  or remembered_search == None %}
                         <option selected value="9999999" data-disable>Mileage</option>
                         {% elif remembered_search.mileage != '9999999' %}
@@ -107,7 +107,7 @@
                 </div>
                 <!-- Vehicle Colour Search -->
                 <div class="col-12 col-md-4 m-auto detail-options">
-                    <select id="vehicle-colour-search" class="vehicle-search-input" type="text" name="vehicle-colour">
+                    <select id="vehicle-colour-search" class="vehicle-search-input" name="vehicle-colour">
                         {% if remembered_search.colour %}
                         <option selected value="{{ remembered_search.colour }}">{{ remembered_search.colour }}</option>
                         {% else %}
@@ -120,7 +120,7 @@
                 </div>
                 <!-- Vehicle Engine Search -->
                 <div class="col-12 col-md-4 m-auto detail-options">
-                    <select id="vehicle-engine-search" class="vehicle-search-input" type="text" name="vehicle-engine">
+                    <select id="vehicle-engine-search" class="vehicle-search-input" name="vehicle-engine">
                         {% if remembered_search.engine == '0'  or remembered_search == None %}
                         <option selected value="0" data-disable>Engine</option>
                         {% else %}
@@ -133,7 +133,7 @@
                 </div>
                 <!-- Vehicle Doors Search -->
                 <div class="col-12 col-md-4 m-auto detail-options">
-                    <select id="vehicle-door-search" class="vehicle-search-input" type="text" name="vehicle-doors">
+                    <select id="vehicle-door-search" class="vehicle-search-input" name="vehicle-doors">
                         {% if remembered_search.doors %}
                         <option selected value="{{ remembered_search.doors }}">{{ remembered_search.doors }}</option>
                         {% else %}
@@ -146,7 +146,7 @@
                 </div>
                 <!-- Vehicle Body Type Search -->
                 <div class="col-12 col-md-4 m-auto detail-options">
-                    <select id="vehicle-body-search" class="vehicle-search-input" type="text" name="vehicle-body">
+                    <select id="vehicle-body-search" class="vehicle-search-input" name="vehicle-body">
                         {% if remembered_search.body_type %}
                         <option selected value="{{ remembered_search.body_type }}">{{ remembered_search.body_type }}
                         </option>
@@ -160,7 +160,7 @@
                 </div>
                 <!-- Vehicle Fuel Search -->
                 <div class="col-12 col-md-4 m-auto detail-options">
-                    <select id="vehicle-fuel-search" class="vehicle-search-input" type="text" name="vehicle-fuel">
+                    <select id="vehicle-fuel-search" class="vehicle-search-input" name="vehicle-fuel">
                         {% if remembered_search.fuel %}
                         <option selected value="{{ remembered_search.fuel }}">{{ remembered_search.fuel }}</option>
                         {% else %}
@@ -173,8 +173,7 @@
                 </div>
                 <!-- Vehicle Drivetrain Search -->
                 <div class="col-12 col-md-4 m-auto detail-options">
-                    <select id="vehicle-drivetrain-search" class="vehicle-search-input" type="text"
-                        name="vehicle-drivetrain">
+                    <select id="vehicle-drivetrain-search" class="vehicle-search-input" name="vehicle-drivetrain">
                         {% if remembered_search.drivetrain %}
                         <option selected value="{{ remembered_search.drivetrain }}">{{ remembered_search.drivetrain }}
                         </option>
@@ -193,7 +192,8 @@
                 </div>
                 <!-- Reset button -->
                 <div class="col-3 col-md-1 my-auto">
-                    <a class="btn btn--vehicle-search-page--reset" href="{% url 'vehicles' %}" alt="Reset Search">
+                    <a class="btn btn--vehicle-search-page--reset" href="{% url 'vehicles' %}"
+                        aria-label="Reset Search">
                         <i class="fa fa-refresh" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -243,8 +243,7 @@
                         {% if vehicle.sku in image.name %}
                         {% if image.main %}
                         <div class="vehicle--image col-12" style="background-image:url('{{ media }}{{ image.image }}');"
-                            title="{{ vehicle.make | title }} {{ vehicle.model | title }} {{ vehicle.trim| title }} - {{ vehicle.registration | upper}}"
-                            loading="lazy">
+                            title="{{ vehicle.make | title }} {{ vehicle.model | title }} {{ vehicle.trim| title }} - {{ vehicle.registration | upper}}">
                         </div>
                         {% endif %}
                         {% endif %}

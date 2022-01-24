@@ -7,7 +7,7 @@ function makeEnteredAllowModel() {
 
 function checkCorrectMakesForModel() {
     for (var x = 0; x < model.options.length; x++) {
-        makeCheck = model.options[x].getAttribute('data-vehicle-make')
+        let makeCheck = model.options[x].getAttribute('data-vehicle-make');
         if (make.value.toLowerCase() == makeCheck) {
             model.options[x].classList.remove('hidden');
             model.value = model.options[0].value;
@@ -26,4 +26,4 @@ make.addEventListener('change', function () {
     } else {
         model.classList.remove('greyed');
     }
-})
+});
