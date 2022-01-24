@@ -25,6 +25,7 @@ class unique_vehicle_parameters:
         for vehicle in vehicles:
             if vehicle.make not in vehicle_makes:
                 vehicle_makes.append(vehicle.make)
+        vehicle_makes.sort()
 
         return vehicle_makes
 
@@ -45,7 +46,6 @@ class unique_vehicle_parameters:
                 vehicle_models.append(
                     {"make": vehicle.make, "model": vehicle.model},
                 )
-
         return vehicle_models
 
     def unique_vehicle_colours():
