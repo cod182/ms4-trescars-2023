@@ -1,3 +1,7 @@
+.current-images {
+    width: 100%;
+}
+
 .font-small {
     font-size: small;
 }
@@ -15,17 +19,17 @@
     transform: scale(1.2);
 }
 
-[type=radio] { 
+[type=radio] {
     position: absolute;
     opacity: 0;
     width: 0;
     height: 0;
-  }
-  
-[type=radio] + img {
+}
+
+[type=radio]+img {
     cursor: pointer;
 }
 
-[type=radio]:checked + img {
+[type=radio]:checked+img {
     border: 3px solid green;
 }

@@ -54,7 +54,7 @@
         </div>
 
         {% for image in image_form %}
-        <div class="col-12 col-md-6 col-lg-4 mt-1 mb-0 current_image">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-2 mt-1 mb-0 current_image mx-auto">
             {% if image.image.value != None %}
             <hr>
             {{ image | crispy }}

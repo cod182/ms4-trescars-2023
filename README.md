@@ -193,10 +193,14 @@ The site will be set over multiple pages. Users will be able to search for a pur
 ## Technoogies used
 
 - HTML
+    - Font Awesome CDN
 - CSS
-- Javascript (Jquery & Vanilla)
-- Bootstrap (Styling Framework)
-- DVLA API (getting Vehicle Info)
+    - Bootstrap
+    - Bootstrap (Styling Framework)
+- Javascript
+    - Jquery & Vanilla
+- API
+    - DVLA API (getting Vehicle Info)
 - Django (Framework)
 - Heroku (Deployment)
 - Postgres (Database)
@@ -259,8 +263,14 @@ The site will be set over multiple pages. Users will be able to search for a pur
     - removed placeholder from select elements
     - Passed
 - add_accessories.html
-    -
-
+    - removed placeholder from select elements
+    - Passed
+- update_vehicle.html
+    - non-required label removed
+    - Passed
+- update_accessory.html
+    - added alt to img field
+    - Passed
 ### CSS3 
 
 - base.css

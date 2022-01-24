@@ -32,7 +32,14 @@ class VehicleForm(forms.ModelForm):
             "available": "Available",
         }
 
-        no_placeholder = ["colour", "fuel", "body_type", "gearbox", "drivetrain"]
+        no_placeholder = [
+            "colour",
+            "fuel",
+            "body_type",
+            "gearbox",
+            "drivetrain",
+            "available",
+        ]
 
         for field_name, field in self.fields.items():
             field.widget.attrs["class"] = "form-control my-2"
@@ -87,9 +94,12 @@ class AccessoryForm(forms.ModelForm):
             "image": "",
         }
 
+        no_placeholder = ["category", "image"]
+
         self.fields["category"].choices = friendly_names
         for field_name, field in self.fields.items():
             field.widget.attrs["class"] = "border-black rounded-0"
         for field in self.fields:
-            placeholder = placeholders[field]
-            self.fields[field].widget.attrs["placeholder"] = placeholder
+            if field not in no_placeholder:
+                placeholder = placeholders[field]
+                self.fields[field].widget.attrs["placeholder"] = placeholder
