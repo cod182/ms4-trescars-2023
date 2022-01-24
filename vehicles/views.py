@@ -10,6 +10,10 @@ import json
 
 
 class unique_vehicle_parameters:
+    """
+    For getting unique parameters
+    """
+
     def unique_vehicle_makes():
         """
         Gets all the unique vehicle makes
@@ -160,167 +164,281 @@ def getRememberedSearchDict(request):
     return remembered_search
 
 
+def searchNoEngineHighPriceHighMileage(request, query_params):
+    """
+    takes request and query params
+    returns vehicles:
+    No Engine
+    over 100000
+    over £30000
+    """
+    print("HELLOW")
+    search = (
+        Q(make__icontains=query_params["query_make"])
+        & Q(model__icontains=query_params["query_model"])
+        & Q(full_price__gte=query_params["query_price"])
+        & Q(mileage__gte=query_params["query_mileage"])
+        & Q(colour__icontains=query_params["query_colour"])
+        & Q(engine_size__gte + Decimal(query_params["query_engine"]))
+        & Q(doors__icontains=query_params["query_doors"])
+        & Q(body_type__icontains=query_params["query_body"])
+        & Q(fuel__icontains=query_params["query_fuel"])
+        & Q(drivetrain__icontains=query_params["query_drivetrain"])
+        & Q(model_year__icontains=query_params["query_year"])
+    )
+    return search
+
+
+def searchNoEngineHighPriceLowMileage(request, query_params):
+    """
+    takes request and query params
+    returns vehicles:
+    No Engine
+    under 100000
+    over £30000
+    """
+    search = (
+        Q(make__icontains=query_params["query_make"])
+        & Q(model__icontains=query_params["query_model"])
+        & Q(full_price__gte=query_params["query_price"])
+        & Q(mileage__lte=query_params["query_mileage"])
+        & Q(colour__icontains=query_params["query_colour"])
+        & Q(engine_size__gte=Decimal(query_params["query_engine"]))
+        & Q(doors__icontains=query_params["query_doors"])
+        & Q(body_type__icontains=query_params["query_body"])
+        & Q(fuel__icontains=query_params["query_fuel"])
+        & Q(drivetrain__icontains=query_params["query_drivetrain"])
+        & Q(model_year__icontains=query_params["query_year"])
+    )
+    return search
+
+
+def searchNoEngineHighMileageHighPrice(request, query_params):
+    """
+    takes request and query params
+    returns vehicles:
+    No Engine
+    under 100000
+    over £30000
+    """
+    search = (
+        Q(make__icontains=query_params["query_make"])
+        & Q(model__icontains=query_params["query_model"])
+        & Q(full_price__gte=query_params["query_price"])
+        & Q(mileage__gte=query_params["query_mileage"])
+        & Q(colour__icontains=query_params["query_colour"])
+        & Q(engine_size__gte=Decimal(query_params["query_engine"]))
+        & Q(doors__icontains=query_params["query_doors"])
+        & Q(body_type__icontains=query_params["query_body"])
+        & Q(fuel__icontains=query_params["query_fuel"])
+        & Q(drivetrain__icontains=query_params["query_drivetrain"])
+        & Q(model_year__icontains=query_params["query_year"])
+    )
+    return search
+
+
+def searchNoEngineHighMileageLowPrice(request, query_params):
+    """
+    takes request and query params
+    returns vehicles:
+    No Engine
+    over 100000
+    under £30000
+    """
+    search = (
+        Q(make__icontains=query_params["query_make"])
+        & Q(model__icontains=query_params["query_model"])
+        & Q(full_price__lte=query_params["query_price"])
+        & Q(mileage__gte=query_params["query_mileage"])
+        & Q(colour__icontains=query_params["query_colour"])
+        & Q(engine_size__gte=Decimal(query_params["query_engine"]))
+        & Q(doors__icontains=query_params["query_doors"])
+        & Q(body_type__icontains=query_params["query_body"])
+        & Q(fuel__icontains=query_params["query_fuel"])
+        & Q(drivetrain__icontains=query_params["query_drivetrain"])
+        & Q(model_year__icontains=query_params["query_year"])
+    )
+    return search
+
+
+def searchNoEngineLowMileage(request, query_params):
+    """
+    takes request and query params
+    returns vehicles:
+    No Engine
+    under 100000
+    """
+    search = (
+        Q(make__icontains=query_params["query_make"])
+        & Q(model__icontains=query_params["query_model"])
+        & Q(full_price__lte=query_params["query_price"])
+        & Q(mileage__lte=query_params["query_mileage"])
+        & Q(colour__icontains=query_params["query_colour"])
+        & Q(engine_size__gte=Decimal(query_params["query_engine"]))
+        & Q(doors__icontains=query_params["query_doors"])
+        & Q(body_type__icontains=query_params["query_body"])
+        & Q(fuel__icontains=query_params["query_fuel"])
+        & Q(drivetrain__icontains=query_params["query_drivetrain"])
+        & Q(model_year__icontains=query_params["query_year"])
+    )
+    return search
+
+
+def searchHighPriceHighMileage(request, query_params):
+    """
+    takes request and query params
+    returns vehicles:
+    over 100000
+    over £30000
+    """
+    search = (
+        Q(make__icontains=query_params["query_make"])
+        & Q(model__icontains=query_params["query_model"])
+        & Q(full_price__gte=query_params["query_price"])
+        & Q(mileage__gte=query_params["query_mileage"])
+        & Q(colour__icontains=query_params["query_colour"])
+        & Q(engine_size=Decimal(query_params["query_engine"]))
+        & Q(doors__icontains=query_params["query_doors"])
+        & Q(body_type__icontains=query_params["query_body"])
+        & Q(fuel__icontains=query_params["query_fuel"])
+        & Q(drivetrain__icontains=query_params["query_drivetrain"])
+        & Q(model_year__icontains=query_params["query_year"])
+    )
+    return search
+
+
+def searchHighPriceLowMileage(request, query_params):
+    """
+    takes request and query params
+    returns vehicles:
+    under 100000
+    under £30000
+    """
+    search = (
+        Q(make__icontains=query_params["query_make"])
+        & Q(model__icontains=query_params["query_model"])
+        & Q(full_price__gte=query_params["query_price"])
+        & Q(mileage__lte=query_params["query_mileage"])
+        & Q(colour__icontains=query_params["query_colour"])
+        & Q(engine_size=Decimal(query_params["query_engine"]))
+        & Q(doors__icontains=query_params["query_doors"])
+        & Q(body_type__icontains=query_params["query_body"])
+        & Q(fuel__icontains=query_params["query_fuel"])
+        & Q(drivetrain__icontains=query_params["query_drivetrain"])
+        & Q(model_year__icontains=query_params["query_year"])
+    )
+    return search
+
+
+def searchHighMileageHighPrice(request, query_params):
+    """
+    takes request and query params
+    returns vehicles:
+    over 100000
+    over £30000
+    """
+    search = (
+        Q(make__icontains=query_params["query_make"])
+        & Q(model__icontains=query_params["query_model"])
+        & Q(full_price__gte=query_params["query_price"])
+        & Q(mileage__gte=query_params["query_mileage"])
+        & Q(colour__icontains=query_params["query_colour"])
+        & Q(engine_size=Decimal(query_params["query_engine"]))
+        & Q(doors__icontains=query_params["query_doors"])
+        & Q(body_type__icontains=query_params["query_body"])
+        & Q(fuel__icontains=query_params["query_fuel"])
+        & Q(drivetrain__icontains=query_params["query_drivetrain"])
+        & Q(model_year__icontains=query_params["query_year"])
+    )
+    return search
+
+
+def searchHighMileageLowPrice(request, query_params):
+    """
+    takes request and query params
+    returns vehicles:
+    over 100000
+    under £30000
+    """
+    search = (
+        Q(make__icontains=query_params["query_make"])
+        & Q(model__icontains=query_params["query_model"])
+        & Q(full_price__lte=query_params["query_price"])
+        & Q(mileage__gte=query_params["query_mileage"])
+        & Q(colour__icontains=query_params["query_colour"])
+        & Q(engine_size=Decimal(query_params["query_engine"]))
+        & Q(doors__icontains=query_params["query_doors"])
+        & Q(body_type__icontains=query_params["query_body"])
+        & Q(fuel__icontains=query_params["query_fuel"])
+        & Q(drivetrain__icontains=query_params["query_drivetrain"])
+        & Q(model_year__icontains=query_params["query_year"])
+    )
+    return search
+
+
+def searchLowPrice(request, query_params):
+    """
+    takes request and query params
+    returns vehicles under £30000
+    """
+    search = (
+        Q(make__icontains=query_params["query_make"])
+        & Q(model__icontains=query_params["query_model"])
+        & Q(full_price__lte=query_params["query_price"])
+        & Q(mileage__lte=query_params["query_mileage"])
+        & Q(colour__icontains=query_params["query_colour"])
+        & Q(engine_size=Decimal(query_params["query_engine"]))
+        & Q(doors__icontains=query_params["query_doors"])
+        & Q(body_type__icontains=query_params["query_body"])
+        & Q(fuel__icontains=query_params["query_fuel"])
+        & Q(drivetrain__icontains=query_params["query_drivetrain"])
+        & Q(model_year__icontains=query_params["query_year"])
+    )
+    return search
+
+
 def vehicle_search(request):
-    query_make = request.GET["vehicle-make"]
-    query_model = request.GET["vehicle-model"]
-    query_price = request.GET["price-range"]
-    query_mileage = request.GET["mileage"]
-    query_colour = request.GET["vehicle-colour"]
-    query_engine = request.GET["vehicle-engine"]
-    query_doors = request.GET["vehicle-doors"]
-    query_body = request.GET["vehicle-body"]
-    query_fuel = request.GET["vehicle-fuel"]
-    query_drivetrain = request.GET["vehicle-drivetrain"]
-    query_year = request.GET["vehicle-model-year"]
-
-    if Decimal(query_engine) == 0:
-        if int(query_price) == 30001:
-            if int(query_mileage) == 100001:
-                search = (
-                    Q(make__icontains=query_make)
-                    & Q(model__icontains=query_model)
-                    & Q(price__gte=query_price)
-                    & Q(mileage__gte=query_mileage)
-                    & Q(colour__icontains=query_colour)
-                    & Q(engine_size__gte + Decimal(query_engine))
-                    & Q(doors__icontains=query_doors)
-                    & Q(body_type__icontains=query_body)
-                    & Q(fuel__icontains=query_fuel)
-                    & Q(drivetrain__icontains=query_drivetrain)
-                    & Q(model_year__icontains=query_year)
-                )
+    query_params = {
+        "query_make": request.GET["vehicle-make"],
+        "query_model": request.GET["vehicle-model"],
+        "query_price": request.GET["price-range"],
+        "query_mileage": request.GET["mileage"],
+        "query_colour": request.GET["vehicle-colour"],
+        "query_engine": request.GET["vehicle-engine"],
+        "query_doors": request.GET["vehicle-doors"],
+        "query_body": request.GET["vehicle-body"],
+        "query_fuel": request.GET["vehicle-fuel"],
+        "query_drivetrain": request.GET["vehicle-drivetrain"],
+        "query_year": request.GET["vehicle-model-year"],
+    }
+    print(query_params["query_price"])
+    if Decimal(query_params["query_engine"]) == 0:
+        if int(query_params["query_price"]) == 30001:
+            if int(query_params["query_mileage"]) == 100001:
+                search = searchNoEngineHighPriceHighMileage(request, query_params)
             else:
-                search = (
-                    Q(make__icontains=query_make)
-                    & Q(model__icontains=query_model)
-                    & Q(price__gte=query_price)
-                    & Q(mileage__lte=query_mileage)
-                    & Q(colour__icontains=query_colour)
-                    & Q(engine_size__gte=Decimal(query_engine))
-                    & Q(doors__icontains=query_doors)
-                    & Q(body_type__icontains=query_body)
-                    & Q(fuel__icontains=query_fuel)
-                    & Q(drivetrain__icontains=query_drivetrain)
-                    & Q(model_year__icontains=query_year)
-                )
+                search = searchNoEngineHighPriceLowMileage(request, query_params)
 
-        elif int(query_mileage) == 100001:
-            if int(query_price) == 30001:
-                search = (
-                    Q(make__icontains=query_make)
-                    & Q(model__icontains=query_model)
-                    & Q(price__gte=query_price)
-                    & Q(mileage__gte=query_mileage)
-                    & Q(colour__icontains=query_colour)
-                    & Q(engine_size__gte=Decimal(query_engine))
-                    & Q(doors__icontains=query_doors)
-                    & Q(body_type__icontains=query_body)
-                    & Q(fuel__icontains=query_fuel)
-                    & Q(drivetrain__icontains=query_drivetrain)
-                    & Q(model_year__icontains=query_year)
-                )
+        elif int(query_params["query_mileage"]) == 100001:
+            if int(query_params["query_price"]) == 30001:
+                search = searchNoEngineHighMileageHighPrice(request, query_params)
             else:
-                search = (
-                    Q(make__icontains=query_make)
-                    & Q(model__icontains=query_model)
-                    & Q(price__lte=query_price)
-                    & Q(mileage__gte=query_mileage)
-                    & Q(colour__icontains=query_colour)
-                    & Q(engine_size__gte=Decimal(query_engine))
-                    & Q(doors__icontains=query_doors)
-                    & Q(body_type__icontains=query_body)
-                    & Q(fuel__icontains=query_fuel)
-                    & Q(drivetrain__icontains=query_drivetrain)
-                    & Q(model_year__icontains=query_year)
-                )
+                search = searchNoEngineHighMileageLowPrice(request, query_params)
         else:
-            search = (
-                Q(make__icontains=query_make)
-                & Q(model__icontains=query_model)
-                & Q(price__lte=query_price)
-                & Q(mileage__lte=query_mileage)
-                & Q(colour__icontains=query_colour)
-                & Q(engine_size__gte=Decimal(query_engine))
-                & Q(doors__icontains=query_doors)
-                & Q(body_type__icontains=query_body)
-                & Q(fuel__icontains=query_fuel)
-                & Q(drivetrain__icontains=query_drivetrain)
-                & Q(model_year__icontains=query_year)
-            )
+            search = searchNoEngineLowMileage(request, query_params)
     else:
-        if int(query_price) == 30001:
-            if int(query_mileage) == 100001:
-                search = (
-                    Q(make__icontains=query_make)
-                    & Q(model__icontains=query_model)
-                    & Q(price__gte=query_price)
-                    & Q(mileage__gte=query_mileage)
-                    & Q(colour__icontains=query_colour)
-                    & Q(engine_size=Decimal(query_engine))
-                    & Q(doors__icontains=query_doors)
-                    & Q(body_type__icontains=query_body)
-                    & Q(fuel__icontains=query_fuel)
-                    & Q(drivetrain__icontains=query_drivetrain)
-                    & Q(model_year__icontains=query_year)
-                )
+        if int(query_params["query_price"]) == 30001:
+            if int(query_params["query_mileage"]) == 100001:
+                search = searchHighPriceHighMileage(request, query_params)
             else:
-                search = (
-                    Q(make__icontains=query_make)
-                    & Q(model__icontains=query_model)
-                    & Q(price__gte=query_price)
-                    & Q(mileage__lte=query_mileage)
-                    & Q(colour__icontains=query_colour)
-                    & Q(engine_size=Decimal(query_engine))
-                    & Q(doors__icontains=query_doors)
-                    & Q(body_type__icontains=query_body)
-                    & Q(fuel__icontains=query_fuel)
-                    & Q(drivetrain__icontains=query_drivetrain)
-                    & Q(model_year__icontains=query_year)
-                )
-
-        elif int(query_mileage) == 100001:
-            if int(query_price) == 30001:
-                search = (
-                    Q(make__icontains=query_make)
-                    & Q(model__icontains=query_model)
-                    & Q(price__gte=query_price)
-                    & Q(mileage__gte=query_mileage)
-                    & Q(colour__icontains=query_colour)
-                    & Q(engine_size=Decimal(query_engine))
-                    & Q(doors__icontains=query_doors)
-                    & Q(body_type__icontains=query_body)
-                    & Q(fuel__icontains=query_fuel)
-                    & Q(drivetrain__icontains=query_drivetrain)
-                    & Q(model_year__icontains=query_year)
-                )
+                search = searchHighPriceLowMileage(request, query_params)
+        elif int(query_params["query_mileage"]) == 100001:
+            if int(query_params["query_price"]) == 30001:
+                search = searchHighMileageHighPrice(request, query_params)
             else:
-                search = (
-                    Q(make__icontains=query_make)
-                    & Q(model__icontains=query_model)
-                    & Q(price__lte=query_price)
-                    & Q(mileage__gte=query_mileage)
-                    & Q(colour__icontains=query_colour)
-                    & Q(engine_size=Decimal(query_engine))
-                    & Q(doors__icontains=query_doors)
-                    & Q(body_type__icontains=query_body)
-                    & Q(fuel__icontains=query_fuel)
-                    & Q(drivetrain__icontains=query_drivetrain)
-                    & Q(model_year__icontains=query_year)
-                )
+                search = searchHighMileageLowPrice(request, query_params)
         else:
-            search = (
-                Q(make__icontains=query_make)
-                & Q(model__icontains=query_model)
-                & Q(price__lte=query_price)
-                & Q(mileage__lte=query_mileage)
-                & Q(colour__icontains=query_colour)
-                & Q(engine_size=Decimal(query_engine))
-                & Q(doors__icontains=query_doors)
-                & Q(body_type__icontains=query_body)
-                & Q(fuel__icontains=query_fuel)
-                & Q(drivetrain__icontains=query_drivetrain)
-                & Q(model_year__icontains=query_year)
-            )
+            search = searchLowPrice(request, query_params)
 
     return search
 
