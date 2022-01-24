@@ -24,7 +24,9 @@ let style = {
         iconColor: '#dc3545'
     }
 };
-let card = elements.create('card', {style: style});
+let card = elements.create('card', {
+    style: style
+});
 let form = document.getElementById('payment-form');
 let submitButton = document.getElementById('submit-button');
 card.mount('#card-element');
@@ -40,7 +42,7 @@ card.addEventListener('change', function (event) {
             <span>${event.error.message}</span>
         `;
 
-        errorDiv.html = html ;
+        errorDiv.html = html;
     } else {
         errorDiv.textContent = '';
     }
@@ -48,9 +50,11 @@ card.addEventListener('change', function (event) {
 
 // Handle form submit
 
-form.addEventListener('submit', function(ev) {
+form.addEventListener('submit', function (ev) {
     ev.preventDefault();
-    card.update({ 'disabled': true});
+    card.update({
+        'disabled': true
+    });
 
     submitButton.setAttribute('disabled', true);
     $('#payment-form').fadeToggle(100);
@@ -65,7 +69,7 @@ form.addEventListener('submit', function(ev) {
     };
     const url = '/checkout/cache_checkout_data/';
 
-    $.post(url, postData).done(function() {
+    $.post(url, postData).done(function () {
         stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
@@ -94,7 +98,7 @@ form.addEventListener('submit', function(ev) {
                     state: $.trim(form.county.value),
                 }
             },
-        }).then(function(result) {
+        }).then(function (result) {
             if (result.error) {
                 let errorDiv = document.getElementById('card-errors');
                 let html = `
@@ -105,7 +109,9 @@ form.addEventListener('submit', function(ev) {
                 $(errorDiv).html(html);
                 $('#payment-form').fadeToggle(100);
                 $('#loading-overlay').fadeToggle(100);
-                card.update({ 'disabled': false });
+                card.update({
+                    'disabled': false
+                });
                 $('#submit-button').attr('disabled', false);
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
@@ -113,8 +119,8 @@ form.addEventListener('submit', function(ev) {
                 }
             }
         });
-    }).fail(function() {
+    }).fail(function () {
         // just reload the page, the error will be in django messages
         location.reload();
-    })
+    });
 });

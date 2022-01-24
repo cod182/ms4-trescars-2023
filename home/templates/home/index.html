@@ -22,8 +22,8 @@
             {% csrf_token %}
             <input type="text" class="d-none" name="home-search">
             <div>
-                <select id="make" class="welcome-search-form-input roboto" type="text" name="vehicle-make"
-                    placeholder="Make" list="vehicle-makes" autocomplete="off" required>
+                <select id="make" class="welcome-search-form-input roboto" name="vehicle-make" autocomplete="off"
+                    required>
                     <option selected value="" data-disable>Make</option>
                     {% for make in vehicle_makes %}
                     <option value="{{ make | capfirst}}">{{ make | capfirst}}</option>
@@ -32,8 +32,7 @@
             </div>
 
             <div>
-                <select id="model" class="welcome-search-form-input roboto greyed" type="text" name="vehicle-model"
-                    disabled>
+                <select id="model" class="welcome-search-form-input roboto greyed" name="vehicle-model" disabled>
                     <option selected value="" class="greyed">Model</option>
                     {% for vehicle in vehicles %}
                     <option class="hidden" value="{{ vehicle.model | capfirst }}"
@@ -55,7 +54,7 @@
 
         <div class="quick-links--box quick-link">
             <p class="white">All Vehicles</p>
-            <a href="{% url 'vehicles' %}" alt="goes to view all all vehicles" aria-label="All vehicels page">
+            <a href="{% url 'vehicles' %}" aria-label="All vehicels page">
                 <div class="quick-link--image" style="background-image:url('{{ static }}images/all-vehicles.webp');">
                 </div>
             </a>
@@ -63,8 +62,7 @@
 
         <div class="quick-links--box quick-link">
             <p class="white">Accessories</p>
-            <a href="{% url 'accessories' %}" alt="goes to view accessorie categories"
-                aria-label="Accessories Categories Page">
+            <a href="{% url 'accessories' %}" aria-label="Accessories Categories Page">
                 <div class="quick-link--image" style="background-image:url('{{ static }}images/accessories.webp');">
                 </div>
             </a>
@@ -72,7 +70,7 @@
 
         <div class="quick-links--box quick-link">
             <p class="black">Contact Us</p>
-            <a href="{% url 'sendEmail' %}" alt="goes to contact us page" aria-label="Contact Us Page">
+            <a href="{% url 'sendEmail' %}" aria-label="Contact Us Page">
                 <div class="quick-link--image" style="background-image:url('{{ static }}images/contact.webp');">
                 </div>
             </a>

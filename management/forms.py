@@ -20,12 +20,7 @@ class VehicleForm(forms.ModelForm):
             "make": "Make of Vehicle. E.g Audi",
             "model": "Model of Vehicle. E.g A3",
             "trim": "Trim Level of Vehicle. E.g S-Line",
-            "colour": "Colour of Vehicle. E.g White",
-            "fuel": "Fuel of Vehicle. E.g Diesel",
             "engine_size": "Vehicle engine size. E.g 2.0",
-            "body_type": "Body type of Vehicle. E.g Hatchback",
-            "gearbox": "Type of Gearbox. E.g Automatic",
-            "drivetrain": "Vehicle drivetrain. 2WD or 4WD",
             "seats": "Number of seats. E.g 5",
             "description": "Description of Vehicle",
             "price": "Price to Reserve (Default - £200)",
@@ -37,11 +32,21 @@ class VehicleForm(forms.ModelForm):
             "available": "Available",
         }
 
+        no_placeholder = [
+            "colour",
+            "fuel",
+            "body_type",
+            "gearbox",
+            "drivetrain",
+            "available",
+        ]
+
         for field_name, field in self.fields.items():
             field.widget.attrs["class"] = "form-control my-2"
         for field in self.fields:
-            placeholder = placeholders[field]
-            self.fields[field].widget.attrs["placeholder"] = placeholder
+            if field not in no_placeholder:
+                placeholder = placeholders[field]
+                self.fields[field].widget.attrs["placeholder"] = placeholder
 
 
 class VehicleImagesForm(forms.ModelForm):
@@ -89,9 +94,12 @@ class AccessoryForm(forms.ModelForm):
             "image": "",
         }
 
+        no_placeholder = ["category", "image"]
+
         self.fields["category"].choices = friendly_names
         for field_name, field in self.fields.items():
             field.widget.attrs["class"] = "border-black rounded-0"
         for field in self.fields:
-            placeholder = placeholders[field]
-            self.fields[field].widget.attrs["placeholder"] = placeholder
+            if field not in no_placeholder:
+                placeholder = placeholders[field]
+                self.fields[field].widget.attrs["placeholder"] = placeholder

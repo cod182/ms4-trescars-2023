@@ -50,11 +50,11 @@
                 {{ form.available | as_crispy_field }}
 
                 <hr>
-                <p class="bold">Current Images:</p>
+                <p class="bold mb-0">Current Images:</p>
         </div>
 
         {% for image in image_form %}
-        <div class="col-12 col-md-6 col-lg-4 mt-2 mb-3 current_image">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-2 mt-1 mb-0 current_image mx-auto">
             {% if image.image.value != None %}
             <hr>
             {{ image | crispy }}
@@ -62,7 +62,7 @@
         </div>
         {% endfor %}
 
-        <div class="col-12 mt-4">
+        <div class="col-12 mt-2">
             <hr>
             <p class="bold">Add More Images:</p>
             <div id="images-container"></div>

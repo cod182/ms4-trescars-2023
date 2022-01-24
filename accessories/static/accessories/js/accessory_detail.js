@@ -5,55 +5,55 @@ let qtyCont = document.getElementById('id_qty');
 
 // when minus button clicked, checks if value of qty is less than 2
 // if less, disabled minus btn
-decremntbtn.addEventListener('click', function(){
-    qtyPlusBtnEnable()
-    if(qtyCont.value <= 2) {
+decremntbtn.addEventListener('click', function () {
+    qtyPlusBtnEnable();
+    if (qtyCont.value <= 2) {
         qtyMinusBtnDisable();
     }
-})
+});
 
 // when plus button clicked, checks if value of qty is less than 2
 // if less, disabled plus btn
-incrementbtn.addEventListener('click', function() {
-    qtyMinusBtnEnable()
-    if(qtyCont.value == qtyCont.attributes.max.value - 1) {
+incrementbtn.addEventListener('click', function () {
+    qtyMinusBtnEnable();
+    if (qtyCont.value == qtyCont.attributes.max.value - 1) {
         qtyPlusBtnDisable();
     }
-})
+});
 
 // disables minus button
-function qtyMinusBtnDisable(){
-    decremntbtn.setAttribute('disabled', true);
+function qtyMinusBtnDisable() {
+    decremntbtn.setAttribute('disabled', "");
 }
 
 // enables minus button
-function qtyMinusBtnEnable(){
+function qtyMinusBtnEnable() {
     decremntbtn.removeAttribute('disabled');
 }
 
 // disables plus button
 function qtyPlusBtnDisable() {
-    incrementbtn.setAttribute('disabled', true);
+    incrementbtn.setAttribute('disabled', "");
 }
 
 // enables plus button
-function qtyPlusBtnEnable(){
+function qtyPlusBtnEnable() {
     incrementbtn.removeAttribute('disabled');
 }
 
 // checks value of qty and disbales buttons if needed
-window.addEventListener('load', function(){
-    if (qtyCont.value == qtyCont.attributes.max.value - 1){
-        incrementbtn.setAttribute('disabled', true);
+window.addEventListener('load', function () {
+    if (qtyCont.value == qtyCont.attributes.max.value - 1) {
+        incrementbtn.setAttribute('disabled', "");
     }
 
-    if(qtyCont.value <= 2){
-        decremntbtn.setAttribute('disabled', true);
+    if (qtyCont.value <= 2) {
+        decremntbtn.setAttribute('disabled', "");
     }
 });
 
 // Increment quantity
-$('.increment-qty').click(function(e) {
+$('.increment-qty').click(function (e) {
     e.preventDefault();
     var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
     var currentValue = parseInt($(closestInput).val());
@@ -62,7 +62,7 @@ $('.increment-qty').click(function(e) {
 });
 
 // Decrement quantity
-$('.decrement-qty').click(function(e) {
+$('.decrement-qty').click(function (e) {
     e.preventDefault();
     var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
     var currentValue = parseInt($(closestInput).val());

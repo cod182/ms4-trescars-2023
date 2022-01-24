@@ -2,15 +2,15 @@
 {% load static %}
 {% load mathfilters %}
 {% block extra_title %}
- - Bag 
- {% endblock %}
+- Bag
+{% endblock %}
 
- {% block extra_js %}
- {% endblock %}
+{% block extra_js %}
+{% endblock %}
 
- {% block page_header %}
+{% block page_header %}
 
- {% endblock %}
+{% endblock %}
 
 {% block content %}
 
@@ -26,106 +26,106 @@
     <div class="row">
         <div class="col">
             {% if bag_items %}
-                <div class="table-responsive rounded">
-                    <table class="table table-sm table-borderless">
-                        <thead class="text-black">
-                            <tr>
-                                <th scope="col">Item Info</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Qty</th>
-                                <th scope="col">Subtotal</th>
-                            </tr>
-                        </thead>
-
-                        {% for item in bag_items %}
-                                <tr>
-                                    <td class="py-3">
-                                        <p class="my-0"><strong>{{ item.accessory.brand | upper }} {{item.accessory.accessory_type | upper}}</strong></p>
-                                        <p class="my-0 small text-muted">SKU: {{ item.accessory }}</p>
-                                    </td>
-                                    <td class="py-3">
-                                        <p class="my-0">£{{ item.accessory.price }}</p>
-                                    </td>
-                                    <td class="py-3 w-25">
-                                        <form class="form update-form" method="POST" action="{% url 'adjust_bag' item.accessory.id %}">
-                                            {% csrf_token %}
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <input class="form-control form-control-sm qty_input" type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.accessory.quantity_available }}" data-item_id="{{ item.accessory.sku }}" id="id_qty">
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <a class="btn--update-link"><small>Update</small></a>
-                                        <a class="btn--remove-item float-right" id="remove_{{ item.accessory.id }}"><small>Remove</small></a>
-                                    </td>
-                                    <td class="py-3">
-                                        <p class="my-0">£{{ item.accessory.price | mul:item.quantity }}</p>
-                                    </td>
-                                </tr>
-                        {% endfor %}
+            <div class="table-responsive rounded">
+                <table class="table table-sm table-borderless">
+                    <thead class="text-black">
                         <tr>
-                            <td colspan="5" class="pt-5 text-right">
-                                <h6><strong>Total: £{{ total|floatformat:2 }}</strong></h6>
-                                <h4 class="mt-4"><strong>Grand Total: £{{ grand_total|floatformat:2 }}</strong></h4>
-                            </td>
+                            <th scope="col">Item Info</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Subtotal</th>
                         </tr>
-                        <tr>
-                            <td colspan="5" class="text-right">
+                    </thead>
 
-                                <a href="{% url 'accessories' %}" class="btn btn--black-border">
-                                    <span class="icon">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </span>
-                                    <span class="text-uppercase">Accessories</span>
-                                </a>
+                    {% for item in bag_items %}
+                    <tr>
+                        <td class="py-3">
+                            <p class="my-0"><strong>{{ item.accessory.brand | upper }}
+                                    {{item.accessory.accessory_type | upper}}</strong></p>
+                            <p class="my-0 small text-muted">SKU: {{ item.accessory }}</p>
+                        </td>
+                        <td class="py-3">
+                            <p class="my-0">£{{ item.accessory.price }}</p>
+                        </td>
+                        <td class="py-3 w-25">
+                            <form class="form update-form" method="POST"
+                                action="{% url 'adjust_bag' item.accessory.id %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control form-control-sm qty_input" type="number"
+                                            name="quantity" value="{{ item.quantity }}" min="1"
+                                            max="{{ item.accessory.quantity_available }}"
+                                            data-item_id="{{ item.accessory.sku }}" id="id_qty">
+                                    </div>
+                                </div>
+                            </form>
+                            <a class="btn--update-link"><small>Update</small></a>
+                            <a class="btn--remove-item float-right"
+                                id="remove_{{ item.accessory.id }}"><small>Remove</small></a>
+                        </td>
+                        <td class="py-3">
+                            <p class="my-0">£{{ item.accessory.price | mul:item.quantity }}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
 
-                                <a href="{% url 'checkout' %}" class="btn btn--blue-border">
-                                    <span class="text-uppercase">Secure Checkout</span>
-                                    <span class="icon">
-                                        <i class="fas fa-lock"></i>
-                                    </span>
-                                </a>
-                                
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            {% else %}
-                <p class="lead mb-5">Your bag is empty</p>
-                <a href="{% url 'accessories' %}" class="btn btn--black-border">
-                    <span class="icon">
-                        <i class="fas fa-chevron-left"></i>
-                    </span>
-                    <span class="text-uppercase">Accessories</span>
-                </a>
-            {% endif %}
+                <td col-6 class="text-right">
+                    <h6><strong>Total: £{{ total|floatformat:2 }}</strong></h6>
+                    <h4 class="mt-4"><strong>Grand Total: £{{ grand_total|floatformat:2 }}</strong></h4>
+
+                    <a href="{% url 'accessories' %}" class="btn btn--black-border">
+                        <span class="icon">
+                            <i class="fas fa-chevron-left"></i>
+                        </span>
+                        <span class="text-uppercase">Accessories</span>
+                    </a>
+
+                    <a href="{% url 'checkout' %}" class="btn btn--blue-border">
+                        <span class="text-uppercase">Secure Checkout</span>
+                        <span class="icon">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                    </a>
+            </div>
         </div>
+        {% else %}
+        <p class="lead mb-5">Your bag is empty</p>
+        <a href="{% url 'accessories' %}" class="btn btn--black-border">
+            <span class="icon">
+                <i class="fas fa-chevron-left"></i>
+            </span>
+            <span class="text-uppercase">Accessories</span>
+        </a>
+        {% endif %}
     </div>
+</div>
 </div>
 {% endblock %}
 
 {% block postload_js%}
 <script>
     // Update quantity on click
-$('.btn--update-link').click(function(e) {
-    var form = $(this).prev('.update-form');
-    form.submit();
-})
+    $('.btn--update-link').click(function (e) {
+        var form = $(this).prev('.update-form');
+        form.submit();
+    })
 
-// Remove item and reload on click
-$('.btn--remove-item').click(function(e) {
-    var csrfToken = "{{ csrf_token }}";
-    var itemId = $(this).attr('id').split('remove_')[1];
-    var url = `/bag/remove/${itemId}/`;
-    var data = {
-        'csrfmiddlewaretoken': csrfToken,
-    };
+    // Remove item and reload on click
+    $('.btn--remove-item').click(function (e) {
+        var csrfToken = "{{ csrf_token }}";
+        var itemId = $(this).attr('id').split('remove_')[1];
+        var url = `/bag/remove/${itemId}/`;
+        var data = {
+            'csrfmiddlewaretoken': csrfToken,
+        };
 
-    $.post(url, data)
-        .done(function() {
-            location.reload();
-        });
-})
+        $.post(url, data)
+            .done(function () {
+                location.reload();
+            });
+    })
 </script>
 
 {% endblock %}

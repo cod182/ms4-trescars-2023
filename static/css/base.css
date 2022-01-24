@@ -363,7 +363,7 @@ body {
 }
 
 .message-container {
-    height: 50px;
+    min-height: 50px;
     background-color: #0da7e8;
     text-align: center;
     color: white;
@@ -492,7 +492,7 @@ body {
     background-color: white;
     color: black;
     border-radius: 10px;
-    border: 1px solid blakc;
+    border: 1px solid black;
 }
 
 .contact-message::placeholder {

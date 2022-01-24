@@ -9,7 +9,7 @@ newImg.addEventListener('change', function () {
 
     removeBtn.classList.add('btn', 'red', 'fa', 'fa-remove', 'pointer');
 
-    img.classList.add('img-thumb') // adds a class to the images
+    img.classList.add('img-thumb'); // adds a class to the images
     img.setAttribute('alt', 'image of accessory'); //add al attribute to image
     img.setAttribute('src', URL.createObjectURL(newImg.files[0])); // adds src to image
 
@@ -18,12 +18,12 @@ newImg.addEventListener('change', function () {
 
     // on load empties the mempry
     img.onload = function () {
-        URL.revokeObjectURL(img.src) // free memory
-    }
-})
+        URL.revokeObjectURL(img.src); // free memory
+    };
+});
 
 // when the remove button is clicked, the image is deleted from input files
 removeBtn.addEventListener('click', function () {
     newImg.value = '';
     imgContainer.innerHTML = '';
-})
+});

@@ -42,8 +42,7 @@
         <div class="quick-links--box quick-link">
             <p class="white">{{ category.friendly_name }}</p>
             <a href="{% url 'accessories_search' %}?category={{ category.name }}">
-                <div class="quick-link--image" style="background-image:url('{{ media }}{{ category.image }}');"
-                    loading="lazy">
+                <div class="quick-link--image" style="background-image:url('{{ media }}{{ category.image }}');">
                 </div>
             </a>
         </div>

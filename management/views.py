@@ -101,7 +101,10 @@ def handleMainImageChecked(request):
 
 
 def handleImagesUpload(requestFiles, requestPost, form_data, vehicle, FROM):
-
+    """
+    Gets the images from Post adds them to the table
+    if main in in request, main is added to image
+    """
     image_number = 0
     mainImage = False
     for image in requestFiles.getlist("images"):
@@ -128,8 +131,94 @@ def handleDeleteAccessoryImage(accessory_id):
     accessory.save()
 
 
+def getFormData(request):
+    """
+    Gets the form data in a dictionary and returns it
+    """
+    form_data = {
+        "sku": request.POST["registration"].replace(" ", "").lower(),
+        "name": request.POST["make"].lower()
+        + "-"
+        + request.POST["registration"].replace(" ", "").lower(),
+        "registration": request.POST["registration"].lower(),
+        "make": request.POST["make"].lower(),
+        "model": request.POST["model"].lower(),
+        "trim": request.POST["trim"].lower(),
+        "colour": request.POST["colour"].lower(),
+        "fuel": request.POST["fuel"].lower(),
+        "engine_size": request.POST["engine_size"].lower(),
+        "body_type": request.POST["body_type"].lower(),
+        "gearbox": request.POST["gearbox"].lower(),
+        "drivetrain": request.POST["drivetrain"].lower(),
+        "seats": request.POST["seats"].lower(),
+        "description": request.POST["description"].lower(),
+        "price": 200,
+        "full_price": request.POST["full_price"].lower(),
+        "mileage": request.POST["mileage"].lower(),
+        "model_year": request.POST["model_year"].lower(),
+        "doors": request.POST["doors"].lower(),
+        "type": "vehicle",
+        "available": "yes",
+    }
+    return form_data
+
+
+def getFormUpdateData(request):
+    form_data = {
+        "sku": request.POST["registration"].replace(" ", "").lower(),
+        "name": request.POST["make"].lower()
+        + "-"
+        + request.POST["registration"].replace(" ", "").lower(),
+        "registration": request.POST["registration"].lower(),
+        "make": request.POST["make"].lower(),
+        "model": request.POST["model"].lower(),
+        "trim": request.POST["trim"].lower(),
+        "colour": request.POST["colour"].lower(),
+        "fuel": request.POST["fuel"].lower(),
+        "engine_size": request.POST["engine_size"].lower(),
+        "body_type": request.POST["body_type"].lower(),
+        "gearbox": request.POST["gearbox"].lower(),
+        "drivetrain": request.POST["drivetrain"].lower(),
+        "seats": request.POST["seats"].lower(),
+        "description": request.POST["description"].lower(),
+        "full_price": request.POST["full_price"].lower(),
+        "mileage": request.POST["mileage"].lower(),
+        "model_year": request.POST["model_year"].lower(),
+        "doors": request.POST["doors"].lower(),
+        "available": request.POST["available"],
+    }
+    return form_data
+
+
+def getAccessoryFormData(request):
+    form_data = {
+        "category": request.POST["category"].lower(),
+        "sku": request.POST["brand"].replace(" ", "-").lower()
+        + "-"
+        + request.POST["accessory_type"].replace(" ", "-").lower()
+        + "-"
+        + request.POST["vehicle_model"].replace(" ", "-").lower()
+        + "-"
+        + str(datetime.datetime.now().year),
+        "name": request.POST["brand"].lower()
+        + "-"
+        + request.POST["accessory_type"].lower(),
+        "brand": request.POST["brand"].lower(),
+        "vehicle_make": request.POST["vehicle_make"].lower(),
+        "vehicle_model": request.POST["vehicle_model"].lower(),
+        "price": request.POST["price"].lower(),
+        "quantity_available": request.POST["quantity_available"].lower(),
+        "accessory_type": request.POST["accessory_type"].lower(),
+        "description": request.POST["description"].lower(),
+    }
+    return form_data
+
+
 @login_required
 def management_home(request):
+    """
+    retuns the management page
+    """
     template = "management/home.html"
     return render(request, template)
 
@@ -137,37 +226,12 @@ def management_home(request):
 @login_required
 def add_vehicle(request):
     """Add a new vhicle to the site"""
-
     if not request.user.is_superuser:
         messages.error(request, "Sorry, only authorised users can do that!")
-        return redirect(reverse("home"))
+        return redirect(reverse("management_home"))
 
     if request.method == "POST":
-        form_data = {
-            "sku": request.POST["registration"].replace(" ", "").lower(),
-            "name": request.POST["make"].lower()
-            + "-"
-            + request.POST["registration"].replace(" ", "").lower(),
-            "registration": request.POST["registration"].lower(),
-            "make": request.POST["make"].lower(),
-            "model": request.POST["model"].lower(),
-            "trim": request.POST["trim"].lower(),
-            "colour": request.POST["colour"].lower(),
-            "fuel": request.POST["fuel"].lower(),
-            "engine_size": request.POST["engine_size"].lower(),
-            "body_type": request.POST["body_type"].lower(),
-            "gearbox": request.POST["gearbox"].lower(),
-            "drivetrain": request.POST["drivetrain"].lower(),
-            "seats": request.POST["seats"].lower(),
-            "description": request.POST["description"].lower(),
-            "price": 200,
-            "full_price": request.POST["full_price"].lower(),
-            "mileage": request.POST["mileage"].lower(),
-            "model_year": request.POST["model_year"].lower(),
-            "doors": request.POST["doors"].lower(),
-            "type": "vehicle",
-            "available": "yes",
-        }
+        form_data = getFormData(request)
         form = VehicleForm(form_data)
         image_form = VehicleImagesForm(request.FILES)
 
@@ -202,42 +266,17 @@ def update_vehicle(request, vehicle_sku):
 
     if not request.user.is_superuser:
         messages.error(request, "Sorry, only authorised users can do that!")
-        return redirect(reverse("home"))
+        return redirect(reverse("management_home"))
 
     vehicle = get_object_or_404(Vehicle, sku=vehicle_sku)
 
     if request.method == "POST":
-        form_data = {
-            "sku": request.POST["registration"].replace(" ", "").lower(),
-            "name": request.POST["make"].lower()
-            + "-"
-            + request.POST["registration"].replace(" ", "").lower(),
-            "registration": request.POST["registration"].lower(),
-            "make": request.POST["make"].lower(),
-            "model": request.POST["model"].lower(),
-            "trim": request.POST["trim"].lower(),
-            "colour": request.POST["colour"].lower(),
-            "fuel": request.POST["fuel"].lower(),
-            "engine_size": request.POST["engine_size"].lower(),
-            "body_type": request.POST["body_type"].lower(),
-            "gearbox": request.POST["gearbox"].lower(),
-            "drivetrain": request.POST["drivetrain"].lower(),
-            "seats": request.POST["seats"].lower(),
-            "description": request.POST["description"].lower(),
-            "full_price": request.POST["full_price"].lower(),
-            "mileage": request.POST["mileage"].lower(),
-            "model_year": request.POST["model_year"].lower(),
-            "doors": request.POST["doors"].lower(),
-            "available": request.POST["available"],
-        }
-
+        form_data = getFormUpdateData(request)
         form = VehicleForm(form_data, instance=vehicle)
         more_images_form = VehicleImagesForm(request.FILES)
 
         if form.is_valid():
             vehicle = form.save()
-
-            print(request.FILES.getlist)
 
             handleMainImageChecked(request.POST)
             handleDeleteImages(request.POST)
@@ -246,7 +285,6 @@ def update_vehicle(request, vehicle_sku):
             )
 
             messages.success(request, "Sucsessfully updated vehicle!")
-
             return redirect(reverse("vehicle_detail", args=[form_data["sku"]]))
         else:
             messages.error(
@@ -285,7 +323,7 @@ def delete_vehicle(request, vehicle_sku):
 
     if not request.user.is_superuser:
         messages.error(request, "Sorry, only authorised users can do that!")
-        return redirect(reverse("home"))
+        return redirect(reverse("management_home"))
 
     vehicle = get_object_or_404(Vehicle, sku=vehicle_sku)
 
@@ -304,29 +342,10 @@ def add_accessory(request):
         return redirect(reverse("home"))
 
     if request.method == "POST":
-        form_data = {
-            "category": request.POST["category"].lower(),
-            "sku": request.POST["brand"].replace(" ", "-").lower()
-            + "-"
-            + request.POST["accessory_type"].replace(" ", "-").lower()
-            + "-"
-            + request.POST["vehicle_model"].replace(" ", "-").lower()
-            + "-"
-            + str(datetime.datetime.now().year),
-            "name": request.POST["brand"].lower()
-            + "-"
-            + request.POST["accessory_type"].lower(),
-            "brand": request.POST["brand"].lower(),
-            "vehicle_make": request.POST["vehicle_make"].lower(),
-            "vehicle_model": request.POST["vehicle_model"].lower(),
-            "price": request.POST["price"].lower(),
-            "quantity_available": request.POST["quantity_available"].lower(),
-            "accessory_type": request.POST["accessory_type"].lower(),
-            "description": request.POST["description"].lower(),
-        }
+        form_data = getAccessoryFormData(request)
+
         form = AccessoryForm(form_data, request.FILES)
         if form.is_valid():
-            accessory = form.save()
             messages.success(request, "Sucsessfully added product!")
             return redirect(reverse("accessory_detail", args=[form_data["sku"]]))
         else:
@@ -337,11 +356,9 @@ def add_accessory(request):
         form = AccessoryForm
 
     template = "management/add_accessory.html"
-
     context = {
         "form": form,
     }
-
     return render(request, template, context)
 
 
@@ -351,27 +368,14 @@ def update_accessory(request, accessory_id):
 
     if not request.user.is_superuser:
         messages.error(request, "Sorry, only store owners can do that!")
-        return redirect(reverse("home"))
+        return redirect(reverse("management_home"))
 
     accessory = get_object_or_404(Accessory, pk=accessory_id)
 
     if request.method == "POST":
-        form_data = {
-            "sku": accessory.sku,
-            "name": request.POST["brand"].lower()
-            + "-"
-            + request.POST["accessory_type"].lower(),
-            "category": request.POST["category"].lower(),
-            "brand": request.POST["brand"].lower(),
-            "vehicle_make": request.POST["vehicle_make"].lower(),
-            "vehicle_model": request.POST["vehicle_model"].lower(),
-            "price": request.POST["price"].lower(),
-            "quantity_available": request.POST["quantity_available"].lower(),
-            "accessory_type": request.POST["accessory_type"].lower(),
-            "description": request.POST["description"].lower(),
-        }
-
+        form_data = getAccessoryFormData(request)
         form = AccessoryForm(form_data, request.FILES, instance=accessory)
+
         if form.is_valid():
             form.save()
             if "image-clear" in request.POST:
@@ -386,10 +390,8 @@ def update_accessory(request, accessory_id):
             messages.error(
                 request, "Failed to update accessory.  Please ensure form is valid"
             )
-    else:
-
-        form = AccessoryForm(instance=accessory)
-        messages.info(request, f"You are editing {accessory.name}")
+    form = AccessoryForm(instance=accessory)
+    messages.info(request, f"You are editing {accessory.name}")
 
     template = "management/update_accessory.html"
     context = {
@@ -406,7 +408,7 @@ def delete_accessory(request, accessory_id):
 
     if not request.user.is_superuser:
         messages.error(request, "Sorry, only authorised users can do that!")
-        return redirect(reverse("home"))
+        return redirect(reverse("management_home"))
 
     accessory = get_object_or_404(Accessory, pk=accessory_id)
 

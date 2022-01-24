@@ -143,6 +143,23 @@ class unique_vehicle_parameters:
         return sorted(vehicle_years)
 
 
+def getRememberedSearchDict(request):
+    remembered_search = {
+        "make": request.GET["vehicle-make"],
+        "model": request.GET["vehicle-model"],
+        "year": request.GET["vehicle-model-year"],
+        "price": request.GET["price-range"],
+        "mileage": request.GET["mileage"],
+        "colour": request.GET["vehicle-colour"],
+        "engine": request.GET["vehicle-engine"],
+        "doors": request.GET["vehicle-doors"],
+        "body_type": request.GET["vehicle-body"],
+        "fuel": request.GET["vehicle-fuel"],
+        "drivetrain": request.GET["vehicle-drivetrain"],
+    }
+    return remembered_search
+
+
 def vehicle_search(request):
     query_make = request.GET["vehicle-make"]
     query_model = request.GET["vehicle-model"]
@@ -308,6 +325,48 @@ def vehicle_search(request):
     return search
 
 
+def handleSortBy(request, vehicles):
+    """
+    gets the sortkey from request
+    gets the direction from request
+    returns sorted list
+    """
+    sortkey = request.GET["sort"]
+    sort = sortkey
+    if sortkey == "pricex":
+        sortkey = "full_price"
+    elif sortkey == "age":
+        sortkey = "model_year"
+    vehicles = vehicles.order_by(sortkey)
+
+    if "direction" in request.GET:
+        direction = request.GET["direction"]
+        if direction == "desc":
+            sortkey = f"-{sortkey}"
+        vehicles = vehicles.order_by(sortkey)
+
+    current_sorting = f"{sort}_{direction}"
+
+    return current_sorting, vehicles
+
+
+def handleHomeVehicleSearch(request, vehicles):
+    """
+    takes the request from a home page search
+    returns matching vehicles
+    """
+    query_make = request.GET["vehicle-make"]
+    query_model = request.GET["vehicle-model"]
+
+    if query_model:
+        search = Q(make__icontains=query_make) & Q(model__icontains=query_model)
+        vehicles = vehicles.filter(search)
+    else:
+        vehicles = vehicles.filter(Q(make__icontains=query_make))
+
+    return vehicles
+
+
 def request_info_from_dvla(reg):
     """[requests data from dvla on the requested vehicle form it's registration]
 
@@ -357,54 +416,19 @@ def all_vehicles(request):
     vehicle_drivetrains = unique_vehicle_parameters.unique_vehicle_drivetrains()
     vehicle_years = unique_vehicle_parameters.unique_vehicle_years()
 
+    current_sorting = f"{sort}_{direction}"
+
     if request.GET:
         if "sort" in request.GET:
-            sortkey = request.GET["sort"]
-
-            if sortkey == "pricex":
-                sortkey = "full_price"
-            elif sortkey == "age":
-                sortkey = "model_year"
-            vehicles = vehicles.order_by(sortkey)
-
-            if "direction" in request.GET:
-                direction = request.GET["direction"]
-                if direction == "desc":
-                    sortkey = f"-{sortkey}"
-                vehicles = vehicles.order_by(sortkey)
+            current_sorting, vehicles = handleSortBy(request, vehicles)
 
         if "home-search" in request.GET:
-            query_make = request.GET["vehicle-make"]
-            query_model = request.GET["vehicle-model"]
-
-            if query_model:
-                search = Q(make__icontains=query_make) & Q(model__icontains=query_model)
-
-                vehicles = vehicles.filter(search)
-            else:
-                vehicles = vehicles.filter(Q(make__icontains=query_make))
+            vehicles = handleHomeVehicleSearch(request, vehicles)
 
         if "vehicle-detailed-search" in request.GET:
-
             search = vehicle_search(request)
-
             vehicles = vehicles.filter(search)
-
-            remembered_search = {
-                "make": request.GET["vehicle-make"],
-                "model": request.GET["vehicle-model"],
-                "year": request.GET["vehicle-model-year"],
-                "price": request.GET["price-range"],
-                "mileage": request.GET["mileage"],
-                "colour": request.GET["vehicle-colour"],
-                "engine": request.GET["vehicle-engine"],
-                "doors": request.GET["vehicle-doors"],
-                "body_type": request.GET["vehicle-body"],
-                "fuel": request.GET["vehicle-fuel"],
-                "drivetrain": request.GET["vehicle-drivetrain"],
-            }
-
-    current_sorting = f"{sort}_{direction}"
+            remembered_search = getRememberedSearchDict(request)
 
     paginator = Paginator(vehicles, 24)
     page_number = request.GET.get("page")
