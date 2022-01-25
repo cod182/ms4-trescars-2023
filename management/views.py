@@ -8,10 +8,10 @@ import requests
 import datetime
 from vehicles.models import Vehicle, VehicleImages
 from accessories.models import Accessory
-from .forms import VehicleForm, VehicleImagesForm, AccessoryForm
+from .forms import vehicle_form, vehicle_images_form, accessory_form
 
 
-def handleDeleteImages(request):
+def handle_delete_images(request):
     """
     -takes request.post, get any vehicleimages refrences and puts them in
     a list.
@@ -48,7 +48,7 @@ def handleDeleteImages(request):
                     image_id = None
 
 
-def handleMainImageChecked(request):
+def handle_main_image_checked(request):
     """
     -takes request.post, get any vehicleimages refrneces and put them in
     a list.
@@ -100,7 +100,7 @@ def handleMainImageChecked(request):
                 imgId = None
 
 
-def handleImagesUpload(requestFiles, requestPost, form_data, vehicle, FROM):
+def handle_images_upload(requestFiles, requestPost, form_data, vehicle, FROM):
     """
     Gets the images from Post adds them to the table
     if main in in request, main is added to image
@@ -122,7 +122,7 @@ def handleImagesUpload(requestFiles, requestPost, form_data, vehicle, FROM):
         mainImage = False
 
 
-def handleDeleteAccessoryImage(accessory_id):
+def handle_delete_accessory_image(accessory_id):
     """
     Takes in the accessory_id. Finds the accessory and delets the images
     """
@@ -131,7 +131,7 @@ def handleDeleteAccessoryImage(accessory_id):
     accessory.save()
 
 
-def getFormData(request):
+def get_form_data(request):
     """
     Gets the form data in a dictionary and returns it
     """
@@ -163,7 +163,7 @@ def getFormData(request):
     return form_data
 
 
-def getFormUpdateData(request):
+def get_form_update_data(request):
     form_data = {
         "sku": request.POST["registration"].replace(" ", "").lower(),
         "name": request.POST["make"].lower()
@@ -190,7 +190,7 @@ def getFormUpdateData(request):
     return form_data
 
 
-def getAccessoryFormData(request):
+def get_accessory_form_data(request):
     form_data = {
         "category": request.POST["category"].lower(),
         "sku": request.POST["brand"].replace(" ", "-").lower()
@@ -231,14 +231,14 @@ def add_vehicle(request):
         return redirect(reverse("management_home"))
 
     if request.method == "POST":
-        form_data = getFormData(request)
-        form = VehicleForm(form_data)
-        image_form = VehicleImagesForm(request.FILES)
+        form_data = get_form_data(request)
+        form = vehicle_form(form_data)
+        image_form = vehicle_images_form(request.FILES)
 
         if form.is_valid():
             vehicle = form.save()
 
-            handleImagesUpload(
+            handle_images_upload(
                 request.FILES, request.POST, form_data, vehicle, "new_vehicle"
             )
 
@@ -249,8 +249,8 @@ def add_vehicle(request):
                 request, "Failed to add vehicle. Please ensure the form is valid"
             )
     else:
-        form = VehicleForm()
-        image_form = VehicleImagesForm()
+        form = vehicle_form()
+        image_form = vehicle_images_form()
 
     template = "management/add_vehicle.html"
     context = {
@@ -271,16 +271,16 @@ def update_vehicle(request, vehicle_sku):
     vehicle = get_object_or_404(Vehicle, sku=vehicle_sku)
 
     if request.method == "POST":
-        form_data = getFormUpdateData(request)
-        form = VehicleForm(form_data, instance=vehicle)
-        more_images_form = VehicleImagesForm(request.FILES)
+        form_data = get_form_update_data(request)
+        form = vehicle_form(form_data, instance=vehicle)
+        more_images_form = vehicle_images_form(request.FILES)
 
         if form.is_valid():
             vehicle = form.save()
 
-            handleMainImageChecked(request.POST)
-            handleDeleteImages(request.POST)
-            handleImagesUpload(
+            handle_main_image_checked(request.POST)
+            handle_delete_images(request.POST)
+            handle_images_upload(
                 request.FILES, request.POST, form_data, vehicle, "update_vehicle"
             )
 
@@ -303,9 +303,9 @@ def update_vehicle(request, vehicle_sku):
         f"You are editing {vehicle.make.capitalize()} {vehicle.model.capitalize()} - {vehicle.registration.upper()}",
     )
 
-    form = VehicleForm(instance=vehicle)
+    form = vehicle_form(instance=vehicle)
     image_form = LinkFormSet(instance=vehicle)
-    more_images_form = VehicleImagesForm(request.FILES)
+    more_images_form = vehicle_images_form(request.FILES)
 
     template = "management/update_vehicle.html"
     context = {
@@ -342,9 +342,9 @@ def add_accessory(request):
         return redirect(reverse("home"))
 
     if request.method == "POST":
-        form_data = getAccessoryFormData(request)
+        form_data = get_accessory_form_data(request)
 
-        form = AccessoryForm(form_data, request.FILES)
+        form = accessory_form(form_data, request.FILES)
         if form.is_valid():
             messages.success(request, "Sucsessfully added product!")
             return redirect(reverse("accessory_detail", args=[form_data["sku"]]))
@@ -353,7 +353,7 @@ def add_accessory(request):
                 request, "Failed to add accessory. Please ensure the form is valid"
             )
     else:
-        form = AccessoryForm
+        form = accessory_form
 
     template = "management/add_accessory.html"
     context = {
@@ -373,13 +373,13 @@ def update_accessory(request, accessory_id):
     accessory = get_object_or_404(Accessory, pk=accessory_id)
 
     if request.method == "POST":
-        form_data = getAccessoryFormData(request)
-        form = AccessoryForm(form_data, request.FILES, instance=accessory)
+        form_data = get_accessory_form_data(request)
+        form = accessory_form(form_data, request.FILES, instance=accessory)
 
         if form.is_valid():
             form.save()
             if "image-clear" in request.POST:
-                handleDeleteAccessoryImage(accessory_id)
+                handle_delete_accessory_image(accessory_id)
 
             messages.success(
                 request,
@@ -390,7 +390,7 @@ def update_accessory(request, accessory_id):
             messages.error(
                 request, "Failed to update accessory.  Please ensure form is valid"
             )
-    form = AccessoryForm(instance=accessory)
+    form = accessory_form(instance=accessory)
     messages.info(request, f"You are editing {accessory.name}")
 
     template = "management/update_accessory.html"

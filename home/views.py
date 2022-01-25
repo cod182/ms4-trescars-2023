@@ -25,10 +25,10 @@ def index(request):
     return render(request, template, context)
 
 
-def returns(request):
+def returns_page(request):
     """
     Displays the returns information page
     """
-    template = "home/returns.html"
+    template = "home/returns-page.html"
 
     return render(request, template)

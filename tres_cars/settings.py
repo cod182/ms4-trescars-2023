@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "mathfilters",
     "storages",
+    "phonenumber_field",
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
@@ -209,7 +210,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 if "DEVELOPMENT" in os.environ:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-    DEFAULT_FROM_EMAIL = "help.trescars@gmail.com"
+    DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 else:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_USE_TLS = True
@@ -219,7 +220,7 @@ else:
     EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASS")
     DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_HOST_USER")
 
-DEFAULT_RECEIVING_EMAIL = "help.trescars@gmail.com"
+DEFAULT_RECEIVING_EMAIL = os.environ.get("DEFAULT_RECEIVING_EMAIL")
 
 # stripe
 

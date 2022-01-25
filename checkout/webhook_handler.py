@@ -8,7 +8,7 @@ from django.conf import settings
 from vehicles.models import Vehicle
 from accessories.models import Accessory
 from profiles.models import UserProfile
-from .models import Order, OrderLineItem, AccessoryOrder, AccessoryOrderLineItem
+from .models import Order, order_line_item, accessory_order, accessory_order_line_item
 
 
 def save_user_info(profile):
@@ -120,7 +120,7 @@ class StripeWH_Handler:
         elif order_type == "accessories":
             while attempt <= 5:
                 try:
-                    order = AccessoryOrder.objects.get(
+                    order = accessory_order.objects.get(
                         order_type=order_type,
                         full_name__iexact=shipping_details.name,
                         email__iexact=billing_details.email,
@@ -137,7 +137,7 @@ class StripeWH_Handler:
                     )
                     order_exists = True
                     break
-                except AccessoryOrder.DoesNotExist:
+                except accessory_order.DoesNotExist:
                     attempt += 1
                     time.sleep(1)
 
@@ -172,7 +172,7 @@ class StripeWH_Handler:
                             order_items = Vehicle.objects.get(sku=item_id)
 
                             if isinstance(item_data, int):
-                                order_line_item = OrderLineItem(
+                                order_line_item = order_line_item(
                                     order=order,
                                     vehicle=order_items,
                                 )
@@ -183,7 +183,7 @@ class StripeWH_Handler:
                             order_items = Accessory.objects.get(sku=item_id)
 
                             if isinstance(item_data, int):
-                                order_line_item = OrderLineItem(
+                                order_line_item = order_line_item(
                                     order=order,
                                     accessory=order_items,
                                     quantity=item_data,
@@ -199,7 +199,7 @@ class StripeWH_Handler:
                     )
             elif order_type == "accessories":
                 try:
-                    order = AccessoryOrder.objects.create(
+                    order = accessory_order.objects.create(
                         order_type=order_type,
                         full_name=shipping_details.name,
                         user_profile=profile,
@@ -218,7 +218,7 @@ class StripeWH_Handler:
                         order_item = Accessory.objects.get(pk=item_id)
 
                         if isinstance(item_data, int):
-                            order_line_item = AccessoryOrderLineItem(
+                            order_line_item = accessory_order_line_item(
                                 order=order,
                                 accessory=order_item,
                                 quantity=item_data,

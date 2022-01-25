@@ -584,6 +584,17 @@ select {
     text-align: center;
 }
 
+.quick-link a {
+    text-decoration: none;
+}
+
+.quick-link a:hover,
+.quick-link a:focus,
+.quick-link a:active,
+.quick-link a:focus:active {
+    color: #12a3e5;
+}
+
 .quick-link--image {
     background-position: top;
     background-size: cover;
@@ -768,5 +779,16 @@ select {
     .btn--profile-info {
         width: 100%;
         margin: 5px 0;
+    }
+}
+
+@media (max-width: 500px) {
+    .search-box {
+        width: 90%;
+        background-color: #e7dddd96;
+        border-radius: 10px;
+        text-align: center;
+        position: static;
+        margin: auto;
     }
 }

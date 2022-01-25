@@ -6,10 +6,10 @@ from django.contrib import messages
 from django.utils.safestring import mark_safe
 from smtplib import SMTPException
 
-from .forms import EmailForm
+from .forms import email_form
 
 
-def handleSendEmail(request, form, item):
+def handle_send_email(request, form, item):
     messageSent = False
     try:
         cleaned_data = form.cleaned_data
@@ -56,18 +56,18 @@ def handleSendEmail(request, form, item):
         return messageSent
 
 
-def sendEmail(request, item=None):
+def send_email(request, item=None):
     messageSent = False
 
     if request.method == "POST":
-        form = EmailForm(request.POST)
+        form = email_form(request.POST)
 
         if form.is_valid():
-            messageSent = handleSendEmail(request, form, item)
+            messageSent = handle_send_email(request, form, item)
             if messageSent:
                 return redirect(reverse("home"))
     else:
-        form = EmailForm()
+        form = email_form()
 
     template = "mailer/mailer.html"
     context = {

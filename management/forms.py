@@ -5,7 +5,7 @@ from vehicles.models import Vehicle, VehicleImages
 from accessories.models import Accessory, Category
 
 
-class VehicleForm(forms.ModelForm):
+class vehicle_form(forms.ModelForm):
     class Meta:
         model = Vehicle
         exclude = ("price", "type")
@@ -49,7 +49,7 @@ class VehicleForm(forms.ModelForm):
                 self.fields[field].widget.attrs["placeholder"] = placeholder
 
 
-class VehicleImagesForm(forms.ModelForm):
+class vehicle_images_form(forms.ModelForm):
     class Meta:
         model = VehicleImages
         fields = {"image", "main"}
@@ -66,7 +66,7 @@ class VehicleImagesForm(forms.ModelForm):
     )
 
 
-class AccessoryForm(forms.ModelForm):
+class accessory_form(forms.ModelForm):
     class Meta:
         model = Accessory
         fields = "__all__"

@@ -1,10 +1,10 @@
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
-from .models import OrderLineItem, AccessoryOrderLineItem
+from .models import order_line_item, accessory_order_line_item
 
 
-@receiver(post_save, sender=OrderLineItem)
+@receiver(post_save, sender=order_line_item)
 def update_on_save(sender, instance, created, **kwargs):
     """
     Update order total on line item created/updated
@@ -12,7 +12,7 @@ def update_on_save(sender, instance, created, **kwargs):
     instance.order.update_total()
 
 
-@receiver(post_delete, sender=OrderLineItem)
+@receiver(post_delete, sender=order_line_item)
 def update_on_delete(sender, instance, **kwargs):
     """
     Update order total on line item deleted
@@ -20,7 +20,7 @@ def update_on_delete(sender, instance, **kwargs):
     instance.order.update_total()
 
 
-@receiver(post_save, sender=AccessoryOrderLineItem)
+@receiver(post_save, sender=accessory_order_line_item)
 def update_accessory_on_save(sender, instance, created, **kwargs):
     """
     Update order total on line item created/updated
@@ -28,7 +28,7 @@ def update_accessory_on_save(sender, instance, created, **kwargs):
     instance.order.update_total()
 
 
-@receiver(post_delete, sender=AccessoryOrderLineItem)
+@receiver(post_delete, sender=accessory_order_line_item)
 def update_accessory_on_delete(sender, instance, **kwargs):
     """
     Update order total on line item deleted

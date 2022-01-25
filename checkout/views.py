@@ -9,9 +9,9 @@ from vehicles.models import Vehicle, VehicleImages
 from accessories.models import Accessory
 from bag.contexts import vehicle_bag_contents, bag_contents
 from profiles.models import UserProfile
-from profiles.forms import UserProfileForm
-from .forms import OrderForm, AccessoryOrderForm
-from .models import Order, OrderLineItem, AccessoryOrder, AccessoryOrderLineItem
+from profiles.forms import user_profile_form
+from .forms import order_form, accessory_order_form
+from .models import Order, order_line_item, accessory_order, accessory_order_line_item
 
 
 def handle_valid_vehicle_order_form(request, order_form, model, bag):
@@ -25,7 +25,7 @@ def handle_valid_vehicle_order_form(request, order_form, model, bag):
         try:
             vehicle = model.objects.get(sku=item_id)
             if isinstance(item_data, int):
-                order_line_item = OrderLineItem(
+                order_line_item = order_line_item(
                     order=order,
                     vehicle=vehicle,
                 )
@@ -56,7 +56,7 @@ def handle_valid_accessory_order_form(request, order_form, MODEL, bag):
         try:
             accessory = MODEL.objects.get(pk=item_id)
             if isinstance(item_data, int):
-                order_line_item = AccessoryOrderLineItem(
+                order_line_item = accessory_order_line_item(
                     order=order,
                     accessory=accessory,
                     quantity=item_data,
@@ -80,7 +80,7 @@ def handle_valid_accessory_order_form(request, order_form, MODEL, bag):
 def handle_authenticated_user(requestUser, FORM):
     try:
         profile = UserProfile.objects.get(user=requestUser)
-        order_form = OrderForm(
+        order_form = order_form(
             initial={
                 "full_name": profile.user.get_full_name(),
                 "email": profile.user.email,
@@ -140,7 +140,7 @@ def handle_adding_user_to_order(request, order, save_info):
             "default_county": order.county,
             "default_country": order.country,
         }
-        user_profile_form = UserProfileForm(profile_data, instance=profile)
+        user_profile_form = user_profile_form(profile_data, instance=profile)
         if user_profile_form.is_valid():
             user_profile_form.save()
 
@@ -244,8 +244,8 @@ def reserve_vehicle_checkout(request, vehicle):
 
     # Auto fill save info
     if request.user.is_authenticated:
-        order_form = handle_authenticated_user(request.user, OrderForm)
-    order_form = OrderForm()
+        order_form = handle_authenticated_user(request.user, order_form)
+    order_form = order_form()
 
     if request.method == "POST":
         if "reserve_vehicle" in request.POST:
@@ -255,7 +255,7 @@ def reserve_vehicle_checkout(request, vehicle):
         else:
             vehicle_bag = request.session.get("vehicle_bag", {})
 
-            order_form = handle_order_form(request, OrderForm)
+            order_form = handle_order_form(request, order_form)
 
             if order_form.is_valid():
                 order = handle_valid_vehicle_order_form(
@@ -331,13 +331,13 @@ def checkout(request):
     request.session["vehicle_bag"] = {}
     # Auto fill save info
     if request.user.is_authenticated:
-        order_form = handle_authenticated_user(request.user, AccessoryOrderForm)
-    order_form = AccessoryOrderForm()
+        order_form = handle_authenticated_user(request.user, accessory_order_form)
+    order_form = accessory_order_form()
 
     if request.method == "POST":
         bag = request.session.get("bag", {})
 
-        order_form = handle_accessory_order_form(request, AccessoryOrderForm)
+        order_form = handle_accessory_order_form(request, accessory_order_form)
 
         if order_form.is_valid():
             order = handle_valid_accessory_order_form(
@@ -386,7 +386,7 @@ def checkout_success(request, order_number):
     """
     bag = request.session.get("bag", {})
     save_info = request.session.get("save_info")
-    order = get_object_or_404(AccessoryOrder, order_number=order_number)
+    order = get_object_or_404(accessory_order, order_number=order_number)
 
     if request.user.is_authenticated:
 

@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Vehicle, VehicleImages
 
 
-class VehicleImagesAdmin(admin.ModelAdmin):
+class vehicle_images_admin(admin.ModelAdmin):
     list_display = (
         "name",
         "vehicle_name",
@@ -13,11 +13,11 @@ class VehicleImagesAdmin(admin.ModelAdmin):
     ordering = ("name",)
 
 
-class ImagesInline(admin.StackedInline):
+class images_inline(admin.StackedInline):
     model = VehicleImages
 
 
-class VehicleAdmin(admin.ModelAdmin):
+class vehicle_admin(admin.ModelAdmin):
     list_display = (
         "name",
         "sku",
@@ -44,9 +44,9 @@ class VehicleAdmin(admin.ModelAdmin):
 
     ordering = ("name",)
 
-    inlines = [ImagesInline]
+    inlines = [images_inline]
 
 
 # Register your models here.
-admin.site.register(Vehicle, VehicleAdmin)
-admin.site.register(VehicleImages, VehicleImagesAdmin)
+admin.site.register(Vehicle, vehicle_admin)
+admin.site.register(VehicleImages, vehicle_images_admin)

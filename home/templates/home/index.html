@@ -14,7 +14,7 @@
 
 {% block content %}
 <div class="welcome-image" style="background-image: url('{{ static }}images/welcome-image.webp');">
-    <div class="search-box">
+    <div class="search-box col-sm-12">
         <div class="search-box--text">
             <p class="m-0 bold">Start the search for your new vehicle here!</p>
         </div>
@@ -53,7 +53,8 @@
     <div class="row">
 
         <div class="quick-links--box quick-link">
-            <p class="white">All Vehicles</p>
+            <p><a class="white" href="{% url 'vehicles' %}" aria-label="All vehicels page">All
+                    Vehicles</a></p>
             <a href="{% url 'vehicles' %}" aria-label="All vehicels page">
                 <div class="quick-link--image" style="background-image:url('{{ static }}images/all-vehicles.webp');">
                 </div>
@@ -61,7 +62,8 @@
         </div>
 
         <div class="quick-links--box quick-link">
-            <p class="white">Accessories</p>
+            <p><a class="white" href="{% url 'accessories' %}" aria-label="Accessories Categories Page">Accessories</a>
+            </p>
             <a href="{% url 'accessories' %}" aria-label="Accessories Categories Page">
                 <div class="quick-link--image" style="background-image:url('{{ static }}images/accessories.webp');">
                 </div>
@@ -69,7 +71,8 @@
         </div>
 
         <div class="quick-links--box quick-link">
-            <p class="black">Contact Us</p>
+            <p><a class="black" href="{% url 'sendEmail' %}" aria-label="Contact Us Page">Contact
+                    Us</a></p>
             <a href="{% url 'sendEmail' %}" aria-label="Contact Us Page">
                 <div class="quick-link--image" style="background-image:url('{{ static }}images/contact.webp');">
                 </div>

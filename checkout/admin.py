@@ -1,60 +1,110 @@
 from django.contrib import admin
-from .models import Order, OrderLineItem, AccessoryOrder, AccessoryOrderLineItem
+from .models import Order, order_line_item, accessory_order, accessory_order_line_item
 
 
-class OrderLineItemAdminInline(admin.TabularInline):
-    model = OrderLineItem
-    readonly_fields = ('lineitem_total',)
+class order_line_item_admin_inline(admin.TabularInline):
+    model = order_line_item
+    readonly_fields = ("lineitem_total",)
 
 
-class OrderAdmin(admin.ModelAdmin):
-    inlines = (OrderLineItemAdminInline,)
+class order_admin(admin.ModelAdmin):
+    inlines = (order_line_item_admin_inline,)
 
-    readonly_fields = ('order_number', 'order_type', 'date',
-                       'delivery_cost', 'order_total',
-                       'grand_total', 'original_bag',
-                       'stripe_pid')
+    readonly_fields = (
+        "order_number",
+        "order_type",
+        "date",
+        "delivery_cost",
+        "order_total",
+        "grand_total",
+        "original_bag",
+        "stripe_pid",
+    )
 
-    fields = ('order_number', 'order_type', 'user_profile', 'date', 'full_name',
-              'email', 'phone_number', 'country',
-              'postcode', 'town_or_city', 'street_address1',
-              'street_address2', 'county', 'delivery_cost',
-              'order_total', 'grand_total',  'original_bag',
-              'stripe_pid')
+    fields = (
+        "order_number",
+        "order_type",
+        "user_profile",
+        "date",
+        "full_name",
+        "email",
+        "phone_number",
+        "country",
+        "postcode",
+        "town_or_city",
+        "street_address1",
+        "street_address2",
+        "county",
+        "delivery_cost",
+        "order_total",
+        "grand_total",
+        "original_bag",
+        "stripe_pid",
+    )
 
-    list_display = ('order_number', 'date', 'full_name',
-                    'order_total', 'delivery_cost',
-                    'grand_total',)
+    list_display = (
+        "order_number",
+        "date",
+        "full_name",
+        "order_total",
+        "delivery_cost",
+        "grand_total",
+    )
 
-    ordering = ('-date',)
-
-
-class AccessoryOrderLineItemAdminInline(admin.TabularInline):
-    model = AccessoryOrderLineItem
-    readonly_fields = ('lineitem_total',)
-
-
-class AccessoryOrderAdmin(admin.ModelAdmin):
-    inlines = (AccessoryOrderLineItemAdminInline,)
-
-    readonly_fields = ('order_number', 'order_type', 'date',
-                       'delivery_cost', 'order_total',
-                       'grand_total', 'original_bag',
-                       'stripe_pid')
-
-    fields = ('order_number', 'order_type', 'user_profile', 'date', 'full_name',
-              'email', 'phone_number', 'country',
-              'postcode', 'town_or_city', 'street_address1',
-              'street_address2', 'county', 'delivery_cost',
-              'order_total', 'grand_total',  'original_bag',
-              'stripe_pid')
-
-    list_display = ('order_number', 'date', 'full_name',
-                    'order_total', 'delivery_cost',
-                    'grand_total',)
-
-    ordering = ('-date',)
+    ordering = ("-date",)
 
 
-admin.site.register(Order, OrderAdmin)
-admin.site.register(AccessoryOrder, AccessoryOrderAdmin)
+class accessory_order_line_item_admin_inline(admin.TabularInline):
+    model = accessory_order_line_item
+    readonly_fields = ("lineitem_total",)
+
+
+class accessory_order_admin(admin.ModelAdmin):
+    inlines = (accessory_order_line_item_admin_inline,)
+
+    readonly_fields = (
+        "order_number",
+        "order_type",
+        "date",
+        "delivery_cost",
+        "order_total",
+        "grand_total",
+        "original_bag",
+        "stripe_pid",
+    )
+
+    fields = (
+        "order_number",
+        "order_type",
+        "user_profile",
+        "date",
+        "full_name",
+        "email",
+        "phone_number",
+        "country",
+        "postcode",
+        "town_or_city",
+        "street_address1",
+        "street_address2",
+        "county",
+        "delivery_cost",
+        "order_total",
+        "grand_total",
+        "original_bag",
+        "stripe_pid",
+    )
+
+    list_display = (
+        "order_number",
+        "date",
+        "full_name",
+        "order_total",
+        "delivery_cost",
+        "grand_total",
+    )
+
+    ordering = ("-date",)
+
+
+admin.site.register(Order, order_admin)
+admin.site.register(accessory_order, accessory_order_admin)

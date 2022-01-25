@@ -17,7 +17,7 @@
 <div class="container search-container">
     <a class="btn btn-hide btn-hide--search" id="hide-search">Hide Options</a>
     <div class="row">
-        <form class="" action="{% url 'vehicles' %}" method="GET">
+        <form class="" action="{% url 'vehicles' %}" method="POST">
             {% csrf_token%}
             <input type="text" class="d-none" name="vehicle-detailed-search">
             <div class="row">

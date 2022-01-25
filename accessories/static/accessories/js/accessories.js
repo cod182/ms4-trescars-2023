@@ -1,7 +1,6 @@
 let sortSelector = document.getElementById('sort-selector');
 let deleteAccessoryBtn = document.getElementsByClassName('delete-accessory');
 
-
 // when sort chaned submits to backend
 sortSelector.addEventListener('change', function () {
     let currentUrl = new URL(window.location);

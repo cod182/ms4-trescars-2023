@@ -10,7 +10,7 @@ class Category(models.Model):
     image = models.ImageField(null=False, blank=False)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     def get_friendly_name(self):
         return self.friendly_name

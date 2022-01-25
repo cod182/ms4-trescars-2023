@@ -1,12 +1,12 @@
+import json
+import requests
+from decimal import Decimal
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.conf import settings
 from django.core.paginator import Paginator
-from .models import Vehicle, VehicleImages
 from django.db.models import Q
-from decimal import Decimal
-import requests
-import json
+from .models import Vehicle, VehicleImages
 
 
 class unique_vehicle_parameters:
@@ -147,7 +147,7 @@ class unique_vehicle_parameters:
         return sorted(vehicle_years)
 
 
-def getRememberedSearchDict(request):
+def get_remembered_search_dict(request):
     remembered_search = {
         "make": request.GET["vehicle-make"],
         "model": request.GET["vehicle-model"],
@@ -164,7 +164,7 @@ def getRememberedSearchDict(request):
     return remembered_search
 
 
-def searchNoEngineHighPriceHighMileage(request, query_params):
+def search_no_engine_high_price_high_mileage(request, query_params):
     """
     takes request and query params
     returns vehicles:
@@ -189,7 +189,7 @@ def searchNoEngineHighPriceHighMileage(request, query_params):
     return search
 
 
-def searchNoEngineHighPriceLowMileage(request, query_params):
+def search_no_engine_high_price_low_mileage(request, query_params):
     """
     takes request and query params
     returns vehicles:
@@ -213,7 +213,7 @@ def searchNoEngineHighPriceLowMileage(request, query_params):
     return search
 
 
-def searchNoEngineHighMileageHighPrice(request, query_params):
+def search_no_engine_high_mileage_high_price(request, query_params):
     """
     takes request and query params
     returns vehicles:
@@ -237,7 +237,7 @@ def searchNoEngineHighMileageHighPrice(request, query_params):
     return search
 
 
-def searchNoEngineHighMileageLowPrice(request, query_params):
+def search_no_engine_high_mileage_low_price(request, query_params):
     """
     takes request and query params
     returns vehicles:
@@ -261,7 +261,7 @@ def searchNoEngineHighMileageLowPrice(request, query_params):
     return search
 
 
-def searchNoEngineLowMileage(request, query_params):
+def search_no_engine_low_mileage(request, query_params):
     """
     takes request and query params
     returns vehicles:
@@ -284,7 +284,7 @@ def searchNoEngineLowMileage(request, query_params):
     return search
 
 
-def searchHighPriceHighMileage(request, query_params):
+def search_high_price_high_mileage(request, query_params):
     """
     takes request and query params
     returns vehicles:
@@ -307,7 +307,7 @@ def searchHighPriceHighMileage(request, query_params):
     return search
 
 
-def searchHighPriceLowMileage(request, query_params):
+def search_high_price_low_mileage(request, query_params):
     """
     takes request and query params
     returns vehicles:
@@ -330,7 +330,7 @@ def searchHighPriceLowMileage(request, query_params):
     return search
 
 
-def searchHighMileageHighPrice(request, query_params):
+def search_high_mileage_high_price(request, query_params):
     """
     takes request and query params
     returns vehicles:
@@ -353,7 +353,7 @@ def searchHighMileageHighPrice(request, query_params):
     return search
 
 
-def searchHighMileageLowPrice(request, query_params):
+def search_high_mileage_low_price(request, query_params):
     """
     takes request and query params
     returns vehicles:
@@ -376,7 +376,7 @@ def searchHighMileageLowPrice(request, query_params):
     return search
 
 
-def searchLowPrice(request, query_params):
+def search_low_price(request, query_params):
     """
     takes request and query params
     returns vehicles under £30000
@@ -415,35 +415,35 @@ def vehicle_search(request):
     if Decimal(query_params["query_engine"]) == 0:
         if int(query_params["query_price"]) == 30001:
             if int(query_params["query_mileage"]) == 100001:
-                search = searchNoEngineHighPriceHighMileage(request, query_params)
+                search = search_no_engine_high_price_high_mileage(request, query_params)
             else:
-                search = searchNoEngineHighPriceLowMileage(request, query_params)
+                search = search_no_engine_high_price_low_mileage(request, query_params)
 
         elif int(query_params["query_mileage"]) == 100001:
             if int(query_params["query_price"]) == 30001:
-                search = searchNoEngineHighMileageHighPrice(request, query_params)
+                search = search_no_engine_high_mileage_high_price(request, query_params)
             else:
-                search = searchNoEngineHighMileageLowPrice(request, query_params)
+                search = search_no_engine_high_mileage_low_price(request, query_params)
         else:
-            search = searchNoEngineLowMileage(request, query_params)
+            search = search_no_engine_low_mileage(request, query_params)
     else:
         if int(query_params["query_price"]) == 30001:
             if int(query_params["query_mileage"]) == 100001:
-                search = searchHighPriceHighMileage(request, query_params)
+                search = search_high_price_high_mileage(request, query_params)
             else:
-                search = searchHighPriceLowMileage(request, query_params)
+                search = search_high_price_low_mileage(request, query_params)
         elif int(query_params["query_mileage"]) == 100001:
             if int(query_params["query_price"]) == 30001:
-                search = searchHighMileageHighPrice(request, query_params)
+                search = search_high_mileage_high_price(request, query_params)
             else:
-                search = searchHighMileageLowPrice(request, query_params)
+                search = search_high_mileage_low_price(request, query_params)
         else:
-            search = searchLowPrice(request, query_params)
+            search = search_low_price(request, query_params)
 
     return search
 
 
-def handleSortBy(request, vehicles):
+def handle_sort_by(request, vehicles):
     """
     gets the sortkey from request
     gets the direction from request
@@ -468,7 +468,7 @@ def handleSortBy(request, vehicles):
     return current_sorting, vehicles
 
 
-def handleHomeVehicleSearch(request, vehicles):
+def handle_home_vehicle_search(request, vehicles):
     """
     takes the request from a home page search
     returns matching vehicles
@@ -538,15 +538,15 @@ def all_vehicles(request):
 
     if request.GET:
         if "sort" in request.GET:
-            current_sorting, vehicles = handleSortBy(request, vehicles)
+            current_sorting, vehicles = handle_sort_by(request, vehicles)
 
         if "home-search" in request.GET:
-            vehicles = handleHomeVehicleSearch(request, vehicles)
+            vehicles = handle_home_vehicle_search(request, vehicles)
 
         if "vehicle-detailed-search" in request.GET:
             search = vehicle_search(request)
             vehicles = vehicles.filter(search)
-            remembered_search = getRememberedSearchDict(request)
+            remembered_search = get_remembered_search_dict(request)
 
     paginator = Paginator(vehicles, 24)
     page_number = request.GET.get("page")
