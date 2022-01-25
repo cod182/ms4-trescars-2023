@@ -1,9 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import UserProfile
 from .forms import user_profile_form
 from checkout.models import Order, accessory_order
+from django.contrib.auth import logout
 
 
 @login_required
@@ -15,8 +17,11 @@ def profile(request):
 
     if request.method == "POST":
         if "delete-info" in request.POST:
-            form = user_profile_form(request.POST, instance=user_profile)
-            form.save()
+            user = User.objects.get(username=user_profile)
+            user.delete()
+            messages.success(request, "Your Accoutn has been deleted.")
+            logout(request)
+            return redirect("home")
         else:
             form = user_profile_form(request.POST, instance=user_profile)
             if form.is_valid():

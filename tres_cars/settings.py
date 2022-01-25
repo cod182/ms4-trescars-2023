@@ -116,15 +116,11 @@ WSGI_APPLICATION = "tres_cars.wsgi.application"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
-if "DATABASE_URL" in os.environ:
-    DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
+DATABASES = {
+    "default": dj_database_url.parse(
+        "postgres://xmajgvfzpnpdgv:9960ae43682be5287d78f63a13af97e9beb600a9eb0b1eb8220f11d1806f0a5e@ec2-34-246-24-110.eu-west-1.compute.amazonaws.com:5432/d9dgfn36fdvc0s"
+    )
+}
 
 
 # Password validation
