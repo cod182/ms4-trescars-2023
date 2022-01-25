@@ -4,7 +4,7 @@
     CSS from here: 
     https://stripe.com/docs/stripe-js
 */
-
+let phoneField = document.getElementById('id_phone_number');
 let stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 let clientSecret = $('#id_client_secret').text().slice(1, -1);
 let stripe = Stripe(stripePublicKey);
@@ -47,6 +47,13 @@ card.addEventListener('change', function (event) {
         errorDiv.textContent = '';
     }
 });
+
+
+window.addEventListener('load', function () {
+    phoneField.setAttribute('type', "tel");
+    phoneField.setAttribute('required', '');
+    phoneField.setAttribute('pattern', '[0-9]{11}');
+})
 
 // Handle form submit
 

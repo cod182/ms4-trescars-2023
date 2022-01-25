@@ -2,6 +2,7 @@ let countryField = document.getElementById('id_default_country');
 let hideSearchBtn = document.getElementById('hide-profile-info');
 let profileInfo = document.getElementById('profile-info');
 let storedProfileOption = localStorage.getItem('storedProfileOption');
+let phoneField = document.getElementById('id_default_phone_number');
 const deleteProfileInfoBtn = document.getElementById('delete-profile-info');
 
 //Checks if storedProfileOption is hidden in local storage
@@ -14,7 +15,12 @@ window.addEventListener('load', function () {
     if (countryField.value == '') {
         countryField.classList.add('greyed');
     }
+    phoneField.setAttribute('type', 'tel');
+    phoneField.setAttribute('pattern', '[0-9]{11}');
+
 });
+
+
 
 // when country field is changed
 // adds grey text if empty

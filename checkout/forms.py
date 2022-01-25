@@ -1,5 +1,6 @@
 from django import forms
 from .models import Order, accessory_order
+from django.db import models
 
 
 class OrderForm(forms.ModelForm):

@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
 {% block extra_title %}
- - Your Profile 
- {% endblock %}
-
- {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
+- Your Profile
 {% endblock %}
 
- {% block page_header %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
+{% endblock %}
 
- {% endblock %}
+{% block page_header %}
+
+{% endblock %}
 
 {% block content %}
 <div class="container-fluid">
@@ -32,7 +32,8 @@
             <form action="{% url 'profile' %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="delete-info">
-                <button class="btn btn--red-border btn--profile-info" id="delete-profile-info" type="submit">Delete Info</button>
+                <button class="btn btn--red-border btn--profile-info" id="delete-profile-info" type="submit">Delete
+                    Info</button>
             </form>
         </div>
     </div>
@@ -47,7 +48,7 @@
         <div class="mx-auto col-12 col-md-8 col-lg-8 my-1 ">
             <table class="d-none d-sm-table table table-lg table-borderless text-center align-middle">
                 <thead>
-                    <tr>                        
+                    <tr>
                         <th>Item Type</th>
                         <th>Order Number</th>
                         <th>Order Date</th>
@@ -58,43 +59,45 @@
                 <tbody>
                     <!-- Vehicle orders md > -->
                     {% for order in orders %}
-                        <tr>
-                            <td>{{ order.order_type | capfirst }}</td>
-                            <td>
-                                <a href="{% url 'order_detail' order.order_number %}" title="{{ order.order_number }}">
-                                    {{ order.order_number | truncatechars:10 }}
-                                </a>
-                            </td>
-                            <td>{{ order.date }}</td>
-                                    {% for item in order.lineitems.all %}
-                                            {% if item.vehicle %}
-                                                <td>
-                                                    {{ item.vehicle.make | capfirst}} {{ item.vehicle.model | capfirst }} 
-                                                    <br>
-                                                    {{ item.vehicle.registration | upper }}
-                                                </td>
-                                            {% endif %}
-                                    {% endfor %}
-                            <td>£{{ order.grand_total }}</td>
-                        </tr>
+                    <tr>
+                        <td>{{ order.order_type | capfirst }}</td>
+                        <td>
+                            <a href="{% url 'order_detail' order.order_number %}" title="{{ order.order_number }}">
+                                {{ order.order_number | truncatechars:10 }}
+                            </a>
+                        </td>
+                        <td>{{ order.date }}</td>
+                        {% for item in order.lineitems.all %}
+                        {% if item.vehicle %}
+                        <td>
+                            {{ item.vehicle.make | capfirst}} {{ item.vehicle.model | capfirst }}
+                            <br>
+                            {{ item.vehicle.registration | upper }}
+                        </td>
+                        {% endif %}
+                        {% endfor %}
+                        <td>£{{ order.grand_total }}</td>
+                    </tr>
                     {% endfor %}
                     <!-- Accessories Orders md > -->
                     {% for a_order in accessory_orders %}
                     <tr>
                         <td>{{ a_order.order_type | capfirst }}</td>
                         <td>
-                            <a href="{% url 'accessory_order_detail' a_order.order_number %}" title="Order Number: {{ a_order.order_number }}">
+                            <a href="{% url 'accessory_order_detail' a_order.order_number %}"
+                                title="Order Number: {{ a_order.order_number }}">
                                 {{ a_order.order_number | truncatechars:10 }}
                             </a>
                         </td>
                         <td>{{ a_order.date }}</td>
-                                    <td>
-                                        {% for item in a_order.accessorylineitems.all %}
-                                        <p class="m-0">
-                                            {{ item.quantity }} x {{ item.accessory.brand | capfirst }} {{ item.accessory.accessory_type | capfirst }}
-                                        </p>
-                                        {% endfor %}
-                                    </td>
+                        <td>
+                            {% for item in a_order.accessorylineitems.all %}
+                            <p class="m-0">
+                                {{ item.quantity }} x {{ item.accessory.brand | capfirst }}
+                                {{ item.accessory.accessory_type | capfirst }}
+                            </p>
+                            {% endfor %}
+                        </td>
                         <td>£{{ a_order.grand_total }}</td>
                     </tr>
                     {% endfor %}
@@ -112,7 +115,7 @@
                         <p class="my-0 bold">Order Type:</p>
                     </div>
                     <div class="col-6 text-start">
-                        <p  class="my-0">{{ order.order_type | capfirst }}</p>
+                        <p class="my-0">{{ order.order_type | capfirst }}</p>
                     </div>
                 </div>
 
@@ -137,28 +140,28 @@
                 </div>
 
                 {% for item in order.lineitems.all %}
-                        {% if item.vehicle %}
-                            <div class="row">
-                                <div class="col-6 text-end">
-                                    <p class="my-0 bold">Items:</p>
-                                </div>
-                                <div class="col-6 text-start">
-                                    <p class="my-0">
-                                        {{ item.vehicle.make | capfirst}} {{ item.vehicle.model | capfirst }} 
-                                        <br>
-                                        {{ item.vehicle.registration | upper }}
-                                    </p>
-                                </div>
-                            </div>
-                        {% elif item.accessory %}
-                        
-                        {% endif %}
+                {% if item.vehicle %}
+                <div class="row">
+                    <div class="col-6 text-end">
+                        <p class="my-0 bold">Items:</p>
+                    </div>
+                    <div class="col-6 text-start">
+                        <p class="my-0">
+                            {{ item.vehicle.make | capfirst}} {{ item.vehicle.model | capfirst }}
+                            <br>
+                            {{ item.vehicle.registration | upper }}
+                        </p>
+                    </div>
+                </div>
+                {% elif item.accessory %}
+
+                {% endif %}
                 {% endfor %}
 
                 <hr>
 
                 {% endfor %}
-                
+
                 <!-- Accessories -->
 
                 {% for a_order in accessory_orders %}
@@ -167,7 +170,7 @@
                         <p class="my-0 bold">Order Type:</p>
                     </div>
                     <div class="col-6 text-start">
-                        <p  class="my-0">{{ a_order.order_type | capfirst }}</p>
+                        <p class="my-0">{{ a_order.order_type | capfirst }}</p>
                     </div>
                 </div>
 
@@ -176,7 +179,8 @@
                         <p class="my-0 bold">Order Number:</p>
                     </div>
                     <div class="col-6 text-start">
-                        <a href="{% url 'accessory_order_detail' a_order.order_number %}" title="Order Number: {{ a_order.order_number }}">
+                        <a href="{% url 'accessory_order_detail' a_order.order_number %}"
+                            title="Order Number: {{ a_order.order_number }}">
                             {{ a_order.order_number | truncatechars:10 }}
                         </a>
                     </div>
@@ -191,19 +195,20 @@
                     </div>
                 </div>
 
-                
-                    <div class="row">
-                        <div class="col-6 text-end">
-                            <p class="my-0 bold">Items:</p>
-                        </div>
-                        <div class="col-6 text-start">
-                            {% for item in a_order.accessorylineitems.all %}
-                                <p class="my-0">
-                                    {{ item.quantity }} x {{ item.accessory.brand | capfirst }} {{ item.accessory.accessory_type | capfirst }}
-                                </p>
-                            {% endfor %}
-                        </div>
+
+                <div class="row">
+                    <div class="col-6 text-end">
+                        <p class="my-0 bold">Items:</p>
                     </div>
+                    <div class="col-6 text-start">
+                        {% for item in a_order.accessorylineitems.all %}
+                        <p class="my-0">
+                            {{ item.quantity }} x {{ item.accessory.brand | capfirst }}
+                            {{ item.accessory.accessory_type | capfirst }}
+                        </p>
+                        {% endfor %}
+                    </div>
+                </div>
 
                 <hr>
 
@@ -212,13 +217,13 @@
 
             </div>
         </div>
-        </div>
     </div>
+</div>
 </div>
 
 {% endblock %}
 
 {% block postload_js %}
 {{ block.super }}
-    <script src="{% static 'profiles/js/profile.js' %}"></script>
+<script src="{% static 'profiles/js/profile.js' %}"></script>
 {% endblock%}
