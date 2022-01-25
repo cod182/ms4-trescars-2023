@@ -14,9 +14,9 @@ def profile(request):
     user_profile = get_object_or_404(UserProfile, user=request.user)
 
     if request.method == "POST":
-        if "delete-info" in request.GET:
+        if "delete-info" in request.POST:
             form = user_profile_form(request.POST, instance=user_profile)
-            form.delete()
+            form.save()
         else:
             form = user_profile_form(request.POST, instance=user_profile)
             if form.is_valid():
@@ -27,7 +27,7 @@ def profile(request):
 
     form = user_profile_form(instance=user_profile)
     orders = user_profile.orders.all()
-    accessory_orders = user_profile.accessory_orders.all()
+    accessory_orders = user_profile.AccessoryOrders.all()
 
     template = "profiles/profile.html"
     context = {

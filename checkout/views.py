@@ -10,8 +10,13 @@ from accessories.models import Accessory
 from bag.contexts import vehicle_bag_contents, bag_contents
 from profiles.models import UserProfile
 from profiles.forms import user_profile_form
-from .forms import order_form, accessory_order_form
-from .models import Order, order_line_item, accessory_order, accessory_order_line_item
+from .forms import OrderForm, accessory_order_form
+from .models import (
+    Order,
+    vehicle_order_line_item,
+    accessory_order,
+    accessory_order_line_item,
+)
 
 
 def handle_valid_vehicle_order_form(request, order_form, model, bag):
@@ -25,7 +30,7 @@ def handle_valid_vehicle_order_form(request, order_form, model, bag):
         try:
             vehicle = model.objects.get(sku=item_id)
             if isinstance(item_data, int):
-                order_line_item = order_line_item(
+                order_line_item = vehicle_order_line_item(
                     order=order,
                     vehicle=vehicle,
                 )
@@ -80,7 +85,7 @@ def handle_valid_accessory_order_form(request, order_form, MODEL, bag):
 def handle_authenticated_user(requestUser, FORM):
     try:
         profile = UserProfile.objects.get(user=requestUser)
-        order_form = order_form(
+        order_form = FORM(
             initial={
                 "full_name": profile.user.get_full_name(),
                 "email": profile.user.email,
@@ -140,9 +145,9 @@ def handle_adding_user_to_order(request, order, save_info):
             "default_county": order.county,
             "default_country": order.country,
         }
-        user_profile_form = user_profile_form(profile_data, instance=profile)
-        if user_profile_form.is_valid():
-            user_profile_form.save()
+        user_prof_form = user_profile_form(profile_data, instance=profile)
+        if user_prof_form.is_valid():
+            user_prof_form.save()
 
     messages.success(
         request,
@@ -244,8 +249,8 @@ def reserve_vehicle_checkout(request, vehicle):
 
     # Auto fill save info
     if request.user.is_authenticated:
-        order_form = handle_authenticated_user(request.user, order_form)
-    order_form = order_form()
+        order_form = handle_authenticated_user(request.user, OrderForm)
+    order_form = OrderForm()
 
     if request.method == "POST":
         if "reserve_vehicle" in request.POST:
@@ -255,7 +260,7 @@ def reserve_vehicle_checkout(request, vehicle):
         else:
             vehicle_bag = request.session.get("vehicle_bag", {})
 
-            order_form = handle_order_form(request, order_form)
+            order_form = handle_order_form(request, OrderForm)
 
             if order_form.is_valid():
                 order = handle_valid_vehicle_order_form(
@@ -332,7 +337,8 @@ def checkout(request):
     # Auto fill save info
     if request.user.is_authenticated:
         order_form = handle_authenticated_user(request.user, accessory_order_form)
-    order_form = accessory_order_form()
+    else:
+        order_form = accessory_order_form()
 
     if request.method == "POST":
         bag = request.session.get("bag", {})

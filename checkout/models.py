@@ -77,7 +77,7 @@ class Order(models.Model):
         return self.order_number
 
 
-class order_line_item(models.Model):
+class vehicle_order_line_item(models.Model):
     order = models.ForeignKey(
         Order,
         null=False,
@@ -114,7 +114,7 @@ class accessory_order(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="accessoryOrders",
+        related_name="AccessoryOrders",
     )
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)

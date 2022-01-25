@@ -753,6 +753,12 @@ select {
         margin: 0 auto;
     }
 
+    .btn--blue-border {
+        font-weight: bold;
+        width: 90%;
+        margin: 0 auto;
+    }
+
     .allauth-form-inner-content {
         width: 100%;
     }
@@ -773,6 +779,10 @@ select {
     }
 
     .btn--black-border {
+        width: 100%;
+    }
+
+    .btn--blue-border {
         width: 100%;
     }
 

@@ -2,7 +2,7 @@ from django import forms
 from .models import Order, accessory_order
 
 
-class order_form(forms.ModelForm):
+class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = (

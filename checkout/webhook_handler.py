@@ -8,7 +8,12 @@ from django.conf import settings
 from vehicles.models import Vehicle
 from accessories.models import Accessory
 from profiles.models import UserProfile
-from .models import Order, order_line_item, accessory_order, accessory_order_line_item
+from .models import (
+    Order,
+    vehicle_order_line_item,
+    accessory_order,
+    accessory_order_line_item,
+)
 
 
 def save_user_info(profile):
@@ -172,7 +177,7 @@ class StripeWH_Handler:
                             order_items = Vehicle.objects.get(sku=item_id)
 
                             if isinstance(item_data, int):
-                                order_line_item = order_line_item(
+                                order_line_item = vehicle_order_line_item(
                                     order=order,
                                     vehicle=order_items,
                                 )
@@ -183,7 +188,7 @@ class StripeWH_Handler:
                             order_items = Accessory.objects.get(sku=item_id)
 
                             if isinstance(item_data, int):
-                                order_line_item = order_line_item(
+                                order_line_item = vehicle_order_line_item(
                                     order=order,
                                     accessory=order_items,
                                     quantity=item_data,
