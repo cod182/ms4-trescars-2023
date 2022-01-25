@@ -16,20 +16,6 @@ from .models import (
 )
 
 
-def save_user_info(profile):
-
-    profile.default_phone_number = shipping_details.phone
-    profile.default_country = shipping_details.address.country
-    profile.default_postcode = shipping_details.address.postal_code
-    profile.default_town_or_city = shipping_details.address.city
-    profile.default_street_address1 = shipping_details.address.line1
-    profile.default_street_address2 = shipping_details.address.line2
-    profile.default_county = shipping_details.address.state
-    profile.save()
-
-    return profile
-
-
 class StripeWH_Handler:
     """Handles Stripe's Webhooks"""
 
@@ -94,7 +80,14 @@ class StripeWH_Handler:
         if username != "AnonymousUser":
             profile = UserProfile.objects.get(user__username=username)
             if save_info:
-                profile = save_user_info(username)
+                profile.default_phone_number = shipping_details.phone
+                profile.default_country = shipping_details.address.country
+                profile.default_postcode = shipping_details.address.postal_code
+                profile.default_town_or_city = shipping_details.address.city
+                profile.default_street_address1 = shipping_details.address.line1
+                profile.default_street_address2 = shipping_details.address.line2
+                profile.default_county = shipping_details.address.state
+                profile.save()
 
         order_exists = False
         attempt = 1

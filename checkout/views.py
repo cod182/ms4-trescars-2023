@@ -250,7 +250,8 @@ def reserve_vehicle_checkout(request, vehicle):
     # Auto fill save info
     if request.user.is_authenticated:
         order_form = handle_authenticated_user(request.user, OrderForm)
-    order_form = OrderForm()
+    else:
+        order_form = OrderForm()
 
     if request.method == "POST":
         if "reserve_vehicle" in request.POST:
@@ -258,6 +259,7 @@ def reserve_vehicle_checkout(request, vehicle):
             if vehicle_bag == "error":
                 return redirect(reverse("vehicles"))
         else:
+            print(request.POST)
             vehicle_bag = request.session.get("vehicle_bag", {})
 
             order_form = handle_order_form(request, OrderForm)
@@ -280,7 +282,6 @@ def reserve_vehicle_checkout(request, vehicle):
                     "There was an error with your form. \
                     Please double check your information.",
                 )
-
     selected_vehicle = Vehicle.objects.get(sku=vehicle)
     images = VehicleImages.objects.filter(vehicle_name=selected_vehicle)
     current_bag = vehicle_bag_contents(request)
@@ -297,6 +298,7 @@ def reserve_vehicle_checkout(request, vehicle):
         "order_form": order_form,
         "media": settings.MEDIA_URL,
         "images": images,
+        "selected_vehicle": selected_vehicle,
         "stripe_public_key": STRIPE_PUBLIC_KEY,
         "client_secret": intent.client_secret,
     }
