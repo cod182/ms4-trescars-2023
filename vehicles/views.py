@@ -411,7 +411,6 @@ def vehicle_search(request):
         "query_drivetrain": request.GET["vehicle-drivetrain"],
         "query_year": request.GET["vehicle-model-year"],
     }
-    print(query_params["query_price"])
     if Decimal(query_params["query_engine"]) == 0:
         if int(query_params["query_price"]) == 30001:
             if int(query_params["query_mileage"]) == 100001:
@@ -549,10 +548,16 @@ def all_vehicles(request):
             remembered_search = get_remembered_search_dict(request)
 
     paginator = Paginator(vehicles, 24)
+
+    if "window-width" in request.GET:
+        if request.GET["window-width"] < "993":
+            paginator = Paginator(vehicles, 10)
+
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
     context = {
+        "all_vehicles": vehicles,
         "vehicles": page_obj,
         "images": images,
         "search_term": query,

@@ -1,5 +1,7 @@
 let make = document.getElementById('make');
 let model = document.getElementById('model');
+const widthCont = document.getElementById('window-width')
+
 
 function makeEnteredAllowModel() {
     model.removeAttribute('disabled');
@@ -27,3 +29,9 @@ make.addEventListener('change', function () {
         model.classList.remove('greyed');
     }
 });
+
+// As soon as the window is ready
+// puts the window width in the hidden input
+window.addEventListener('load', function () {
+    widthCont.setAttribute('value', window.innerWidth);
+})

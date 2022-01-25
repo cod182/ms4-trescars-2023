@@ -5,6 +5,7 @@ let searchOptions = document.getElementsByClassName('detail-options');
 let storedSearchOption = localStorage.getItem('searchOptions');
 let sortSelector = document.getElementById('sort-selector');
 let deleteVehicleBtn = document.getElementsByClassName('delete-vehicle');
+const widthCont = document.getElementById('window-width')
 
 
 //Checks if hide options is enabled in local storage
@@ -33,7 +34,11 @@ function checkCorrectMakesForModel() {
 
 // As soon as the window is ready, check for the correct makes from model
 // For use when a search is made and window reloads
-window.onload = checkCorrectMakesForModel();
+// puts the window width in the hidden input
+window.addEventListener('load', function () {
+    checkCorrectMakesForModel();
+    widthCont.setAttribute('value', window.innerWidth);
+})
 
 // if make not select, model is disabled
 // if the make is selected, the model option is available

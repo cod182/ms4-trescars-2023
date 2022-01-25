@@ -21,6 +21,8 @@
         <form class="welcome-search-form" action="{% url 'vehicles' %}" method="GET">
             {% csrf_token %}
             <input type="text" class="d-none" name="home-search">
+            <input id="window-width" type="hidden" name="window-width">
+
             <div>
                 <select id="make" class="welcome-search-form-input roboto" name="vehicle-make" autocomplete="off"
                     required>
@@ -71,9 +73,9 @@
         </div>
 
         <div class="quick-links--box quick-link">
-            <p><a class="black" href="{% url 'sendEmail' %}" aria-label="Contact Us Page">Contact
+            <p><a class="black" href="{% url 'send_email' %}" aria-label="Contact Us Page">Contact
                     Us</a></p>
-            <a href="{% url 'sendEmail' %}" aria-label="Contact Us Page">
+            <a href="{% url 'send_email' %}" aria-label="Contact Us Page">
                 <div class="quick-link--image" style="background-image:url('{{ static }}images/contact.webp');">
                 </div>
             </a>

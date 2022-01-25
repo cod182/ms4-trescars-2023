@@ -17,9 +17,10 @@
 <div class="container search-container">
     <a class="btn btn-hide btn-hide--search" id="hide-search">Hide Options</a>
     <div class="row">
-        <form class="" action="{% url 'vehicles' %}" method="POST">
+        <form class="" action="{% url 'vehicles' %}" method="GET">
             {% csrf_token%}
             <input type="text" class="d-none" name="vehicle-detailed-search">
+            <input id="window-width" type="hidden" name="window-width">
             <div class="row">
                 <!-- Vehicel Make Search -->
                 <div class="col-12 col-md-4 m-auto">
@@ -208,7 +209,7 @@
     <div class="row">
         <!-- Number of vehicles found -->
         <div class="col-12 col-md-6">
-            <p>Number of vehicles found: <strong>{{ vehicles | length }}</strong></p>
+            <p>Number of vehicles found: <strong>{{ all_vehicles | length }}</strong></p>
         </div>
         <!-- Sort Vehicles By: -->
         <div class="col-12 col-md-6">
