@@ -500,6 +500,13 @@ AWS_ACCESS_KEY_ID(user), AWS_SECRET_ACCESS_KEY(user), DATABASE_URL(Postgres), DE
 - Your own values for each key will be needed
 # Credits
 
+- Images on home page were provided by [pexels](https://www.pexels.com/) under a free to use licence
+- small icons on the vehicle_details page were provided by [icons-icon](https://icon-icons.com/) under a free to use licence
+- The loading gif on teh checkout page was provided b [acegif](https://acegif.com/) under a free to use licence
+- djangoprojects.com was used for help with a variety of django features. eg. pagination
+- [pypi](https://pypi.org/project/django-mathfilters/) was used for help with mathfilters
+- [Samuel Torimiro's article](https://www.section.io/engineering-education/how-to-send-email-in-django/) was used for help on sending emails with django
+- help on uploading multipel images into table was provided by users on stackoverflow [here](https://stackoverflow.com/questions/34006994/how-to-upload-multiple-images-to-a-blog-post-in-django) and [here](https://stackoverflow.com/questions/60111139/upload-multiple-images-at-once-django)
 ## This project is for educational purposes only
 
 ### Created by Codie Stephens-Evans
