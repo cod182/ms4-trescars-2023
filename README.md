@@ -182,23 +182,55 @@ The site will be set over multiple pages. Users will be able to search for a pur
 - Allows an accessory to be added
 - Allows text information
 - Allows single image upload
+
+## Visual Design
+
+The colour scheme of the site will be <span style="color:#12a3e5">Blue</span>, <span style="color:#ffffff"> White</span>, <span style="color:#000000">Black</span>, <span style="color:#3943B7">Dark Blue</span>
+
+#12a3e5, #FFFFFF, #000000, #3943B7
+
+![colours](static/wireframes/colour-scheme.png)
 ## Features
 
 ### Existing Features
+#### Users
+
+- View all vehicles
+- filter vehicle
+- view a vehicle's information
+- reserve a vehicle
+- search all accessories
+- view accessory categories
+- view an accessory's detail
+- add accessory to basket
+- purchase multiple accessories
+- view their orders in profile
+- delete thir account
+- contact company with query
+#### Admin
+
+- Add a vehicle to the database
+- update a vehicle in the database
+- remove a vehicle from the database
+- Add a accessory to the database
+- update a accessory in the database
+- remove a accessory from the database
 
 ### Features to be implemented
 
-- Service Reminders
-- MOT Reminders
+- Service Reminders on profile page
+- MOT Reminders on profile page
+- order status on profile page
+
 ## Technoogies used
 
 - HTML
     - Font Awesome CDN
 - CSS
-    - Bootstrap
     - Bootstrap (Styling Framework)
 - Javascript
     - Jquery & Vanilla
+    - stripe
 - API
     - DVLA API (getting Vehicle Info)
 - Django (Framework)
@@ -411,7 +443,61 @@ The site will be set over multiple pages. Users will be able to search for a pur
 ## Bugs/Changes During Development
 
 ## Deployment
+During development the DEVELOPMENT variable was set. For deployment the Procfile was set to: web: gunicorn tres_cars.wsgi:application and DEVELOPMENT remove from variables
 
+Deployment of the site was done using Heroku, Postgres and AWS as follows
+
+- Created an account with Heroku
+- Created a New App
+- Gave the App a unique name(tres-cars) and selected a local region
+- Under Deployment method selected Git Hub
+- Under Resoures, Postgres was installed as the database
+- Connected my gitHub account to herku and the selected the correct repo for the site
+- Under Automatic Deploys, the main branch was selected and Enable clicked
+
+For storage, an AWS bucket was used.
+- create an aws account
+- search for s3 service
+- ceate a new bucket:
+    - give name, seclect a close server, uncheck 'block allpublic access'
+    - settings on bucked:
+        - properties: static, used to host a website
+        - permissions
+            - CORS, set config policy
+            - bucket policy, use the policy generater: Type- s3 bucket polic. Allow all principles (*). service- Amazon S3. Action - GetObject
+                - Copy ARN from bucket policy page and enter it in the ARN input
+                - Add statement then generate policy and copy polic into the bucket policy editor
+                - add /* onto the end of the resource key to give access to all resources
+            - Access control list - Public Access: Everyone
+- search for IAM in AWS
+    - create a group with relevant name
+    - click policy then create policy
+        - click JSON tab a click Import managed policy
+        - import AmazonS3FullAccess and click import
+        - change the * to a list, first item the ARN, second the ARN + /*
+        - review policy, give it a name / description and create
+    - go to groups then the new group
+    - click attach policy, search for the policy and attach it.
+    - form the users page, click add user
+    - create a user with programatic access and add them to the new group
+    - Download the CSV files with the users access key / secret access key
+
+- In Heroku, under the settings heading, reveal config vars
+- Keys & Values were entered for:
+
+AWS_ACCESS_KEY_ID(user), AWS_SECRET_ACCESS_KEY(user), DATABASE_URL(Postgres), DEFAULT_FROM_EMAIL, DEFAULT_RECEIVING_EMAIL, DVLA_API_KEY, EMAIL_HOST_PASS, EMAIL_HOST_USER, SECRET_KEY, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY, STRIPE_WH_SECRET, USE_AWS(TRUE)
+
+- Once all keys and value are entered the variables are set up
+- When branches are merged into main, the latest app will be deployed
+
+- To Clone the repo, go to [Repo](https://github.com/cod182/Milestone-Project-4)
+- Click Code
+- Choose either option:
+- Open with GitHub Desktop
+- Download as Zip
+- You can now open the project in a IDE or host to a server
+- Alternativly you can follow the steps above to deploy the app on Heroku with postgres and AWS
+- Your own values for each key will be needed
 # Credits
 
 ## This project is for educational purposes only
