@@ -721,6 +721,11 @@ select {
     text-align: left;
 }
 
+.error-page-image {
+    height: 50vh;
+    width: fit-content;
+}
+
 @media (max-width: 991px) {
     .nav-item {
         line-height: 0;

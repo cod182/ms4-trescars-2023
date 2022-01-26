@@ -503,6 +503,7 @@ AWS_ACCESS_KEY_ID(user), AWS_SECRET_ACCESS_KEY(user), DATABASE_URL(Postgres), DE
 - Images on home page were provided by [pexels](https://www.pexels.com/) under a free to use licence
 - small icons on the vehicle_details page were provided by [icons-icon](https://icon-icons.com/) under a free to use licence
 - The loading gif on teh checkout page was provided b [acegif](https://acegif.com/) under a free to use licence
+- The image from the e404 error page was from [flaticon](https://www.flaticon.com/free-icon/car-breakdown_814412)
 - djangoprojects.com was used for help with a variety of django features. eg. pagination
 - [pypi](https://pypi.org/project/django-mathfilters/) was used for help with mathfilters
 - [Samuel Torimiro's article](https://www.section.io/engineering-education/how-to-send-email-in-django/) was used for help on sending emails with django

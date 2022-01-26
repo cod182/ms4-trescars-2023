@@ -17,18 +17,22 @@
 {% endblock %}
 
 {% block content %}
-<div class="container my-auto">
+<div class="container my-auto text-center">
     <div class="row">
-        <div class="col-6">
+        <div class="col-12">
+            {{RequestContext}}
+            {% for x in RequestContext %}
+            {{x}}
+            {% endfor %}
+            <p class="bold">404</p>
             <h2>
-                Oh No! Engine Issues!
+                Oh No! Engine Troubles!
             </h2>
         </div>
         <div class="col-12 mx-auto">
-            <img class="error-page-image" src="{{static}}images/car-breakdown.png" alt="Error Image">
+            <img class="error-page-image" src="{% static 'images/car-breakdown.png' %}" alt="Error Image">
         </div>
-        <h3>We've called for recovery!</h3>
-        <a href="{% url 'home' %}"></a>
+        <a href="{% url 'home' %}" class="btn btn-lg btn--blue-border mx-auto">Click Here for Recovery</a>
     </div>
 </div>
 {% endblock %}
