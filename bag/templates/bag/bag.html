@@ -56,7 +56,8 @@
                                         <input class="form-control form-control-sm qty_input" type="number"
                                             name="quantity" value="{{ item.quantity }}" min="1"
                                             max="{{ item.accessory.quantity_available }}"
-                                            data-item_id="{{ item.accessory.sku }}" id="id_qty">
+                                            data-item_id="{{ item.accessory.sku }}" id="id_qty"
+                                            aria-label="Quantity selector">
                                     </div>
                                 </div>
                             </form>
@@ -72,8 +73,7 @@
                 </table>
 
                 <td col-6 class="text-right">
-                    <h6><strong>Total: £{{ total|floatformat:2 }}</strong></h6>
-                    <h4 class="mt-4"><strong>Grand Total: £{{ grand_total|floatformat:2 }}</strong></h4>
+                    <p class="fs-4 mt-4"><strong>Grand Total: £{{ grand_total|floatformat:2 }}</strong></p>
 
                     <a href="{% url 'accessories' %}" class="btn btn--black-border mt-2">
                         <span class="icon">
