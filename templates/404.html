@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_title %}
+- 404 Error
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'management/css/management.css' %}">
+{% endblock %}
+
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container my-auto">
+    <div class="row">
+        <div class="col-6">
+            <h2>
+                Oh No! Engine Issues!
+            </h2>
+        </div>
+        <div class="col-12 mx-auto">
+            <img class="error-page-image" src="{{static}}images/car-breakdown.png" alt="Error Image">
+        </div>
+        <h3>We've called for recovery!</h3>
+        <a href="{% url 'home' %}"></a>
+    </div>
+</div>
+{% endblock %}
