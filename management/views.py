@@ -163,6 +163,17 @@ def get_form_data(request):
     return form_data
 
 
+def check_if_vehicle_in_database(request):
+    """
+    Check if the vehicle is already in the database via the sku
+    """
+    sku = request.POST["registration"].replace(" ", "").lower()
+    vehicle = Vehicle.objects.filter(sku=sku)
+    if len(vehicle) >= 1:
+        return True
+    return False
+
+
 def get_form_update_data(request):
     form_data = {
         "sku": request.POST["registration"].replace(" ", "").lower(),
@@ -232,6 +243,10 @@ def add_vehicle(request):
 
     if request.method == "POST":
         form_data = get_form_data(request)
+        check = check_if_vehicle_in_database(request)
+        if check:
+            messages.error(request, "Vehicle already in Database")
+            return redirect(reverse("add_vehicle"))
         form = vehicle_form(form_data)
         image_form = vehicle_images_form(request.FILES)
 
