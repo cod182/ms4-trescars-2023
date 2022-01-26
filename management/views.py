@@ -48,56 +48,70 @@ def handle_delete_images(request):
                     image_id = None
 
 
+def handle_if_image_main(p_list, main, id_key):
+    """
+    if main is true starts functioin
+    sets id to the value of the id_key
+    save the image object as main
+    """
+    for k, v in p_list.items():
+        if id_key in k:
+            image_id = v
+
+            obj = VehicleImages.objects.get(pk=image_id)
+            obj.main = main
+            obj.save()
+
+            image_id = None
+            main = False
+
+
+def handle_if_image_not_main(key, main, value):
+    """
+    if main is false starts function
+    if 'id' isn't in the key
+    set the value to imgid and save false to image object
+    """
+    if "id" in key:
+        imgId = value
+        obj = VehicleImages.objects.get(pk=imgId)
+        obj.main = main
+        obj.save()
+        imgId = None
+
+
 def handle_main_image_checked(request):
     """
-    -takes request.post, get any vehicleimages refrneces and put them in
+    -takes request.post, get any vehicleimages references and put them in
     a list.
     - iterates list for 'main', sets it true.
     - get's string from main and iterates for id. get's id
-    - submites id to VehicelImages to get image
+    - submites id to VehicleImages to get image
     - set's main to true and saves
     - if main doesn't exist with id, gets image and sets main false
     """
     p_list = dict()
+
+    main = False
+    id_key = ""
+    p = ""
 
     for x in request:
         if "vehicleimages" in x:
             if request[x] != "":
                 p_list[x] = request[x]
 
-    image_id = None
-    main = False
-    id_key = ""
-    p = ""
-
     for key, value in p_list.items():
-
         if "main" in key:
             main = True
-
             p = key.split("-main")[0]
             id_key = p + "-id"
 
-            for k, v in p_list.items():
-                if id_key in k:
-                    image_id = v
-
-                    obj = VehicleImages.objects.get(pk=image_id)
-                    obj.main = main
-                    obj.save()
-
-                    image_id = None
-                    main = False
+            handle_if_image_main(p_list, main, id_key)
 
         if key != id_key:
-            if "id" in key:
-                main = False
-                imgId = value
-                obj = VehicleImages.objects.get(pk=imgId)
-                obj.main = main
-                obj.save()
-
-                imgId = None
+            handle_if_image_not_main(key, main, value)
+            main = False
 
 
 def handle_images_upload(requestFiles, requestPost, form_data, vehicle, FROM):
@@ -223,6 +237,25 @@ def get_accessory_form_data(request):
         "description": request.POST["description"].lower(),
     }
     return form_data
+
+
+def check_if_accessory_in_database(request):
+    """
+    Check if the accessory is already in the database via the sku
+    """
+    sku = (
+        request.POST["brand"].replace(" ", "-").lower()
+        + "-"
+        + request.POST["accessory_type"].replace(" ", "-").lower()
+        + "-"
+        + request.POST["vehicle_model"].replace(" ", "-").lower()
+        + "-"
+        + str(datetime.datetime.now().year)
+    )
+    accessory = Accessory.objects.filter(sku=sku)
+    if len(accessory) >= 1:
+        return True
+    return False
 
 
 @login_required
@@ -358,7 +391,10 @@ def add_accessory(request):
 
     if request.method == "POST":
         form_data = get_accessory_form_data(request)
-
+        check = check_if_accessory_in_database(request)
+        if check:
+            messages.error(request, "Accessory already in Database")
+            return redirect(reverse("add_accessory"))
         form = accessory_form(form_data, request.FILES)
         if form.is_valid():
             messages.success(request, "Sucsessfully added product!")
