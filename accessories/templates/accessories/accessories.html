@@ -22,7 +22,7 @@
                 <div class="input-group mx-auto">
                     <input class="form-control" type="text" name="q" placeholder="Search for accessories">
                     <div class="input-group-append">
-                        <button class="form-control btn btn--border-black" type="submit">
+                        <button class="form-control btn btn--border-black" type="submit" aria-label="Search Button">
                             <span class="icon">
                                 <i class="fas fa-search"></i>
                             </span>
@@ -43,7 +43,8 @@
             <p class="quick-link--a"><a class="white"
                     href="{% url 'accessories_search' %}?category={{ category.name }}">{{ category.friendly_name }}</a>
             </p>
-            <a href="{% url 'accessories_search' %}?category={{ category.name }}">
+            <a href="{% url 'accessories_search' %}?category={{ category.name }}"
+                aria-label="Link to {{ category.name }} category">
                 <div class="quick-link--image" style="background-image:url('{{ media }}{{ category.image }}');">
                 </div>
             </a>
