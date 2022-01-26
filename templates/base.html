@@ -6,8 +6,11 @@
 <head>
     {% block meta %}
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="description" content="Cars for every budget">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Codie Stephens-Evans">
     {% endblock %}
 
     {% block extra_meta %}
@@ -16,7 +19,6 @@
     {% block corecss %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% endblock %}
 
@@ -24,8 +26,6 @@
     {% endblock %}
 
     {% block corejs %}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script defer src="https://kit.fontawesome.com/e9c73d7092.js" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
@@ -74,7 +74,7 @@
 
                         <li class="nav-item">
                             <a class="navbar-brand d-none d-lg-inline mx-auto" href="{% url 'home' %}">
-                                <img class="nav-logo" src="{% static 'images/logo.png' %}" alt="Très Cars Logo">
+                                <img class="nav-logo" src="{% static 'images/logo.webp' %}" alt="Très Cars Logo">
                             </a>
                         </li>
 
@@ -165,7 +165,7 @@
         <div class="row mt-1">
             <div class="col-6 col-sm-2 footer-logo-container">
                 <a class="" href="#">
-                    <img class="footer-logo" src="{% static 'images/logo.png' %}" alt="Très Cars Logo">
+                    <img class="footer-logo" src="{% static 'images/logo.webp' %}" alt="Très Cars Logo">
                 </a>
             </div>
 

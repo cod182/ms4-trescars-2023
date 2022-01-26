@@ -82,8 +82,9 @@ body {
 
 .btn-hide {
     background-color: #12a3e5;
-    color: white;
+    color: black;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .btn-hide:hover,
@@ -337,8 +338,7 @@ body {
 
 .nav-logo {
     height: 70px;
-    width: fit-content;
-    width: auto;
+    width: 86px;
 }
 
 .navbar-nav {
@@ -392,7 +392,7 @@ body {
 
 .footer-logo {
     height: 40px;
-    width: auto;
+    width: fit-content;
 }
 
 .footer-links-container {
@@ -804,6 +804,8 @@ select {
         border-radius: 10px;
         text-align: center;
         position: static;
-        margin: auto;
+        margin: 40px auto;
+        height: fit-content;
+        padding: 10px;
     }
 }

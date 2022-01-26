@@ -442,6 +442,12 @@ The colour scheme of the site will be <span style="color:#12a3e5">Blue</span>, <
 
 ## Bugs/Changes During Development
 
+- sort wasn't working for sort
+    - sort option wasn't defined. Fixed
+- Stripe payment pane wasn't appearing
+    - JS was defered
+- Vehicle inputs wrong colour on mobile
+    - Had to override defaul a link colour
 ## Deployment
 During development the DEVELOPMENT variable was set. For deployment the Procfile was set to: web: gunicorn tres_cars.wsgi:application and DEVELOPMENT remove from variables
 

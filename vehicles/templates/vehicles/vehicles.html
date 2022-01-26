@@ -236,7 +236,8 @@
         {% if vehicles %}
         {% for vehicle in vehicles %}
         <div class="col-md-12 col-lg-3">
-            <a href="{% url 'vehicle_detail' vehicle.sku %}" class="btn--vehicle-detail">
+            <a href="{% url 'vehicle_detail' vehicle.sku %}" class="btn--vehicle-detail"
+                aria-label="To vehicle detail page for {{ vehicle.name }}">
                 <div class="vehicle-container">
                     <div class="row">
                         {% if vehicle.available == 'yes' %}
@@ -283,9 +284,10 @@
                             </div>
                             <div class="vehicle-info">
                                 {% if request.user.is_superuser %}
-                                <small class="ml-3">
-                                    <a href="{% url 'update_vehicle' vehicle.sku %}">Update</a> |
-                                    <a class="text-danger delete-vehicle"
+                                <small class="ml-3 ">
+                                    <a class="update-link" href="{% url 'update_vehicle' vehicle.sku %}">Update</a>
+                                    |
+                                    <a class="delete-link delete-vehicle"
                                         href="{% url 'delete_vehicle' vehicle.sku %}">Delete</a>
                                 </small>
                                 {% endif %}
