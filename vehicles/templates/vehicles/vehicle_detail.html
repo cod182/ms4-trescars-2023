@@ -35,7 +35,8 @@
 
             <button {% if vehicle.available != 'yes' %} disabled {% endif %}class="btn btn--reserve-now"
                 type="submit">{% if vehicle.available == 'yes' %} Reserve Now! {% else %} Sorry, you've missed it!
-                {% endif %}</button>
+                {% endif %}
+            </button>
         </form>
     </div>
 
@@ -71,7 +72,7 @@
 
             </div>
             <div class="row">
-                <div class="col-12 d-lg-inline text-center mt-2">
+                <div class="col-12 d-none d-lg-inline text-center mt-2">
                     <a href="{% url 'send_email' vehicle.sku %}" class="btn btn--black-border w-100">Contact us about
                         {{ vehicle.registration | upper }}</a>
                 </div>
@@ -225,15 +226,17 @@
 
             <div class="row d-lg-none gx-0">
                 <div class="col-12 col-md-6 text-center">
-                    <form class="form" action="{% url 'reserve_vehicle_checkout' vehicle.sku %}" method="get">
+                    <form class="form" action="{% url 'reserve_vehicle_checkout' vehicle.sku %}" method="POST">
                         {% csrf_token %}
-
+                        <input type="text" class="d-none" name="reserve_vehicle">
                         <input class="hidden qty_input" type="number" name="quantity" value="1" min="1" max="1"
                             data-item_id="{{ vehicle.sku }}">
 
                         <button {% if vehicle.available != 'yes' %} disabled {% endif %}class="btn btn--reserve-now"
                             type="submit">{% if vehicle.available == 'yes' %} Reserve Now! {% else %} Sorry, you've
-                            missed it! {% endif %}</button>
+                            missed it!
+                            {% endif %}
+                        </button>
                     </form>
                 </div>
 

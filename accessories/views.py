@@ -111,7 +111,7 @@ def accessory_detail(request, accessory_sku):
     """
     displayes the requested accessory
     """
-
+    print(accessory_sku)
     accessory = Accessory.objects.get(sku=accessory_sku)
 
     template = "accessories/accessory_detail.html"

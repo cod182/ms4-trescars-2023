@@ -28,7 +28,6 @@ if (taxContaienr) {
         .innerHTML); // Changes the date from DB format to readable for Tax date
 }
 
-console.log(deleteVehicleBtn)
 // initial click prevents delete button from working and changes
 // text to 'are you sure?
 // second click completes button funciton

@@ -397,6 +397,7 @@ def add_accessory(request):
             return redirect(reverse("add_accessory"))
         form = accessory_form(form_data, request.FILES)
         if form.is_valid():
+            form.save()
             messages.success(request, "Sucsessfully added product!")
             return redirect(reverse("accessory_detail", args=[form_data["sku"]]))
         else:

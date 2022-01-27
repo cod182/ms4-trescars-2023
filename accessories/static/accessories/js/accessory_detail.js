@@ -1,6 +1,6 @@
 let decremntbtn = document.getElementById('decrement-qty');
 let incrementbtn = document.getElementById('increment-qty');
-
+let deleteVehicleBtn = document.getElementById('delete-vehicle');
 let qtyCont = document.getElementById('id_qty');
 
 // when minus button clicked, checks if value of qty is less than 2
@@ -69,3 +69,17 @@ $('.decrement-qty').click(function (e) {
     $(closestInput).val(currentValue - 1);
     var itemId = $(this).data('item_id');
 });
+
+// initial click prevents delete button from working and changes
+// text to 'are you sure?
+// second click completes button funciton
+if (deleteVehicleBtn != null) {
+    deleteVehicleBtn.addEventListener('click', function (event) {
+        if (deleteVehicleBtn.innerText == "Are Your Sure?") {
+            deleteVehicleBtn.innerText = "Delete";
+        } else {
+            event.preventDefault();
+            deleteVehicleBtn.innerText = "Are Your Sure?";
+        }
+    });
+}
