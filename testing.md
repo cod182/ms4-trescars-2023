@@ -100,15 +100,13 @@
 - confirmation to delete on accessory page not active
 ---
 ### iPhone XR 414x896
-
-
----
-### iPhone 12 390x844
-
+- No issues
 
 ---
 ### iPad mini 768x1024
 
+- vehicle reserve page, complete button to the left
+- Price not on acessory detail
 
 ---
 ### iPad Air 820x1180

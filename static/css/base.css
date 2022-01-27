@@ -772,6 +772,10 @@ select {
         width: 90%;
         margin-bottom: 10px;
     }
+
+    .btn--complete-order {
+        width: 100%;
+    }
 }
 
 @media (max-width: 767px) {
