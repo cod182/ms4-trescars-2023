@@ -432,7 +432,8 @@ The colour scheme of the site will be <span style="color:#12a3e5">Blue</span>, <
     - Pass
 
 ### Lighthouse Results
-#### Admin Pages
+
+The lighthouse results can be found [Here](testing.md)
 
 
 ## Testing Results
