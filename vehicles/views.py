@@ -550,7 +550,7 @@ def all_vehicles(request):
     paginator = Paginator(vehicles, 24)
 
     if "window-width" in request.GET:
-        if request.GET["window-width"] < "993":
+        if int(request.GET["window-width"]) < 993:
             paginator = Paginator(vehicles, 10)
 
     page_number = request.GET.get("page")
