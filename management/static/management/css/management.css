@@ -33,3 +33,10 @@
 [type=radio]:checked+img {
     border: 3px solid green;
 }
+
+.current-accessory-img {
+    max-width: 200px;
+    min-width: 50px;
+    max-height: 200px;
+    min-height: 50px;
+}

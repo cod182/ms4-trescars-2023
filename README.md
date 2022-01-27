@@ -13,7 +13,7 @@ A deployed link to the site can be found on Heroku [here](https://tres-cars.hero
 
 ## User Stories
 
-|Sotry ID|As A/An|I want to be able to|So That I can|
+|Story ID|As A/An|I want to be able to|So That I can|
 |-----|-----|-----|----|
 | Viewing and Navigation|
 |1| Shopper | View all vehicles for sale | Find an appropriate vehicle |
@@ -47,21 +47,21 @@ A deployed link to the site can be found on Heroku [here](https://tres-cars.hero
 ### User Needs
 
 A user needs to be able to easily see what the website offers. This will be done via the landing page of the site.
-Each aspect of the page will be displayed easily for a used. all information will be easily accesible.
+Each aspect of the page will be displayed easily for a used. all information will be easily accessible.
 
-A user needs to be able to purchase a vehilce or accessories with ease and in as fewer steps as possible.
+A user needs to be able to purchase a vehicle or accessories with ease and in as fewer steps as possible.
 
 ### Technical Capabilities
 
 It is possible to create this site efficiently using the bootstrap and Django frameworks as well as the HTML/CSS/Javascript/Python and heroku for deployment and postgres of a database. The DVLA API will also be used for getting extra information on vehicles added to the database.
 ### Business Vision
 
-Offer a wide variety of vehicles, from older vehicles to brand new ones and pices from affordably to luxury. THe site will also offer accessories for specific of all vehicles
+Offer a wide variety of vehicles, from older vehicles to brand new ones and prices from affordable to luxury. THe site will also offer accessories for specific of all vehicles
 ## Scope
 
-The site will quickly show what it's purpose is for a user. From the home page users will be ale to enact a somple vehicle search with a mode detail search to follow.
+The site will quickly show what it's purpose is for a user. From the home page users will be ale to enact a simple vehicle search with a mode detail search to follow.
 
-Informaiton about the site can be found lower down on the home page, along with contact informaitn and a location. The site will be easy to navigate and 
+Information about the site can be found lower down on the home page, along with contact information and a location. The site will be easy to navigate and 
 The site will include an about section detailing what the site does and what a user can gain from it. It will be easy to enact a search and read the results. All information will be clearly laid out and easy to understand at a glance
 
 ## Structure
@@ -69,11 +69,11 @@ The site will include an about section detailing what the site does and what a u
 - The site will be detailed but simply laid out, cover 20 pages in total with pages generated when clicked on.
 - navigation will give quick access to the main features of the site
 - Site pages 
-    - Home, Returns, Login, Logout, Vehicle Search, Vehicle Details, Accessory Select, accessory search, accesssory detail
+    - Home, Returns, Login, Logout, Vehicle Search, Vehicle Details, Accessory Select, accessory search, accessory detail
     - Bag, Vehicle Checkout, Checkout, Checkout success, Profile, Management Home, Add Vehicle, Update Vehicle
     - Add Accessory, Update Accessory, contact Page
-- A user will be able to quickly search for a vehicel fomr the home page, or run a more detail search from the vehicle search page. They will be able to select a type of accesory via the accessoeis link in the nav bar.
-- Users can create a profil where purchases and account details can be stored
+- A user will be able to quickly search for a vehicel form the home page, or run a more detail search from the vehicle search page. They will be able to select a type of accessory via the accessories link in the nav bar.
+- Users can create a profile where purchases and account details can be stored
 - An admin panel will be accesiable by admin users to allow for Adding/Updating Vehicles & accessories
 ## Skeleton
 
@@ -83,7 +83,7 @@ The site will include an about section detailing what the site does and what a u
 - [Tablet ≥768px](static/wireframes/md.png)
 - [Desktop ≥1400px](static/wireframes/lg.png)
 
-### Databse Schema
+### Database Schema
 
 - [Schema](static/wireframes/database_schema.png)
 
@@ -94,7 +94,7 @@ The site will be set over multiple pages. Users will be able to search for a pur
 ## Visual Design
 ### Home
 
-- The page will contiane a quick simple search for a vehicle
+- The page will contain a quick simple search for a vehicle
 - An introduction and information panes wil lbe displayed futher down the page.
 
 ### Returns Page
@@ -109,7 +109,7 @@ The site will be set over multiple pages. Users will be able to search for a pur
 
 - Linked to via the quick search and more options on the home page or via the New Search button in the header
 - Without a search, contains all the vehicles on the site, with a search, displayed the matching vehicles.
-- Able to filter vehicels by pre-defined search parameters.
+- Able to filter vehicles by pre-defined search parameters.
 - Sort the returned vehicles
 
 ### Vehicle Detail Page
@@ -122,7 +122,7 @@ The site will be set over multiple pages. Users will be able to search for a pur
 ### Vehicle Reserve Page
 
 - Can only take 1 vehicle at a time
-- Enter user data, or prefilled if user logged in with saved data
+- Enter user data, or pre-filled if user logged in with saved data
 - Enter payment details and reserve vehicle
 - Confirmation mail sent to customer
 - Info email sent to company
@@ -136,7 +136,7 @@ The site will be set over multiple pages. Users will be able to search for a pur
 ### Accessories Search Page
 
 - displays all accessories available for the category
-- Accessoeis can be sorted
+- Accessories can be sorted
 - Search box available to search by term
 - if an admin, accessories can be updated / deleted
 ### Accessory Detail Page
@@ -149,11 +149,11 @@ The site will be set over multiple pages. Users will be able to search for a pur
 ### Bag Page
 
 - Displays all the accessories currently in the bag
-- Link to more accessoeis
+- Link to more accessories
 - Link to the secure checkout page
 ### Acessories Checkout Page
 
-- Enter user data, or prefilled if user logged in with saved data
+- Enter user data, or pre-filled if user logged in with saved data
 - Enter payment details and complete order
 - Confirmation mail sent to customer
 - Info email sent to company
@@ -168,7 +168,7 @@ The site will be set over multiple pages. Users will be able to search for a pur
 
 - Allows a vehicle to be added
 - Allows text information
-- Allows multi image upload with requirment to select a main image
+- Allows multi image upload with the requirement to select a main image
 
 ### Update a vehicle
 
@@ -205,7 +205,7 @@ The colour scheme of the site will be <span style="color:#12a3e5">Blue</span>, <
 - add accessory to basket
 - purchase multiple accessories
 - view their orders in profile
-- delete thir account
+- delete their account
 - contact company with query
 #### Admin
 
@@ -222,7 +222,7 @@ The colour scheme of the site will be <span style="color:#12a3e5">Blue</span>, <
 - MOT Reminders on profile page
 - order status on profile page
 
-## Technoogies used
+## Technologies used
 
 - HTML
     - Font Awesome CDN
@@ -245,7 +245,7 @@ The colour scheme of the site will be <span style="color:#12a3e5">Blue</span>, <
 
 - Testing the HTML code was tested by generating a page and copying the HTML/url into the [W3C](https://validator.w3.org/) HTML Validator
 - Testing the CSS was tested with the [W3C](https://jigsaw.w3.org/css-validator/validator) validator
-- Tesing Javascript was tested with [Beautify Tools](https://beautifytools.com/javascript-validator.php)
+- Testing Javascript was tested with [Beautify Tools](https://beautifytools.com/javascript-validator.php)
 - Testing Python was tested with [Python Tester](https://extendsclass.com/python-tester.html)
 
 ### HTML5 
@@ -259,7 +259,7 @@ The colour scheme of the site will be <span style="color:#12a3e5">Blue</span>, <
 - vehicles.html
     - removed unused attributes from select elements
     - Passed
-- vehicle_detial.html
+- vehicle_detail.html
     - Passed
 - reserve_vehicle_checkout.html
     - Own Code Passes
@@ -274,7 +274,7 @@ The colour scheme of the site will be <span style="color:#12a3e5">Blue</span>, <
     - added action to search form to conform
     - Passed
 - accessories_detail.html
-    - Removed usused heading
+    - Removed unused heading
     - changed the way js adds disabled attribute
     - Passed
 - bag.html
@@ -289,7 +289,7 @@ The colour scheme of the site will be <span style="color:#12a3e5">Blue</span>, <
 #### Admin
 
 - home.html
-    - correct a patagraph in a span
+    - correct a paragraph in a span
     - Passed
 - add_vehicle.html
     - removed placeholder from select elements
@@ -440,12 +440,16 @@ The colour scheme of the site will be <span style="color:#12a3e5">Blue</span>, <
 
 ### Bugs that occured
 
+- the loading gif for checkout was causing loading issues with the page.
+    - converted to WebM/mp4 and used video element
+- home button on login / register page mis-sized on mobile
+    - added media query for correct sizing
 ## Bugs/Changes During Development
 
 - sort wasn't working for sort
     - sort option wasn't defined. Fixed
 - Stripe payment pane wasn't appearing
-    - JS was defered
+    - JS was deferred
 - Vehicle inputs wrong colour on mobile
     - Had to override defaul a link colour
 ## Deployment
@@ -457,22 +461,22 @@ Deployment of the site was done using Heroku, Postgres and AWS as follows
 - Created a New App
 - Gave the App a unique name(tres-cars) and selected a local region
 - Under Deployment method selected Git Hub
-- Under Resoures, Postgres was installed as the database
+- Under Resources, Postgres was installed as the database
 - Connected my gitHub account to herku and the selected the correct repo for the site
 - Under Automatic Deploys, the main branch was selected and Enable clicked
 
 For storage, an AWS bucket was used.
 - create an aws account
 - search for s3 service
-- ceate a new bucket:
-    - give name, seclect a close server, uncheck 'block allpublic access'
+- create a new bucket:
+    - give name, select a close server, uncheck 'block all public access'
     - settings on bucked:
         - properties: static, used to host a website
         - permissions
             - CORS, set config policy
-            - bucket policy, use the policy generater: Type- s3 bucket polic. Allow all principles (*). service- Amazon S3. Action - GetObject
+            - bucket policy, use the policy generator: Type- s3 bucket policy. Allow all principles (*). service- Amazon S3. Action - GetObject
                 - Copy ARN from bucket policy page and enter it in the ARN input
-                - Add statement then generate policy and copy polic into the bucket policy editor
+                - Add statement then generate policy and copy policy into the bucket policy editor
                 - add /* onto the end of the resource key to give access to all resources
             - Access control list - Public Access: Everyone
 - search for IAM in AWS
@@ -485,7 +489,7 @@ For storage, an AWS bucket was used.
     - go to groups then the new group
     - click attach policy, search for the policy and attach it.
     - form the users page, click add user
-    - create a user with programatic access and add them to the new group
+    - create a user with programmatic access and add them to the new group
     - Download the CSV files with the users access key / secret access key
 
 - In Heroku, under the settings heading, reveal config vars
@@ -502,7 +506,7 @@ AWS_ACCESS_KEY_ID(user), AWS_SECRET_ACCESS_KEY(user), DATABASE_URL(Postgres), DE
 - Open with GitHub Desktop
 - Download as Zip
 - You can now open the project in a IDE or host to a server
-- Alternativly you can follow the steps above to deploy the app on Heroku with postgres and AWS
+- Alternatively you can follow the steps above to deploy the app on Heroku with postgres and AWS
 - Your own values for each key will be needed
 # Credits
 

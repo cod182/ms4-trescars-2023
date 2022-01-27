@@ -1,7 +1,7 @@
 {% if widget.is_initial %}
 <p>{{ widget.initial_text }}: </p>
 <a href="{{ widget.value.url }}">
-    <img width="86" height="96" class="rounded shadow-sm" src="{{ widget.value.url }}" alt="current image">
+    <img class="current-accessory-img" src="{{ widget.value.url }}" alt="current image">
 </a>
 {% if not widget.required %}
 <div class="custom-control custom-checkbox mt-2">
@@ -11,7 +11,6 @@
         for="{{ widget.checkbox_id }}">{{ widget.clear_checkbox_label }}</label>
 </div>
 {% endif %}<br>
-{{ widget.input_text }}:
 {% endif %}
 <span class="btn btn-blue btn-file">
     Select Image<input id="new-image" type="{{ widget.type }}" name="{{ widget.name }}"

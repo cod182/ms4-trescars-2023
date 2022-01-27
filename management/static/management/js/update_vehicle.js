@@ -2,7 +2,12 @@ let currImgCont = document.getElementsByClassName('current_image');
 let main_list = 0;
 let submitBtn = document.getElementById('updateBtnVehicle');
 let messageCont = document.getElementById('warning-message');
+let selectImgBtn = document.getElementById('new-image');
 
+// adds an aria label to the image upload button
+window.addEventListener('load', function () {
+    selectImgBtn.setAttribute('aria-label', 'Upload images button');
+});
 
 // Goes through all current image containers
 for (let x = 0; x < currImgCont.length; x++) {

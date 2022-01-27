@@ -767,6 +767,11 @@ select {
     .allauth-form-inner-content {
         width: 100%;
     }
+
+    .btn--black-border--home {
+        width: 90%;
+        margin-bottom: 10px;
+    }
 }
 
 @media (max-width: 767px) {

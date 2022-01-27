@@ -3,6 +3,11 @@ let imgContainer = document.getElementById('upload-image-container');
 let img = document.createElement('img'); // creates and image
 let removeBtn = document.createElement('a');
 
+// adds an aria label to the image upload button
+window.addEventListener('load', function () {
+    newImg.setAttribute('aria-label', 'Upload images button');
+});
+
 // on select image button change, get the image from files and display it
 newImg.addEventListener('change', function () {
     imgContainer.innerHTML = '';

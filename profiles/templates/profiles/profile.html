@@ -23,7 +23,7 @@
     <div class="row profile-saved-info">
         <a id="hide-profile-info" class="btn btn-hide">Hide Info</a>
         <div class="mx-auto col-12 col-md-8 col-lg-6 my-3" id="profile-info">
-            <h6>Default Information:</h6>
+            <p class="bold">Default Information:</p>
             <form action="{% url 'profile' %}" method="post">
                 {% csrf_token %}
                 {{ form | crispy }}
@@ -41,7 +41,7 @@
     <div class="row profile-previous-orders">
         <div class="row">
             <div class="mx-auto col-12 col-md-8 col-lg-8 mt-3 text-center">
-                <h5>Previous Orders:</h5>
+                <p class="bold">Previous Orders:</p>
             </div>
         </div>
 

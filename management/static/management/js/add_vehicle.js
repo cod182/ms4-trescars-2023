@@ -1,5 +1,10 @@
 let imgsContainer = document.getElementById('images-container');
+let selectImgBtn = document.getElementById('new-image');
 
+// adds an aria label to the image upload button
+window.addEventListener('load', function () {
+    selectImgBtn.setAttribute('aria-label', 'Upload images button');
+});
 
 // called by click on image upload
 let loadFile = function (event) {
