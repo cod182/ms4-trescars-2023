@@ -100,7 +100,7 @@
 - confirmation to delete on accessory page not active
 ---
 ### iPhone XR 414x896
-- No issues
+- No issues found
 
 ---
 ### iPad mini 768x1024
@@ -109,25 +109,29 @@
 - Price not on acessory detail
 
 ---
-### iPad Air 820x1180
-
+### iPad Air 820x1180]
+- No issues found
 ---
 ## Handheld Device Realworld Testing - Testing Log
 ---
 ### iPhone 13 Pro Max (Safari)
 
+- No issues found
 ### iPhone 13 Pro Max (Chrome)
 
+- No issues found
 ---
 ### iPhone 12 Pro (Safari)
 
-
+- No issues found
 ---
 ### iPad Pro 11" (Safari)
 
+- No Issues found
 ---
 ### Samsung A40 (Chrome)
 
+- No Issues found
 ---
 ## Screen Testing - Testing Log
 ---

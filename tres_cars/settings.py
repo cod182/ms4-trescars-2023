@@ -13,7 +13,7 @@ DEBUG = "DEVELOPMENT" in os.environ
 ALLOWED_HOSTS = ["tres-cars.herokuapp.com", "localhost"]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://8000-cod182-milestoneprojec-y5d0t887ajh.ws-eu29.gitpod.io",
+    "https://8000-cod182-milestoneprojec-s6h3jc5x7dc.ws-eu29.gitpod.io",
     "https://tres-cars.herokuapp.com",
 ]
 

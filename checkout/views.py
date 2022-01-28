@@ -259,7 +259,6 @@ def reserve_vehicle_checkout(request, vehicle):
             if vehicle_bag == "error":
                 return redirect(reverse("vehicles"))
         else:
-            print(request.POST)
             vehicle_bag = request.session.get("vehicle_bag", {})
 
             order_form = handle_order_form(request, OrderForm)
