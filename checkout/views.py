@@ -39,8 +39,9 @@ def handle_valid_vehicle_order_form(request, order_form, model, bag):
             messages.error(
                 request,
                 (
-                    "One of the products in your bag wasn't found in our database."
-                    "Please call us for assistance!"
+                    f"One of the products in your bag wasn't \
+                    found in our database.\
+                    Please call us for assistance!"
                 ),
             )
             order.delete()
@@ -126,9 +127,7 @@ def handle_vehicle_check_on_submit(request, vehicle_bag, vehicle):
 
 def handle_adding_user_to_order(request, order, save_info):
     """
-    if a user is authenticated, adds the order to their account
-    sets the vehicle availability to no
-    """
+    if a user is authenticated, adds the order to their account     sets the vehicle availability to no     """
     profile = UserProfile.objects.get(user=request.user)
     # Attach the user's profile to the order
     order.user_profile = profile
@@ -201,7 +200,7 @@ def handle_accessory_order_form(request, form):
     return order_form
 
 
-@require_POST
+@ require_POST
 def cache_checkout_data(request):
     try:
         pid = request.POST.get("client_secret").split("_secret")[0]
@@ -255,7 +254,8 @@ def reserve_vehicle_checkout(request, vehicle):
 
     if request.method == "POST":
         if "reserve_vehicle" in request.POST:
-            vehicle_bag = handle_vehicle_check_on_submit(request, vehicle_bag, vehicle)
+            vehicle_bag = handle_vehicle_check_on_submit(
+                request, vehicle_bag, vehicle)
             if vehicle_bag == "error":
                 return redirect(reverse("vehicles"))
         else:
@@ -273,7 +273,8 @@ def reserve_vehicle_checkout(request, vehicle):
                 # Save the info to the user's profile
                 request.session["save_info"] = "save-info" in request.POST
                 return redirect(
-                    reverse("checkout_vehicle_success", args=[order.order_number])
+                    reverse("checkout_vehicle_success",
+                            args=[order.order_number])
                 )
             else:
                 messages.error(
@@ -337,7 +338,8 @@ def checkout(request):
     request.session["vehicle_bag"] = {}
     # Auto fill save info
     if request.user.is_authenticated:
-        order_form = handle_authenticated_user(request.user, accessory_order_form)
+        order_form = handle_authenticated_user(
+            request.user, accessory_order_form)
     else:
         order_form = accessory_order_form()
 

@@ -5,7 +5,6 @@ from django.conf import settings
 from django.contrib import messages
 from django.utils.safestring import mark_safe
 from smtplib import SMTPException
-
 from .forms import email_form
 
 
@@ -48,7 +47,8 @@ def handle_send_email(request, form, item):
         messages.error(
             request,
             mark_safe(
-                "ERROR: failed to send message.<br/>If the issue confinues, call us on 02938 726739"
+                f"ERROR: failed to send message.<br/> \
+                If the issue confinues, call us on 02938 726739"
             ),
         )
         print("message sending error:", e)

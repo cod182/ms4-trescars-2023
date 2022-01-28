@@ -40,11 +40,13 @@ class StripeWH_Handler:
         """Sends the company an alert about the order"""
         company_email = settings.DEFAULT_RECEIVING_EMAIL
         subject = render_to_string(
-            "checkout/confirmation_emails/company_alert_subject.txt", {"order": order}
+            "checkout/confirmation_emails/company_alert_subject.txt", {
+                "order": order}
         )
 
         body = render_to_string(
-            "checkout/confirmation_emails/company_alert_body.txt", {"order": order}
+            "checkout/confirmation_emails/company_alert_body.txt", {
+                "order": order}
         )
 
         send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, [company_email])
@@ -143,7 +145,8 @@ class StripeWH_Handler:
             self._send_confirmation_email(order)
             self._send_company_alert_email(order)
             return HttpResponse(
-                content=f'Webhook received: {event["type"]} | Order already in database',
+                content=f'Webhook received: \
+                    {event["type"]} | Order already in database',
                 status=200,
             )
         else:
@@ -175,7 +178,8 @@ class StripeWH_Handler:
                                     vehicle=order_items,
                                 )
                             order_line_item.save()
-                            Vehicle.objects.filter(sku=item_id).update(available="no")
+                            Vehicle.objects.filter(
+                                sku=item_id).update(available="no")
 
                         else:
                             order_items = Accessory.objects.get(sku=item_id)
@@ -192,7 +196,8 @@ class StripeWH_Handler:
                     if order:
                         order.delete()
                     return HttpResponse(
-                        content=f'Webhook received: {event["type"]} | ERROR: {e}',
+                        content=f'Webhook received: \
+                            {event["type"]} | ERROR: {e}',
                         status=500,
                     )
             elif order_type == "accessories":
@@ -229,14 +234,16 @@ class StripeWH_Handler:
                     if order:
                         order.delete()
                     return HttpResponse(
-                        content=f'Webhook received: {event["type"]} | ERROR: {e}',
+                        content=f'Webhook received: {event["type"]} | \
+                            ERROR: {e}',
                         status=500,
                     )
 
         self._send_company_alert_email(order)
         self._send_confirmation_email(order)
         return HttpResponse(
-            content=f'Webhook received: {event["type"]} | Order created via webhook',
+            content=f'Webhook received: {event["type"]} | \
+                Order created via webhook',
             status=200,
         )
 
@@ -244,4 +251,5 @@ class StripeWH_Handler:
         """
         Handle a payment intent failed webhook
         """
-        return HttpResponse(content=f'Payment Failed: {event["type"]}', status=200)
+        return HttpResponse(
+            content=f'Payment Failed: {event["type"]}', status=200)

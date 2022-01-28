@@ -13,7 +13,7 @@ class VehicleImages(models.Model):
     main = models.BooleanField(null=False, blank=False, default=False)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 gearbox_choices = (
@@ -76,7 +76,7 @@ class Vehicle(models.Model):
     model = models.CharField(max_length=50, null=False, blank=False)
     trim = models.CharField(max_length=50, null=False, blank=False)
     colour = models.CharField(
-        max_length=50, null=False, blank=False, choices=colour_choices
+        max_length=20, null=False, blank=False, choices=colour_choices
     )
     fuel = models.CharField(
         max_length=20, null=False, blank=False, choices=fuel_choices
@@ -85,10 +85,10 @@ class Vehicle(models.Model):
         max_digits=2, decimal_places=1, null=False, blank=False
     )
     body_type = models.CharField(
-        max_length=15, null=False, blank=False, choices=body_type_choices
+        max_length=20, null=False, blank=False, choices=body_type_choices
     )
     gearbox = models.CharField(
-        max_length=15, null=False, blank=False, choices=gearbox_choices
+        max_length=20, null=False, blank=False, choices=gearbox_choices
     )
     drivetrain = models.CharField(
         max_length=10, null=False, blank=False, choices=drivetrain_choices
@@ -100,10 +100,11 @@ class Vehicle(models.Model):
     mileage = models.IntegerField(null=False, blank=False)
     model_year = models.IntegerField(null=False, blank=False)
     doors = models.IntegerField(null=False, blank=False)
-    type = models.CharField(max_length=9, null=False, blank=False, default="vehicle")
+    type = models.CharField(
+        max_length=9, null=False, blank=False, default="vehicle")
     available = models.CharField(
-        max_length=9, null=False, blank=False, default="yes", choices=available_choices
-    )
+        max_length=9, null=False, blank=False, default="yes",
+        choices=available_choices)
 
     def __str__(self):
-        return self.name
+        return str(self.name)

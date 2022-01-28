@@ -1,7 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
+from django.shortcuts import (
+    render, get_object_or_404,
+    redirect, reverse
+)
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.conf import settings
 from django.db.models import Q
 from django.forms import inlineformset_factory
 import requests
@@ -261,7 +263,7 @@ def check_if_accessory_in_database(request):
 @login_required
 def management_home(request):
     """
-    retuns the management page
+    returns the management page
     """
     template = "management/home.html"
     return render(request, template)
@@ -269,7 +271,7 @@ def management_home(request):
 
 @login_required
 def add_vehicle(request):
-    """Add a new vhicle to the site"""
+    """Add a new vehicle to the site"""
     if not request.user.is_superuser:
         messages.error(request, "Sorry, only authorised users can do that!")
         return redirect(reverse("management_home"))

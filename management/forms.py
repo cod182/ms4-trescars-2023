@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django import forms
 from .widgets import CustomClearableFileInput
 from vehicles.models import Vehicle, VehicleImages
@@ -85,8 +84,8 @@ class accessory_form(forms.ModelForm):
             "name": "name autofills",
             "category": "Category of item",
             "brand": "Brand of Item",
-            "vehicle_make": "Vehicel Make the item will fit E.g Nissan or all",
-            "vehicle_model": "Vehicel mode the item will fit E.g Qashqai or all",
+            "vehicle_make": "Vehicel Make the item is for E.g Nissan or 'all'",
+            "vehicle_model": "Vehicel Model item is for E.g Qashqai or 'all'",
             "price": "Price of item",
             "quantity_available": "Number of item available",
             "accessory_type": "Type of Item. E.g Mudflaps",

@@ -1,7 +1,6 @@
 import uuid
 from django.db import models
 from django.db.models import Sum
-from django.conf import settings
 from decimal import Decimal
 from django_countries.fields import CountryField
 
@@ -43,7 +42,8 @@ class Order(models.Model):
         max_digits=10, decimal_places=2, null=False, default=0
     )
     original_bag = models.TextField(null=False, blank=False, default="")
-    stripe_pid = models.CharField(max_length=254, null=False, blank=False, default="")
+    stripe_pid = models.CharField(
+        max_length=254, null=False, blank=False, default="")
 
     def _generate_order_number(self):
         """
@@ -57,7 +57,8 @@ class Order(models.Model):
         accounting for delivery costs.
         """
         self.order_total = (
-            self.lineitems.aggregate(Sum("lineitem_total"))["lineitem_total__sum"] or 0
+            self.lineitems.aggregate(Sum("lineitem_total"))[
+                "lineitem_total__sum"] or 0
         )
         self.delivery_cost = 0
         self.grand_total = self.order_total + self.delivery_cost
@@ -135,7 +136,8 @@ class accessory_order(models.Model):
         max_digits=10, decimal_places=2, null=False, default=0
     )
     original_bag = models.TextField(null=False, blank=False, default="")
-    stripe_pid = models.CharField(max_length=254, null=False, blank=False, default="")
+    stripe_pid = models.CharField(
+        max_length=254, null=False, blank=False, default="")
 
     def _generate_order_number(self):
         """

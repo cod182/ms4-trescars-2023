@@ -1,15 +1,15 @@
 import json
 import requests
 from decimal import Decimal
-from django.shortcuts import render, get_object_or_404, redirect, reverse
-from django.contrib import messages
+from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import Vehicle, VehicleImages
+from django.contrib import messages
 
 
-class unique_vehicle_parameters:
+class unique_vehicle_params:
     """
     For getting unique parameters
     """
@@ -37,11 +37,13 @@ class unique_vehicle_parameters:
         vehicle_models = []
         vehicle_models.clear()
 
-        all_values = [value for elem in vehicle_models for value in elem.values()]
+        all_values = [
+            value for elem in vehicle_models for value in elem.values()]
 
         for vehicle in vehicles:
 
-            all_values = [value for elem in vehicle_models for value in elem.values()]
+            all_values = [
+                value for elem in vehicle_models for value in elem.values()]
             if vehicle.model not in all_values:
                 vehicle_models.append(
                     {"make": vehicle.make, "model": vehicle.model},
@@ -414,15 +416,19 @@ def vehicle_search(request):
     if Decimal(query_params["query_engine"]) == 0:
         if int(query_params["query_price"]) == 30001:
             if int(query_params["query_mileage"]) == 100001:
-                search = search_no_engine_high_price_high_mileage(request, query_params)
+                search = search_no_engine_high_price_high_mileage(
+                    request, query_params)
             else:
-                search = search_no_engine_high_price_low_mileage(request, query_params)
+                search = search_no_engine_high_price_low_mileage(
+                    request, query_params)
 
         elif int(query_params["query_mileage"]) == 100001:
             if int(query_params["query_price"]) == 30001:
-                search = search_no_engine_high_mileage_high_price(request, query_params)
+                search = search_no_engine_high_mileage_high_price(
+                    request, query_params)
             else:
-                search = search_no_engine_high_mileage_low_price(request, query_params)
+                search = search_no_engine_high_mileage_low_price(
+                    request, query_params)
         else:
             search = search_no_engine_low_mileage(request, query_params)
     else:
@@ -476,7 +482,8 @@ def handle_home_vehicle_search(request, vehicles):
     query_model = request.GET["vehicle-model"]
 
     if query_model:
-        search = Q(make__icontains=query_make) & Q(model__icontains=query_model)
+        search = Q(make__icontains=query_make) & Q(
+            model__icontains=query_model)
         vehicles = vehicles.filter(search)
     else:
         vehicles = vehicles.filter(Q(make__icontains=query_make))
@@ -493,21 +500,25 @@ def request_info_from_dvla(reg):
     Returns:
         [json]: [DVLA data on vehicle]
     """
+    try:
+        url = settings.DVLA_REQUEST_SITE
 
-    url = "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles"
+        payload = json.dumps(
+            {
+                "registrationNumber": reg,
+            }
+        )
+        headers = {"x-api-key": settings.DVLA_API_KEY,
+                   "Content-Type": "application/json"}
 
-    payload = json.dumps(
-        {
-            "registrationNumber": reg,
-        }
-    )
-    headers = {"x-api-key": settings.DVLA_API_KEY, "Content-Type": "application/json"}
+        response = requests.request("POST", url, headers=headers, data=payload)
+        if response.status_code == 404:
+            print("Number Plate Not Found")
 
-    response = requests.request("POST", url, headers=headers, data=payload)
-    if response.status_code == 404:
-        print("Number Plate Not Found")
-
-    return response.json
+        return response.json
+    except Exception as e:
+        print("error:", e)
+        return None
 
 
 def all_vehicles(request):
@@ -523,15 +534,15 @@ def all_vehicles(request):
     direction = None
     remembered_search = None
 
-    vehicle_makes = unique_vehicle_parameters.unique_vehicle_makes()
-    vehicle_models = unique_vehicle_parameters.unique_vehicle_models()
-    vehicle_colours = unique_vehicle_parameters.unique_vehicle_colours()
-    vehicle_doors = unique_vehicle_parameters.unique_vehicle_doors()
-    vehicle_body = unique_vehicle_parameters.unique_vehicle_body()
-    vehicle_fuels = unique_vehicle_parameters.unique_vehicle_fuels()
-    vehicle_engines = unique_vehicle_parameters.unique_vehicle_engines()
-    vehicle_drivetrains = unique_vehicle_parameters.unique_vehicle_drivetrains()
-    vehicle_years = unique_vehicle_parameters.unique_vehicle_years()
+    vehicle_makes = unique_vehicle_params.unique_vehicle_makes()
+    vehicle_models = unique_vehicle_params.unique_vehicle_models()
+    vehicle_colours = unique_vehicle_params.unique_vehicle_colours()
+    vehicle_doors = unique_vehicle_params.unique_vehicle_doors()
+    vehicle_body = unique_vehicle_params.unique_vehicle_body()
+    vehicle_fuels = unique_vehicle_params.unique_vehicle_fuels()
+    vehicle_engines = unique_vehicle_params.unique_vehicle_engines()
+    vehicle_drivetrains = unique_vehicle_params.unique_vehicle_drivetrains()
+    vehicle_years = unique_vehicle_params.unique_vehicle_years()
 
     current_sorting = f"{sort}_{direction}"
 

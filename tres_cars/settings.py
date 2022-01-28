@@ -7,13 +7,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY", "")
 
 DVLA_API_KEY = os.environ.get("DVLA_API_KEY", "")
+DVLA_REQUEST_SITE = os.environ.get("DVLA_REQUEST_SITE", "")
 
 DEBUG = "DEVELOPMENT" in os.environ
 
 ALLOWED_HOSTS = ["tres-cars.herokuapp.com", "localhost"]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://8000-cod182-milestoneprojec-s6h3jc5x7dc.ws-eu29.gitpod.io",
+    "https://8000-cod182-milestoneprojec-o8utwsij5iu.ws-eu29.gitpod.io",
     "https://tres-cars.herokuapp.com",
 ]
 
@@ -101,7 +102,8 @@ LOGIN_REDIRECT_URL = "/"
 WSGI_APPLICATION = "tres_cars.wsgi.application"
 
 if "DATABASE_URL" in os.environ:
-    DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
+    DATABASES = {"default": dj_database_url.parse(
+        os.environ.get("DATABASE_URL"))}
 else:
     DATABASES = {
         "default": {

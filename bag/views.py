@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.shortcuts import (
+    render, redirect, reverse, get_object_or_404, HttpResponse
+)
 from django.conf import settings
-from django.db import models
-from vehicles.models import Vehicle
-from vehicles.views import unique_vehicle_parameters
 from accessories.models import Accessory
 from django.contrib import messages
 
@@ -41,7 +40,8 @@ def add_to_bag(request, item_id):
 
     messages.success(
         request,
-        f"Added {item.brand.capitalize()} {item.accessory_type.capitalize()} to your bag.",
+        f"Added {item.brand.capitalize()} \
+            {item.accessory_type.capitalize()} to your bag.",
     )
 
     return redirect(redirect_url)
@@ -66,7 +66,8 @@ def adjust_bag(request, item_id):
         bag.pop(item_id)
         messages.success(
             request,
-            f"Removed {accessory.brand.capitalize()} {accessory.accessory_type.capitalize()} from bag",
+            f"Removed {accessory.brand.capitalize()}\
+                 {accessory.accessory_type.capitalize()} from bag",
         )
 
     request.session["bag"] = bag
@@ -82,7 +83,8 @@ def remove_from_bag(request, item_id):
         bag.pop(item_id)
         messages.success(
             request,
-            f"Removed {accessory.brand.capitalize()} {accessory.accessory_type.capitalize()} from bag",
+            f"Removed {accessory.brand.capitalize()}\
+                 {accessory.accessory_type.capitalize()} from bag",
         )
 
         request.session["bag"] = bag

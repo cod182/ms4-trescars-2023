@@ -1,17 +1,15 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, redirect, reverse
 from django.conf import settings
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator
 from .models import Category, Accessory
 
-# Create your views here.
-
 
 def handleQuerySearch(request):
     """
     takes the request and gets the query (q)
-    searches the accessoeis
+    searches the accessories
     """
     query = None
 
@@ -67,9 +65,9 @@ def accessories(request):
 
 def accessories_search(request):
     """
-    displayes the request category
-    if no category reutns to accessories
-    gets all items with requested cateory
+    displays the request category
+    if no category returns to accessories
+    gets all items with requested category
     """
 
     page_obj = None
@@ -81,7 +79,8 @@ def accessories_search(request):
         if "category" in request.GET:
             category = request.GET["category"]
             categories = request.GET["category"].split(",")
-            accessory_results = Accessory.objects.filter(category__name__in=categories)
+            accessory_results = Accessory.objects.filter(
+                category__name__in=categories)
         if "q" in request.GET:
             accessory_results = handleQuerySearch(request.GET)
             if not accessory_results:
@@ -109,7 +108,7 @@ def accessories_search(request):
 
 def accessory_detail(request, accessory_sku):
     """
-    displayes the requested accessory
+    displays the requested accessory
     """
     print(accessory_sku)
     accessory = Accessory.objects.get(sku=accessory_sku)

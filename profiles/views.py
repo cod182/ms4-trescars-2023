@@ -19,7 +19,7 @@ def profile(request):
         if "delete-info" in request.POST:
             user = User.objects.get(username=user_profile)
             user.delete()
-            messages.success(request, "Your Accoutn has been deleted.")
+            messages.success(request, "Your Account has been deleted.")
             logout(request)
             return redirect("home")
         else:
@@ -49,7 +49,6 @@ def profile(request):
 @login_required
 def order_detail(request, order_number):
 
-    user_profile = get_object_or_404(UserProfile, user=request.user)
     order = get_object_or_404(Order, order_number=order_number)
 
     messages.info(request, (f"This is a past order: {order_number}."))
@@ -65,7 +64,6 @@ def order_detail(request, order_number):
 @login_required
 def accessory_order_detail(request, order_number):
 
-    user_profile = get_object_or_404(UserProfile, user=request.user)
     order = get_object_or_404(accessory_order, order_number=order_number)
 
     messages.info(request, (f"This is a past order: {order_number}."))
