@@ -57,16 +57,25 @@
 
 .vehicle--image {
     height: 150px;
-    background-color: tomato;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    z-index: 1;
 }
 
 .vehicle--image-sold {
     height: 150px;
     padding: 0;
     height: fit-content;
+}
+
+.vehicle--image--coming-soon {
+    height: 150px;
+    background-color: rgb(179, 179, 179);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 0;
 }
 
 .vehicle-sold {

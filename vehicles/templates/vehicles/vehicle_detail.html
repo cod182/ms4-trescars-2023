@@ -46,17 +46,18 @@
             <!-- The large image container -->
             <div class="vehicle-detail--images-container">
                 <!-- large image -->
+                {% if images.count == 0%}
+                <img id="expandedImg" class="vehicle-detail--image-large" src="{{ media }}coming-soon.png"
+                    alt="Image of {{ vehicle.registration | upper }} coming soon">
+                {% else %}
                 {% for image in images %}
+
                 {% if image.main %}
                 <img id="expandedImg" class="vehicle-detail--image-large" src="{{ media }}{{ image.image }}"
                     alt="Image of {{ vehicle.registration | upper }}">
-                {% if image not in images %}
-                <img id="expandedImg" class="vehicle-detail--image-large" src="{{ media }}coming-soon.png"
-                    alt="Image of {{ vehicle.registration | upper }} coming soon">
-                {% endif %}
                 {% endif %}
                 {% endfor %}
-
+                {% endif %}
 
             </div>
 
