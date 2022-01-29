@@ -62,3 +62,23 @@
     background-color: #009eec;
     color: black;
 }
+
+.order-container--inner-container {
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px auto;
+    padding: 15px;
+    width: 95%;
+}
+
+@media (max-width: 337px) {
+    .order-container--heading {
+        font-size: small;
+    }
+}
+
+@media (max-width: 275px) {
+    .order-container--heading {
+        font-size: x-small;
+    }
+}
