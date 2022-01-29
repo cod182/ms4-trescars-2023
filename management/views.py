@@ -474,26 +474,7 @@ def delete_accessory(request, accessory_id):
     return redirect(reverse("accessories"))
 
 
-@login_required
-def vehicle_orders(request):
-    """
-    Displayed all the accessory orders
-    """
-    orders = Order.objects.all()
-    vehicle_orders = orders.order_by('-date')
-
-    paginator = Paginator(vehicle_orders, 20)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-
-    template = "management/vehicle_orders.html"
-    context = {
-        "v_orders": page_obj,
-    }
-    return render(request, template, context)
-
-
-def handle_query_search(request):
+def handle_query_search(request, model):
     """
     takes the request and gets the query (q)
     searches the accessories
@@ -512,10 +493,32 @@ def handle_query_search(request):
         | Q(phone_number__icontains=query)
         | Q(postcode__icontains=query)
     )
+    orders = model.objects.filter(queries)
 
-    accessory_orders = accessory_order.objects.filter(queries)
+    return orders
 
-    return accessory_orders
+
+@login_required
+def vehicle_orders(request):
+    """
+    Displays all the accessory orders
+    """
+    orders = Order.objects.all()
+
+    if "q" in request.GET:
+        orders = handle_query_search(request, Order)
+
+    vehicle_orders = orders.order_by('-date')
+
+    paginator = Paginator(vehicle_orders, 20)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    template = "management/vehicle_orders.html"
+    context = {
+        "v_orders": page_obj,
+    }
+    return render(request, template, context)
 
 
 @login_required
@@ -524,10 +527,9 @@ def accessory_orders(request):
     Displayed all the accessory orders
     """
     orders = accessory_order.objects.all()
-    orders = accessory_order.objects.all()
 
     if "q" in request.GET:
-        accessory_orders = handle_query_search(request)
+        orders = handle_query_search(request, accessory_order)
 
     accessory_orders = orders.order_by("-date")
 
