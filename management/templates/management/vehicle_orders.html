@@ -43,9 +43,24 @@
             <span><a href="{% url 'management_home' %}">Admin Management</a> > </span>
             <p class="d-inline">Manage Orders</p></span>
         </div>
-        <div class="col-12">
+        <div class="col-12 col-md-10">
             <h2 class="mt-2 mb-4">Manage Vehicle Orders</h2>
             <p>Number of order found: <strong>{{ v_orders | length }}</strong></p>
+        </div>
+        <div class="col-12 col-md-2">
+            <form action="{% url 'vehicle_orders' %}" method="GET">
+                {% csrf_token %}
+                <select name="order-status" id="order-status" class="vehicle-search-input">
+                    <option value="none">Order Status</option>
+                    <option value="paid">Paid</option>
+                    <option value="refunded">Refunded</option>
+                    <option value="partial-refund">Partial Refund</option>
+                </select>
+                <button type="submit" class="btn btn-lg btn-info">Filter</button>
+                <a class="btn btn-lg btn-light" href="{% url 'vehicle_orders' %}" aria-label="Reset Search">
+                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                </a>
+            </form>
         </div>
     </div>
 

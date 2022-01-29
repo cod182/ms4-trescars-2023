@@ -24,7 +24,8 @@
             <p class="d-inline">Update Vehicle Order</p></span>
         </div>
         <div class="col-12">
-            <h2 class="mt-2 mb-4">Update Vehicle Order</h2>
+            <h2 class="mt-2 mb-4">Update {% if order.order_type == 'accessories' %}Accessory{% else %}Vehicle{% endif %}
+                Order</h2>
         </div>
     </div>
     <div class="row">

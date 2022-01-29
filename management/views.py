@@ -48,7 +48,6 @@ def handle_delete_images(request):
             for k, v in p_list.items():
                 if id_key in k:
                     image_id = v
-                    print("image id", image_id)
                     obj = VehicleImages.objects.get(pk=image_id)
                     obj.delete()
 
@@ -501,6 +500,21 @@ def handle_query_search(request, model):
     return orders
 
 
+def handle_filtering(request, model):
+    """
+    takes the request and gets the filter term
+    filters the model
+    """
+    query = None
+    query = request.GET["order-status"]
+    if query == "none":
+        order = model.objects.all()
+        return order
+
+    order = model.objects.filter(status=query)
+    return order
+
+
 @login_required
 def vehicle_orders(request):
     """
@@ -510,6 +524,9 @@ def vehicle_orders(request):
 
     if "q" in request.GET:
         orders = handle_query_search(request, Order)
+
+    if "order-status" in request.GET:
+        orders = handle_filtering(request, Order)
 
     vehicle_orders = orders.order_by('-date')
 
@@ -533,6 +550,9 @@ def accessory_orders(request):
 
     if "q" in request.GET:
         orders = handle_query_search(request, accessory_order)
+
+    if "order-status" in request.GET:
+        orders = handle_filtering(request, accessory_order)
 
     accessory_orders = orders.order_by("-date")
 
@@ -601,7 +621,7 @@ def accessory_order_update(request, order_number):
                 request,
                 "Updated Order Successfully",
             )
-            return redirect(reverse("vehicle_orders"))
+            return redirect(reverse("accessory_orders"))
         else:
             messages.error(
                 request, "Failed to update order.  Please ensure form is valid"

@@ -14,7 +14,7 @@ order_status = (
     ("paid", "Paid"),
     ("shipped", "Shipped"),
     ("refunded", "Refunded"),
-    ("patrial-refunded", "Patrial Refunded")
+    ("patrial-refund", "Patrial Refund")
 )
 
 
