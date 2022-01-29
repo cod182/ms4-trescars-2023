@@ -11,6 +11,7 @@ import datetime
 from vehicles.models import Vehicle, VehicleImages
 from accessories.models import Accessory
 from .forms import vehicle_form, vehicle_images_form, accessory_form
+from checkout.models import accessory_order, Order
 
 
 def handle_delete_images(request):
@@ -470,3 +471,15 @@ def delete_accessory(request, accessory_id):
     messages.success(request, "Accessory deleted!")
 
     return redirect(reverse("accessories"))
+
+
+@login_required
+def view_orders(request):
+    accessory_orders = accessory_order.objects.all()
+    vehicle_orders = Order.objects.all()
+    template = "management/orders.html"
+    context = {
+        "a_orders": accessory_orders,
+        "v_orders": vehicle_orders,
+    }
+    return render(request, template, context)

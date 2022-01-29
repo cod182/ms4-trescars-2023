@@ -23,4 +23,7 @@ urlpatterns = [
         views.delete_accessory,
         name="delete_accessory",
     ),
+    path("orders/",
+         views.view_orders,
+         name="orders")
 ]
