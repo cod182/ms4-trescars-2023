@@ -11,10 +11,9 @@ from django.core.paginator import Paginator
 from django.forms import inlineformset_factory
 from vehicles.models import Vehicle, VehicleImages
 from accessories.models import Accessory
-from .forms import vehicle_order_form
 from .forms import (
     vehicle_form, vehicle_images_form,
-    accessory_form, vehicle_order_form
+    accessory_form, vehicle_order_form, accessory_order_form
 )
 from checkout.models import accessory_order, Order
 
@@ -550,13 +549,15 @@ def accessory_orders(request):
 
 @login_required
 def vehicle_order_update(request, order_number):
-
-    vehicle_order = get_object_or_404(Order, order_number=order_number)
+    """
+    Displays order update form
+    Allows updating form
+    """
+    order = get_object_or_404(Order, order_number=order_number)
 
     if request.method == "POST":
-        print("HELLO")
         form_data = request.POST
-        form = vehicle_order_form(form_data, instance=vehicle_order)
+        form = vehicle_order_form(form_data, instance=order)
 
         if form.is_valid():
             form.save()
@@ -570,11 +571,46 @@ def vehicle_order_update(request, order_number):
             messages.error(
                 request, "Failed to update order.  Please ensure form is valid"
             )
-    form = vehicle_order_form(instance=vehicle_order)
+    form = vehicle_order_form(instance=order)
 
-    template = "management/vehicle_order_update.html"
+    template = "management/order_update.html"
     context = {
         "form": form,
-        "vehicle_order": vehicle_order,
+        "order": order,
+    }
+    return render(request, template, context)
+
+
+@login_required
+def accessory_order_update(request, order_number):
+    """
+    Displays order update form
+    Allows updating form
+    """
+    order = get_object_or_404(
+        accessory_order, order_number=order_number)
+
+    if request.method == "POST":
+        form_data = request.POST
+        form = accessory_order_form(form_data, instance=order)
+
+        if form.is_valid():
+            form.save()
+
+            messages.success(
+                request,
+                "Updated Order Successfully",
+            )
+            return redirect(reverse("vehicle_orders"))
+        else:
+            messages.error(
+                request, "Failed to update order.  Please ensure form is valid"
+            )
+    form = accessory_order_form(instance=order)
+
+    template = "management/order_update.html"
+    context = {
+        "form": form,
+        "order": order,
     }
     return render(request, template, context)

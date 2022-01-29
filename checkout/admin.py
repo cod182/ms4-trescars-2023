@@ -82,6 +82,7 @@ class accessory_order_admin(admin.ModelAdmin):
     fields = (
         "order_number",
         "order_type",
+        "status",
         "user_profile",
         "date",
         "full_name",

@@ -77,14 +77,14 @@
                     <div class="row">
                         <div class="col-12">
                             <p class="m-0 d-inline bold">Order Status:</p>
-                            <p class="m-0 d-inline">{{ v_order.status }}</p>
+                            <p class="m-0 d-inline">{{ v_order.status | capfirst }}</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <p class="m-0 d-inline bold">Client:</p>
                             <p class="m-0 d-inline"> {% if v_order.user_profile == None %}No
-                                Account{% else %}{{ v_order.user_profile }}{% endif %}
+                                Account{% else %}{{ v_order.user_profile | capfirst }}{% endif %}
                             </p>
                         </div>
                     </div>

@@ -108,7 +108,20 @@ class accessory_form(forms.ModelForm):
 class vehicle_order_form(forms.ModelForm):
     class Meta:
         model = Order
-        exclude = ("stripe_pid", "delivery_cost",
+        exclude = ("order_type", "stripe_pid", "delivery_cost",
+                   "original_bag", "order_total")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field_name, field in self.fields.items():
+            field.widget.attrs["class"] = "form-control my-2"
+
+
+class accessory_order_form(forms.ModelForm):
+    class Meta:
+        model = accessory_order
+        exclude = ("order_type", "stripe_pid", "delivery_cost",
                    "original_bag", "order_total")
 
     def __init__(self, *args, **kwargs):

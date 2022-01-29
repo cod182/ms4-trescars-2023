@@ -29,7 +29,9 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <form action="{% url 'vehicle_order_update' vehicle_order.order_number %}" method="POST">
+            <form
+                {% if order.order_type == 'accessories' %}action="{% url 'accessory_order_update' order.order_number %}"
+                {% else %} action="{% url 'vehicle_order_update' order.order_number %}" {% endif %} method="POST">
                 {% csrf_token %}
                 {{ form | crispy }}
 
@@ -38,7 +40,8 @@
                 <button class="btn btn--blue-border my-2" type="submit" id="updateBtnVehicle">Update
                     Order</button>
 
-                <a href="{% url 'vehicle_orders' %}" class="btn btn--black-border">Cancel</a>
+                <a {% if order.order_type == 'accessories' %}href="{% url 'accessory_orders' %}"
+                    {% else %}href="{% url 'vehicle_orders' %}" {% endif %} class="btn btn--black-border">Cancel</a>
             </form>
         </div>
     </div>

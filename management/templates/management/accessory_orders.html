@@ -55,10 +55,11 @@
             <div class="row">
                 <div class="col-12 order-container">
                     <div class="row">
-                        <div class="col-12 order-container--heading">
+                        <a href="{% url 'accessory_order_update' a_order.order_number %}"
+                            class="col-12 order-container--heading">
                             <p class="m-0 d-inline bold">Order Number:</p>
                             <p class="m-0 d-inline">{{ a_order }}</p>
-                        </div>
+                        </a>
                     </div>
                     <div class="row">
                         <div class="col-12">
@@ -75,14 +76,14 @@
                     <div class="row">
                         <div class="col-12">
                             <p class="m-0 d-inline bold">Order Status:</p>
-                            <p class="m-0 d-inline">{{ a_order.status }}</p>
+                            <p class="m-0 d-inline">{{ a_order.status | capfirst }}</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <p class="m-0 d-inline bold">Client:</p>
                             <p class="m-0 d-inline"> {% if a_order.user_profile == None %}No
-                                Account{% else %}{{ a_order.user_profile }}{% endif %}
+                                Account{% else %}{{ a_order.user_profile | capfirst }}{% endif %}
                             </p>
                         </div>
                     </div>

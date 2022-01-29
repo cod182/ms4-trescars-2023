@@ -12,7 +12,7 @@ from profiles.models import UserProfile
 order_status = (
     ("processing", "Processing"),
     ("paid", "Paid"),
-    ("shipper", "Shipper"),
+    ("shipped", "Shipped"),
     ("refunded", "Refunded"),
     ("patrial-refunded", "Patrial Refunded")
 )
@@ -148,6 +148,8 @@ class accessory_order(models.Model):
     original_bag = models.TextField(null=False, blank=False, default="")
     stripe_pid = models.CharField(
         max_length=254, null=False, blank=False, default="")
+    status = models.CharField(max_length=80, null=True, blank=True,
+                              choices=order_status, default="Processing")
 
     def _generate_order_number(self):
         """
