@@ -19,12 +19,33 @@
 {% block content %}
 <div class="container">
     <div class="row">
+        <!-- Search Options -->
+        <div class="col-12 my-3">
+            <form method="GET" action="{% url 'vehicle_orders' %}">
+                <div class="input-group mx-auto">
+                    <input class="form-control" type="text" name="q" placeholder="Search Orders">
+                    <div class="input-group-append">
+                        <button class="form-control btn btn--border-black" type="submit" aria-label="Search Button">
+                            <span class="icon">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="container">
+    <div class="row">
         <div class="col-12 font-small my-2">
             <span><a href="{% url 'management_home' %}">Admin Management</a> > </span>
             <p class="d-inline">Manage Orders</p></span>
         </div>
         <div class="col-12">
             <h2 class="mt-2 mb-4">Manage Vehicle Orders</h2>
+            <p>Number of order found: <strong>{{ v_orders | length }}</strong></p>
         </div>
     </div>
 
@@ -87,6 +108,30 @@
             </div>
             <hr>
             {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Pagination page chosed -->
+<div class="container">
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <div class="pagination vehicle-pagination-container">
+                <span class="step-links">
+                    {% if v_orders.has_previous %}
+                    <a href="?page=1">&lt&lt</a>
+                    <a href="?page={{ v_orders.previous_page_number }}">&lt</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ v_orders.number }} of {{ v_orders.paginator.num_pages }}
+                    </span>
+
+                    {% if v_orders.has_next %}
+                    <a href="?page={{ v_orders.next_page_number }}">&gt</a>
+                    <a href="?page={{ v_orders.paginator.num_pages }}">&gt&gt;</a>
+                    {% endif %}
+                </span>
+            </div>
         </div>
     </div>
 </div>
