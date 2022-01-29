@@ -513,7 +513,7 @@ For storage, an AWS bucket was used.
 - In Heroku, under the settings heading, reveal config vars
 - Keys & Values were entered for:
 
-AWS_ACCESS_KEY_ID(user), AWS_SECRET_ACCESS_KEY(user), DATABASE_URL(Postgres), DEFAULT_FROM_EMAIL, DEFAULT_RECEIVING_EMAIL, DVLA_API_KEY, EMAIL_HOST_PASS, EMAIL_HOST_USER, SECRET_KEY, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY, STRIPE_WH_SECRET, USE_AWS(TRUE)
+AWS_ACCESS_KEY_ID(user), AWS_SECRET_ACCESS_KEY(user), DATABASE_URL(Postgres), DEFAULT_FROM_EMAIL, DEFAULT_RECEIVING_EMAIL, DVLA_API_KEY, DVLA_REQUEST_SITE, EMAIL_HOST_PASS, EMAIL_HOST_USER, SECRET_KEY, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY, STRIPE_WH_SECRET, USE_AWS(TRUE)
 
 - Once all keys and value are entered the variables are set up
 - When branches are merged into main, the latest app will be deployed
@@ -526,6 +526,7 @@ AWS_ACCESS_KEY_ID(user), AWS_SECRET_ACCESS_KEY(user), DATABASE_URL(Postgres), DE
 - You can now open the project in a IDE or host to a server
 - Alternatively you can follow the steps above to deploy the app on Heroku with postgres and AWS
 - Your own values for each key will be needed
+
 # Credits
 
 - Images on home page were provided by [pexels](https://www.pexels.com/) under a free to use licence
@@ -536,6 +537,7 @@ AWS_ACCESS_KEY_ID(user), AWS_SECRET_ACCESS_KEY(user), DATABASE_URL(Postgres), DE
 - [pypi](https://pypi.org/project/django-mathfilters/) was used for help with mathfilters
 - [Samuel Torimiro's article](https://www.section.io/engineering-education/how-to-send-email-in-django/) was used for help on sending emails with django
 - help on uploading multipel images into table was provided by users on stackoverflow [here](https://stackoverflow.com/questions/34006994/how-to-upload-multiple-images-to-a-blog-post-in-django) and [here](https://stackoverflow.com/questions/60111139/upload-multiple-images-at-once-django)
+
 ## This project is for educational purposes only
 
 ### Created by Codie Stephens-Evans
