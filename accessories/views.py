@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from .models import Category, Accessory
 
 
-def handleQuerySearch(request):
+def handle_query_search(request):
     """
     takes the request and gets the query (q)
     searches the accessories
@@ -82,9 +82,9 @@ def accessories_search(request):
             accessory_results = Accessory.objects.filter(
                 category__name__in=categories)
         if "q" in request.GET:
-            accessory_results = handleQuerySearch(request.GET)
+            accessory_results = handle_query_search(request.GET)
             if not accessory_results:
-                messages.error(request, "No Search Term Entered")
+                messages.error(request, "No Results or No Search Term Entered")
                 return redirect(reverse("accessories"))
 
         if "sort" in request.GET:
@@ -110,7 +110,6 @@ def accessory_detail(request, accessory_sku):
     """
     displays the requested accessory
     """
-    print(accessory_sku)
     accessory = Accessory.objects.get(sku=accessory_sku)
 
     template = "accessories/accessory_detail.html"
