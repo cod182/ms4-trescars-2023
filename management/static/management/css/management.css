@@ -40,3 +40,13 @@
     max-height: 200px;
     min-height: 50px;
 }
+
+.order-container {
+    background-color: lightgrey;
+    border-radius: 10px;
+}
+
+.order-container--heading {
+    background-color: lightblue;
+    border-radius: 10px 10px 0 0;
+}

@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_title %}
+- Management Home
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'management/css/management.css' %}">
+{% endblock %}
+
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 font-small my-2">
+            <span><a href="{% url 'management_home' %}">Admin Management</a> > </span>
+            <p class="d-inline">Manage Orders</p></span>
+        </div>
+        <div class="col-12">
+            <h2 class="mt-2 mb-4">Manage Vehicle Orders</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 mx-auto">
+            <hr>
+            {% for v_order in v_orders %}
+            <div class="row">
+                <div class="col-12 order-container">
+
+
+                    <div class="row">
+                        <div class="col-12 order-container--heading">
+                            <p class="m-0 d-inline bold">Order Number:</p>
+                            <p class="m-0 d-inline"></p>{{ v_order }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="m-0 d-inline bold">Order Date:</p>
+                            <p class="m-0 d-inline">{{ v_order.date }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="m-0 d-inline bold">Order Total:</p>
+                            <p class="m-0 d-inline">£{{ v_order.grand_total }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="m-0 d-inline bold">Order Status:</p>
+                            <p class="m-0 d-inline">{{ v_order.status }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="m-0 d-inline bold">Client:</p>
+                            <p class="m-0 d-inline"> {% if v_order.user_profile == None %}No
+                                Account{% else %}{{ v_order.user_profile }}{% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="m-0 d-inline bold">Vehicle:</p>
+                            {% for item in v_order.lineitems.all %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="m-0 d-inline">- {{ item.accessory.brand | upper }}
+                                        {{ item.vehicle.make | capfirst }} {{ item.vehicle.model | capfirst }}
+                                        {{ item.vehicle.registration | upper }}
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block postload_js %}
+
+{% endblock %}

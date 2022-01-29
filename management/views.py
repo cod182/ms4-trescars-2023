@@ -474,12 +474,20 @@ def delete_accessory(request, accessory_id):
 
 
 @login_required
-def view_orders(request):
-    accessory_orders = accessory_order.objects.all()
+def vehicle_orders(request):
     vehicle_orders = Order.objects.all()
-    template = "management/orders.html"
+    template = "management/vehicle_orders.html"
+    context = {
+        "v_orders": vehicle_orders,
+    }
+    return render(request, template, context)
+
+
+@login_required
+def accessory_orders(request):
+    accessory_orders = accessory_order.objects.all()
+    template = "management/accessory_orders.html"
     context = {
         "a_orders": accessory_orders,
-        "v_orders": vehicle_orders,
     }
     return render(request, template, context)
