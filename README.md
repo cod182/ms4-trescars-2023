@@ -223,6 +223,7 @@ The colour scheme of the site will be <span style="color:#12a3e5">Blue</span>, <
 - view their orders in profile
 - delete their account
 - contact company with query
+
 #### Admin
 
 - Add a vehicle to the database
@@ -460,6 +461,7 @@ Testing results can be found [Here](testing.md)
     - converted to WebM/mp4 and used video element
 - home button on login / register page mis-sized on mobile
     - added media query for correct sizing
+    
 ## Bugs/Changes During Development
 
 - sort wasn't working for sort
