@@ -44,6 +44,12 @@
 |Update Vehicle|Mobile|![result Preview](static/images/readme/lighthouse-results/update-vehicle-mobile.png)|
 |Update Accessory|Desktop|![result Preview](static/images/readme/lighthouse-results/update-accesory-desktop.png)|
 |Update Accessory|Mobile|![result Preview](static/images/readme/lighthouse-results/update-accesory-mobile.png)|
+|Vehicle Orders|Desktop|![result Preview](static/images/readme/lighthouse-results/manage-vehicle-orders-mobile.png)|
+|Vehicle Orders|Mobile|![result Preview](static/images/readme/lighthouse-results/manage-vehicle-orders-mobile.png)|
+|Accessory Orders|Desktop|![result Preview](static/images/readme/lighthouse-results/manage-accessory-orders-desktop.png)|
+|Accessory Orders|Mobile|![result Preview](static/images/readme/lighthouse-results/manage-accessory-orders-mobile.png)|
+|Update Order|Desktop|![result Preview](static/images/readme/lighthouse-results/update-order-desktop.png)|
+|Update Order|Mobile|![result Preview](static/images/readme/lighthouse-results/update-order-mobile.png)|
 
 ## Testing
 ### Process
@@ -90,6 +96,9 @@
 - Change text
 - Click Update
 - Click Delete
+- Check vehicle orders, filter for paid
+- Click to Update order
+- Update status
 
 ### Testing in Chrome Developer Tools
 ### iPhone SE 375x667
@@ -97,7 +106,8 @@
 - Vehicle reserve button's POST request didn't have an order_type
 - JS active on management home, removed
 - new accessory add not saving
-- confirmation to delete on accessory page not active
+- Confirmation to delete on accessory page not active
+- Order number too long on small screens
 ---
 ### iPhone XR 414x896
 - No issues found

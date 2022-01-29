@@ -23,4 +23,10 @@ urlpatterns = [
         views.delete_accessory,
         name="delete_accessory",
     ),
+    path("vehicle_orders/", views.vehicle_orders, name="vehicle_orders"),
+    path("accessory_orders/", views.accessory_orders, name="accessory_orders"),
+    path("vehicle_order_update/<order_number>", views.vehicle_order_update,
+         name="vehicle_order_update"),
+    path("accessory_order_update/<order_number>", views.accessory_order_update,
+         name="accessory_order_update"),
 ]

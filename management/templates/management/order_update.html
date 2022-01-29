@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_title %}
+- Update A Vehicle
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'management/css/management.css' %}">
+{% endblock %}
+
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 font-small my-2">
+            <span><a href="{% url 'management_home' %}">Admin Management</a> > </span>
+            <p class="d-inline">Update Vehicle Order</p></span>
+        </div>
+        <div class="col-12">
+            <h2 class="mt-2 mb-4">Update {% if order.order_type == 'accessories' %}Accessory{% else %}Vehicle{% endif %}
+                Order</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form
+                {% if order.order_type == 'accessories' %}action="{% url 'accessory_order_update' order.order_number %}"
+                {% else %} action="{% url 'vehicle_order_update' order.order_number %}" {% endif %} method="POST">
+                {% csrf_token %}
+                {{ form | crispy }}
+
+                {{ form.order_number}}
+
+                <button class="btn btn--blue-border my-2" type="submit" id="updateBtnVehicle">Update
+                    Order</button>
+
+                <a {% if order.order_type == 'accessories' %}href="{% url 'accessory_orders' %}"
+                    {% else %}href="{% url 'vehicle_orders' %}" {% endif %} class="btn btn--black-border">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
