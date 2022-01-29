@@ -49,7 +49,7 @@
 .order-container--heading {
     background-color: #31afec;
     border-radius: 10px 10px 0 0;
-    height: 40px;
+    min-height: 40px;
     line-height: 40px;
     text-decoration: none;
     color: black;
