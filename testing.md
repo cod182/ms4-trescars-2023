@@ -106,7 +106,8 @@
 - Vehicle reserve button's POST request didn't have an order_type
 - JS active on management home, removed
 - new accessory add not saving
-- confirmation to delete on accessory page not active
+- Confirmation to delete on accessory page not active
+- Order number too long on small screens
 ---
 ### iPhone XR 414x896
 - No issues found

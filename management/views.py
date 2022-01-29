@@ -499,16 +499,15 @@ def handle_query_search(request, model):
     query = None
 
     query = request.GET["q"]
-
-    if not query:
+    if query == '':
         messages.error(request, "No Search Term Entered")
-        return redirect(reverse("accessory_orders"))
 
     queries = (
         Q(full_name__icontains=query)
         | Q(email__icontains=query)
         | Q(phone_number__icontains=query)
         | Q(postcode__icontains=query)
+        | Q(order_number__icontains=query)
     )
     orders = model.objects.filter(queries)
 
@@ -524,7 +523,6 @@ def vehicle_orders(request):
 
     if "q" in request.GET:
         orders = handle_query_search(request, Order)
-
     if "order-status" in request.GET:
         orders = handle_filtering(request, Order)
 

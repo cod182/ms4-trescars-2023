@@ -80,44 +80,48 @@
                         </a>
                     </div>
                     <div class="row">
-                        <div class="col-12">
-                            <p class="m-0 d-inline bold">Order Date:</p>
-                            <p class="m-0 d-inline">{{ a_order.date }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="m-0 d-inline bold">Order Total:</p>
-                            <p class="m-0 d-inline">£{{ a_order.grand_total }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="m-0 d-inline bold">Order Status:</p>
-                            <p class="m-0 d-inline">{{ a_order.status | capfirst }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="m-0 d-inline bold">Client:</p>
-                            <p class="m-0 d-inline"> {% if a_order.user_profile == None %}No
-                                Account{% else %}{{ a_order.user_profile | capfirst }}{% endif %}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="m-0 d-inline bold">Items:</p>
-                            {% for item in a_order.accessorylineitems.all %}
+                        <div class="col-12 order-container--inner-container">
                             <div class="row">
                                 <div class="col-12">
-                                    <p class="m-0 d-inline">- {{ item.accessory.brand | upper }}
-                                        {{ item.accessory.accessory_type | upper }} x
-                                        {{ item.quantity }}
+                                    <p class="m-0 d-inline bold">Order Date:</p>
+                                    <p class="m-0 d-inline">{{ a_order.date }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="m-0 d-inline bold">Order Total:</p>
+                                    <p class="m-0 d-inline">£{{ a_order.grand_total }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="m-0 d-inline bold">Order Status:</p>
+                                    <p class="m-0 d-inline">{{ a_order.status | capfirst }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="m-0 d-inline bold">Client:</p>
+                                    <p class="m-0 d-inline"> {% if a_order.user_profile == None %}No
+                                        Account{% else %}{{ a_order.user_profile | capfirst }}{% endif %}
                                     </p>
                                 </div>
                             </div>
-                            {% endfor %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="m-0 d-inline bold">Items:</p>
+                                    {% for item in a_order.accessorylineitems.all %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p class="m-0 d-inline">- {{ item.accessory.brand | upper }}
+                                                {{ item.accessory.accessory_type | upper }} x
+                                                {{ item.quantity }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

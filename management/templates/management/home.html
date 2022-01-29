@@ -39,29 +39,43 @@
 
 <div class="container my-auto">
     <div class="row">
-        <div class="quick-links--box quick-link">
+        <div class="quick-links--box--management quick-link--management">
             <p class="white">Add Vehicles</p>
             <a href="{% url 'add_vehicle' %}" aria-label="Link to Add a Vehicle">
-                <div class="quick-link--image" style="background-image:url('{% static 'images/all-vehicles.webp' %}');">
+                <div class="quick-link--image--management"
+                    style="background-image:url('{% static 'images/all-vehicles.webp' %}');">
                 </div>
             </a>
         </div>
 
-        <div class="quick-links--box quick-link">
+        <div class="quick-links--box--management quick-link--management">
             <p class="white">Add Accessories</p>
             <a href="{% url 'add_accessory' %}" aria-label="Link to Add an Accessory">
-                <div class="quick-link--image" style="background-image:url('{% static 'images/accessories.webp' %}');">
+                <div class="quick-link--image--management"
+                    style="background-image:url('{% static 'images/accessories.webp' %}');">
                 </div>
             </a>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-12 my-1">
-            <a class="btn btn-info w-100" href="{%url 'vehicle_orders' %}">Manage Vehicle Orders</a>
+        <div class="quick-links--box--management quick-link--management">
+            <p class="white">Vehicle Orders</p>
+            <a href="{% url 'vehicle_orders' %}" aria-label="Link to Manage Vehicle Orders">
+                <div class="quick-link--image--management"
+                    style="background-image:url('{% static 'images/vehicle-order-bg.png' %}');">
+                </div>
+            </a>
         </div>
-        <div class="col-12 my-1">
-            <a class="btn btn-info w-100" href="{%url 'accessory_orders' %}">Manage Accessory Order</a>
+
+        <div class="quick-links--box--management quick-link--management">
+            <p class="white">Accessory Orders
+            </p>
+            <a href="{% url 'accessory_orders' %}" aria-label="Link to Manage Accessory Order">
+                <div class="quick-link--image--management"
+                    style="background-image:url('{% static 'images/accessory-order-bg.png' %}');">
+                </div>
+            </a>
         </div>
     </div>
 </div>
