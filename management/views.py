@@ -314,6 +314,21 @@ def add_vehicle(request):
     return render(request, template, context)
 
 
+def handle_filtering(request, model):
+    """
+    takes the request and gets the filter term
+    filters the model
+    """
+    query = None
+    query = request.GET["order-status"]
+    if query == "none":
+        order = model.objects.all()
+        return order
+
+    order = model.objects.filter(status=query)
+    return order
+
+
 @login_required
 def update_vehicle(request, vehicle_sku):
     """Update an existing vehicle"""
@@ -498,21 +513,6 @@ def handle_query_search(request, model):
     orders = model.objects.filter(queries)
 
     return orders
-
-
-def handle_filtering(request, model):
-    """
-    takes the request and gets the filter term
-    filters the model
-    """
-    query = None
-    query = request.GET["order-status"]
-    if query == "none":
-        order = model.objects.all()
-        return order
-
-    order = model.objects.filter(status=query)
-    return order
 
 
 @login_required
