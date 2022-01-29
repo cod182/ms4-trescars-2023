@@ -40,6 +40,7 @@ A deployed link to the site can be found on Heroku [here](https://tres-cars.hero
 |18| Site Admin | Add vehicles to the site | Update the site with new vehicle stock |
 |19| Site Admin | Add products / accessories to the site | Update site with new accessories |
 |20| Site Admin | Update Vehicle / Product Details on the site | Update the details of a specific vehicle |
+|21| Site Admin | Manage Customer Orders | Update any detail and the order status |
 
 
 ## Strategy
@@ -119,6 +120,7 @@ The site will be set over multiple pages. Users will be able to search for a pur
 - Able to go to contact page taking the vehicle info
 - Able to click to reserve the vehicle
 - if an admin, vehicles can be updated/deleted
+
 ### Vehicle Reserve Page
 
 - Can only take 1 vehicle at a time
@@ -183,6 +185,20 @@ The site will be set over multiple pages. Users will be able to search for a pur
 - Allows text information
 - Allows single image upload
 
+### View Vehicle Orders
+
+- Allows all Accessory order to be viewed
+- Filtering by order status
+
+### View Accessory Orders
+
+- Allows all Accessory order to be viewed
+- Filtering by order status
+
+### Update an Order
+
+- Allows details on an order to be updated
+- Allows the order status to be updated
 ## Visual Design
 
 The colour scheme of the site will be <span style="color:#12a3e5">Blue</span>, <span style="color:#ffffff"> White</span>, <span style="color:#000000">Black</span>, <span style="color:#3943B7">Dark Blue</span>
