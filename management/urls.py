@@ -25,4 +25,6 @@ urlpatterns = [
     ),
     path("vehicle_orders/", views.vehicle_orders, name="vehicle_orders"),
     path("accessory_orders/", views.accessory_orders, name="accessory_orders"),
+    path("vehicle_order_update/<order_number>", views.vehicle_order_update,
+         name="vehicle_order_update"),
 ]

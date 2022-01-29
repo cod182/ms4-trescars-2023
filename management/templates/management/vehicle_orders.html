@@ -55,13 +55,12 @@
             {% for v_order in v_orders %}
             <div class="row">
                 <div class="col-12 order-container">
-
-
                     <div class="row">
-                        <div class="col-12 order-container--heading">
+                        <a href="{% url 'vehicle_order_update' v_order.order_number %}"
+                            class="col-12 order-container--heading">
                             <p class="m-0 d-inline bold">Order Number:</p>
-                            <p class="m-0 d-inline"></p>{{ v_order }}</p>
-                        </div>
+                            <p class="m-0 d-inline">{{ v_order }}</p>
+                        </a>
                     </div>
                     <div class="row">
                         <div class="col-12">

@@ -2,6 +2,7 @@ from django import forms
 from .widgets import CustomClearableFileInput
 from vehicles.models import Vehicle, VehicleImages
 from accessories.models import Accessory, Category
+from checkout.models import Order, accessory_order
 
 
 class vehicle_form(forms.ModelForm):
@@ -102,3 +103,16 @@ class accessory_form(forms.ModelForm):
             if field not in no_placeholder:
                 placeholder = placeholders[field]
                 self.fields[field].widget.attrs["placeholder"] = placeholder
+
+
+class vehicle_order_form(forms.ModelForm):
+    class Meta:
+        model = Order
+        exclude = ("stripe_pid", "delivery_cost",
+                   "original_bag", "order_total")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field_name, field in self.fields.items():
+            field.widget.attrs["class"] = "form-control my-2"

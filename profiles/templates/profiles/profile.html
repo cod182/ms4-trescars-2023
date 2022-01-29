@@ -52,6 +52,7 @@
                         <th>Item Type</th>
                         <th>Order Number</th>
                         <th>Order Date</th>
+                        <th>Status</th>
                         <th>Items</th>
                         <th>Order Total</th>
                     </tr>
@@ -67,6 +68,7 @@
                             </a>
                         </td>
                         <td>{{ order.date }}</td>
+                        <td>{{ order.status }}</td>
                         {% for item in order.lineitems.all %}
                         {% if item.vehicle %}
                         <td>
@@ -90,6 +92,7 @@
                             </a>
                         </td>
                         <td>{{ a_order.date }}</td>
+                        <td>{{ order.status }}</td>
                         <td>
                             {% for item in a_order.accessorylineitems.all %}
                             <p class="m-0">
@@ -136,6 +139,15 @@
                     </div>
                     <div class="col-6 text-start">
                         <p class="my-0">{{ order.date }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 text-end">
+                        <p class="my-0 bold">Order Status:</p>
+                    </div>
+                    <div class="col-6 text-start">
+                        <p class="my-0">{{ order.status }}</p>
                     </div>
                 </div>
 
@@ -192,6 +204,15 @@
                     </div>
                     <div class="col-6 text-start">
                         <p class="my-0">{{ a_order.date }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 text-end">
+                        <p class="my-0 bold">Order Status:</p>
+                    </div>
+                    <div class="col-6 text-start">
+                        <p class="my-0">{{ a_order.status }}</p>
                     </div>
                 </div>
 

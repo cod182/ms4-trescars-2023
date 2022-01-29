@@ -49,4 +49,16 @@
 .order-container--heading {
     background-color: #31afec;
     border-radius: 10px 10px 0 0;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    color: black;
+}
+
+.order-container--heading:hover,
+.order-container--heading:active,
+.order-container--heading:focus,
+.order-container--heading:active:focus {
+    background-color: #009eec;
+    color: black;
 }
