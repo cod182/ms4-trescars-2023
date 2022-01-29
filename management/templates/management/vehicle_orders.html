@@ -67,6 +67,7 @@
     <div class="row">
         <div class="col-12 mx-auto">
             <hr>
+            {% if v_orders %}
             {% for v_order in v_orders %}
             <div class="row">
                 <div class="col-12 order-container">
@@ -122,6 +123,13 @@
             </div>
             <hr>
             {% endfor %}
+            {% else %}
+            <div class="row">
+                <div class="col-12 mx-auto my-3">
+                    <p class="text-center bold fs-1">No Orders Found!</p>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
