@@ -91,7 +91,7 @@
                         <option selected value="9999999" data-disable>Mileage</option>
                         {% elif remembered_search.mileage != '9999999' %}
                         {% if remembered_search.mileage == '100001' %}
-                        <option selected value="{{ remembered_search.price }}">Over 100000 Miles</option>
+                        <option selected value="{{ remembered_search.mileage }}">Over 100000 Miles</option>
                         {% else %}
                         <option selected value="{{ remembered_search.mileage }}">Up to {{ remembered_search.mileage }}
                             Miles</option>
