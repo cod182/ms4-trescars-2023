@@ -39,7 +39,8 @@
                 {% if request.user.is_superuser %}
                 <small class="ml-3">
                     <a href="{% url 'update_accessory' accessory.id %}">Update</a> |
-                    <a class="text-danger delete-accessory" id="delete-vehicle" href="{% url 'delete_accessory' accessory.id %}">Delete</a>
+                    <a class="text-danger delete-accessory" id="delete-vehicle"
+                        href="{% url 'delete_accessory' accessory.id %}">Delete</a>
                 </small>
                 {% endif %}
             </div>
@@ -79,7 +80,7 @@
 
                 <div class="row">
                     <div class="col-12 accessory-detail--description">
-                        <p>{{ accessory.description }}</p>
+                        <p>{{ accessory.description | capfirst }}</p>
                     </div>
                 </div>
 

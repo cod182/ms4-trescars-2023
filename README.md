@@ -232,12 +232,13 @@ The colour scheme of the site will be <span style="color:#12a3e5">Blue</span>, <
 - Add a accessory to the database
 - update a accessory in the database
 - remove a accessory from the database
+- update vehicle order / status
+- update accessory order / status
 
 ### Features to be implemented
 
 - Service Reminders on profile page
 - MOT Reminders on profile page
-- order status on profile page
 
 ## Technologies used
 
@@ -247,7 +248,8 @@ The colour scheme of the site will be <span style="color:#12a3e5">Blue</span>, <
     - Bootstrap (Styling Framework)
 - Javascript
     - Jquery & Vanilla
-    - stripe
+    - Stripe
+    - Bootstrap
 - API
     - DVLA API (getting Vehicle Info)
 - Django (Framework)
