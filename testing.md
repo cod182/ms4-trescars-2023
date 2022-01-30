@@ -149,6 +149,7 @@
 ### Laptop 16" Screen 3072x1920
 
 - When no image present on vehicle, coming soon image not showing
+- Remembered mileage not working on vehicle search due to typo
 
 ---
 ### iMac 5k 27" Screen 5120x2880
