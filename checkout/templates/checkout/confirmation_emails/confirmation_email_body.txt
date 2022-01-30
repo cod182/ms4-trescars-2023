@@ -7,6 +7,13 @@ Order Date: {{ order.date }}
 
 Order Total: £{{ order.order_total }}
 
+{% if order.order_type == 'vehicle' %}Reserved Vehicle: {% for item in order.lineitems.all %} {{ item.vehicle.make | capfirst }} {{ item.vehicle.model | capfirst }} - {{ item.vehicle.registration | upper }}{% endfor %}{% else %}Items Purchased:
+{% for item in order.accessorylineitems.all %}
+{{item.quantity }} x {{ item.accessory.brand | capfirst }} {{ item.accessory.accessory_type | capfirst }}.
+SKU: {{ item.accessory.sku | capfirst }}
+{% endfor %}
+{% endif %}
+
 Address Details: {{ order.street_address1 }} in {{ order.town_or_city }}, {{ order.country }}.
 
 We've got your phone number on file as {{ order.phone_number }}.
