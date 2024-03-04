@@ -96,7 +96,7 @@ python-dotenv
 python3-openid
 PyYAML
 pyzmq
-readme-rendere
+readme-renderer
 requests
 requests-oauthlib
 requests-toolbelt
