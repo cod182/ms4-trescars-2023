@@ -1,27 +1,40 @@
 import dj_database_url
 from pathlib import Path
+from dotenv import load_dotenv
 import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DVLA_API_KEY = os.environ.get("DVLA_API_KEY", "")
 DVLA_REQUEST_SITE = os.environ.get("DVLA_REQUEST_SITE", "")
 
 DEBUG = "DEVELOPMENT" in os.environ
 
-ALLOWED_HOSTS = ["tres-cars.herokuapp.com", "localhost"]
+if DEBUG:
+    ALLOWED_HOSTS = ["127.0.0.1", "*"]
+    CSRF_TRUSTED_ORIGINS = [
+        "http://localhost",
+        "http://127.0.0.1",
+        "http://127.0.0.1:8000/",
+        "https://127.0.0.1:22/",
+    ]
+else:
+    ALLOWED_HOSTS = ["tres-cars.herokuapp.com", "localhost"]
+    CSRF_TRUSTED_ORIGINS = [
+        "https://8000-cod182-milestoneprojec-0asf9e7g7s0.ws-eu29.gitpod.io",
+        "https://tres-cars.herokuapp.com",
+    ]
 
- # Add Render.com URL to allowed hosts
- RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
- if RENDER_EXTERNAL_HOSTNAME:
-   ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+# Add Render.com URL to allowed hosts
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME", "")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://8000-cod182-milestoneprojec-0asf9e7g7s0.ws-eu29.gitpod.io",
-    "https://tres-cars.herokuapp.com",
-]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -107,8 +120,7 @@ LOGIN_REDIRECT_URL = "/"
 WSGI_APPLICATION = "tres_cars.wsgi.application"
 
 if "DATABASE_URL" in os.environ:
-    DATABASES = {"default": dj_database_url.parse(
-        os.environ.get("DATABASE_URL"))}
+    DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
 else:
     DATABASES = {
         "default": {
@@ -142,6 +154,7 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+print("BASE DIR", STATIC_ROOT)
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
