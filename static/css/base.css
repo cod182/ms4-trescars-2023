@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
 * {
     border: 0;
     margin: 0;
@@ -15,6 +14,7 @@ body {
 .hidden {
     display: none;
 }
+
 
 /* Colours */
 
@@ -50,6 +50,7 @@ body {
     color: orange;
 }
 
+
 /* fonts */
 
 .roboto {
@@ -59,6 +60,7 @@ body {
 .bold {
     font-weight: bold;
 }
+
 
 /* buttons */
 
@@ -135,6 +137,7 @@ body {
 .btn--vehicle-detail {
     color: black;
     text-decoration: none;
+    overflow: hidden;
 }
 
 .btn--vehicle-detail:hover {
@@ -613,7 +616,6 @@ select {
         transform: scale(1);
         filter: blur(0);
     }
-
     to {
         transform: scale(1.2);
         filter: blur(5px);
@@ -625,7 +627,6 @@ select {
         transform: scale(1.2);
         filter: blur(5px);
     }
-
     to {
         transform: scale(1);
         filter: blur(0);
@@ -730,19 +731,15 @@ select {
     .nav-item {
         line-height: 0;
     }
-
     .navbar-nav {
         margin: 30px auto;
     }
-
     .about-box {
         width: 45%;
     }
-
     .quick-links--box {
         width: 45%;
     }
-
     .btn--reserve-now {
         width: 90%;
         position: unset;
@@ -751,28 +748,23 @@ select {
         font-weight: bold;
         margin: 0 auto;
     }
-
     .btn--black-border {
         font-weight: bold;
         width: 90%;
         margin: 0 auto;
     }
-
     .btn--blue-border {
         font-weight: bold;
         width: 90%;
         margin: 0 auto;
     }
-
     .allauth-form-inner-content {
         width: 100%;
     }
-
     .btn--black-border--home {
         width: 90%;
         margin-bottom: 10px;
     }
-
     .btn--complete-order {
         width: 100%;
     }
@@ -782,24 +774,19 @@ select {
     .about-box {
         width: 95%;
     }
-
     .quick-links--box {
         width: 95%;
     }
-
     .btn--reserve-now {
         margin: 5px 0;
         width: 100%;
     }
-
     .btn--black-border {
         width: 100%;
     }
-
     .btn--blue-border {
         width: 100%;
     }
-
     .btn--profile-info {
         width: 100%;
         margin: 5px 0;

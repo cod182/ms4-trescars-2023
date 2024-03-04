@@ -12,7 +12,6 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DVLA_API_KEY = os.environ.get("DVLA_API_KEY", "")
 DVLA_REQUEST_SITE = os.environ.get("DVLA_REQUEST_SITE", "")
-
 DEBUG = "DEVELOPMENT" in os.environ
 
 if DEBUG:
@@ -22,12 +21,14 @@ if DEBUG:
         "http://127.0.0.1",
         "http://127.0.0.1:8000/",
         "https://127.0.0.1:22/",
+        "https://tres-cars.onrender.com/",
     ]
 else:
     ALLOWED_HOSTS = ["tres-cars.herokuapp.com", "localhost"]
     CSRF_TRUSTED_ORIGINS = [
         "https://8000-cod182-milestoneprojec-0asf9e7g7s0.ws-eu29.gitpod.io",
         "https://tres-cars.herokuapp.com",
+        "https://tres-cars.onrender.com/",
     ]
 
 # Add Render.com URL to allowed hosts

@@ -37,13 +37,11 @@ class unique_vehicle_params:
         vehicle_models = []
         vehicle_models.clear()
 
-        all_values = [
-            value for elem in vehicle_models for value in elem.values()]
+        all_values = [value for elem in vehicle_models for value in elem.values()]
 
         for vehicle in vehicles:
 
-            all_values = [
-                value for elem in vehicle_models for value in elem.values()]
+            all_values = [value for elem in vehicle_models for value in elem.values()]
             if vehicle.model not in all_values:
                 vehicle_models.append(
                     {"make": vehicle.make, "model": vehicle.model},
@@ -416,19 +414,15 @@ def vehicle_search(request):
     if Decimal(query_params["query_engine"]) == 0:
         if int(query_params["query_price"]) == 30001:
             if int(query_params["query_mileage"]) == 100001:
-                search = search_no_engine_high_price_high_mileage(
-                    request, query_params)
+                search = search_no_engine_high_price_high_mileage(request, query_params)
             else:
-                search = search_no_engine_high_price_low_mileage(
-                    request, query_params)
+                search = search_no_engine_high_price_low_mileage(request, query_params)
 
         elif int(query_params["query_mileage"]) == 100001:
             if int(query_params["query_price"]) == 30001:
-                search = search_no_engine_high_mileage_high_price(
-                    request, query_params)
+                search = search_no_engine_high_mileage_high_price(request, query_params)
             else:
-                search = search_no_engine_high_mileage_low_price(
-                    request, query_params)
+                search = search_no_engine_high_mileage_low_price(request, query_params)
         else:
             search = search_no_engine_low_mileage(request, query_params)
     else:
@@ -482,8 +476,7 @@ def handle_home_vehicle_search(request, vehicles):
     query_model = request.GET["vehicle-model"]
 
     if query_model:
-        search = Q(make__icontains=query_make) & Q(
-            model__icontains=query_model)
+        search = Q(make__icontains=query_make) & Q(model__icontains=query_model)
         vehicles = vehicles.filter(search)
     else:
         vehicles = vehicles.filter(Q(make__icontains=query_make))
@@ -492,7 +485,7 @@ def handle_home_vehicle_search(request, vehicles):
 
 
 def request_info_from_dvla(reg):
-    """[requests data from dvla on the requested vehicle form it's registration]
+    """[requests data from dvla on the requested vehicle form it's reg]
 
     Args:
         registration ([string]): [the registration fo the searched vehicle]
@@ -500,6 +493,7 @@ def request_info_from_dvla(reg):
     Returns:
         [json]: [DVLA data on vehicle]
     """
+
     try:
         url = settings.DVLA_REQUEST_SITE
 
@@ -508,10 +502,14 @@ def request_info_from_dvla(reg):
                 "registrationNumber": reg,
             }
         )
-        headers = {"x-api-key": settings.DVLA_API_KEY,
-                   "Content-Type": "application/json"}
+
+        headers = {
+            "x-api-key": settings.DVLA_API_KEY,
+            "Content-Type": "application/json",
+        }
 
         response = requests.request("POST", url, headers=headers, data=payload)
+
         if response.status_code == 404:
             print("Number Plate Not Found")
 

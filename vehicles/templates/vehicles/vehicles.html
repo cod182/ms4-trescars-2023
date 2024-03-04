@@ -241,16 +241,16 @@
                         <div class="vehicle--image--coming-soon col-12"
                             style="background-image:url('{{ media }}coming-soon.png');">
                             {% if vehicle.available == 'yes' %}
-                            {% for image in images %}
-                            {% if vehicle.sku in image.name %}
-                            {% if image.main %}
-                            <div class="vehicle--image col-12"
-                                style="background-image:url('{{ media }}{{ image.image }}');"
-                                title="{{ vehicle.make | title }} {{ vehicle.model | title }} {{ vehicle.trim| title }} - {{ vehicle.registration | upper}}">
-                            </div>
-                            {% endif %}
-                            {% endif %}
-                            {% endfor %}
+                                {% for image in images %}
+                                    {% if vehicle.sku in image.name %}
+                                        {% if image.main %}
+                                        <div class="vehicle--image col-12"
+                                            style="background-image:url('{{ media }}{{ image.image }}');"
+                                            title="{{ vehicle.make | title }} {{ vehicle.model | title }} {{ vehicle.trim| title }} - {{ vehicle.registration | upper}}">
+                                        </div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
                             {% endif %}
                         </div>
                         <div class="vehicle-container--body roboto col-12 col-md-6 col-lg-12">

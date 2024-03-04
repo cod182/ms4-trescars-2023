@@ -218,12 +218,10 @@
     margin-top: 20px;
 }
 
-
 @media (max-width: 991px) {
     .vehicle--image {
         height: 200px;
     }
-
     .vehicle-container {
         min-height: 200px;
     }
@@ -233,11 +231,9 @@
     .vehicle--image {
         height: 200px;
     }
-
     .vehicle-container {
         min-height: 200px;
     }
-
     .vehicle-container--body {
         padding: 10px 30px;
     }
