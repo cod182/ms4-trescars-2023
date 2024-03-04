@@ -62,7 +62,7 @@ class vehicle_images_form(forms.ModelForm):
     images = forms.FileField(
         label="Image",
         required=False,
-        widget=CustomClearableFileInput(attrs={"multiple": True}),
+        widget=CustomClearableFileInput({"multiple": True}),
     )
 
 
@@ -85,8 +85,8 @@ class accessory_form(forms.ModelForm):
             "name": "name autofills",
             "category": "Category of item",
             "brand": "Brand of Item",
-            "vehicle_make": "Vehicel Make the item is for E.g Nissan or 'all'",
-            "vehicle_model": "Vehicel Model item is for E.g Qashqai or 'all'",
+            "vehicle_make": "Vehicle Make the item is for E.g Nissan or 'all'",
+            "vehicle_model": "Vehicle Model item is for E.g Qashqai or 'all'",
             "price": "Price of item",
             "quantity_available": "Number of item available",
             "accessory_type": "Type of Item. E.g Mudflaps",
@@ -108,8 +108,13 @@ class accessory_form(forms.ModelForm):
 class vehicle_order_form(forms.ModelForm):
     class Meta:
         model = Order
-        exclude = ("order_type", "stripe_pid", "delivery_cost",
-                   "original_bag", "order_total")
+        exclude = (
+            "order_type",
+            "stripe_pid",
+            "delivery_cost",
+            "original_bag",
+            "order_total",
+        )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -121,8 +126,13 @@ class vehicle_order_form(forms.ModelForm):
 class accessory_order_form(forms.ModelForm):
     class Meta:
         model = accessory_order
-        exclude = ("order_type", "stripe_pid", "delivery_cost",
-                   "original_bag", "order_total")
+        exclude = (
+            "order_type",
+            "stripe_pid",
+            "delivery_cost",
+            "original_bag",
+            "order_total",
+        )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
