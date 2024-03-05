@@ -172,7 +172,6 @@ def search_no_engine_high_price_high_mileage(request, query_params):
     over 100000
     over £30000
     """
-    print("HELLOW")
     search = (
         Q(make__icontains=query_params["query_make"])
         & Q(model__icontains=query_params["query_model"])

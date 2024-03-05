@@ -8,3 +8,7 @@ node_modules/
 .github/
 cloudinary_python.txt
 .env
+load.script
+requirements_copy_2.txt
+requirements_copy.txt
+pgadmin.json

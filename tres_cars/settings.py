@@ -22,13 +22,14 @@ if DEBUG:
         "http://127.0.0.1:8000/",
         "https://127.0.0.1:22/",
         "https://tres-cars.onrender.com/",
+        "https://trescars.s3.amazonaws.com/",
     ]
 else:
-    ALLOWED_HOSTS = ["tres-cars.herokuapp.com", "localhost"]
+    ALLOWED_HOSTS = ["tres-cars.onrender.com", "localhost"]
     CSRF_TRUSTED_ORIGINS = [
-        "https://8000-cod182-milestoneprojec-0asf9e7g7s0.ws-eu29.gitpod.io",
-        "https://tres-cars.herokuapp.com",
+        "http://127.0.0.1",
         "https://tres-cars.onrender.com/",
+        "https://trescars.s3.amazonaws.com/",
     ]
 
 # Add Render.com URL to allowed hosts
@@ -155,7 +156,6 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
-print("BASE DIR", STATIC_ROOT)
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -167,11 +167,11 @@ if "USE_AWS" in os.environ:
         "CacheControl": "max-age=94608000",
     }
 
-    AWS_STORAGE_BUCKET_NAME = "tres-cars"
-    AWS_S3_REGION_NAME = "eu-west-2"
+    AWS_STORAGE_BUCKET_NAME = "trescars"
+    AWS_S3_REGION_NAME = "eu-central-1"
     AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.eu-central-1.amazonaws.com"
 
     STATICFILES_STORAGE = "custom_storages.StaticStorage"
     STATICFILES_LOCATION = "static"
