@@ -25,7 +25,7 @@ if DEBUG:
         "https://trescars.s3.amazonaws.com/",
     ]
 else:
-    ALLOWED_HOSTS = ["tres-cars.onrender.com", "localhost"]
+    ALLOWED_HOSTS = ["tres-cars.onrender.com", "localhost", "127.0.0.1"]
     CSRF_TRUSTED_ORIGINS = [
         "http://127.0.0.1",
         "https://tres-cars.onrender.com/",
