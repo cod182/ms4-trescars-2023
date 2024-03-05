@@ -91,5 +91,4 @@ urllib3==1.26.6
 virtualenv==20.7.2
 wrapt==1.12.1
 zipp==3.5.0
-dj-database-url==2.1.0
 python-dotenv==1.0.1
