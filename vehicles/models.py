@@ -100,11 +100,10 @@ class Vehicle(models.Model):
     mileage = models.IntegerField(null=False, blank=False)
     model_year = models.IntegerField(null=False, blank=False)
     doors = models.IntegerField(null=False, blank=False)
-    type = models.CharField(
-        max_length=9, null=False, blank=False, default="vehicle")
+    type = models.CharField(max_length=9, null=False, blank=False, default="vehicle")
     available = models.CharField(
-        max_length=9, null=False, blank=False, default="yes",
-        choices=available_choices)
+        max_length=9, null=False, blank=False, default="yes", choices=available_choices
+    )
 
     def __str__(self):
         return str(self.name)

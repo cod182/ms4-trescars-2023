@@ -46,7 +46,7 @@
             <!-- The large image container -->
             <div class="vehicle-detail--images-container">
                 <!-- large image -->
-                {% if images.count == 0%}
+                {% if images.count == 0 %}
                 <img id="expandedImg" class="vehicle-detail--image-large" src="{{ media }}coming-soon.png"
                     alt="Image of {{ vehicle.registration | upper }} coming soon">
                 {% else %}
